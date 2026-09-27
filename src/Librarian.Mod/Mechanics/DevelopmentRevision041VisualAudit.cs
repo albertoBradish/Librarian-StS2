@@ -40,7 +40,7 @@ internal static class DevelopmentRevision041VisualAudit
         string full = Path.GetFullPath(output);
         Require(Path.IsPathFullyQualified(output) &&
             (full.StartsWith(@"D:\Slay The Spire_Mod Dev\.research\", StringComparison.OrdinalIgnoreCase) ||
-             full.StartsWith(@"D:\Slay The Spire_Mod Dev\outputs\", StringComparison.OrdinalIgnoreCase)),
+             full.StartsWith(@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\", StringComparison.OrdinalIgnoreCase)),
             "visual output stays in the workspace research/output area");
         Directory.CreateDirectory(full);
         return full;

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
+<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
     <Import Project=".\Sts2PathDiscovery.props"/>
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -10,7 +10,7 @@
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <PathMap>$(AppOutputBase)=.\</PathMap>
         <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
-        <RitsuLibReferenceTarget>0.111.0</RitsuLibReferenceTarget>
+        <RitsuLibReferenceTarget>0.107.1</RitsuLibReferenceTarget>
     </PropertyGroup>
 
     <Import Project="../../.research/tools/ritsulib/v0.6.2/RitsuLib.References.props" />
@@ -79,12 +79,12 @@
                 Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
                Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
         <Error Condition="$([System.IO.Path]::GetFullPath('$(Sts2DataDir)')) != $([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../.research/compatibility-game/data_sts2_windows_x86_64'))"
-               Text="Librarian must reference the verified isolated v0.111.0 installation." />
+               Text="Librarian must reference the verified isolated v0.107.1 installation." />
         <GetFileHash Files="$(Sts2DataDir)/sts2.dll" Algorithm="SHA256">
             <Output TaskParameter="Items" ItemName="LibrarianGameAssemblyHash" />
         </GetFileHash>
-        <Error Condition="'%(LibrarianGameAssemblyHash.FileHash)' != '0861BFA1DF347538D932F22D580E75420F08082792EB914E53B4882764ACDBE9'"
-               Text="The referenced sts2.dll is not the approved v0.111.0 binary." />
+        <Error Condition="'%(LibrarianGameAssemblyHash.FileHash)' != 'A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52'"
+               Text="The referenced sts2.dll is not the approved v0.107.1 binary." />
     </Target>
 
     <Target Name="UpdateDependencyVersions" BeforeTargets="BeforeBuild" Condition="Exists('.godot/mono/temp/obj/project.assets.json')">

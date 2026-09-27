@@ -27,7 +27,7 @@ internal static class DevelopmentBeta3Audit
 {
     private static int _checks;
     internal static Action<NCreature,string>? AnimObserver;
-    private static readonly string Dir = @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0-beta3\screenshots";
+    private static readonly string Dir = @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\screenshots";
     private static void Check(bool ok,string text){if(!ok)throw new InvalidOperationException("BETA3: "+text);_checks++;MainFile.Logger.Info("BETA3_CHECK_PASS "+text);}
     private static async Task Wait(double t)=>await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(t),SceneTreeTimer.SignalName.Timeout);
     private static async Task Shot(string name){System.IO.Directory.CreateDirectory(Dir);await NGame.Instance!.ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);using var i=NGame.Instance.GetViewport().GetTexture().GetImage();if(i.SavePng(System.IO.Path.Combine(Dir,name+".png"))!=Error.Ok)throw new Exception("beta3 screenshot");}

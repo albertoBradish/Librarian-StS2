@@ -12,7 +12,7 @@ from build_provenance import source_manifest, environment_manifest
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / 'src/Librarian.Mod'
-SDK = ROOT / '.research/tools/dotnet'
+SDK = Path(os.environ.get('LIBRARIAN_DOTNET_ROOT', str(ROOT / '.research/tools/dotnet')))
 OUTPUT = ROOT / '.research/compatibility-game/mods/Librarian'
 LOGS = ROOT / '.research/logs'
 
@@ -39,11 +39,11 @@ def main():
         export_cache = PROJECT / '.godot/mono/temp/bin/Debug'
         export_cache.mkdir(parents=True, exist_ok=True)
         game_data = ROOT / '.research/compatibility-game/data_sts2_windows_x86_64'
-        for dependency in [game_data / 'sts2.dll', game_data / '0Harmony.dll',
+        for dependency in [*(p for p in game_data.glob('*.dll') if not p.name.startswith('GodotSharp')),
                            ROOT / '.research/compatibility-game/mods/BaseLib/BaseLib.dll']:
             shutil.copy2(dependency, export_cache / dependency.name)
         ritsu = ROOT / '.research/tools/ritsulib/v0.6.2'
-        for dependency in [*(ritsu / 'compat/0.111.0').glob('*.dll'), *(ritsu / 'shared').glob('*.dll')]:
+        for dependency in [*(ritsu / 'compat/0.107.1').glob('*.dll'), *(ritsu / 'shared').glob('*.dll')]:
             shutil.copy2(dependency, export_cache / dependency.name)
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     action = 'publish' if args.pack else 'build'

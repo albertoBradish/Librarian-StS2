@@ -215,9 +215,9 @@ public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRar
         {
             // Earlier exhaust hooks may have moved another snapshot member out of hand already.
             if (card.Pile?.Type != PileType.Hand) continue;
-            var result = await CardCmd.Exhaust(context, card);
+            bool exhaustedSuccessfully = await LibrarianStableApi.ExhaustSucceeded(context, card);
             // The move result survives after-exhaust hooks that immediately move the card again.
-            if (result is { success: true, targetPile: PileType.Exhaust }) exhausted++;
+            if (exhaustedSuccessfully) exhausted++;
         }
         int tide = checked(exhausted * perCard);
         if (tide > 0)

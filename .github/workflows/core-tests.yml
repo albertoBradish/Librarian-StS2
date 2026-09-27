@@ -1,7 +1,7 @@
 name: Pure rule tests
 on:
   push:
-    branches: [main]
+    branches: [main, codex/beta]
   pull_request:
 permissions:
   contents: read

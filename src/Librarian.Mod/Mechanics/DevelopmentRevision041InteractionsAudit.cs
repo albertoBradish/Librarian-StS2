@@ -227,7 +227,7 @@ internal static class DevelopmentRevision041InteractionsAudit
                 CardModel foreignDefend = combat.CreateCard<DefendIronclad>(foreign);
                 await CardPileCmd.AddGeneratedCardToCombat(foreignDefend, PileType.Draw, foreign, CardPilePosition.Bottom);
                 int foreignBlock = foreign.Creature.Block;
-                await Hook.BeforeSideTurnEnd(combat, CombatSide.Player, new[] { foreign.Creature });
+                await Hook.BeforeTurnEnd(combat, CombatSide.Player, new[] { foreign.Creature });
                 Check(foreignDefend.Pile?.Type != PileType.Draw && foreignDefend.Pile?.Type != PileType.Play
                     && foreign.Creature.Block == foreignBlock + 5,
                     "foreign Fuel native side-end hook plays bottom Defend for Block");

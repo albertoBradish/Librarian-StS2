@@ -15,9 +15,9 @@ public sealed class LibrarianSpellVisualHooks040 : CustomSingletonModel
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (cardPlay.Player.Character is LibrarianCharacter)
+        if (cardPlay.Card.Owner.Character is LibrarianCharacter)
         {
-            LibrarianSpellVisuals.CardPlayed(cardPlay.Player, cardPlay.Card.Type);
+            LibrarianSpellVisuals.CardPlayed(cardPlay.Card.Owner, cardPlay.Card.Type);
             LibrarianCardVfx050.Cast(cardPlay);
         }
         return Task.CompletedTask;

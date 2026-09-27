@@ -52,7 +52,7 @@ internal static class DevelopmentRevision042Audit
         Task Dispatch(OrbOperationResult result) => LibrarianRuntime.Dispatch(S(), ctx, result);
         async Task Capture(string name)
         {
-            const string dir = @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.4.2\screenshots";
+            const string dir = @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v0.4.2\screenshots";
             System.IO.Directory.CreateDirectory(dir);
             await NGame.Instance!.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
             using var image = NGame.Instance.GetViewport().GetTexture().GetImage();

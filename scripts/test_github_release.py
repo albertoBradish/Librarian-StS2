@@ -68,6 +68,24 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'new directory'):
             self.run_prepare()
 
+    def test_stable_requires_explicit_channel_and_validated_delivery(self):
+        self.manifest['min_game_version'] = '0.107.1'
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.manifest))
+        with self.assertRaisesRegex(ValueError, 'Compatibility'):
+            self.run_prepare()
+        with self.assertRaisesRegex(ValueError, 'requires current'):
+            prepare(self.candidate, '1.0-beta3', self.output, root=self.root, channel='stable')
+        delivery = self.root / 'delivery.json'
+        record = {'version': '1.0-beta3', 'channel': 'stable', 'validation': {'passed': False},
+                  'build': {'artifacts': [{'name': p.name, 'sha256': sha256(p)} for p in self.candidate.iterdir()]}}
+        delivery.write_text(json.dumps(record))
+        with self.assertRaisesRegex(ValueError, 'must certify'):
+            prepare(self.candidate, '1.0-beta3', self.output, delivery, root=self.root, channel='stable')
+        record['validation']['passed'] = True
+        delivery.write_text(json.dumps(record))
+        self.assertTrue(prepare(self.candidate, '1.0-beta3', self.output, delivery,
+                                root=self.root, channel='stable')['delivery_hashes_matched'])
+
     def test_legacy_requires_evidence_and_keeps_manifest(self):
         self.manifest['dependencies'] = [{'id': 'BaseLib', 'min_version': '3.4.5'}]
         path = self.candidate / 'Librarian.json'

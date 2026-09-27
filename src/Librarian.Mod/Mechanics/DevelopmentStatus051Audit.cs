@@ -47,7 +47,7 @@ internal static class DevelopmentStatus051Audit
         {
             await NGame.Instance!.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
             using var im = NGame.Instance.GetViewport().GetTexture().GetImage();
-            string path = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.1\screenshots";
+            string path = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v0.5.1\screenshots";
             System.IO.Directory.CreateDirectory(path);
             Check(im.SavePng(System.IO.Path.Combine(path, name + ".png")) == Error.Ok, "screenshot " + name);
         }

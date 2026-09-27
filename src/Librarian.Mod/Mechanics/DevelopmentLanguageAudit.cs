@@ -32,7 +32,7 @@ internal static partial class DevelopmentRuntimeAudit
         int checks = 0;
         void Check(bool ok, string label) { if (!ok) throw new InvalidOperationException("Language audit: " + label); checks++; MainFile.Logger.Info("LANGUAGE_CHECK_PASS " + label); }
         async Task Wait(double seconds = .25) => await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
-        string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\localization-v1.0\screenshots";
+        string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\localization-v1.0\screenshots";
         async Task Capture(string name)
         {
             Directory.CreateDirectory(output);
@@ -81,7 +81,7 @@ internal static partial class DevelopmentRuntimeAudit
             string alternateLabel = language == "zhs" ? "English" : "简体中文";
             var choiceButton = NGame.Instance.FindChildren("*", "", true, false).OfType<ModSettingsMiniButton>()
                 .Single(b => b.IsVisibleInTree() && b.Text == alternateLabel);
-            choiceButton.EmitSignal(BaseButton.SignalName.Pressed); await Wait();
+            choiceButton.EmitSignal(BaseButton.SignalName.Pressed); await Wait(.5);
             Check(LibrarianLanguage.Selected == (language == "zhs" ? "eng" : "zhs"), "dropdown button switches language " + language);
             entry.Binding.Write(language); entry.Binding.Save();
             if (submenu.GetParent() is NSubmenuStack stack && ReferenceEquals(stack.Peek(), submenu)) stack.Pop();

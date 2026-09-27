@@ -58,8 +58,8 @@ def main():
         if args.mode != 'compatibility':
             raise SystemExit('Runtime audit requires the isolated compatibility game')
         user_root = ROOT / '.research/revision030-userdata'
-        source_profile = ROOT / '.research/compatibility-userdata/appdata/Sts2Compatibility-v0.111.0/default'
-        target_profile = user_root / 'appdata/Sts2Compatibility-v0.111.0/default'
+        source_profile = ROOT / '.research/compatibility-userdata/appdata/Sts2Stable-v0.107.1/default'
+        target_profile = user_root / 'appdata/Sts2Stable-v0.107.1/default'
         if not target_profile.exists():
             shutil.copytree(source_profile, target_profile)
     env = isolated_environment(user_root)
@@ -72,7 +72,7 @@ def main():
     if args.legacy_save_audit:
         if not args.runtime_audit or args.choice_audit:
             raise SystemExit('Legacy save audit requires runtime-audit without choice-audit')
-        relative = Path('appdata/Sts2Compatibility-v0.111.0/default/1/modded/profile1/saves/current_run.save')
+        relative = Path('appdata/Sts2Stable-v0.107.1/default/1/modded/profile1/saves/current_run.save')
         source = ROOT / '.research/compatibility-userdata' / relative
         destination = user_root / relative
         if destination.exists():

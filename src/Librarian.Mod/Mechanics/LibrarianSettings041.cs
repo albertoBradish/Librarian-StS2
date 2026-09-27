@@ -108,7 +108,7 @@ public static class LibrarianSettings041
             string metadata = JsonSerializer.Serialize(new {
                 librarian = LibrarianUpdateNotice051.CurrentVersion ?? "unknown", presentation = LibrarianPreferences050.Current, recorded_utc = DateTime.UtcNow,
                 engine = Engine.GetVersionInfo()["string"].AsString(),
-                game_version = MegaCrit.Sts2.Core.Nodes.NGame.GetGameVersion(),
+                game_version = MegaCrit.Sts2.Core.Debug.ReleaseInfoManager.Instance.ReleaseInfo?.Version,
                 game_assembly = typeof(SaveManager).Assembly.GetName().Version?.ToString(),
                 mods = ModManager.Mods.Select(m => new { id = m.manifest?.id, version = m.manifest?.version, state = m.state.ToString() }).ToArray()
             }, new JsonSerializerOptions { WriteIndented = true });

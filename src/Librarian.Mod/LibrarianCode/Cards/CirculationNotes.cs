@@ -17,7 +17,7 @@ public sealed class CirculationNotes() : LibrarianCard(1, CardType.Skill, CardRa
             || target.Side != Owner.Creature.Side || target.CombatState != Owner.Creature.CombatState) return;
         await CardPileCmd.Draw(context, DynamicVars.Cards.IntValue, Owner);
         if (target.IsAlive && target.CombatState == Owner.Creature.CombatState)
-            await CardPileCmd.DrawWithoutBlockingOnOtherPlayers(context, DynamicVars["AllyCards"].IntValue, ally, this);
+            await LibrarianStableApi.DrawAlly(context, DynamicVars["AllyCards"].IntValue, ally, this);
     }
     protected override void OnUpgrade() => DynamicVars["AllyCards"].UpgradeValueBy(1m);
 }

@@ -22,7 +22,7 @@ internal static class DevelopmentSelection050Audit
         Check(OS.GetUserDataDir().Contains("revision030-userdata"), "isolated validation profile");
         Check(DisplayServer.GetName() != "headless", "native renderer");
         var output = Path.GetFullPath(System.Environment.GetEnvironmentVariable("LIBRARIAN_VISUAL_OUTPUT")!);
-        Check(output.StartsWith(@"D:\Slay The Spire_Mod Dev\outputs\", StringComparison.OrdinalIgnoreCase), "workspace screenshots");
+        Check(output.StartsWith(@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\", StringComparison.OrdinalIgnoreCase), "workspace screenshots");
         Directory.CreateDirectory(output);
         var parent = screen.GetNode<Control>("AnimatedBg");
         Check(parent is NCharacterSelectScreenBg, "native background resize controller retained");

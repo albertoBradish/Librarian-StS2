@@ -9,24 +9,26 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Current test build / 当前测试版 1.0-beta3](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3)
+- [V1.0.0 / stable 正式版](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable)
+- [public-beta / 1.0-beta3](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3)
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
-- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)
+- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3809003723)
 - [Build / 构建](BUILDING.md) · [Release / 发版](RELEASING.md) · [Contributing](CONTRIBUTING.md)
 - [Translation packs / 翻译包](TRANSLATIONS.md)
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.0-beta3**. This is a beta, not a declaration of a
-stable 1.0 release. See [release metadata](release-metadata.json).
+Current source baseline: **1.0.0**, game **stable 0.107.1**. See [release metadata](release-metadata.json).
+
+`main` maintains stable; [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) preserves game public-beta 0.111.0. Do not mix packages or enable both Workshop items. Historical tag `v1.0.0` remains an older bilingual test candidate; the formal release uses **`v1.0.0-stable`**.
 
 | Component | Verified baseline |
 | --- | --- |
-| Slay the Spire 2 | **0.111.0 public-beta**, BuildID 24724944, commit 41cef1ea |
+| Slay the Spire 2 | **0.107.1 stable**, commit 59260271 |
 | [BaseLib](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.5) | 3.4.5 |
-| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.2) | 0.6.2, complete bundle for game API 0.111.0 |
+| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.2) | 0.6.2, complete bundle for game API 0.107.1 |
 
 Manifest minimum versions are not a promise of compatibility with newer game
 or dependency versions. Single-player is the primary supported path. Multiplayer

@@ -45,7 +45,7 @@ internal static class DevelopmentRevision040UnlockAudit
         var ids = Enumerable.Range(1, 7).Select(LibrarianUnlocks040.Id).ToArray();
         Require(ids.All(EpochModel.IsValid), "seven registered epoch IDs");
         Require(ids.All(id => EpochModel.AllEpochIds.Count(e => e == id) == 1), "registration idempotent");
-        Require(EpochModel.AllEpochs.Select(t => EpochModel.Get(EpochModel.GetId(t)))
+        Require(EpochModel.AllEpochIds.Select(EpochModel.Get)
             .GroupBy(e => (e.Era, e.EraPosition)).Where(g => g.Any(e => e is LibrarianEpoch040)).All(g => g.Count() == 1), "no occupied native timeline slots");
         Require(StoryModel.Get("LIBRARIAN_V040").Epochs.Select(e => e.Id).SequenceEqual(ids), "seven ordered story chapters");
         var progressive = ProgressState.CreateDefault();

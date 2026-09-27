@@ -51,7 +51,7 @@ public static class LibrarianUnlocks040
     public static void Initialize()
     {
         if (_initialized) return;
-        var existing = EpochModel.AllEpochs.Select(t => (EpochModel)Activator.CreateInstance(t)!).ToList();
+        var existing = EpochModel.AllEpochIds.Select(EpochModel.Get).ToList();
         var registry = STS2RitsuLib.Timeline.ModTimelineRegistry.For("Librarian");
         for (int i = 0; i < Types.Length; i++)
         {

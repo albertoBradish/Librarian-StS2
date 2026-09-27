@@ -15,7 +15,7 @@ internal static partial class DevelopmentRuntimeAudit
         if (!OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("041 fixture requires isolated validation profile");
         string? focus = System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS");
-        bool revisionBeta3 = focus == "beta3";
+        bool revisionBeta3 = focus is "beta3" or "stable";
         bool revisionBeta2 = focus == "beta2";
         bool revision054 = focus == "054";
         bool revision061 = focus == "061";
@@ -84,6 +84,7 @@ internal static partial class DevelopmentRuntimeAudit
         else if (revision043) await DevelopmentRevision043Audit.Run(_player, FreshFight);
         else if (revision042) await DevelopmentRevision042Audit.Run(_player, FreshFight);
         else await DevelopmentRevision041VisualAudit.Run(_player);
+        if (focus == "stable") await DevelopmentStableApiAudit.Run(_player, FreshFight);
         await SaveManager.Instance.SaveRun(null);
         var saved = SaveManager.Instance.LoadRunSave();
         Equal(true, saved.Success && saved.SaveData is not null, "041 real isolated save read");

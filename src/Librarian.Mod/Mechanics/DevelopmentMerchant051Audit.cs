@@ -124,7 +124,7 @@ internal static class DevelopmentMerchant051Audit
             Check(LibrarianMerchantFactoryCompatibility.FindMotion(native) is null, "native merchant is outside Librarian component routing");
             native.PlayAnimation("relaxed_loop", loop: true);
             await Wait(0.15);
-            using var current = new MegaSprite(native.GetChild(0)).GetAnimationState().GetCurrent(0);
+            var current = new MegaSprite(native.GetChild(0)).GetAnimationState().GetCurrent(0);
             Check(current is not null && current.GetAnimationEnd() > 0, "native Spine merchant animation remains functional");
         }
         finally { native.QueueFree(); }
@@ -138,8 +138,8 @@ internal static class DevelopmentMerchant051Audit
             OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "explicit isolated runtime profile");
         Check(DisplayServer.GetName() != "headless", "native rendering enabled");
         Check(player.Character is LibrarianCharacter && player.RunState.Players.Count == 1, "single-player Librarian fixture");
-        Check(CardSelectCmd.Selector is null && CardSelectCmd.LocalSelector is null, "native card selection without test selector");
-        output ??= System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.1\screenshots";
+        Check(CardSelectCmd.Selector is null, "native card selection without test selector");
+        output ??= System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v0.5.1\screenshots";
         Directory.CreateDirectory(output);
         var originalDeck = player.Deck.Cards.ToArray();
         int originalGold = player.Gold;

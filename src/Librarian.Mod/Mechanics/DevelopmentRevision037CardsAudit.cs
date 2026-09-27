@@ -57,12 +57,12 @@ internal static class DevelopmentRevision037CardsAudit
         void SelectNext(OrbKind kind)
         {
             int index = S().Orbs.Positions.ToList().IndexOf(kind);
-            for (ulong seed = 0; seed < 1000; seed++)
+            for (uint seed = 0; seed < 1000; seed++)
             {
                 var rng = new Rng(seed);
-                var saved = rng.ToSerializable();
+                var saved = (rng.Seed, rng.Counter);
                 if (rng.NextInt(3) != index) continue;
-                player.RunState.Rng.CombatTargets.LoadFromSerializable(saved);
+                DevelopmentStableRng.Set(player.RunState.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.CombatTargets, saved.Item1, saved.Item2);
                 return;
             }
             throw new InvalidOperationException("Could not arrange deterministic audit orb selection.");

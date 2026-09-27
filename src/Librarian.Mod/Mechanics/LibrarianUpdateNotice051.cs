@@ -90,13 +90,13 @@ internal static class LibrarianNoticeHistory051
 /// <summary>Waits for a free native modal slot on the visible main menu, then retires itself.</summary>
 public partial class LibrarianUpdateNotice051 : Node
 {
-    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367";
+    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3809003723";
     internal const string Email = "aery_bradish@163.com";
     internal const string Qq = "1850562239";
     private static readonly HashSet<string> Presented = new(StringComparer.Ordinal);
     private double _wait = 2.1; // Native main-menu fade lasts two seconds.
     internal static string? CurrentVersion => ModManager.GetLoadedMods()
-        .FirstOrDefault(m => m.manifest?.id == MainFile.ModId && m.assemblies.Contains(typeof(MainFile).Assembly))?.manifest?.version;
+        .FirstOrDefault(m => m.manifest?.id == MainFile.ModId && m.assembly == typeof(MainFile).Assembly)?.manifest?.version;
 
     public override void _Process(double delta)
     {

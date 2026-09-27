@@ -25,7 +25,7 @@ internal static class DevelopmentRevision039SelectionAudit
             ?? throw new InvalidOperationException("039 selection audit needs an explicit output path.");
         string full = Path.GetFullPath(output);
         if (!Path.IsPathFullyQualified(output) || !(full.StartsWith(@"D:\Slay The Spire_Mod Dev\.research\", StringComparison.OrdinalIgnoreCase)
-            || full.StartsWith(@"D:\Slay The Spire_Mod Dev\outputs\", StringComparison.OrdinalIgnoreCase)))
+            || full.StartsWith(@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\", StringComparison.OrdinalIgnoreCase)))
             throw new InvalidOperationException("039 selection screenshots must stay in the workspace.");
         Directory.CreateDirectory(full);
         int checks = 0;

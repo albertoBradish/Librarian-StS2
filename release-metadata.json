@@ -1,12 +1,12 @@
 {
   "mod_id": "Librarian",
-  "version": "1.0-beta3",
+  "version": "1.0.0",
   "active_cards": 91,
   "game": {
-    "version": "0.111.0",
-    "branch": "public-beta",
-    "build_id": "24724944",
-    "commit": "41cef1ea"
+    "version": "0.107.1",
+    "branch": "public",
+    "commit": "59260271",
+    "depot_manifest": "4733892780027453168"
   },
   "dependencies": {
     "BaseLib": "3.4.5",
@@ -17,20 +17,21 @@
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 1458688,
-      "sha256": "27d7ee618f66d37013317e01237c68dd36e85f72cfb5c594c304ebfb336ca38b"
+      "bytes": 1472000,
+      "sha256": "84eed7d26b8cf7e529f97cb0e1775c1689e88d403abc180c4771603a127fdbaa"
     },
     {
       "name": "Librarian.json",
-      "bytes": 548,
-      "sha256": "523f624d789e721a63144a4bdd0d445fde3ed2c81ba77265a6e163679ca0d700"
+      "bytes": 544,
+      "sha256": "71d3d7906702005f4e2b282d20d1fe612abecdaad19ea22ec76172a39283bb6c"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 96032052,
-      "sha256": "745334dc292260246c8e4389a51444caa7bde18204b3782328b9cb660141dd0b"
+      "bytes": 96032472,
+      "sha256": "f85507d037385a97bdefbde87b72ddfb58267294cc8e758a0bb40b6946497dbd"
     }
   ],
-  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3",
-  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete."
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable",
+  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
+  "channel": "stable"
 }

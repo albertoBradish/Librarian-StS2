@@ -58,7 +58,10 @@ internal static partial class DevelopmentRuntimeAudit
     {
         for (int i = 0; i < 900; i++)
         {
-            if (CombatManager.Instance.IsInProgress && _player.PlayerCombatState?.Hand.Cards.Count > 0) return;
+            // Stable starts drawing asynchronously; one card is not proof that setup finished.
+            if (CombatManager.Instance.IsInProgress
+                && _player.PlayerCombatState?.Phase == PlayerTurnPhase.Play
+                && _player.PlayerCombatState.Hand.Cards.Count > 0) return;
             await NGame.Instance!.ToSignal(NGame.Instance!.GetTree(), SceneTree.SignalName.ProcessFrame);
         }
         throw new TimeoutException("Combat did not reach the first hand.");

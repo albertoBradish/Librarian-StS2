@@ -1,5 +1,5 @@
 <Project>
-  <!-- Use the verified isolated v0.111.0 copy, never Steam path discovery. -->
+  <!-- Use the verified isolated v0.107.1 copy, never Steam path discovery. -->
   <PropertyGroup>
     <LibrarianWorkspace>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../..'))</LibrarianWorkspace>
     <Sts2Path>$(LibrarianWorkspace)/.research/compatibility-game</Sts2Path>

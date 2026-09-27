@@ -26,7 +26,7 @@ internal static class DevelopmentNotice051Audit
         => await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
     private static async Task Capture(string name)
     {
-        string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? Path.Combine(@"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.1", "screenshots");
+        string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? Path.Combine(@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v0.5.1", "screenshots");
         Directory.CreateDirectory(output);
         await NGame.Instance!.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
         using var image = NGame.Instance.GetViewport().GetTexture().GetImage();

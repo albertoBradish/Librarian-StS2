@@ -16,7 +16,7 @@ public sealed class CrowdKindlingPower : ImplementedLibrarianPower
         // CardPlay.Player is the actual player, even if the card transferred ownership during play.
         // The native combat hook dispatch is shared by all players; never filter to local ownership.
         if (Amount <= 0 || Owner.IsDead || Owner.Player is not { } owner || Owner.CombatState is not { } combat
-            || cardPlay.Card.Type != CardType.Attack || cardPlay.Player.Creature.CombatState != combat)
+            || cardPlay.Card.Type != CardType.Attack || cardPlay.Card.Owner.Creature.CombatState != combat)
             return;
 
         var session = LibrarianRuntime.Get(owner);

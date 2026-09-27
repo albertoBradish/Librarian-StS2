@@ -23,9 +23,9 @@ Supply legally obtained, matching private dependencies locally:
 | --- | --- |
 | `.research/tools/dotnet/` | .NET SDK 9.0.317, including `dotnet.exe` |
 | `.research/tools/megadot/` | `MegaDot_v4.5.1-stable_mono_win64_console.exe` and matching runtime files |
-| `.research/compatibility-game/` | isolated copy of Slay the Spire 2 0.111.0 public-beta |
+| `.research/compatibility-game/` | isolated copy of Slay the Spire 2 0.107.1 stable |
 | `.research/compatibility-game/mods/BaseLib/` | official BaseLib 3.4.5 runtime |
-| `.research/tools/ritsulib/v0.6.2/` | complete RitsuLib 0.6.2 bundle, `RitsuLib.References.props`, `compat/0.111.0/`, `shared/` |
+| `.research/tools/ritsulib/v0.6.2/` | complete RitsuLib 0.6.2 bundle, `RitsuLib.References.props`, `compat/0.107.1/`, `shared/` |
 
 Acquire BaseLib and RitsuLib through their official upstream projects linked in
 the README. MegaDot is the game-compatible Godot distribution supplied by the
@@ -34,7 +34,7 @@ The engine and its proprietary extensions are not redistributed by this project.
 
 The expected game assembly is
 `data_sts2_windows_x86_64/sts2.dll`, SHA256
-`0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9`.
+`a1f9e653f1e28e4076558fee1e60d218619cb7e057b887c6417f62c62c6d7a52`.
 The project rejects mismatched versions and deployment to the original Steam
 installation. Do not disable those guards to make an unsupported build pass.
 
@@ -60,3 +60,5 @@ performed; the release baseline has prior isolated native validation.
 
 Before running an isolated game, independently verify save paths and Steam Cloud
 isolation. Do not run the internal recovery modes as a normal player install step.
+
+Use the official RitsuLib `STS2.RitsuLib.Compat.0.107.1.0.6.2.github.zip` bundle. `LIBRARIAN_DOTNET_ROOT` may point to a shared read-only SDK. Keep each game channel in a separate checkout with its own private game copy, dependencies, userdata and output. The stable adapter lives in `Mechanics/LibrarianStableApi.cs`; shared gameplay changes should be reviewed and ported between branches with both native checks. Never copy the whole beta build over stable.

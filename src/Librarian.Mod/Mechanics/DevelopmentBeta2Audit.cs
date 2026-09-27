@@ -34,7 +34,7 @@ internal static class DevelopmentBeta2Audit
     {
         await NGame.Instance!.ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
         using var image=NGame.Instance.GetViewport().GetTexture().GetImage();
-        string dir=@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0-beta2\screenshots";System.IO.Directory.CreateDirectory(dir);
+        string dir=@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v1.0-beta2\screenshots";System.IO.Directory.CreateDirectory(dir);
         if(image.SavePng(System.IO.Path.Combine(dir,name+".png"))!=Error.Ok)throw new InvalidOperationException("beta2 capture "+name);
     }
     private static IEnumerable<Node> Descendants(Node root){foreach(var n in root.GetChildren()){yield return n;foreach(var c in Descendants(n))yield return c;}}
@@ -156,7 +156,7 @@ internal static class DevelopmentBeta2Audit
                 LibrarianLanguage.Select(lang);
                 foreach(var n in nodes){if(up&&!n.Model.IsUpgraded){n.Model.UpgradeInternal();n.Model.FinalizeUpgradeInternal();}else if(!up&&n.Model.IsUpgraded)n.Model.DowngradeInternal();n.UpdateVisuals(PileType.Hand,CardPreviewMode.Normal);}
                 await NGame.Instance.ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
-                using var img=NGame.Instance.GetViewport().GetTexture().GetImage();string dir=@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0-beta2\screenshots";System.IO.Directory.CreateDirectory(dir);img.SavePng(System.IO.Path.Combine(dir,$"cards-{lang}-{resolution.X}-{up}.png"));
+                using var img=NGame.Instance.GetViewport().GetTexture().GetImage();string dir=@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v1.0-beta2\screenshots";System.IO.Directory.CreateDirectory(dir);img.SavePng(System.IO.Path.Combine(dir,$"cards-{lang}-{resolution.X}-{up}.png"));
             }
         }}finally{layer.QueueFree();DisplayServer.WindowSetSize(new(1280,720));await NGame.Instance.ToSignal(NGame.Instance.GetTree(),SceneTree.SignalName.ProcessFrame);}
     }

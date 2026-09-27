@@ -28,15 +28,15 @@ public sealed class LifelinePower : ImplementedLibrarianPower, IOrbEventListener
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (cardPlay.Player == Owner.Player)
+        if (cardPlay.Card.Owner == Owner.Player)
             GetInternalData<Data>().BeforePlayAmounts[cardPlay] = Amount;
         return Task.CompletedTask;
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Player != Owner.Player || !GetInternalData<Data>().BeforePlayAmounts.Remove(cardPlay, out int amount) || amount <= 0) return;
-        var session = LibrarianRuntime.Get(cardPlay.Player);
+        if (cardPlay.Card.Owner != Owner.Player || !GetInternalData<Data>().BeforePlayAmounts.Remove(cardPlay, out int amount) || amount <= 0) return;
+        var session = LibrarianRuntime.Get(cardPlay.Card.Owner);
         Flash();
         await LibrarianRuntime.Dispatch(session, choiceContext,
             session.Orbs.Strengthen(session.Orbs.Foreground, amount, OrbScope.Foreground, Origin));
