@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "recommended_version": "1.0-beta3",
+  "recommended_version": "1.0.0",
   "migration_date": "2026-09-27",
   "versions": [
     {
@@ -244,6 +244,18 @@
       "tag_commit": "2e895e93b11ff537bc7c36ea0e52914811a2eafc",
       "published_at": "2026-09-27T09:52:05Z",
       "downloaded_sha256_verified": true
+    },
+    {
+      "version": "1.0.0",
+      "tag": "v1.0.0-stable",
+      "channel": "stable",
+      "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable",
+      "provenance": "release-history/1.0.0-stable.json",
+      "source_kind": "complete_matching_authored_source",
+      "status": "published",
+      "tag_commit": "295084de84cc0dbf80569699d05b6b10ba982e23",
+      "published_at": "2026-09-27T11:21:57Z",
+      "downloaded_sha256_verified": true
     }
   ],
   "unavailable": [
@@ -279,5 +291,7 @@
     }
   ],
   "verification": "release-history/verification.json",
-  "published_release_count": 22
+  "published_release_count": 22,
+  "recommended_tag": "v1.0.0-stable",
+  "recommended_channel": "stable"
 }

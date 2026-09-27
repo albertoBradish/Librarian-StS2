@@ -1,0 +1,106 @@
+{
+  "tag": "v1.0.0-stable",
+  "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable",
+  "published_at": "2026-09-27T11:21:57Z",
+  "public_latest_verified": true,
+  "assets": [
+    {
+      "name": "ASSET-LICENSE.md",
+      "bytes": 2061,
+      "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "Librarian.dll",
+      "bytes": 1472000,
+      "sha256": "84eed7d26b8cf7e529f97cb0e1775c1689e88d403abc180c4771603a127fdbaa",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 544,
+      "sha256": "71d3d7906702005f4e2b282d20d1fe612abecdaad19ea22ec76172a39283bb6c",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 96032472,
+      "sha256": "f85507d037385a97bdefbde87b72ddfb58267294cc8e758a0bb40b6946497dbd",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 5467,
+      "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-Alchyr-Template-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-BaseLib-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-Godot-MIT.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-Harmony-MIT.txt",
+      "bytes": 1073,
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-RitsuLib-MIT.txt",
+      "bytes": 1060,
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-sources.json",
+      "bytes": 1360,
+      "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "licenses-template-assets.json",
+      "bytes": 196,
+      "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "PROVENANCE.json",
+      "bytes": 1392,
+      "sha256": "0f2a0f1bc8108f0db1dd2c72a25334d84dfb00fed5c31da9e77d59f7c4eba41c",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "RELEASE_NOTES.md",
+      "bytes": 2340,
+      "sha256": "2dcfec3c2759b49186d783b44b3e5bcd03d7d07896fc1585b34f6e46dfd48fa8",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1313,
+      "sha256": "627afccc2eeb733d379cea0d6cee87118fc4af2c807e58d9e1525938b3a5548c",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "name": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2772,
+      "sha256": "4e3bc1eead5d1a3c85190e930035bc84431fb872d19742091a87a91a08af4f3d",
+      "downloaded_sha256_verified": true
+    }
+  ],
+  "count": 16,
+  "bytes": 97527269
+}
