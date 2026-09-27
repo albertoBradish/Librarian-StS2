@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "version": "0.1.2",
+  "tag": "v0.1.2",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5"
+  },
+  "origin": "historical_test_package",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 243712,
+      "sha256": "c9cd233805a78346e0a8604ce8cb54298bb14257699537d1f434f5ac3cfd8b2a"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 398,
+      "sha256": "d7fa9253cd88db0d9dd09b4f7a51ec0cc735731d81e53964ccb65f23e6de239c"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 200181052,
+      "sha256": "d587e3d0d59b641ecebc0034dd6f6df9899dd4c971358d37ee217fae8ac0798d"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Librarian-0.1.2-package.json",
+      "sha256": "5cbb9eab7d1fabba60f400c31dfb6449f4489c2b19109023cd9a97c725b84c86"
+    },
+    {
+      "record": "Librarian-0.1.2-sts2-0.111.0-test.zip",
+      "sha256": "009746ef92d783e15a9c4e427ef63f4e53660af6e31b651f367895130ff6a3e5"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 0,
+    "rejected_logs": 0,
+    "logs": [],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}
