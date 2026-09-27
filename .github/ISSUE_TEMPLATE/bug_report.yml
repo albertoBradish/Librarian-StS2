@@ -8,7 +8,7 @@ body:
     attributes:
       label: Versions / 版本
       description: Game version + branch/build, Librarian, BaseLib, RitsuLib
-      placeholder: 0.111.0 public-beta / 24724944; Librarian 1.0-beta3; BaseLib 3.4.5; RitsuLib 0.6.2
+      placeholder: 0.107.1 stable; Librarian 1.0.0; BaseLib 3.4.5; RitsuLib 0.6.2 (0.107.1 bundle)
     validations:
       required: true
   - type: dropdown

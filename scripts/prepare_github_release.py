@@ -14,7 +14,7 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def prepare(candidate, version, output, delivery=None, root=ROOT, historical=False):
+def prepare(candidate, version, output, delivery=None, root=ROOT, historical=False, channel='beta'):
     candidate, output, root = Path(candidate).resolve(), Path(output).resolve(), Path(root).resolve()
     if not re.fullmatch(r'\d+\.\d+(?:\.\d+)?(?:-[A-Za-z0-9.]+)?', version):
         raise ValueError('Invalid release version')
@@ -30,8 +30,11 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
     manifest = json.loads((candidate / 'Librarian.json').read_text(encoding='utf-8-sig'))
     if manifest.get('id') != 'Librarian' or manifest.get('version') != version:
         raise ValueError('Manifest identity/version mismatch')
-    if manifest.get('min_game_version') != '0.111.0':
+    game_versions = {'beta': '0.111.0', 'stable': '0.107.1'}
+    if channel not in game_versions or manifest.get('min_game_version') != game_versions[channel]:
         raise ValueError('Compatibility changed; review preparation policy before releasing')
+    if channel == 'stable' and (not delivery or historical):
+        raise ValueError('Stable preparation requires current verified Delivery evidence')
     deps = {d['id']: d['min_version'] for d in manifest.get('dependencies', [])}
     current_deps = {'BaseLib': '3.4.5', 'STS2-RitsuLib': '0.6.2'}
     if historical and not delivery:
@@ -46,6 +49,9 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
         expected = {f['name']: f['sha256'].lower() for f in record['build']['artifacts']}
         if record['version'] != version or expected != actual:
             raise ValueError('Candidate differs from versioned Delivery evidence')
+        if channel == 'stable' and (record.get('channel') != 'stable'
+                                   or not record.get('validation', {}).get('passed')):
+            raise ValueError('Stable Delivery must certify the stable channel and runtime validation')
     asset_license = root / 'ASSET-LICENSE.md'
     if not asset_license.exists():
         asset_license = root / 'github/ASSET-LICENSE.md'
@@ -78,9 +84,10 @@ def main():
     parser.add_argument('--version', required=True)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--delivery', type=Path)
+    parser.add_argument('--channel', choices=['beta', 'stable'], default='beta')
     parser.add_argument('--historical', action='store_true', help='Allow evidence-backed BaseLib-only historical releases; does not imply runtime approval.')
     args = parser.parse_args()
-    print(json.dumps(prepare(args.candidate, args.version, args.output, args.delivery, historical=args.historical), indent=2))
+    print(json.dumps(prepare(args.candidate, args.version, args.output, args.delivery, historical=args.historical, channel=args.channel), indent=2))
 
 
 if __name__ == '__main__':
