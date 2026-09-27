@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "version": "0.4.4",
+  "tag": "v0.4.4",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "workshop_release",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1142272,
+      "sha256": "95d295fc8e809828ae2da7044d368487d7fc3b82b9e1315ad33c2c6c0cb571e4"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 538,
+      "sha256": "079be90b5a8a17ae783b13ced0d5f0ddf28b541ed0a435331a41c4e64b0f846c"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 94106972,
+      "sha256": "a8e8a495c536f43418d728e71c88b8d65dbc7539d9c38b60ca82d64b932d1cf5"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Revision-v0.4.4-Delivery.json",
+      "sha256": "134fecf2bef76842a5e655b2f4da91fe6f3f8ab7cef8b23c99dc32c9f78a09bd"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 0,
+    "rejected_logs": 1,
+    "logs": [
+      {
+        "file": "compatibility-20260922T080932Z.log",
+        "sha256": "948269b5bd1b248707e143e31590cec79dd9e07cd1252606c159b123cb02ea84",
+        "passed": false,
+        "required_markers": [
+          "CARD044_NATIVE_AUDIT_PASS",
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "RUNTIME_044_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS"
+        ],
+        "failure_count": 4
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}

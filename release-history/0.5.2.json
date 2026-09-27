@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "version": "0.5.2",
+  "tag": "v0.5.2",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "validated_local_candidate",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1285120,
+      "sha256": "8c5eea15d1d47b71a8b83d7f2ba173fbc655995f1d3bf5038396c6a0467dd142"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 538,
+      "sha256": "08f8eb5f7d59d2172774f16e332bd9a819b24407aebd6201bdcdffd86989bcab"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 94842592,
+      "sha256": "ef045054090257db514de294421f58cf8169b78f3c1e1270ab0f58d0745ca11a"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Revision-v0.5.2-Delivery.json",
+      "sha256": "875ab5d59f2c0b69ee2b1b5188a4d75ab59814bb76a4701cd0bd6a67e76b6c4f"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 1,
+    "rejected_logs": 0,
+    "logs": [
+      {
+        "file": "compatibility-20260923T021637Z.log",
+        "sha256": "200430ba4fb6055f84c89bdde0a062595cf023f697217fa651b3ebd98b9b4f55",
+        "passed": true,
+        "required_markers": [
+          "CARD052_NATIVE_AUDIT_PASS",
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "RUNTIME_052_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}

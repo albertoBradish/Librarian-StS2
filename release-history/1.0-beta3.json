@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "version": "1.0-beta3",
+  "tag": "v1.0-beta3",
+  "kind": "current_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "workshop_release",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1458688,
+      "sha256": "27d7ee618f66d37013317e01237c68dd36e85f72cfb5c594c304ebfb336ca38b"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 548,
+      "sha256": "523f624d789e721a63144a4bdd0d445fde3ed2c81ba77265a6e163679ca0d700"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 96032052,
+      "sha256": "745334dc292260246c8e4389a51444caa7bde18204b3782328b9cb660141dd0b"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Revision-v1.0-beta3-Delivery.json",
+      "sha256": "deafd844241607f5011ccf29f83435ab70ab0c77ef828f4ffecae68c910aaafb"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 1,
+    "rejected_logs": 0,
+    "logs": [
+      {
+        "file": "compatibility-20260927T075019Z.log",
+        "sha256": "5751b09b894aa50e881a7e34858a93cdf564bc51323ff12c5ae843660178534d",
+        "passed": true,
+        "required_markers": [
+          "BETA3_AUDIT_PASS",
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "RUNTIME_BETA3_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag points to current authored source snapshot; documentation/tool changes do not rebuild the archived runtime.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}

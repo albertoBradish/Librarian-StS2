@@ -50,3 +50,37 @@ is authorized. See [LICENSE-AUDIT.md](LICENSE-AUDIT.md) for Mega Crit's policy.
 
 GitHub Issues accepts feedback independently of Workshop visibility. A GitHub
 release does not prove that Steam subscribers received the same build.
+
+## Historical archives / 历史二进制归档
+
+The author authorized migration of verifiable local historical versions on
+2026-09-27. For older binaries without a complete matching source snapshot, an
+annotated version tag points to an independent **metadata-only** commit containing
+provenance, checksums and license notices. This is an explicit archival exception
+to the source-commit rule above; it must never be presented as the old source tree.
+Automatic Source code archives for those tags contain metadata, not game source.
+The current 1.0-beta3 tag retains the current source snapshot.
+
+Archive assets must match either the historical Delivery hashes or the verified
+original package/upload snapshot. ZIPs containing dependencies are not reuploaded;
+only the three mod files are extracted. BaseLib-only versions must use the explicit
+`--historical` preparation flag with verified artifact evidence. Preserve old bytes,
+dependency versions and warnings; do not rebuild or edit manifests to invent an
+old release. Unavailable versions are listed in `release-history.json`.
+
+All migrated test versions are prereleases. In particular, historical `1.0.0`
+is a local bilingual candidate preceding beta2/beta3, not a newly declared stable
+version. A rejected historical log gate must remain visible in provenance/notes;
+archive integrity is not a new native runtime approval.
+
+Use Git for source/provenance and Releases for runtime history. Restore files with:
+
+```powershell
+gh release download v1.0-beta3 --repo albertoBradish/Librarian-StS2 --dir PATH_TO_NEW_DIRECTORY
+```
+
+Then verify every entry in `SHA256SUMS.txt`, particularly all three runtime files,
+before using the restored version. Do not replace published assets/tags in place;
+publish a distinct version for changed bytes. Local caches are optional after
+download verification, but original designs, private dependencies and referenced
+validation evidence are not disposable release caches.

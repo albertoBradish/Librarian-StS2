@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "version": "0.4.2",
+  "tag": "v0.4.2",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "workshop_release",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1084928,
+      "sha256": "f2808ab5e9ac42fb0a6e8f229b8ec9e1b16c54f3e5dac52ea1d5ac659f3acb25"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 538,
+      "sha256": "b170d6017541b2f078e3b6385deda0d3b1ecda8ec10a227f176f7754ce0a79be"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 90860160,
+      "sha256": "eca154c8d03932eccbcbd4d1b4aac3e2821a5c86e78be3fd52a730705fc12340"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Revision-v0.4.2-Delivery.json",
+      "sha256": "45cd1e52b79307aa054dfe91c44304c77825ff565abdee691c54b78645dfd086"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 3,
+    "rejected_logs": 2,
+    "logs": [
+      {
+        "file": "compatibility-20260922T034220Z.log",
+        "sha256": "9a796c69c94a774fa92ff767712fdf5ed5a1e3361af255e3ac619cfdbe08f212",
+        "passed": true,
+        "required_markers": [
+          "CARD042_NATIVE_AUDIT_PASS",
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "RUNTIME_042_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      },
+      {
+        "file": "compatibility-20260922T031004Z.log",
+        "sha256": "89482b37fa0df927bdd10d101beddf7ecc75b39e0449b379f68839516c65c43b",
+        "passed": false,
+        "required_markers": [
+          "CARD041_NATIVE_AUDIT_PASS",
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MECHANICS041_NATIVE_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS"
+        ],
+        "failure_count": 2
+      },
+      {
+        "file": "compatibility-20260922T031344Z.log",
+        "sha256": "d112787601ed3f7cd15bb0db420caf58a7166269fd54423d7043e63f9e154acf",
+        "passed": false,
+        "required_markers": [
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "INTERACTIONS041_NATIVE_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS"
+        ],
+        "failure_count": 1
+      },
+      {
+        "file": "compatibility-20260922T033341Z.log",
+        "sha256": "26544db8f2bccade195ba037067a07fe09d155995a8e7504684e57a20951eda9",
+        "passed": true,
+        "required_markers": [
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      },
+      {
+        "file": "compatibility-20260922T034030Z.log",
+        "sha256": "2e226f0334be93fe2b92e15a284f8c6333840fffa481e3957b7c7cfad87bad07",
+        "passed": true,
+        "required_markers": [
+          "ANCIENT042_AUDIT_PASS",
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}

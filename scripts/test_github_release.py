@@ -68,6 +68,21 @@ class ReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'new directory'):
             self.run_prepare()
 
+    def test_legacy_requires_evidence_and_keeps_manifest(self):
+        self.manifest['dependencies'] = [{'id': 'BaseLib', 'min_version': '3.4.5'}]
+        path = self.candidate / 'Librarian.json'
+        path.write_text(json.dumps(self.manifest))
+        before = path.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'Dependency'):
+            self.run_prepare()
+        with self.assertRaisesRegex(ValueError, 'requires verified'):
+            prepare(self.candidate, '1.0-beta3', self.output, root=self.root, historical=True)
+        delivery = self.root / 'delivery.json'
+        delivery.write_text(json.dumps({'version': '1.0-beta3', 'build': {'artifacts': [
+            {'name': p.name, 'sha256': sha256(p)} for p in self.candidate.iterdir()]}}))
+        prepare(self.candidate, '1.0-beta3', self.output, delivery, root=self.root, historical=True)
+        self.assertEqual(before, (self.output / 'Librarian.json').read_bytes())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -14,7 +14,7 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def prepare(candidate, version, output, delivery=None, root=ROOT):
+def prepare(candidate, version, output, delivery=None, root=ROOT, historical=False):
     candidate, output, root = Path(candidate).resolve(), Path(output).resolve(), Path(root).resolve()
     if not re.fullmatch(r'\d+\.\d+(?:\.\d+)?(?:-[A-Za-z0-9.]+)?', version):
         raise ValueError('Invalid release version')
@@ -33,7 +33,10 @@ def prepare(candidate, version, output, delivery=None, root=ROOT):
     if manifest.get('min_game_version') != '0.111.0':
         raise ValueError('Compatibility changed; review preparation policy before releasing')
     deps = {d['id']: d['min_version'] for d in manifest.get('dependencies', [])}
-    if deps != {'BaseLib': '3.4.5', 'STS2-RitsuLib': '0.6.2'}:
+    current_deps = {'BaseLib': '3.4.5', 'STS2-RitsuLib': '0.6.2'}
+    if historical and not delivery:
+        raise ValueError('Historical preparation requires verified artifact evidence')
+    if deps != current_deps and not (historical and deps == {'BaseLib': '3.4.5'}):
         raise ValueError('Dependency versions changed; review policy before releasing')
     if not manifest.get('has_dll') or not manifest.get('has_pck'):
         raise ValueError('Runtime manifest must declare DLL and PCK')
@@ -75,8 +78,9 @@ def main():
     parser.add_argument('--version', required=True)
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--delivery', type=Path)
+    parser.add_argument('--historical', action='store_true', help='Allow evidence-backed BaseLib-only historical releases; does not imply runtime approval.')
     args = parser.parse_args()
-    print(json.dumps(prepare(args.candidate, args.version, args.output, args.delivery), indent=2))
+    print(json.dumps(prepare(args.candidate, args.version, args.output, args.delivery, historical=args.historical), indent=2))
 
 
 if __name__ == '__main__':

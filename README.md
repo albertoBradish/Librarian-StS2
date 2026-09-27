@@ -9,6 +9,8 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
+- [Current test build / 当前测试版 1.0-beta3](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3)
+- [Historical release index / 历史版本与校验来源](release-history.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
 - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)
 - [Build / 构建](BUILDING.md) · [Release / 发版](RELEASING.md) · [Contributing](CONTRIBUTING.md)
@@ -43,8 +45,10 @@ validation remain incomplete. Visual/audio feedback is welcome.
    testing a beta. Follow the game's mod activation/restart prompts.
 
 The automatically generated GitHub **Source code** archives are source snapshots,
-not installable mod packages. A GitHub release with all three runtime files will
-be published separately; creating this repository does not itself publish one.
+not installable mod packages. Download the three named runtime attachments.
+Historical binary archive tags contain provenance/notices only when a matching
+complete historical source tree is unavailable; they do not substitute current
+source for old versions. See the per-version release notes and provenance.
 Players do not need the .NET SDK or Godot editor. Workshop and GitHub are separate
 distribution channels; each release states its own version and compatibility.
 

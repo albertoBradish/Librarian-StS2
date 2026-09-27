@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "version": "1.0.0",
+  "tag": "v1.0.0",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "validated_local_candidate",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1408000,
+      "sha256": "1b9515c3b03c5b0991a6ceb3e7be388317eb739cf8fd095a3456d2780f1ca880"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 543,
+      "sha256": "56c2780d80db11cca8c82d4973d2295c761aeb8c84e1b9902c602c9a90545436"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 95996100,
+      "sha256": "eb4cb34783467c9effb605975ef862e2989ff97bc35eebeb0f8c2504b31c7ae3"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Revision-v1.0.0-Delivery.json",
+      "sha256": "5f5c2ce4acbf76a09f98046317a501c4f50a03e5ef9271ac408b29573cbb99fa"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 2,
+    "rejected_logs": 0,
+    "logs": [
+      {
+        "file": "compatibility-20260926T044258Z.log",
+        "sha256": "d3d81a0abeb2487a04f56a356ace16bfbb598f641696d53437c66dad665f5e10",
+        "passed": true,
+        "required_markers": [
+          "LANGUAGE_RUNTIME_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      },
+      {
+        "file": "compatibility-20260926T044124Z.log",
+        "sha256": "836d8d6e96e690818a1a82291e3ebdef2fac9b9fd32e34237072307343b22086",
+        "passed": true,
+        "required_markers": [
+          "LANGUAGE_RESTART_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}
