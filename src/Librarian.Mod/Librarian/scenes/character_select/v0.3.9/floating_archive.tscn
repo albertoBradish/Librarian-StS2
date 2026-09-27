@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Mechanics/LibrarianCharacterSelect039.cs" id="1_controller"]
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/floating_archive/background.png" id="2_background"]
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/v0.3.9/hero.png" id="3_hero"]
+[ext_resource type="Shader" path="res://Librarian/shaders/v0.3.9/selection_illustration.gdshader" id="4_hero_shader"]
+[ext_resource type="Shader" path="res://Librarian/shaders/v0.3.9/selection_dust.gdshader" id="5_dust_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hero"]
+resource_local_to_scene = true
+shader = ExtResource("4_hero_shader")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dust"]
+resource_local_to_scene = true
+shader = ExtResource("5_dust_shader")
+
+[node name="FloatingArchive039" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_controller")
+
+[node name="Library" type="TextureRect" parent="."]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Atmosphere" type="ColorRect" parent="."]
+layout_mode = 0
+mouse_filter = 2
+material = SubResource("ShaderMaterial_dust")
+
+[node name="Hero" type="TextureRect" parent="."]
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("3_hero")
+expand_mode = 1
+stretch_mode = 0
+material = SubResource("ShaderMaterial_hero")

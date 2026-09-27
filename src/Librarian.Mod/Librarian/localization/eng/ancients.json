@@ -1,0 +1,11 @@
+{
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-0r.char": "I will keep reading this tower.",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-0r.next": "Turn the page",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-1r.ancient": "Then show me what you remember.",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-2r.char": "Then let us begin with the page we forgot.",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-startattack": "None",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-endattack": "Both",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-1r.next": "Respond",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-2r.next": "Continue",
+  "THE_ARCHITECT.talk.LIBRARIAN-LIBRARIAN_CHARACTER.0-attack": "Both"
+}

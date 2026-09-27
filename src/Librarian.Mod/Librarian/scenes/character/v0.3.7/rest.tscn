@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Texture2D" path="res://Librarian/images/character/v0.3.7/body.png" id="1"]
+[ext_resource type="Script" path="res://Mechanics/LibrarianCharacterMotion.cs" id="2"]
+[node name="LibrarianRest" type="Node2D"]
+[node name="ControlRoot" type="Control" parent="."]
+mouse_filter = 2
+[node name="Visuals" type="Node2D" parent="ControlRoot"]
+[node name="Body" type="Sprite2D" parent="ControlRoot/Visuals"]
+texture = ExtResource("1")
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+offset_left = -100.0
+offset_top = -235.0
+offset_right = 100.0
+focus_mode = 2
+[node name="ThoughtBubbleRight" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = 80.0
+offset_top = -235.0
+offset_right = 80.0
+offset_bottom = -235.0
+mouse_filter = 2
+[node name="ThoughtBubbleLeft" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = -80.0
+offset_top = -235.0
+offset_right = -80.0
+offset_bottom = -235.0
+mouse_filter = 2
+[node name="Motion" type="Node" parent="."]
+script = ExtResource("2")
+VisualPath = "ControlRoot/Visuals"
+DisplayHeight = 245.0
+RestingTilt = -0.09

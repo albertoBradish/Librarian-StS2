@@ -1,0 +1,8 @@
+{
+  "LIBRARIAN-KINDLING_POTION.title": "燃火药水",
+  "LIBRARIAN-KINDLING_POTION.description": "[gold]燃火[/gold]{Fire:diff()}。",
+  "LIBRARIAN-CLARITY_POTION.title": "澄澈药水",
+  "LIBRARIAN-CLARITY_POTION.description": "获得{Waves:diff()}层[gold]浪潮[/gold]。",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.title": "流体禁果",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "解锁所有法球，并立即[gold]结算[/gold]它们一次。"
+}

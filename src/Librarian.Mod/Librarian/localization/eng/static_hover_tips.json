@@ -1,0 +1,22 @@
+{
+  "LIBRARIAN_FIRE.title": "Fire",
+  "LIBRARIAN_FIRE.description": "Increase the Fire Orb's value and [gold]Activate[/gold] it.",
+  "LIBRARIAN_TIDE.title": "Tide",
+  "LIBRARIAN_TIDE.description": "Increase the Tide Orb's value and [gold]Activate[/gold] it.",
+  "LIBRARIAN_GROWTH.title": "Growth",
+  "LIBRARIAN_GROWTH.description": "Increase the Growth Orb's value and [gold]Activate[/gold] it.",
+  "LIBRARIAN_STRENGTHEN.title": "Strengthen",
+  "LIBRARIAN_STRENGTHEN.description": "Increase the chosen Orb's value by the specified amount.",
+  "LIBRARIAN_ACTIVATE.title": "Activate",
+  "LIBRARIAN_ACTIVATE.description": "Activate the chosen Orb and move it to the frontmost available position. At the end of the turn, activated Orbs naturally [gold]Settle[/gold], then extinguish.",
+  "LIBRARIAN_SETTLE.title": "Settle",
+  "LIBRARIAN_SETTLE.description": "Immediately trigger an Orb's effect once.",
+  "LIBRARIAN_WAVES.title": "Waves",
+  "LIBRARIAN_WAVES.description": "At the end of your turn, if Tide [gold]Settlements[/gold] this end phase grant less [gold]Block[/gold] than the [gold]Waves[/gold] at the start of the phase, gain the difference. At the end of each turn, halve [gold]Waves[/gold].",
+  "LIBRARIAN_ORB_FIRE.title": "Fire Orb",
+  "LIBRARIAN_ORB_FIRE.description": "[gold]Settle[/gold]: Deal {Value} non-attack damage to a random enemy.\nWhen naturally [gold]Settling[/gold] from the back, the effect is halved.",
+  "LIBRARIAN_ORB_TIDE.title": "Tide Orb",
+  "LIBRARIAN_ORB_TIDE.description": "[gold]Settle[/gold]: Gain {Value} [gold]Block[/gold] and {Value} [gold]Waves[/gold], unaffected by [gold]Dexterity[/gold] or [gold]Frail[/gold].\nWhen naturally [gold]Settling[/gold] from the back, the effect is halved.",
+  "LIBRARIAN_ORB_GROWTH.title": "Growth Orb",
+  "LIBRARIAN_ORB_GROWTH.description": "[gold]Settle[/gold]: [gold]Strengthen[/gold] the lowest-valued other Orb by {Value}. Ties are resolved in Orb order.\nWhen naturally [gold]Settling[/gold] from the back, the effect is halved."
+}

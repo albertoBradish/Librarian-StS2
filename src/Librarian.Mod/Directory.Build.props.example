@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Copy to Directory.Build.props after provisioning the pinned private MegaDot runtime. -->
+    <GodotPath>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../.research/tools/megadot/MegaDot_v4.5.1-stable_mono_win64_console.exe'))</GodotPath>
+  </PropertyGroup>
+</Project>

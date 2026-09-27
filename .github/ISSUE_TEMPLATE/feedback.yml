@@ -1,0 +1,29 @@
+name: Feedback / 平衡与建议
+description: Balance, feature, translation or presentation suggestions
+title: '[Feedback] '
+labels: ['enhancement']
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Mod and game versions / 模组与游戏版本
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category / 类型
+      options:
+        - Balance / 平衡
+        - Translation / 翻译
+        - Visual or audio / 视觉或音效
+        - Feature / 功能
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Observation and suggestion / 观察与建议
+      description: Explain the situation and desired result. For balance include difficulty, deck and relevant card/orb interactions.
+    validations:
+      required: true

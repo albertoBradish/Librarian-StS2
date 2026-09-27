@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Installation and compatibility / 安装与兼容
+    url: https://github.com/albertoBradish/Librarian-StS2#install--安装
+    about: Read the matching release requirements before reporting a loading issue.

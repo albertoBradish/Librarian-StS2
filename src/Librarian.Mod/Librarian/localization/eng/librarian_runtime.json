@@ -1,0 +1,16 @@
+{
+  "LIBRARIAN_LOCK_VALUE": "\nStored value: {Value}\n",
+  "LIBRARIAN_LOCK_PERMANENT": "Permanently locked",
+  "LIBRARIAN_LOCK_TURNS": "Locked for {Turns} {Turns:plural:turn|turns}",
+  "LIBRARIAN_TIDE_EXPIRED": "Tide Block expired −{Amount}",
+  "LIBRARIAN_TIDE_GAIN": "Tide Block +{Amount}",
+  "LIBRARIAN_LIST_SEPARATOR": ", ",
+  "LIBRARIAN_KEYWORD_FIRE": "Fire",
+  "LIBRARIAN_KEYWORD_TIDE": "Tide",
+  "LIBRARIAN_KEYWORD_GROWTH": "Growth",
+  "LIBRARIAN_KEYWORD_STRENGTHEN": "Strengthen|Strengthened|Strengthens",
+  "LIBRARIAN_KEYWORD_ACTIVATE": "Activate|Activated|Activates|Activation",
+  "LIBRARIAN_KEYWORD_SETTLE": "Settle|Settles|Settling|Settlement|Settlements",
+  "LIBRARIAN_KEYWORD_WAVES": "Waves",
+  "LIBRARIAN_KEYWORD_BLOCK": "Block"
+}

@@ -1,0 +1,17 @@
+{
+  "LIBRARIAN-LIBRARIAN_CHARACTER.title": "Librarian",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.titleObject": "the Librarian",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.description": "An ancient soul, cursed to slumber through the Blight alongside the Architect.\nFights with scattered spell scrolls in search of the Spire's truth.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounObject": "them",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounSubject": "they",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounPossessive": "theirs",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.possessiveAdjective": "their",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.aromaPrinciple": "Paper, ink, and a glimmer of light.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.alive.endTurnPing": "Let us turn the page.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.dead.endTurnPing": "...",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.eventDeathPrevention": "There are still chapters left unread.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.goldMonologue": "Enough for a few more books.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierTitle": "Librarian Cards",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierDescription": "Librarian cards now appear in rewards and shops.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.bestiaryQuote": "Another encounter for the archives."
+}

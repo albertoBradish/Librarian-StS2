@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+[sub_resource type="Shader" id="1"]
+code = "shader_type canvas_item;
+uniform float threshold : hint_range(0,1) = 0.0;
+void fragment() {
+    float page_fold = abs(UV.x - 0.5) * 1.4 + UV.y * 0.3;
+    float wipe = smoothstep(page_fold - 0.03, page_fold + 0.03, mix(-0.1, 1.1, threshold));
+    COLOR = vec4(0.055, 0.072, 0.09, wipe);
+}"
+[resource]
+resource_local_to_scene = true
+shader = SubResource("1")

@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/floating_archive/background.png" id="1"]
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/floating_archive/book.png" id="2"]
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/floating_archive/head.png" id="3"]
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/floating_archive/hand_page.png" id="4"]
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/floating_archive/hand_cast.png" id="5"]
+
+[node name="FloatingArchiveBg" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Library" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CharacterPivot" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 350.0
+offset_top = -40.0
+offset_right = 350.0
+offset_bottom = -40.0
+mouse_filter = 2
+metadata/animation_note = "Static v1. Independent full cutouts and pivots reserve bob, tilt and gesture animations."
+
+[node name="Book" type="TextureRect" parent="CharacterPivot"]
+layout_mode = 0
+offset_left = -210.0
+offset_top = -70.0
+offset_right = 250.0
+offset_bottom = 620.0
+pivot_offset = Vector2(230, 190)
+mouse_filter = 2
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Head" type="TextureRect" parent="CharacterPivot"]
+layout_mode = 0
+offset_left = -160.0
+offset_top = -400.0
+offset_right = 200.0
+offset_bottom = -40.0
+pivot_offset = Vector2(180, 210)
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PageHand" type="TextureRect" parent="CharacterPivot"]
+layout_mode = 0
+offset_left = -420.0
+offset_top = -300.0
+offset_right = -170.0
+offset_bottom = 75.0
+pivot_offset = Vector2(120, 260)
+mouse_filter = 2
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CastingHand" type="TextureRect" parent="CharacterPivot"]
+layout_mode = 0
+offset_left = 245.0
+offset_top = -115.0
+offset_right = 485.0
+offset_bottom = 125.0
+pivot_offset = Vector2(75, 190)
+mouse_filter = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 5

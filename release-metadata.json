@@ -1,0 +1,35 @@
+{
+  "mod_id": "Librarian",
+  "version": "1.0-beta3",
+  "active_cards": 91,
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "open_source": false,
+  "baseline_runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1458688,
+      "sha256": "27d7ee618f66d37013317e01237c68dd36e85f72cfb5c594c304ebfb336ca38b"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 548,
+      "sha256": "523f624d789e721a63144a4bdd0d445fde3ed2c81ba77265a6e163679ca0d700"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 96032052,
+      "sha256": "745334dc292260246c8e4389a51444caa7bde18204b3782328b9cb660141dd0b"
+    }
+  ],
+  "note": "Baseline hashes identify prior validated candidates, not a GitHub release or a fresh build. Native multi-client validation remains incomplete."
+}

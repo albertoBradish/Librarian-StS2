@@ -1,0 +1,17 @@
+{
+  "LIBRARIAN-LIBRARIAN_CHARACTER.title": "图书管理员",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.titleObject": "图书管理员",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.description": "与建筑师一同于荒疫中沉睡，被诅咒的先古之民。\n运用散落的魔法书卷进行作战，寻找尖塔的真相。",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounObject": "其",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounSubject": "其",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounPossessive": "其",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.possessiveAdjective": "其",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.aromaPrinciple": "纸页、墨迹与微光。",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.alive.endTurnPing": "翻过这一页吧。",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.dead.endTurnPing": "……",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.eventDeathPrevention": "还有未读完的篇章。",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.goldMonologue": "可以添几本新书。",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierTitle": "图书管理员卡牌",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierDescription": "图书管理员的卡牌现在会出现在奖励和商店中。",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.bestiaryQuote": "将这次遭遇记入书中。"
+}

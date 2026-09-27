@@ -1,0 +1,48 @@
+name: Bug report / 问题反馈
+description: Crashes, rules, installation, translation or visual/audio issues
+title: '[Bug] '
+labels: ['bug']
+body:
+  - type: input
+    id: versions
+    attributes:
+      label: Versions / 版本
+      description: Game version + branch/build, Librarian, BaseLib, RitsuLib
+      placeholder: 0.111.0 public-beta / 24724944; Librarian 1.0-beta3; BaseLib 3.4.5; RitsuLib 0.6.2
+    validations:
+      required: true
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Installation channel / 安装来源
+      options:
+        - GitHub Release
+        - Steam Workshop
+        - Local build / 自行编译
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 环境
+      description: OS, other enabled mods, language; single-player or multiplayer (host/client)
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps / 复现步骤
+      description: Card names/upgrades, play order, orb positions/values/locks, seed if useful
+    validations:
+      required: true
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: Expected and actual behavior / 预期与实际
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs and screenshots / 日志与截图
+      description: For visuals include resolution/UI scale. Remove private account/save information and tokens before posting. Do not attach game files.

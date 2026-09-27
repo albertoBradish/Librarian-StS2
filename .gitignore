@@ -1,0 +1,12 @@
+.research/
+**/bin/
+**/obj/
+**/.godot/
+**/__pycache__/
+**/node_modules/
+**/Directory.Build.props
+**/*.uid
+**/*.pdb
+**/.env
+**/.env.*
+*.log

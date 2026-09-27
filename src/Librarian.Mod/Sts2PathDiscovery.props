@@ -1,0 +1,9 @@
+<Project>
+  <!-- Use the verified isolated v0.111.0 copy, never Steam path discovery. -->
+  <PropertyGroup>
+    <LibrarianWorkspace>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../..'))</LibrarianWorkspace>
+    <Sts2Path>$(LibrarianWorkspace)/.research/compatibility-game</Sts2Path>
+    <Sts2DataDir>$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
+    <ModsPath>$(Sts2Path)/mods/</ModsPath>
+  </PropertyGroup>
+</Project>

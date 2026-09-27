@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Texture2D" path="res://Librarian/images/character/v0.3.7/body.png" id="1"]
+[ext_resource type="Script" path="res://Mechanics/LibrarianCharacterMotion.cs" id="2"]
+[node name="LibrarianCombat" type="Node2D"]
+[node name="FormVfx" type="Control" parent="."]
+unique_name_in_owner = true
+mouse_filter = 2
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+[node name="Body" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("1")
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = -110.0
+offset_top = -270.0
+offset_right = 110.0
+mouse_filter = 2
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -150)
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -300)
+[node name="OrbPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -160)
+[node name="TalkPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(80, -250)
+[node name="Motion" type="Node" parent="."]
+script = ExtResource("2")
+DisplayHeight = 280.0
