@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "version": "0.3.11",
+  "tag": "v0.3.11",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5"
+  },
+  "origin": "historical_test_package",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 654336,
+      "sha256": "21548724a0823a06643d79eca950a06334871cc38a6f13c4cdd421085d1710b9"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 463,
+      "sha256": "362ba92c8a20e621792e34e97416a250c05535f518d32deadefd6def91618b03"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 84148840,
+      "sha256": "8d4fa5ba7b43a9da73199a5092b418d0838b59bc03a8bf9b693603d44823ad30"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Librarian-0.3.11-package.json",
+      "sha256": "d95df752cd5f6c612b8e05567be2221a0cf0652a484043ae5640649b0158f1ea"
+    },
+    {
+      "record": "图书管理员 V0.3.11.zip",
+      "sha256": "c72a84b95e2cd0986313abf8879b636125666d25ecb8723b508fc69980cded42"
+    },
+    {
+      "record": "Revision-v0.3.11-Delivery.json",
+      "sha256": "8d5d351b800bb3cd63f7928b90657924404df493c137d88d49649f80cff07833"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 1,
+    "rejected_logs": 0,
+    "logs": [
+      {
+        "file": "compatibility-20260915T014537Z.log",
+        "sha256": "4c8710871703e576a55d1b623170e6d3fd21382081e93ab397b20e3126f26611",
+        "passed": true,
+        "required_markers": [
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "CHARACTER_VISUAL_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RELIC_REWARD_ELIGIBILITY_AUDIT_PASS",
+          "REVISION_0311_ORB_VISUAL_AUDIT_PASS",
+          "REVISION_035_VISUAL_AUDIT_PASS",
+          "REVISION_037_VISUAL_AUDIT_PASS",
+          "REVISION_039_ORB_VISUAL_AUDIT_PASS",
+          "REVISION_039_TEXT_AUDIT_PASS",
+          "RUNTIME_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS",
+          "SELECTION039_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}
