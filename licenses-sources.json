@@ -1,0 +1,32 @@
+{
+  "reviewed_utc": "2026-09-27",
+  "sources": [
+    {
+      "name": "BaseLib",
+      "url": "https://raw.githubusercontent.com/Alchyr/BaseLib-StS2/4a97642d7843309cdf35c46a11e3f46132cee049/LICENSE.txt",
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "RitsuLib",
+      "url": "https://raw.githubusercontent.com/BAKAOLC/STS2-RitsuLib/v0.6.2/LICENSE",
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01"
+    },
+    {
+      "name": "Harmony",
+      "url": "https://raw.githubusercontent.com/pardeike/Harmony/master/LICENSE",
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d"
+    },
+    {
+      "name": "Godot",
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.5.1-stable/LICENSE.txt",
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+    },
+    {
+      "name": "Alchyr CharacterModTemplate",
+      "license": "MIT",
+      "url": "https://github.com/Alchyr/ModTemplate-StS2/blob/55ca2c606e6c78dd39689a5cf979b243a49652e7/Alchyr.Sts2.Templates.csproj",
+      "notice": "Standard MIT text; upstream metadata declaration, not a nonexistent upstream LICENSE file",
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    }
+  ]
+}
