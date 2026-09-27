@@ -1,5 +1,7 @@
 # 图书管理员 · Librarian
 
+本分支维护游戏 **public-beta 0.111.0**。游戏 stable 0.107.1 的正式 V1.0.0 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.0.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable)，不要混用两个通道的运行文件。
+
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
 Includes Simplified Chinese and English, independent language settings, and

@@ -1,0 +1,51 @@
+{
+  "version": "1.0.0",
+  "tag": "v1.0.0-stable",
+  "channel": "stable",
+  "source_kind": "complete_matching_authored_source",
+  "game": {
+    "version": "0.107.1",
+    "branch": "public",
+    "commit": "59260271",
+    "assembly_sha256": "a1f9e653f1e28e4076558fee1e60d218619cb7e057b887c6417f62c62c6d7a52"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2 compat/0.107.1"
+  },
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1472000,
+      "sha256": "84eed7d26b8cf7e529f97cb0e1775c1689e88d403abc180c4771603a127fdbaa"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 544,
+      "sha256": "71d3d7906702005f4e2b282d20d1fe612abecdaad19ea22ec76172a39283bb6c"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 96032472,
+      "sha256": "f85507d037385a97bdefbde87b72ddfb58267294cc8e758a0bb40b6946497dbd"
+    }
+  ],
+  "source_tree_sha256": "4739743014879e138fac24682af079f10ceecc6ab5e683eb034d904e60e56eb2",
+  "validation": {
+    "native_cards": 91,
+    "card_spec_differences": 0,
+    "beta3_checks": 76,
+    "stable_api_checks": 7,
+    "language_checks": 2120,
+    "core_tests": "60/60",
+    "full_runtime_log_gate": true,
+    "real_multiclient": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "open_source": false,
+  "historical_v1.0.0_preserved": true,
+  "source_commit": "295084de84cc0dbf80569699d05b6b10ba982e23",
+  "published_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable",
+  "published_at": "2026-09-27T11:21:57Z",
+  "downloaded_sha256_verified": true
+}
