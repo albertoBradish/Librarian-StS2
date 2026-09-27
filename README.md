@@ -11,6 +11,7 @@ custom translation packs.
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
 - [Current test build / 当前测试版 1.0-beta3](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3)
 - [Historical release index / 历史版本与校验来源](release-history.json)
+- [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
 - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)
 - [Build / 构建](BUILDING.md) · [Release / 发版](RELEASING.md) · [Contributing](CONTRIBUTING.md)

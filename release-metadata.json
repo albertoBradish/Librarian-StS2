@@ -31,5 +31,6 @@
       "sha256": "745334dc292260246c8e4389a51444caa7bde18204b3782328b9cb660141dd0b"
     }
   ],
-  "note": "Baseline hashes identify prior validated candidates, not a GitHub release or a fresh build. Native multi-client validation remains incomplete."
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3",
+  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete."
 }

@@ -8,154 +8,242 @@
       "tag": "v0.1.1",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.1.1",
       "provenance": "release-history/0.1.1.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "eeb8429b90fd9faa2c42351167c143478664d45c",
+      "published_at": "2026-09-27T09:45:32Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.1.2",
       "tag": "v0.1.2",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.1.2",
       "provenance": "release-history/0.1.2.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "c638ac1b9e11b7e897635e53020c9ca1efeb449b",
+      "published_at": "2026-09-27T09:46:38Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.1.3",
       "tag": "v0.1.3",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.1.3",
       "provenance": "release-history/0.1.3.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "f6952e00d158f5cf4ad5cbf808baafbc7e5c5461",
+      "published_at": "2026-09-27T09:46:58Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.2.0",
       "tag": "v0.2.0",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.2.0",
       "provenance": "release-history/0.2.0.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "2ed68a1e8251ddbc2c849929bdd83b61888ce019",
+      "published_at": "2026-09-27T09:47:18Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.2.1",
       "tag": "v0.2.1",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.2.1",
       "provenance": "release-history/0.2.1.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "2618c1b34ed5d4b0d2b9323e9148efcf9ab2f0e9",
+      "published_at": "2026-09-27T09:47:43Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.3.4",
       "tag": "v0.3.4",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.3.4",
       "provenance": "release-history/0.3.4.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "5d83a57da4d55e472ac5defb3a6f637d1864871b",
+      "published_at": "2026-09-27T09:48:06Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.3.11",
       "tag": "v0.3.11",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.3.11",
       "provenance": "release-history/0.3.11.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "d66864fcc7c4629bd28783c6e44aff9a6f6c78c4",
+      "published_at": "2026-09-27T09:48:28Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.4.0",
       "tag": "v0.4.0",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.4.0",
       "provenance": "release-history/0.4.0.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "508308f918a155d9ac4581eae7c52560ba1dd029",
+      "published_at": "2026-09-27T09:48:42Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.4.1",
       "tag": "v0.4.1",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.4.1",
       "provenance": "release-history/0.4.1.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "61fa31d6ed3d0a70c7ab40b00eccaba1fc952c5d",
+      "published_at": "2026-09-27T09:48:56Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.4.2",
       "tag": "v0.4.2",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.4.2",
       "provenance": "release-history/0.4.2.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "503fa989d01c4457b87318cbf37934af0b56197f",
+      "published_at": "2026-09-27T09:49:11Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.4.3",
       "tag": "v0.4.3",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.4.3",
       "provenance": "release-history/0.4.3.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "8f58756a59192184a22b8f91d158c43ff645df52",
+      "published_at": "2026-09-27T09:49:25Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.4.4",
       "tag": "v0.4.4",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.4.4",
       "provenance": "release-history/0.4.4.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "96b31d13e2e2bb63c77fe5b039896e6a1d408990",
+      "published_at": "2026-09-27T09:49:40Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.5.0",
       "tag": "v0.5.0",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.5.0",
       "provenance": "release-history/0.5.0.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "2577e7daa0f7ba471bdf2cf0552506c3d5ccb021",
+      "published_at": "2026-09-27T09:49:54Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.5.1",
       "tag": "v0.5.1",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.5.1",
       "provenance": "release-history/0.5.1.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "ac7c874ed5ede885e465c78a856f4172105ed8e3",
+      "published_at": "2026-09-27T09:50:08Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.5.2",
       "tag": "v0.5.2",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.5.2",
       "provenance": "release-history/0.5.2.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "7da1a92e9342318826972133b8c673a8158ebf6c",
+      "published_at": "2026-09-27T09:50:24Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.5.3",
       "tag": "v0.5.3",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.5.3",
       "provenance": "release-history/0.5.3.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "dd32efd4dd17d6aa5eeb566004b7bcdafb3e7b32",
+      "published_at": "2026-09-27T09:50:38Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.5.4",
       "tag": "v0.5.4",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.5.4",
       "provenance": "release-history/0.5.4.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "b3fb0cf34d706343ab7706207ce05084bfd96b4b",
+      "published_at": "2026-09-27T09:50:52Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.6.0",
       "tag": "v0.6.0",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.6.0",
       "provenance": "release-history/0.6.0.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "cc9404503f06b349fddf8af999f502fc00428554",
+      "published_at": "2026-09-27T09:51:06Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "0.6.1",
       "tag": "v0.6.1",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v0.6.1",
       "provenance": "release-history/0.6.1.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "657fdfb0441c32c9b60351421a0adbd7c76113de",
+      "published_at": "2026-09-27T09:51:22Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "1.0.0",
       "tag": "v1.0.0",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0",
       "provenance": "release-history/1.0.0.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "f7338a78a1d1da9a4ec3684aa2c6cd53d1dded11",
+      "published_at": "2026-09-27T09:51:37Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "1.0-beta2",
       "tag": "v1.0-beta2",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta2",
       "provenance": "release-history/1.0-beta2.json",
-      "source_kind": "historical_binary_archive_no_complete_source_snapshot"
+      "source_kind": "historical_binary_archive_no_complete_source_snapshot",
+      "status": "published",
+      "tag_commit": "bc8ac826c6050d61220568f8220a714744095c0f",
+      "published_at": "2026-09-27T09:51:51Z",
+      "downloaded_sha256_verified": true
     },
     {
       "version": "1.0-beta3",
       "tag": "v1.0-beta3",
       "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3",
       "provenance": "release-history/1.0-beta3.json",
-      "source_kind": "current_source_snapshot"
+      "source_kind": "current_source_snapshot",
+      "status": "published",
+      "tag_commit": "2e895e93b11ff537bc7c36ea0e52914811a2eafc",
+      "published_at": "2026-09-27T09:52:05Z",
+      "downloaded_sha256_verified": true
     }
   ],
   "unavailable": [
@@ -189,5 +277,7 @@
       "reason": "Delivery hashes exist but no matching complete DLL/JSON/PCK retained",
       "evidence": "Revision-v0.3.9-Delivery.json"
     }
-  ]
+  ],
+  "verification": "release-history/verification.json",
+  "published_release_count": 22
 }
