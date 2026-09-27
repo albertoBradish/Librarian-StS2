@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "version": "0.5.0",
+  "tag": "v0.5.0",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "workshop_release",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1206272,
+      "sha256": "33f844e6aa69775901536a10c97c15b1a5e33a8772d1e8d19750d7895005e4f1"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 538,
+      "sha256": "0f4530032f1dce548ebaf8e7887d6ad50c8bb96dff1d8e9dbe7e6ce7bb87b1e9"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 94840400,
+      "sha256": "2bb02a1b1591a245ebd96f8340fc86f794d0009b318cea3b323fbd3d9961a981"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "Revision-v0.5.0-Delivery.json",
+      "sha256": "2d5f4ccf030b691f26ea56f1ac8691be2f26ed4032ad073e3267f2bd90e7d566"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 1,
+    "rejected_logs": 1,
+    "logs": [
+      {
+        "file": "compatibility-20260922T091438Z.log",
+        "sha256": "7a276338a685d7074ec1c0a59d93e94ab64f391b41111ed00af0955e485e747e",
+        "passed": true,
+        "required_markers": [
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "RUNTIME_050_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS",
+          "V050_CARD_AUDIT_PASS",
+          "V050_CHARACTER_AUDIT_PASS"
+        ],
+        "failure_count": 0
+      },
+      {
+        "file": "compatibility-20260922T100253Z.log",
+        "sha256": "711c3d97a51a65127ab16c71acff3b3e10ead9de8ce5d710e4668454b8876828",
+        "passed": false,
+        "required_markers": [
+          "CARD_ART_AUDIT_PASS",
+          "CHARACTER_ART_AUDIT_PASS",
+          "CHARACTER_VISUAL_AUDIT_PASS",
+          "MODEL_AUDIT_PASS",
+          "MULTIPLAYER_POOL_AUDIT_PASS",
+          "ORB_ART_AUDIT_PASS",
+          "OVERFISHING_DURATION_AUDIT_PASS",
+          "RELIC_MODEL_AUDIT_PASS",
+          "RUNTIME_041_AUDIT_PASS",
+          "RUNTIME_050_AUDIT_PASS",
+          "SAVE_RELOAD_AUDIT_PASS",
+          "SELECTION050_AUDIT_PASS",
+          "V050_CARD_AUDIT_PASS",
+          "V050_CHARACTER_AUDIT_PASS"
+        ],
+        "failure_count": 1
+      }
+    ],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ]
+}
