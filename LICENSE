@@ -1,0 +1,85 @@
+Librarian Personal Use and Original Content License 1.0
+图书管理员个人使用与原创内容许可 1.0
+SPDX-License-Identifier: LicenseRef-Librarian-Personal-Use-1.0
+
+Copyright (c) 2026 Aery_Bradish and respective contributors.
+All rights reserved except for the express permissions below.
+
+1. 范围与归属 / Scope
+
+本许可适用于本项目有权授权的原创代码、文档、角色与世界观的具体表达、设定、
+故事、卡牌/遗物/药水文案、翻译、原画、图标、贴图、动画、特效及其他原创内容。
+第三方内容遵守其自身许可证，见 THIRD-PARTY-NOTICES.md。本许可不缩减第三方
+已有许可、法定例外或公共领域权利，不主张对不受保护的元素、抽象思想或游戏
+机制本身享有排他权，不授予 Mega Crit 游戏、资源、商标或其他第三方知识产权。
+
+This license covers project-owned code, documentation, setting/story expression,
+text, translations, art and other original content. Third-party licenses remain
+independent. No rights are claimed over public-domain or unprotectable material,
+abstract ideas or game mechanics; statutory exceptions remain unaffected.
+
+2. 有限许可 / Limited permission
+
+允许免费下载官方发行版并供个人非商业游玩、备份及阅读。对作者公开的源码，
+允许个人非商业研究、调试及本地编译；允许按 GitHub 适用条款使用其查看与 Fork
+功能。为个人研究进行的本地调试不代表获准发布改编版本。公开可见或 Fork 不
+授予自由改编、再发布、商用或重新许可权。本项目不宣称采用开源许可。
+
+You may download official releases for free personal, non-commercial gameplay,
+backup and reading. Published source may be studied, debugged and built locally
+for personal, non-commercial use. Ordinary GitHub viewing/forking is permitted
+under its applicable terms. No distribution of adaptations or commercial use
+is granted. This is a restrictive source-available license, not open source.
+
+3. 保留权利 / Reserved rights
+
+除上述有限许可及依法独立享有的权利外，未经相关权利人事先书面许可，不得
+改编、翻译后分发、移植、重制、重混、重新打包、再发布、再许可，或拆取复用
+原创设定、文案、美术等内容用于其他模组、游戏、产品或衍生作品；不得商用或
+二次盈利，包括售卖、收费整合包、付费解锁、广告下载门槛、周边及转售授权。
+免费改编或再发布同样需要许可。保留作者及许可声明，不得冒称原创或官方背书。
+
+Prior written permission is required for adaptation, redistribution, translation
+for distribution, ports, remixes, repackaging, sublicensing, extraction/reuse or
+derivative works beyond section 2. Commercial use and secondary monetization,
+including sales, paid bundles/access, ad-gated downloads, merchandise and resale
+of licenses, are not authorized. Free redistribution also requires permission.
+Preserve notices and do not misrepresent authorship or endorsement.
+
+4. Mega Crit 政策优先 / Mega Crit policy comes first
+
+涉及 Slay the Spire 2 的使用首先须遵守 Mega Crit 的适用 Content Policy、游戏
+条款及平台规则：https://megacrit.com/content-policy/
+官方允许对模组工作的捐赠，但禁止其他模组盈利，包括内容付费墙及众筹达标解锁。
+作者的许可不能豁免官方禁止事项。捐赠不得成为获取模组内容或提前访问的对价。
+本许可不允许第三方以本项目名义收款或将原创内容用于二次盈利；官方对视频与
+周边的单独许可也不是复用本项目原创资产的通用商业授权。
+
+Activity involving the game must comply with Mega Crit's applicable policy and
+platform terms. Its mod policy permits donations but otherwise prohibits mod
+monetization, including paywalls and stretch-goal fundraising. Project permission
+cannot waive those restrictions. No third party is authorized to collect funds
+in this project's name or monetize its original content. Separate video/merchandise
+permissions are not a blanket license to reuse this project's original assets.
+
+5. 第三方例外 / Third-party exceptions
+
+BaseLib、RitsuLib、Alchyr 模板及其他可识别上游部分继续遵守其原有许可，包括
+适用的 MIT 权利。本项目限制不能施加于可独立复用的上游 MIT 部分。按上游要求
+保留版权及许可全文。本项目新增的原创部分则适用本许可。
+
+Identified upstream portions retain their licenses, including MIT. Restrictions
+here do not override independently reusable upstream MIT portions. Preserve their
+copyright and permission notices. Project-authored additions follow this license.
+
+6. 免责声明 / Disclaimer
+
+本项目按现状提供，在法律允许范围内不作保证且不承担使用损失责任。依法不可
+排除的权利不受影响。超出本许可的用途须取得作者明确书面许可。中英文有差异
+时以中文为准，但不改变第三方许可及法定权利。
+
+THE PROJECT IS PROVIDED "AS IS", WITHOUT WARRANTIES OF ANY KIND. TO THE EXTENT
+PERMITTED BY LAW, AUTHORS ARE NOT LIABLE FOR CLAIMS OR DAMAGES ARISING FROM USE.
+Mandatory statutory rights are unaffected. Obtain explicit written permission
+for uses outside this license. Chinese controls in case of discrepancy, without
+changing third-party licenses or mandatory rights.
