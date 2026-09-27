@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "version": "0.4.0",
+  "tag": "v0.4.0",
+  "kind": "historical_binary_archive_no_complete_source_snapshot",
+  "migration_date": "2026-09-27",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "build_id": "24724944",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "origin": "workshop_release",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 916992,
+      "sha256": "5556768f0d9cbd9cacd4dce53cf8ae0ac89d03a0e9cd771e2d000ecc1554baee"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 767,
+      "sha256": "db83bfedaade588407292c00d47114939c085c3f4cf85bd9dc34860142fbd9f1"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 88056732,
+      "sha256": "8238e0b619e7fa0458dc453272e0060602b9da089c8b9ad787ae8fd871e8b1f7"
+    }
+  ],
+  "evidence": [
+    {
+      "record": "snapshot.json",
+      "sha256": "c629aa3d80443a42ddc06d4e0fd38e28f3c6d86db7d7250a128660e3cb7d8413"
+    },
+    {
+      "record": "upload-result.json",
+      "sha256": "128b138d35272fa8aecbcd02482d673d30da5af74858613b7ca0cb9a7079c023"
+    }
+  ],
+  "runtime_log_recheck": {
+    "passed_logs": 0,
+    "rejected_logs": 0,
+    "logs": [],
+    "new_game_run": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "source_note": "Tag contains provenance and notices only. No matching complete historical source tree is claimed. Automatic GitHub source archives are metadata only; install the three attached runtime files.",
+  "limitations": [
+    "Historical test version; do not assume compatibility with other game versions.",
+    "No new native run, real multi-client/reconnect or long-term balance validation during migration."
+  ],
+  "exception": "Exact successful Workshop upload snapshot. DLL/PCK match Delivery. Uploaded JSON formatting differs from pre-upload Delivery and matches snapshot files hashes. Final numeric follow-up had tests explicitly waived; not represented as newly runtime-verified."
+}
