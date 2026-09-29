@@ -131,7 +131,7 @@ public sealed class SealAway() : OrbUtilityCard(1, CardType.Skill, CardRarity.Un
 }
 
 /// <summary>V0.4.1: Fire, draw one, and put an upgraded-state-preserving copy at draw-pile bottom.</summary>
-public sealed class Rekindle() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public sealed class Rekindle() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 3m), new CardsVar(1)];
@@ -166,6 +166,7 @@ public sealed class ArchiveBulwark() : OrbUtilityCard(0, CardType.Skill, CardRar
 /// <summary>Source 54/r55. The active candidate set is resolved after drawing, and consumes RNG only for an actual tie.</summary>
 public sealed class OutOfContext() : OrbUtilityCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {

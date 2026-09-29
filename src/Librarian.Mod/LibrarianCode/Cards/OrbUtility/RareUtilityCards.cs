@@ -190,7 +190,7 @@ public sealed class SongOfIceAndFire() : Librarian.LibrarianCode.Cards.OrbUtilit
 /// <summary>Source 77/r78. The extra Growth task retains the ordinary foreground settlement scope.</summary>
 public sealed class LifeSymphony() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 7m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 8m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;

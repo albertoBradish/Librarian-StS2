@@ -1,5 +1,11 @@
 # 图书管理员 · Librarian
 
+<p align="center">
+  <img src="assets/librarian-avatar.png" alt="图书管理员 Q版头像" width="240" height="240">
+</p>
+
+<p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
+
 本分支维护游戏 **public-beta 0.111.0**。游戏 stable 0.107.1 的正式 V1.0.0 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.0.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.0-stable)，不要混用两个通道的运行文件。
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
@@ -11,7 +17,7 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Current test build / 当前测试版 1.0-beta3](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0-beta3)
+- [Current test build / 当前测试版 1.0.1-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.0.1-beta1)
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -21,7 +27,7 @@ custom translation packs.
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.0-beta3**. This is a beta, not a declaration of a
+Current source baseline: **1.0.1-beta1**. This is a beta, not a declaration of a
 stable 1.0 release. See [release metadata](release-metadata.json).
 
 | Component | Verified baseline |

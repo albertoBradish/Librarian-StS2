@@ -20,7 +20,7 @@ public sealed class PracticeMakesPerfect() : LibrarianCard(1, CardType.Power, Ca
     protected override void OnUpgrade() => DynamicVars["Interval"].UpgradeValueBy(-1m);
 }
 
-public sealed class ToBeContinued() : LibrarianCard(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+public sealed class ToBeContinued() : LibrarianCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ToBeContinuedPower>(1m)];
     protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
