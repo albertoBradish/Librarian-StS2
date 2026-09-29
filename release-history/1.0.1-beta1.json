@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "version": "1.0.1-beta1",
+  "tag": "v1.0.1-beta1",
+  "kind": "current_source_snapshot",
+  "channel": "beta",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "source_commit": "0d52c949d5fe4afceec50bec3e3293e6fc2ba7a7",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1484288,
+      "sha256": "af0f37acaeccb8eaabe934c3aecbbeefed4efdf1ce84f70329f05107f09616e2"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 550,
+      "sha256": "968ed34d2567ac1a306fd62c0bc9e2de2c5d50906a0b06b55f94a62164c51378"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 96040640,
+      "sha256": "669a47337228d5bbc97ae3fb2f75c6496d19dab2f1e96221e6a6bbb91a2f9491"
+    }
+  ],
+  "release_assets": [
+    {
+      "name": "ASSET-LICENSE.md",
+      "bytes": 2061,
+      "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7",
+      "verified": true
+    },
+    {
+      "name": "Librarian.dll",
+      "bytes": 1484288,
+      "sha256": "af0f37acaeccb8eaabe934c3aecbbeefed4efdf1ce84f70329f05107f09616e2",
+      "verified": true
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 550,
+      "sha256": "968ed34d2567ac1a306fd62c0bc9e2de2c5d50906a0b06b55f94a62164c51378",
+      "verified": true
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 96040640,
+      "sha256": "669a47337228d5bbc97ae3fb2f75c6496d19dab2f1e96221e6a6bbb91a2f9491",
+      "verified": true
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 5467,
+      "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9",
+      "verified": true
+    },
+    {
+      "name": "licenses-Alchyr-Template-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f",
+      "verified": true
+    },
+    {
+      "name": "licenses-BaseLib-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f",
+      "verified": true
+    },
+    {
+      "name": "licenses-Godot-MIT.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "verified": true
+    },
+    {
+      "name": "licenses-Harmony-MIT.txt",
+      "bytes": 1073,
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d",
+      "verified": true
+    },
+    {
+      "name": "licenses-RitsuLib-MIT.txt",
+      "bytes": 1060,
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01",
+      "verified": true
+    },
+    {
+      "name": "licenses-sources.json",
+      "bytes": 1360,
+      "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566",
+      "verified": true
+    },
+    {
+      "name": "licenses-template-assets.json",
+      "bytes": 196,
+      "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62",
+      "verified": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1146,
+      "sha256": "7345cf8e2a9b4f3407331b254d834e2f1063990a6626ee42961b2be47b62e275",
+      "verified": true
+    },
+    {
+      "name": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2772,
+      "sha256": "4e3bc1eead5d1a3c85190e930035bc84431fb872d19742091a87a91a08af4f3d",
+      "verified": true
+    }
+  ],
+  "downloaded_sha256_verified": true,
+  "validation": {
+    "native_checks": 211,
+    "language_checks": 2216,
+    "models": 91,
+    "core_tests": "60/60",
+    "full_log_gates": true,
+    "save_reload": true
+  },
+  "limitations": [
+    "真实多客户端、长期平衡及最终用户视觉反馈尚未验收。",
+    "原生首次全角色见面对话优先；角色专属对白在首次角色拜访及后续随机池中可用。",
+    "已知原生退出诊断按现行日志政策记录，未宣称零警告。"
+  ],
+  "license": "LicenseRef-Librarian-Personal-Use-1.0"
+}
