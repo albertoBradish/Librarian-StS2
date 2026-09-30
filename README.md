@@ -1,3 +1,5 @@
+### 感谢大家的支持！！！模组已经发布，快去游玩体验吧~
+
 # 图书管理员 · Librarian
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
