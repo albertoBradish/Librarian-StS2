@@ -6,6 +6,7 @@ using Librarian.Core;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Screens.ScreenContext;
 using MegaCrit.Sts2.Core.Context;
+using System.Globalization;
 
 
 namespace Librarian.Mechanics;
@@ -16,6 +17,7 @@ public partial class LibrarianOrbDisplay : Control
     internal const float ForegroundScale = 1.05f;
     internal const float BackgroundScale = 0.88f;
     internal const float RowSeparation = 104;
+    internal static readonly Color NegativeLockColor = new("ff6565");
     // Align the dark core, not the outer flame/wave/leaf bounding rectangle.
     internal static Vector2 ArtworkOffset(OrbKind kind) => kind switch
     {
@@ -81,6 +83,7 @@ public partial class LibrarianOrbDisplay : Control
             var frontAura = new LibrarianOrbIdleAura { Position = new(36, 36), Kind = kind, Front = true };
             slot.AddChild(frontAura);
             var caption = NewLabel(Vector2.Zero, new(OrbSize, OrbSize), 24);
+            caption.Name = "OrbValue";
             caption.PivotOffset = new(36, 36);
             slot.AddChild(caption);
             var lockAura = new LibrarianOrbLockAura060 { Name = "LockGlow", Position = new(36,36), Visible = false };
@@ -99,7 +102,10 @@ public partial class LibrarianOrbDisplay : Control
                     """ } },
                 StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = MouseFilterEnum.Ignore };
             slot.AddChild(lockIcon);
+            // Both display modes keep the central numeral above the thorn crossing.
+            slot.MoveChild(caption, lockIcon.GetIndex());
             var lockCaption = NewLabel(Vector2.Zero, new(OrbSize, OrbSize), 24);
+            lockCaption.Name = "LockTurns";
             lockCaption.PivotOffset = new(36, 36);
             slot.AddChild(lockCaption);
             var change = NewLabel(new(-28, 68), new(128, 28), 18);
@@ -210,7 +216,11 @@ public partial class LibrarianOrbDisplay : Control
                 v.Sprite.Modulate = orb.IsActivated ? Colors.White : new Color(0.48f, 0.51f, 0.55f, 0.9f);
                 v.Active = orb.IsActivated;
             }
-            string centerText = OrbPresentation.CenterText(orb);
+            var lockMode = LibrarianPreferences050.Current.LockedOrbDisplay;
+            bool showLockedValues = lockMode == LibrarianLockedOrbDisplayMode.ValueAndTurns;
+            string lockText = OrbPresentation.CenterText(orb);
+            if (orb.IsLocked && lockMode == LibrarianLockedOrbDisplayMode.NegativeTurns) lockText = "−" + lockText;
+            string centerText = showLockedValues ? orb.Value.ToString(CultureInfo.InvariantCulture) : lockText;
             if (v.Caption.Text != centerText)
             {
                 v.Caption.Text = centerText;
@@ -223,12 +233,15 @@ public partial class LibrarianOrbDisplay : Control
             }
             bool showValues = !_remote || _hovered == orb.Kind;
             v.Root.Modulate = new Color(1, 1, 1, showValues ? 1 : 0.55f);
-            v.Caption.Visible = !orb.IsLocked && showValues;
+            v.Caption.Visible = (!orb.IsLocked || showLockedValues) && showValues;
             v.LockIcon.Visible = orb.IsLocked;
             v.LockAura.Visible = orb.IsLocked;
             v.LockCaption.Visible = orb.IsLocked && showValues;
-            v.LockCaption.Text = OrbPresentation.CenterText(orb);
-            v.LockCaption.AddThemeFontSizeOverride("font_size", v.Caption.GetThemeFontSize("font_size"));
+            v.LockCaption.Text = lockText;
+            v.LockCaption.Position = showLockedValues ? new(0, OrbSize) : Vector2.Zero;
+            v.LockCaption.Size = showLockedValues ? new(OrbSize, 24) : new(OrbSize, OrbSize);
+            v.LockCaption.PivotOffset = v.LockCaption.Size / 2;
+            v.LockCaption.AddThemeFontSizeOverride("font_size", showLockedValues ? 16 : v.Caption.GetThemeFontSize("font_size"));
             if (v.PreviousValue is { } before && before != orb.Value)
             {
                 long difference = (long)orb.Value - before;
@@ -296,18 +309,21 @@ public partial class LibrarianOrbDisplay : Control
         v.ValueAge = Math.Min(duration, v.ValueAge + delta);
         v.LockAge = Math.Min(duration, v.LockAge + delta);
         AnimateNumber(v.Caption, v.ValueAge / duration, v.ValueColor, reduced);
-        AnimateNumber(v.LockCaption, v.LockAge / duration, v.LockColor, reduced);
-        v.Change.Position = new(-28, 68 - (reduced ? 0 : t * 9));
+        bool negativeLock = v.LockIcon.Visible && LibrarianPreferences050.Current.LockedOrbDisplay == LibrarianLockedOrbDisplayMode.NegativeTurns;
+        AnimateNumber(v.LockCaption, v.LockAge / duration, negativeLock ? NegativeLockColor : v.LockColor,
+            reduced, negativeLock ? NegativeLockColor : null);
+        float feedbackY = v.LockIcon.Visible && LibrarianPreferences050.Current.LockedOrbDisplay == LibrarianLockedOrbDisplayMode.ValueAndTurns ? 96 : 68;
+        v.Change.Position = new(-28, feedbackY - (reduced ? 0 : t * 9));
         v.Change.Modulate = new Color(1, 1, 1, 1 - t * t);
         v.Change.Visible = v.Change.Text.Length > 0 && t < 1 && (!_remote || _hovered is { } hovered && _visuals[hovered] == v);
     }
 
     // Orb values and lock countdowns share exactly the same curve and restoration.
-    private static void AnimateNumber(Label label, float t, Color color, bool reduced)
+    private static void AnimateNumber(Label label, float t, Color color, bool reduced, Color? restingColor = null)
     {
         float pulse = reduced ? 0 : Mathf.Sin(Math.Min(1, t * 2) * Mathf.Pi) * .2f;
         label.Scale = Vector2.One * (1 + pulse);
-        label.AddThemeColorOverride("font_color", color.Lerp(new Color("eedfc5"), t));
+        label.AddThemeColorOverride("font_color", color.Lerp(restingColor ?? new Color("eedfc5"), t));
     }
 
     public void ShowTideChange(long amount, bool expired)

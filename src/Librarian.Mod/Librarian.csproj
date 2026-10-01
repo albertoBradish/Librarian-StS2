@@ -11,6 +11,7 @@
         <PathMap>$(AppOutputBase)=.\</PathMap>
         <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
         <RitsuLibReferenceTarget>0.107.1</RitsuLibReferenceTarget>
+        <DefineConstants>$(DefineConstants);LIBRARIAN_STABLE</DefineConstants>
     </PropertyGroup>
 
     <Import Project="../../.research/tools/ritsulib/v0.6.2/RitsuLib.References.props" />

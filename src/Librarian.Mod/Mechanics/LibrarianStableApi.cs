@@ -46,6 +46,29 @@ internal static class LibrarianStableApi
                 }
         }
     }
+
+    // Enum choices create a different closed generic control, so the language
+    // dropdown patch does not cover the new lock display selector.
+    [HarmonyPatch(typeof(ModSettingsDropdownChoiceControl<LibrarianLockedOrbDisplayMode>), "OnVirtualPoolRowActivated")]
+    private static class OwnLockedOrbDisplayDropdown
+    {
+        private static readonly System.Reflection.FieldInfo Indices = AccessTools.Field(typeof(ModSettingsDropdownChoiceControl<LibrarianLockedOrbDisplayMode>), "_slotOptionIndex");
+        private static readonly System.Reflection.MethodInfo Sync = AccessTools.Method(typeof(ModSettingsDropdownChoiceControl<LibrarianLockedOrbDisplayMode>), "SyncVirtualDropdownRows");
+        private static readonly System.Reflection.FieldInfo Mod = AccessTools.Field(typeof(RitsuModSettingsSubmenu), "_selectedModId");
+        private static readonly System.Reflection.FieldInfo Page = AccessTools.Field(typeof(RitsuModSettingsSubmenu), "_selectedPageId");
+        private static void Prefix(ModSettingsDropdownChoiceControl<LibrarianLockedOrbDisplayMode> __instance, int slotIndex)
+        {
+            var indices = (int[])Indices.GetValue(__instance)!;
+            if (slotIndex < 0 || slotIndex >= indices.Length || indices[slotIndex] >= 0) return;
+            for (Node? node = __instance.GetParent(); node is not null; node = node.GetParent())
+                if (node is RitsuModSettingsSubmenu menu)
+                {
+                    if ((string?)Mod.GetValue(menu) == "Librarian" && (string?)Page.GetValue(menu) == LibrarianSettings041.PageId)
+                        Sync.Invoke(__instance, null);
+                    return;
+                }
+        }
+    }
     // Stable derives the attacker and source from the card itself.
     internal static AttackCommand FromCard(this AttackCommand command, CardModel card, CardPlay play)
         => command.FromCard(card);

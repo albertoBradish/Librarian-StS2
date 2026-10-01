@@ -115,6 +115,7 @@ public sealed class NourishingLife() : LibrarianCard(1, CardType.Attack, CardRar
 // Catalog 67: runtime records the last successfully completed play from a pre-play clone.
 public sealed class Transcribe() : LibrarianCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override bool IsPlayable => IsMutable && Owner is { } player
         && LibrarianCrossCharacter040.LastPlayed(player) is not null;
     protected override void AddExtraArgsToDescription(LocString description)
@@ -122,19 +123,30 @@ public sealed class Transcribe() : LibrarianCard(1, CardType.Skill, CardRarity.R
         base.AddExtraArgsToDescription(description);
         description.Add("MissingCombatHistory", IsMutable && CombatState is not null && !IsPlayable);
     }
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
+    protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var snapshot = LibrarianCrossCharacter040.LastPlayed(Owner);
         if (snapshot is null) return;
-        var handCopy = snapshot.CreateClone();
+        var handCopy = CopyUnenchantedBody(snapshot);
         handCopy.AddKeyword(CardKeyword.Ethereal);
         handCopy.AddKeyword(CardKeyword.Exhaust);
-        var bottomCopy = snapshot.CreateClone();
+        var bottomCopy = CopyUnenchantedBody(snapshot);
         bottomCopy.AddKeyword(CardKeyword.Ethereal);
         bottomCopy.AddKeyword(CardKeyword.Exhaust);
         await CardPileCmd.AddGeneratedCardToCombat(handCopy, PileType.Hand, Owner);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(bottomCopy, PileType.Draw, Owner, CardPilePosition.Bottom), 2.2f);
+    }
+
+    private CardModel CopyUnenchantedBody(CardModel snapshot)
+    {
+        // Reconstruct saved card properties and upgrades without ever applying the
+        // enchantment. Clearing a cloned enchantment leaves its stat mutations behind.
+        var saved = snapshot.ToSerializable();
+        saved.Enchantment = null;
+        var copy = CardModel.FromSerializable(saved);
+        CombatState!.AddCard(copy, Owner);
+        return copy;
     }
 }
 

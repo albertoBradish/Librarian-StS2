@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Text.Json;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Modding;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Saves;
 using STS2RitsuLib;
 using STS2RitsuLib.Settings;
@@ -16,6 +17,7 @@ public static class LibrarianSettings041
     public const string PageId = "librarian-settings";
     private static bool _registered;
     private static bool _exporting;
+    private static string _debugStatusKey = "";
     internal static string ExportStatus { get; private set; } = "";
     private static ModSettingsText Text(string key, string fallback) =>
         ModSettingsText.Dynamic(() => LibrarianLanguage.TryRaw("main_menu_ui", "LIBRARIAN_SETTINGS." + key, out var value) ? value : fallback);
@@ -32,7 +34,7 @@ public static class LibrarianSettings041
             .WithDescription(Text("presentation_hint", "本机显示与声音选项立即生效并自动保存，不影响卡牌规则或队友设置。"))
             .AddSection("language", section => section.WithTitle(Text("language_section", "语言"))
                 .AddDynamicChoice("language", Text("language", "模组语言"),
-                    ModSettingsBindings.Callback("Librarian", "language", () => LibrarianLanguage.Selected, LibrarianLanguage.Select, () => { }),
+                    ModSettingsBindings.WithDefault(ModSettingsBindings.Callback("Librarian", "language", () => LibrarianLanguage.Selected, LibrarianLanguage.Select, () => { }), () => DefaultLanguage),
                     LibrarianLanguage.Options, Text("language_hint", "首次识别游戏语言，此后保存选择。"), ModSettingsChoicePresentation.Dropdown)
                 .AddButton("reload_language", Text("language_reload", "重新加载语言包"), Text("reload", "重新加载"),
                     host => { LibrarianLanguage.Reload(); host.RequestRefresh(); }, description: Text("language_reload_hint", "读取修改后的翻译文件。"))
@@ -40,23 +42,36 @@ public static class LibrarianSettings041
                     host => { LibrarianLanguage.ExportTemplates(); host.RequestRefresh(); }, description: Text("language_templates_hint", "导出内置语言包模板。"))
                 .AddParagraph("language_path", ModSettingsText.Dynamic(() => Text("language_path", "自定义翻译目录：{Path}").Resolve().Replace("{Path}", LibrarianLanguage.PackDirectory)))
                 .AddParagraph("language_status", ModSettingsText.Dynamic(() => LibrarianLanguage.Status)))
+            .AddSection("defaults", section => section.WithTitle(Text("defaults", "默认设置"))
+                .AddButton("reset_settings", Text("reset_settings", "恢复默认设置"), Text("reset", "恢复"),
+                    host => { RestoreDefaults(); host.RequestRefresh(); },
+                    description: Text("reset_hint", "恢复模组语言、显示与声音设置；语言重新匹配游戏语言。卡牌解锁、游玩进度及开始/通关提示记录保持不变。")))
             .AddSection("effects", section => section.WithTitle(Text("effects", "卡牌与法球特效"))
-                .AddToggle("card_effects", Text("card_effects", "卡牌特效"), LibrarianPreferences050.Bind("card_effects", p => p.CardEffects, (p,v) => p.CardEffects=v, true))
-                .AddToggle("orb_effects", Text("orb_effects", "法球结算与变化特效"), LibrarianPreferences050.Bind("orb_effects", p => p.OrbEffects, (p,v) => p.OrbEffects=v, true), Text("orb_effects_hint", "保留法球数值、锁定标记与悬停说明。"))
-                .AddToggle("particles", Text("particles", "附加粒子"), LibrarianPreferences050.Bind("particles", p => p.Particles, (p,v) => p.Particles=v, true))
-                .AddToggle("reduced_motion", Text("reduced_motion", "减少动态效果"), LibrarianPreferences050.Bind("reduced_motion", p => p.ReducedMotion, (p,v) => p.ReducedMotion=v, false), Text("reduced_motion_hint", "简化新增特效，停止法阵旋转、法球浮动与施法手势。原版动画遵循游戏设置。"))
-                .AddToggle("teammates", Text("teammates", "队友附加特效"), LibrarianPreferences050.Bind("teammates", p => p.TeammateEffects, (p,v) => p.TeammateEffects=v, true))
-                .AddIntSlider("opacity", Text("opacity", "特效不透明度"), LibrarianPreferences050.Bind("opacity", p => p.EffectOpacity, (p,v) => p.EffectOpacity=v, 80), 10, 100, 10, valueFormatter: v => v+"%")
-                .AddIntSlider("limit", Text("limit", "同时显示的新增特效上限"), LibrarianPreferences050.Bind("limit", p => p.EffectLimit, (p,v) => p.EffectLimit=v, 24), 4, 40, 4, description: Text("limit_hint", "低配置可调低；超出上限省略尾迹，数值与结算不变。")))
+                .AddToggle("card_effects", Text("card_effects", "卡牌特效"), LibrarianPreferences050.Bind("card_effects", p => p.CardEffects, (p,v) => p.CardEffects=v))
+                .AddToggle("orb_effects", Text("orb_effects", "法球结算与变化特效"), LibrarianPreferences050.Bind("orb_effects", p => p.OrbEffects, (p,v) => p.OrbEffects=v), Text("orb_effects_hint", "保留法球数值、锁定标记与悬停说明。"))
+                .AddToggle("particles", Text("particles", "附加粒子"), LibrarianPreferences050.Bind("particles", p => p.Particles, (p,v) => p.Particles=v))
+                .AddToggle("reduced_motion", Text("reduced_motion", "减少动态效果"), LibrarianPreferences050.Bind("reduced_motion", p => p.ReducedMotion, (p,v) => p.ReducedMotion=v), Text("reduced_motion_hint", "简化新增特效，停止法阵旋转、法球浮动与施法手势。原版动画遵循游戏设置。"))
+                .AddToggle("teammates", Text("teammates", "队友附加特效"), LibrarianPreferences050.Bind("teammates", p => p.TeammateEffects, (p,v) => p.TeammateEffects=v))
+                .AddIntSlider("opacity", Text("opacity", "特效不透明度"), LibrarianPreferences050.Bind("opacity", p => p.EffectOpacity, (p,v) => p.EffectOpacity=v), 10, 100, 10, valueFormatter: v => v+"%")
+                .AddIntSlider("limit", Text("limit", "同时显示的新增特效上限"), LibrarianPreferences050.Bind("limit", p => p.EffectLimit, (p,v) => p.EffectLimit=v), 4, 40, 4, description: Text("limit_hint", "低配置可调低；超出上限省略尾迹，数值与结算不变。")))
             .AddSection("display", section => section.WithTitle(Text("display", "战场显示"))
-                .AddToggle("circle", Text("circle", "装饰法阵"), LibrarianPreferences050.Bind("circle", p => p.MagicCircle, (p,v) => p.MagicCircle=v, true), Text("circle_hint", "关闭时仍保留三法球与前台指示。"))
-                .AddToggle("idle", Text("idle", "法球待机浮动"), LibrarianPreferences050.Bind("idle", p => p.OrbIdle, (p,v) => p.OrbIdle=v, true))
-                .AddToggle("tide_block_feedback", Text("tide_block_feedback", "潮涌格挡变化提示"), LibrarianPreferences050.Bind("tide_block_feedback", p => p.TideBlockFeedback, (p,v) => p.TideBlockFeedback=v, false), Text("tide_block_feedback_hint", "显示“潮涌格挡 +X”及到期减少提示，默认关闭。"))
-                .AddToggle("wave", Text("wave", "血条上方浪潮条"), LibrarianPreferences050.Bind("wave", p => p.WaveBar, (p,v) => p.WaveBar=v, true), Text("wave_hint", "关闭时仍可在浪潮状态说明中查看数值。")))
+                .AddToggle("circle", Text("circle", "装饰法阵"), LibrarianPreferences050.Bind("circle", p => p.MagicCircle, (p,v) => p.MagicCircle=v), Text("circle_hint", "关闭时仍保留三法球与前台指示。"))
+                .AddToggle("idle", Text("idle", "法球待机浮动"), LibrarianPreferences050.Bind("idle", p => p.OrbIdle, (p,v) => p.OrbIdle=v))
+                .AddEnumChoice("locked_orb_display", Text("locked_orb_display", "锁定法球显示"),
+                    LibrarianPreferences050.Bind("locked_orb_display", p => p.LockedOrbDisplay, (p,v) => p.LockedOrbDisplay=v),
+                    mode => mode switch
+                    {
+                        LibrarianLockedOrbDisplayMode.LegacyTurns => Text("locked_orb_mode_legacy", "锁定回合（旧）"),
+                        LibrarianLockedOrbDisplayMode.ValueAndTurns => Text("locked_orb_mode_value", "原值 + 下方回合"),
+                        _ => Text("locked_orb_mode_negative", "红色负数回合（默认）")
+                    },
+                    Text("locked_orb_display_hint", "锁定法球默认以红色负数显示剩余回合：−1 表示锁定 1 回合。也可使用旧回合显示，或保留球心原值并在下方显示回合。显示方式不影响锁定规则。"),
+                    ModSettingsChoicePresentation.Dropdown)
+                .AddToggle("tide_block_feedback", Text("tide_block_feedback", "潮涌格挡变化提示"), LibrarianPreferences050.Bind("tide_block_feedback", p => p.TideBlockFeedback, (p,v) => p.TideBlockFeedback=v), Text("tide_block_feedback_hint", "显示“潮涌格挡 +X”及到期减少提示，默认关闭。"))
+                .AddToggle("wave", Text("wave", "血条上方浪潮条"), LibrarianPreferences050.Bind("wave", p => p.WaveBar, (p,v) => p.WaveBar=v), Text("wave_hint", "关闭时仍可在浪潮状态说明中查看数值。")))
             .AddSection("audio", section => section.WithTitle(Text("audio", "模组音效"))
-                .AddToggle("orb_sounds", Text("orb_sounds", "法球音效"), LibrarianPreferences050.Bind("orb_sounds", p => p.OrbSounds, (p,v) => p.OrbSounds=v, true))
-                .AddIntSlider("volume", Text("volume", "法球音效音量"), LibrarianPreferences050.Bind("volume", p => p.SoundVolume, (p,v) => p.SoundVolume=v, 100), 0, 100, 10, valueFormatter: v => v+"%", description: Text("volume_hint", "同时受游戏主音量与音效音量控制。"))
-                .AddButton("reset_presentation", Text("reset_presentation", "恢复显示与声音默认值"), Text("reset", "恢复"), host => { LibrarianPreferences050.Reset(); host.RequestRefresh(); }, description: Text("reset_hint", "仅恢复本页显示与声音选项，不改变解锁进度。"))
+                .AddToggle("orb_sounds", Text("orb_sounds", "法球音效"), LibrarianPreferences050.Bind("orb_sounds", p => p.OrbSounds, (p,v) => p.OrbSounds=v))
+                .AddIntSlider("volume", Text("volume", "法球音效音量"), LibrarianPreferences050.Bind("volume", p => p.SoundVolume, (p,v) => p.SoundVolume=v), 0, 100, 10, valueFormatter: v => v+"%", description: Text("volume_hint", "同时受游戏主音量与音效音量控制。"))
                 .AddParagraph("save_status", ModSettingsText.DynamicFullRefreshOnly(() => LibrarianPreferences050.Status)))
             .AddSection("progression", section => section
                 .WithTitle(Text("progression", "解锁调试"))
@@ -69,11 +84,28 @@ public static class LibrarianSettings041
                     description: Text("all_hint", "解锁当前档案的图书管理员全部章节；不会影响其他角色。此操作不提供降级。")))
             .AddSection("diagnostics", section => section
                 .WithTitle(Text("diagnostics", "运行诊断"))
+                .AddButton("replay_welcome", Text("replay_welcome", "重新显示开始弹窗"), Text("show", "显示"),
+                    host => { _debugStatusKey = LibrarianUpdateNotice051.RequestRedisplay() ? "notice_queued" : "notice_menu_required"; host.RequestRefresh(); },
+                    description: Text("replay_welcome_hint", "清除当前版本的“不再显示”选择，返回主菜单后重新显示。"))
+                .AddButton("preview_review", Text("preview_review", "预览通关好评提示"), Text("preview", "预览"),
+                    host => { _debugStatusKey = LibrarianArchitectReview102.RequestPreview() ? "review_queued" : "notice_menu_required"; host.RequestRefresh(); },
+                    description: Text("preview_review_hint", "返回主菜单后预览，不记录通关或消耗首次提示。"))
+                .AddButton("reload_presentation", Text("reload_presentation", "重新读取显示与声音设置"), Text("reload", "重新加载"),
+                    host => { LibrarianPreferences050.Load(); _debugStatusKey = "presentation_reloaded"; host.RequestRefresh(); },
+                    description: Text("reload_presentation_hint", "重新读取本机已保存的选项，不改变解锁进度。"))
+                .AddParagraph("debug_status", ModSettingsText.DynamicFullRefreshOnly(() => _debugStatusKey.Length == 0 ? "" : Text(_debugStatusKey, "").Resolve()))
                 .AddParagraph("export_scope", Text("export_scope", "仅导出游戏运行日志及版本信息，不包含存档或截图，不会自动上传。"))
                 .AddButton("export", Text("export", "导出运行日志"), Text("export_button", "导出"),
                     host => TaskHelper.RunSafely(ExportAsync(host)))
                 .AddParagraph("export_status", ModSettingsText.DynamicFullRefreshOnly(() => ExportStatus))), PageId);
         _registered = true;
+    }
+
+    internal static string DefaultLanguage => LibrarianLanguage.Detect(LocManager.Instance.Language);
+    internal static void RestoreDefaults()
+    {
+        LibrarianPreferences050.Reset();
+        LibrarianLanguage.Select(DefaultLanguage);
     }
 
     internal static string ProgressText()

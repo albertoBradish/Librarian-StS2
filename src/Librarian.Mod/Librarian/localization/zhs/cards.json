@@ -90,7 +90,7 @@
   "LIBRARIAN-NOURISHING_LIFE.title": "给养生息",
   "LIBRARIAN-NOURISHING_LIFE.description": "使一个随机法球额外[gold]结算[/gold]并失去所有数值，并将它的数值添加给这张牌。\n造成{Damage:diff()}点伤害。",
   "LIBRARIAN-TRANSCRIBE.title": "临摹抄本",
-  "LIBRARIAN-TRANSCRIBE.description": "将你上一张打出的牌的2张副本分别加入手牌和牌堆底。\r\n它们具有[gold]虚无[/gold]和[gold]消耗[/gold]。",
+  "LIBRARIAN-TRANSCRIBE.description": "将你上一张打出的牌的2张复制品分别加入手牌和牌堆底。\r\n它们具有[gold]虚无[/gold]和[gold]消耗[/gold]。",
   "LIBRARIAN-FIRE_INSCRIPTION.title": "余势",
   "LIBRARIAN-FIRE_INSCRIPTION.description": "造成{CalculatedDamage:diff()}点伤害。\n本场战斗内每完成一次法球[gold]结算[/gold]，伤害增加{ExtraDamage:diff()}。",
   "LIBRARIAN-IMMORTAL_SPARK.title": "不灭火种",

@@ -14,7 +14,7 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 public sealed class Rootbind() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(9m, ValueProp.Move), new DynamicVar("StrengthLoss", 6m)];
+        [new DamageVar(8m, ValueProp.Move), new DynamicVar("StrengthLoss", 6m)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

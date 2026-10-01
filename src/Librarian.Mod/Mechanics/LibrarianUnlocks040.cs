@@ -26,6 +26,12 @@ public static class LibrarianUnlocks040
     public const string ChoiceMarker = "Librarian.ProgressionChoice.v040";
     public const string AllMarker = "Librarian.ProgressionAll.v040";
     public static string Placeholder => "res://Librarian/images/timeline/v1.0-beta2/notice-" + (LibrarianLanguage.Selected == "zhs" ? "zhs" : "eng") + ".png";
+    public static string PortraitPath(string epochId)
+    {
+        for (int chapter = 1; chapter <= 7; chapter++)
+            if (epochId == Id(chapter)) return $"res://Librarian/images/timeline/v1.0.2-beta2/epoch-{chapter:00}.png";
+        throw new ArgumentException("Unknown Librarian epoch", nameof(epochId));
+    }
     private static bool _initialized;
     private static bool _prompting;
     public static readonly Type[] Types = [typeof(Librarian1Epoch), typeof(Librarian2Epoch), typeof(Librarian3Epoch),
@@ -313,7 +319,7 @@ internal static class LibrarianEpochPortrait040
     [HarmonyPrefix] private static bool Prefix(EpochModel __instance, ref Texture2D __result)
     {
         if (__instance is not LibrarianEpoch040) return true;
-        __result = ResourceLoader.Load<Texture2D>(LibrarianUnlocks040.Placeholder);
+        __result = ResourceLoader.Load<Texture2D>(LibrarianUnlocks040.PortraitPath(__instance.Id));
         return false;
     }
 }
@@ -324,7 +330,18 @@ internal static class LibrarianEpochRealPortrait040
     [HarmonyPrefix] private static bool Prefix(EpochModel __instance, ref string __result)
     {
         if (__instance is not LibrarianEpoch040) return true;
-        __result = LibrarianUnlocks040.Placeholder;
+        __result = LibrarianUnlocks040.PortraitPath(__instance.Id);
+        return false;
+    }
+}
+
+[HarmonyPatch(typeof(EpochModel), "get_RealPortraitPath")]
+internal static class LibrarianEpochSourcePortrait102Beta2
+{
+    [HarmonyPrefix] private static bool Prefix(EpochModel __instance, ref string __result)
+    {
+        if (__instance is not LibrarianEpoch040) return true;
+        __result = LibrarianUnlocks040.PortraitPath(__instance.Id);
         return false;
     }
 }
