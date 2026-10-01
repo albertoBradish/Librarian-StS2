@@ -25,7 +25,8 @@ public sealed class LibrarianSession(Player player)
     public Player Player { get; } = player;
     public bool HasCharacterOrbs => Player.Character is LibrarianCharacter;
     public OrbCombatState Orbs { get; } = new(player.NetId.ToString());
-    public WaveState Waves { get; } = new();
+    public WaveState Waves { get; } = new(() =>
+        player.Creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>() is null);
     public EndTurnRules EndTurnRules { get; set; } = new();
     public bool ResolvingEndTurn { get; internal set; }
     public long FireLostThisCombat { get; internal set; }
@@ -237,8 +238,7 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
                 session.Waves.TryRecordEndTurnTideContribution(session.Orbs.OwnerTurn, tideAmount);
                 // Tide pays its Block before it creates the next Waves amount.
                 await GainTidalBlock(session, tideAmount);
-                if (player.Creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>() is null)
-                    session.Waves.Add(tideAmount);
+                session.Waves.Add(tideAmount);
                 break;
             case OrbKind.Growth:
                 if (session.Orbs.LowestOther(OrbKind.Growth) is { } kind)

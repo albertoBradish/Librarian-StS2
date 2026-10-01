@@ -204,6 +204,6 @@
   "LIBRARIAN-RE_READ.title": "复读",
   "LIBRARIAN-RE_READ.description": "选择一个法球，将其数值恢复至本场战斗中该法球曾达到的最高值。",
   "LIBRARIAN-ENDLESS_TIDE.title": "长潮不息",
-  "LIBRARIAN-ENDLESS_TIDE.description": "你的回合开始时，[gold]注魔[/gold]波涛法球。\n你无法再从波涛法球中获得[gold]浪潮[/gold]。",
+  "LIBRARIAN-ENDLESS_TIDE.description": "你的回合开始时，[gold]潮涌[/gold]1。\n你无法再获得[gold]浪潮[/gold]。",
   "LIBRARIAN-ORB_CHOICE_REREAD.description": "当前数值：[blue]{Current}[/blue]\n本场最高：[blue]{Highest}[/blue]\n选择后强化[blue]{Restore}[/blue]。"
 }

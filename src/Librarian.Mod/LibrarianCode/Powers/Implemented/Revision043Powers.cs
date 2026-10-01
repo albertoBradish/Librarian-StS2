@@ -107,6 +107,6 @@ public sealed class EndlessTidePower : ImplementedLibrarianPower
         if (player != Owner.Player || Owner.IsDead) return;
         Flash();
         var session = LibrarianRuntime.Get(player);
-        await LibrarianRuntime.Dispatch(session, context, session.Orbs.Activate(OrbKind.Tide, origin: Origin));
+        await Gain(context, session, OrbKind.Tide, 1);
     }
 }

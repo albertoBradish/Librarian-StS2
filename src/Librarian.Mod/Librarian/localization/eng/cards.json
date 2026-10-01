@@ -204,6 +204,6 @@
   "LIBRARIAN-RE_READ.title": "Reread",
   "LIBRARIAN-RE_READ.description": "Choose an Orb. Restore its value to the highest value it has had this combat.",
   "LIBRARIAN-ENDLESS_TIDE.title": "Endless Tide",
-  "LIBRARIAN-ENDLESS_TIDE.description": "At the start of your turn, [gold]Activate[/gold] the Tide Orb.\nYou can no longer gain [gold]Waves[/gold] from the Tide Orb.",
+  "LIBRARIAN-ENDLESS_TIDE.description": "At the start of your turn, gain 1 [gold]Tide[/gold].\nYou can no longer gain [gold]Waves[/gold].",
   "LIBRARIAN-ORB_CHOICE_REREAD.description": "Current value: [blue]{Current}[/blue]\nHighest this combat: [blue]{Highest}[/blue]\n[gold]Strengthen[/gold] by [blue]{Restore}[/blue]."
 }

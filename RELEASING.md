@@ -59,6 +59,8 @@ release does not prove that Steam subscribers received the same build.
 
 ## Historical archives / 历史二进制归档
 
+Small beta revisions retain the base version and increment `betaX` by default: `1.1.0-beta1` → `1.1.0-beta2`. A larger version change or an explicit author instruction may select a new base version. Git source synchronization and a new GitHub Release are separate actions.
+
 The author authorized migration of verifiable local historical versions on
 2026-09-27. For older binaries without a complete matching source snapshot, an
 annotated version tag points to an independent **metadata-only** commit containing

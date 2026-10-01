@@ -723,6 +723,25 @@ AsyncTest("L06", "Combat settlement count survives turns, ignores locked attempt
     Check.Equal(0, new OrbCombatState("owner").SettlementsThisCombat);
 });
 
+Test("W07", "Gain policy blocks every addition without erasing existing Waves or changing decay", () =>
+{
+    bool allowed = true;
+    var waves = new WaveState(() => allowed);
+    waves.Add(10);
+    allowed = false;
+    waves.Add(int.MaxValue);
+    Check.Equal(10, waves.Amount);
+    Check.Throws<ArgumentOutOfRangeException>(() => waves.Add(-1));
+    Check.Equal(10, waves.TakeEndTurnAmount(1));
+    Check.Equal(5, waves.Amount);
+    allowed = true;
+    waves.Add(3);
+    Check.Equal(8, waves.Amount);
+    var other = new WaveState();
+    other.Add(14);
+    Check.Equal(14, other.Amount);
+});
+
 int failed = 0;
 foreach (var test in tests)
 {

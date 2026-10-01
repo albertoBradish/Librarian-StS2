@@ -1,7 +1,7 @@
 namespace Librarian.Core;
 
 /// <summary>Renewable end-turn Block source, independent of Block consumed by damage.</summary>
-public sealed class WaveState
+public sealed class WaveState(Func<bool>? canGain = null)
 {
     public int Amount { get; private set; }
     public bool Retained { get; set; }
@@ -103,6 +103,7 @@ public sealed class WaveState
     public void Add(int amount)
     {
         if (amount < 0) throw new System.ArgumentOutOfRangeException(nameof(amount));
+        if (canGain is not null && !canGain()) return;
         Amount = checked(Amount + amount);
     }
     public void StartTurn(long turn)
