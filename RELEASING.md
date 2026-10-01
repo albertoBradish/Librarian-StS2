@@ -4,6 +4,12 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
+Current beta release target: **Librarian 1.1.0-beta1**, game **public-beta 0.111.0**,
+tag **`v1.1.0-beta1`**, source branch **`codex/beta`**. Both **BaseLib 3.4.5** and
+the complete **RitsuLib 0.6.2** bundle matching game API 0.111.0 are required.
+The stable counterpart uses manifest version **1.1.0**, tag **`v1.1.0-stable`**
+and game **0.107.1** on `main`; keep its candidate and validation separate.
+
 1. Finish the release's source changes and compatibility/native validation. Record
    exact game/build, BaseLib/RitsuLib versions, known limitations and source commit.
 2. Prepare a reviewed candidate containing exactly `Librarian.dll`, `Librarian.json`
@@ -59,7 +65,7 @@ annotated version tag points to an independent **metadata-only** commit containi
 provenance, checksums and license notices. This is an explicit archival exception
 to the source-commit rule above; it must never be presented as the old source tree.
 Automatic Source code archives for those tags contain metadata, not game source.
-The current 1.0-beta3 tag retains the current source snapshot.
+The historical 1.0-beta3 tag retains its matching source snapshot.
 
 Archive assets must match either the historical Delivery hashes or the verified
 original package/upload snapshot. ZIPs containing dependencies are not reuploaded;

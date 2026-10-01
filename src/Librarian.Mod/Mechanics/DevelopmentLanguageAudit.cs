@@ -90,7 +90,8 @@ internal static partial class DevelopmentRuntimeAudit
             Check(popup is not null, "version popup opens " + language);
             await Wait();
             string body = popup!.GetNode<NVerticalPopup>("VerticalPopup").GetNode<RichTextLabel>("Description").GetParsedText();
-            Check(language == "zhs" ? body.Contains("aery_bradish@163.com") && body.Contains("1850562239") : body.Contains("lrq1850562239@gmail.com") && !body.Contains("QQ") && !body.Contains("163.com"), "language specific contact " + language);
+            Check(language == "zhs" ? body.Contains("aery_bradish@163.com") && body.Contains("1850562239") : body.Contains("lrq1850562239@gmail.com") && body.Contains("QQ community group: 1091648383") && !body.Contains("163.com"), "language specific contact " + language);
+            Check(popup!.GetNode<RichTextLabel>("VerticalPopup/Description").GetParsedText().Contains("1091648383"), "QQ community group rendered " + language);
             await Capture("notice-" + language); NModalContainer.Instance!.Clear(); await Wait();
             var models = ModelDb.CardPool<LibrarianCardPool>().AllCards.ToArray();
             Check(models.Length == 91, "active card count " + language);
