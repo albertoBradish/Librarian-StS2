@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "recommended_version": "1.0.0",
+  "recommended_version": "1.1.0",
   "migration_date": "2026-09-27",
   "versions": [
     {
@@ -267,6 +267,30 @@
       "tag_commit": "0d52c949d5fe4afceec50bec3e3293e6fc2ba7a7",
       "published_at": "2026-09-29T09:33:17Z",
       "downloaded_sha256_verified": true
+    },
+    {
+      "version": "1.1.0-beta1",
+      "tag": "v1.1.0-beta1",
+      "channel": "beta",
+      "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1",
+      "provenance": "release-history/1.1.0-beta1.json",
+      "source_kind": "complete_matching_authored_source",
+      "status": "published",
+      "tag_commit": "23fb81facea8ffa0ec9a1e6bf1d92c55e6deab4f",
+      "published_at": "2026-10-01T01:59:35Z",
+      "downloaded_sha256_verified": true
+    },
+    {
+      "version": "1.1.0",
+      "tag": "v1.1.0-stable",
+      "channel": "stable",
+      "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable",
+      "provenance": "release-history/1.1.0-stable.json",
+      "source_kind": "complete_matching_authored_source",
+      "status": "published",
+      "tag_commit": "c1e8f08ab4830150981f3a9c203c361e0c595e22",
+      "published_at": "2026-10-01T02:18:36Z",
+      "downloaded_sha256_verified": true
     }
   ],
   "unavailable": [
@@ -302,9 +326,9 @@
     }
   ],
   "verification": "release-history/verification.json",
-  "published_release_count": 24,
-  "recommended_tag": "v1.0.0-stable",
+  "published_release_count": 26,
+  "recommended_tag": "v1.1.0-stable",
   "recommended_channel": "stable",
-  "recommended_beta_version": "1.0.1-beta1",
-  "recommended_beta_tag": "v1.0.1-beta1"
+  "recommended_beta_version": "1.1.0-beta1",
+  "recommended_beta_tag": "v1.1.0-beta1"
 }
