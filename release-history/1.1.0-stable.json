@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "version": "1.1.0",
+  "tag": "v1.1.0-stable",
+  "kind": "complete_matching_authored_source",
+  "channel": "stable",
+  "game": {
+    "version": "0.107.1",
+    "branch": "public",
+    "commit": "59260271"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.2"
+  },
+  "source_commit": "c1e8f08ab4830150981f3a9c203c361e0c595e22",
+  "source_files": 1214,
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1655808,
+      "sha256": "48062e55db175a3f8f27c5e67946fc25e1354d6951ef713bf5d855ca3682abd8"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 523,
+      "sha256": "ed144dbec21c15a5eb05ce1412a457258998f52e05cb8f7c24e367395190c7ba"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 108364832,
+      "sha256": "711a907743bd5f4db584fc4ba309945a4234d778ef0f5f9b5f6b0b9ee0bd2b69"
+    }
+  ],
+  "release_assets": [
+    {
+      "name": "ASSET-LICENSE.md",
+      "bytes": 2061,
+      "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7",
+      "verified": true
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 5467,
+      "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9",
+      "verified": true
+    },
+    {
+      "name": "Librarian.dll",
+      "bytes": 1655808,
+      "sha256": "48062e55db175a3f8f27c5e67946fc25e1354d6951ef713bf5d855ca3682abd8",
+      "verified": true
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 523,
+      "sha256": "ed144dbec21c15a5eb05ce1412a457258998f52e05cb8f7c24e367395190c7ba",
+      "verified": true
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 108364832,
+      "sha256": "711a907743bd5f4db584fc4ba309945a4234d778ef0f5f9b5f6b0b9ee0bd2b69",
+      "verified": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1146,
+      "sha256": "456fe545706cf9ea352443d9a6a3f80788360a1f006e24ad3fcb8dfc7ead8b82",
+      "verified": true
+    },
+    {
+      "name": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2772,
+      "sha256": "4e3bc1eead5d1a3c85190e930035bc84431fb872d19742091a87a91a08af4f3d",
+      "verified": true
+    },
+    {
+      "name": "licenses-Alchyr-Template-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f",
+      "verified": true
+    },
+    {
+      "name": "licenses-BaseLib-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f",
+      "verified": true
+    },
+    {
+      "name": "licenses-Godot-MIT.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80",
+      "verified": true
+    },
+    {
+      "name": "licenses-Harmony-MIT.txt",
+      "bytes": 1073,
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d",
+      "verified": true
+    },
+    {
+      "name": "licenses-RitsuLib-MIT.txt",
+      "bytes": 1060,
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01",
+      "verified": true
+    },
+    {
+      "name": "licenses-sources.json",
+      "bytes": 1360,
+      "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566",
+      "verified": true
+    },
+    {
+      "name": "licenses-template-assets.json",
+      "bytes": 196,
+      "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62",
+      "verified": true
+    }
+  ],
+  "downloaded_sha256_verified": true,
+  "published_at": "2026-10-01T02:18:36Z",
+  "release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable",
+  "release_id": 400592724,
+  "prerelease": false,
+  "validation": {
+    "passed": true,
+    "core_tests": "60/60",
+    "models": 91,
+    "native_checks": 1556,
+    "stable_api_checks": 7,
+    "save_reload_checks": 3,
+    "user_visual_acceptance": true
+  },
+  "source_manifest_sha256": "645443f91ee879786e1986b5d98b0525867818ecdf4b985ac703a4ea5ecf7f50",
+  "ci": {
+    "run_id": 36804567287,
+    "conclusion": "success",
+    "head": "c1e8f08ab4830150981f3a9c203c361e0c595e22"
+  },
+  "workshop": {
+    "item_id": "3809003723",
+    "version": "1.1.0",
+    "manifest": "8877969367219894786",
+    "changelog_entry": "1790821139",
+    "content_bytes": 110021163,
+    "branch": "public",
+    "visibility": "public",
+    "previews": 10,
+    "inline_images": 15,
+    "subscriber_verified": false
+  },
+  "limitations": [
+    "Model comparison is not an all-card combat playtest. Real multi-client/reconnect, natural progression and long-term balance remain unverified.",
+    "Server publication does not prove delivery on subscriber machines."
+  ],
+  "license": "LicenseRef-Librarian-Personal-Use-1.0"
+}
