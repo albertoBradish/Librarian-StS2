@@ -132,7 +132,11 @@ internal static class LibrarianNoticeHistory051
 /// <summary>Waits for a free native modal slot on the visible main menu, then retires itself.</summary>
 public partial class LibrarianUpdateNotice051 : Node
 {
+#if LIBRARIAN_BETA
+    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/changelog/3801958367";
+#else
     internal const string WorkshopUrl = LibrarianNoticePopup102.WorkshopUrl;
+#endif
     internal const string Email = "aery_bradish@163.com";
     internal const string Qq = "1850562239";
     private static readonly HashSet<string> Presented = new(StringComparer.Ordinal);
@@ -193,6 +197,9 @@ public partial class LibrarianUpdateNotice051 : Node
                 if (ReferenceEquals(container.OpenModal, popup)) container.Clear();
             });
             LibrarianNoticePopup102.ConfigureActions(popup, panel, suppress);
+#if LIBRARIAN_BETA
+            ConfigureNativeInputFocus(popup, panel);
+#endif
             Presented.Add(version);
             MainFile.Logger.Info("UPDATE_NOTICE_SHOWN version=" + version);
             return popup;
@@ -204,6 +211,41 @@ public partial class LibrarianUpdateNotice051 : Node
             if (GodotObject.IsInstanceValid(popup)) popup.QueueFree();
             throw;
         }
+    }
+
+    private static void ConfigureNativeInputFocus(NGenericPopup popup, NVerticalPopup panel)
+    {
+        var controller = NControllerManager.Instance;
+        void Refresh()
+        {
+            if (!GodotObject.IsInstanceValid(popup) || !popup.IsInsideTree()
+                || !ReferenceEquals(NModalContainer.Instance?.OpenModal, popup)) return;
+            var focused = popup.GetViewport().GuiGetFocusOwner();
+            if (controller?.IsUsingDirectionalNavigation == true)
+            {
+                // GenericPopup has no native DefaultFocusedControl. Establish the
+                // default only when arrow-key/controller navigation is active.
+                if (focused is null || !popup.IsAncestorOf(focused)) panel.YesButton.GrabFocus();
+            }
+            else if (focused is not null && popup.IsAncestorOf(focused))
+            {
+                // NClickableControl uses hover OR GUI focus to light its outline.
+                // Mouse mode must let native MouseEntered/MouseExited own that state.
+                focused.ReleaseFocus();
+            }
+        }
+        Callable refresh = Callable.From(Refresh);
+        controller?.Connect(NControllerManager.SignalName.ControllerDetected, refresh);
+        controller?.Connect(NControllerManager.SignalName.MouseDetected, refresh);
+        // Run after ConfigureActions' deferred hotkey setup; both deferred calls
+        // complete before the first draw, so mouse mode never draws the default focus.
+        refresh.CallDeferred();
+        popup.TreeExiting += () =>
+        {
+            if (controller is null || !GodotObject.IsInstanceValid(controller)) return;
+            controller.Disconnect(NControllerManager.SignalName.ControllerDetected, refresh);
+            controller.Disconnect(NControllerManager.SignalName.MouseDetected, refresh);
+        };
     }
 
     internal static void ResetSessionForAudit() { Presented.Clear(); LibrarianNoticeHistory051.ForgetSessionForAudit(); }

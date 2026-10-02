@@ -4,5 +4,5 @@
   "LIBRARIAN-CLARITY_POTION.title": "Clarity Potion",
   "LIBRARIAN-CLARITY_POTION.description": "Gain {Waves:diff()} [gold]Waves[/gold].",
   "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.title": "Liquid Forbidden Fruit",
-  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "Unlock ALL Orbs, then [gold]Settle[/gold] them."
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "[gold]Unlock[/gold] ALL Orbs, then [gold]Settle[/gold] each once."
 }

@@ -4,9 +4,13 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
-Current beta release target: **Librarian 1.1.0-beta1**, game **public-beta 0.111.0**,
-tag **`v1.1.0-beta1`**, source branch **`codex/beta`**. Both **BaseLib 3.4.5** and
-the complete **RitsuLib 0.6.2** bundle matching game API 0.111.0 are required.
+Current beta source revision: **Librarian 1.1.0-beta6**, game **public-beta 0.111.0**,
+source branch **`codex/beta`**. This revision merges unpublished beta4/beta5 changes
+and fixes selection costs, extra-Settlement previews and Orb tooltips; four card
+descriptions retain their detailed wording. Source synchronization and the beta
+Workshop update do not create a new GitHub Release. The latest separate beta
+runtime release remains **1.1.0-beta1**, tag **`v1.1.0-beta1`**. Both **BaseLib 3.4.5**
+and the complete **RitsuLib 0.6.2** bundle matching game API 0.111.0 are required.
 The stable counterpart uses manifest version **1.1.0**, tag **`v1.1.0-stable`**
 and game **0.107.1** on `main`; keep its candidate and validation separate.
 

@@ -1,6 +1,6 @@
 {
   "mod_id": "Librarian",
-  "version": "1.1.0-beta4",
+  "version": "1.1.0-beta6",
   "active_cards": 91,
   "game": {
     "version": "0.111.0",
@@ -17,18 +17,18 @@
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 1675264,
-      "sha256": "99de32843a5e2244fd1fd8a88dc2753ce307beec42e79f2c495d46cc0061caf1"
+      "bytes": 1758720,
+      "sha256": "231b05e9f7ddc9b97f0cf7521821ab6342b4d95690742d2fcf5f3f1469e91e6f"
     },
     {
       "name": "Librarian.json",
-      "bytes": 550,
-      "sha256": "f1d40885552686862dff5664c9ffea8eb110df91638b49fab860871711e8b54b"
+      "bytes": 493,
+      "sha256": "c6326c66bfc4f9cebea5b999bd57580ea363e04d8f33bef27816d063cc67a9b5"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 108365972,
-      "sha256": "1b3ba4c91857bcc6a6d6b38ad7d3975ce6c6fa76b70bdb0eaa060c0e7ef982b0"
+      "bytes": 108369896,
+      "sha256": "677ef139fbebc8bbdf5dd30a2ce67da879812cc558bc3c2c5722a729baf4020e"
     }
   ],
   "runtime_release_url": null,

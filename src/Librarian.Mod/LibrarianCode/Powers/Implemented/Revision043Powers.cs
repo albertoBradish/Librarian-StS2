@@ -66,7 +66,7 @@ public sealed class PracticeMakesPerfectPower : ImplementedLibrarianPower, IOrbE
     {
         var cycles = GetInternalData<Data>().Cycles;
         DynamicVars["Remaining"].BaseValue = cycles.Count == 0 ? 0 : cycles.Min(c => c.Remaining);
-        ((StringVar)DynamicVars["Progress"]).StringValue = string.Join(LibrarianLanguage.Format("LIST_SEPARATOR"), cycles.Select(c => $"{c.Remaining}/{c.Interval}"));
+        ((StringVar)DynamicVars["Progress"]).StringValue = string.Join(LibrarianLanguage.Format("LIST_SEPARATOR"), cycles.Select(c => LibrarianLanguage.Format("PRACTICE_PROGRESS", ("Remaining", c.Remaining), ("Interval", c.Interval))));
         InvokeDisplayAmountChanged();
     }
     public async Task OnOrbEvent(LibrarianSession session, PlayerChoiceContext context, OrbEvent change)

@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本分支维护游戏 **public-beta 0.111.0** 的 **V1.1.0-beta4**。手牌与抽牌堆仅保留金字，移除9张相关卡牌和2项状态的额外悬浮解释；临摹抄本“抽牌堆底”及卡牌文字、效果与数值保持。游戏 stable 0.107.1 的正式 **V1.1.0** 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.1.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，不要混用两个通道的运行文件。
+本分支维护游戏 **public-beta 0.111.0** 的 **V1.1.0-beta6**。本版合并此前未发布的 beta4／beta5 修订：精简中英文文案并补齐词条解释，手牌、抽牌堆与三法球名保留金字。锁定法球可移动或交换，但仍无法注魔或结算；独立前台限制继续适用。法球选择与复读预览隐藏费用徽标，修复额外结算预览及中英文法球提示；禁页打击、封页护身、见缝插针、归零检索恢复详细说明。开始弹窗修正鼠标与方向导航焦点，更新入口直达本版改动说明。卡牌费用、数值与既有美术保持。游戏 stable 0.107.1 的正式 **V1.1.0** 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.1.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，不要混用两个通道的运行文件。
 
-This branch maintains **V1.1.0-beta4 for public-beta 0.111.0**. Hand and Draw Pile keep their gold highlighting without extra hover explanations across all 9 related cards and 2 Powers. Transcribe still specifies the bottom of the Draw Pile; card text, gameplay and values are unchanged. Use `main` and the `v1.1.0-stable` release for stable 0.107.1.
+This branch maintains **V1.1.0-beta6 for public-beta 0.111.0**, combining the previously unpublished beta4 and beta5 revisions. Chinese and English descriptions are shorter and linked tooltips are complete; Hand, Draw Pile and Orb names retain gold highlighting. Locked Orbs can move and swap, but cannot Activate or Settle; the independent front-Orb restriction still applies. Orb selection and Reread previews hide their cost badges, with extra-Settlement previews and bilingual Orb tooltips repaired. Forbidden Strike, Sealed Shelter, Thread the Needle and Zero Search restore their detailed descriptions. The welcome notice fixes mouse and directional-navigation focus; its update button opens this edition's Change Notes. Card costs, values and existing artwork are unchanged. Use `main` and the `v1.1.0-stable` release for stable 0.107.1.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -23,7 +23,7 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。V1.1.0-beta3 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，中英文页面与 public-beta 分支快照已核验。V1.1.0-beta4 已完成本地验证并同步源码，工坊尚未更新 beta4；最近的 GitHub 独立发行附件仍为 beta1。
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。V1.1.0-beta6 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，中英文页面、public-beta 分支快照和本机订阅三文件字节已核对。本次同步 beta 源码；最近的 GitHub 独立发行附件仍为 beta1，本轮不另建独立 Release。
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -57,7 +57,7 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.1.0-beta4**, for the game's public-beta branch.
+Current source baseline: **1.1.0-beta6**, for the game's public-beta branch.
 See [release metadata](release-metadata.json).
 
 | Component | Verified baseline |

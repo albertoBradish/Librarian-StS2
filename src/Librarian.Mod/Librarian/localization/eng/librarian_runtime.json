@@ -9,10 +9,18 @@
   "LIBRARIAN_KEYWORD_TIDE": "Tide",
   "LIBRARIAN_KEYWORD_GROWTH": "Growth",
   "LIBRARIAN_KEYWORD_STRENGTHEN": "Strengthen|Strengthened|Strengthens",
-  "LIBRARIAN_KEYWORD_ACTIVATE": "Activate|Activated|Activates|Activation",
-  "LIBRARIAN_KEYWORD_SETTLE": "Settle|Settles|Settling|Settlement|Settlements",
+  "LIBRARIAN_KEYWORD_ACTIVATE": "Activate|Activated|Activates|Activation|Activations",
+  "LIBRARIAN_KEYWORD_SETTLE": "Settle|Settles|Settled|Settling|Settlement|Settlements",
   "LIBRARIAN_KEYWORD_WAVES": "Waves",
   "LIBRARIAN_KEYWORD_BLOCK": "Block",
   "LIBRARIAN_KEYWORD_HAND": "Hand",
-  "LIBRARIAN_KEYWORD_DRAW_PILE": "Draw Pile"
+  "LIBRARIAN_KEYWORD_DRAW_PILE": "Draw Pile",
+  "LIBRARIAN_KEYWORD_LOCK": "Lock|Locked|Unlock|Unlocked",
+  "LIBRARIAN_KEYWORD_EXTINGUISH": "Extinguish|Extinguished|Extinguishes",
+  "LIBRARIAN_KEYWORD_FOREGROUND": "Foreground|Front",
+  "LIBRARIAN_KEYWORD_BACKGROUND": "Background|Back",
+  "LIBRARIAN_KEYWORD_EXTRA_SETTLE": "Extra settlement|Extra settlements",
+  "LIBRARIAN_PRACTICE_PROGRESS": "{Remaining} more (every {Interval})",
+  "LIBRARIAN_ORB_FRONT": "[gold]Foreground[/gold]: This orb settles at its normal effect.",
+  "LIBRARIAN_ORB_BACK": "[gold]Background[/gold]: This orb's settlement effect is halved."
 }

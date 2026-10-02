@@ -266,18 +266,29 @@ public partial class LibrarianOrbDisplay : Control
     {
         if (_session is null || !Visible) return;
         var orb = _session.Orbs.Snapshot()[kind];
-        var description = new LocString("static_hover_tips", $"LIBRARIAN_{LibrarianHoverTips.OrbKey(kind)}.description");
-        description.Add("Value", orb.Value);
-        string text = description.GetFormattedText();
-        if (orb.IsLocked)
-            text += LibrarianLanguage.Format("LOCK_VALUE", ("Value", orb.Value))
-                + (orb.IsPermanentlyLocked ? LibrarianLanguage.Format("LOCK_PERMANENT") : LibrarianLanguage.Format("LOCK_TURNS", ("Turns", orb.LockedTurns)));
+        var tip = BuildHoverTip(orb);
+        string text = tip.Title + "\n" + tip.Description;
         if (_lastHoverText == text) return;
         _lastHoverText = text;
         var root = _visuals[kind].Root;
         NHoverTipSet.Remove(root);
-        var tip = new HoverTip(new LocString("cards", $"LIBRARIAN-ORB_CHOICE_{kind.ToString().ToUpperInvariant()}.title"), text);
-        NHoverTipSet.CreateAndShow(root, tip, HoverTip.GetHoverTipAlignment(root))?.SetFollowOwner();
+        var roots = new List<IHoverTip> { tip };
+        if (orb.IsLocked) roots.Add(LibrarianHoverTips.Tip("LOCK"));
+        NHoverTipSet.CreateAndShow(root, LibrarianHoverTips.Expand(roots), HoverTip.GetHoverTipAlignment(root))?.SetFollowOwner();
+    }
+
+    // A read-only view of this orb; position explains the displayed value even
+    // while inactive or locked. Activation and settlement remain in the core.
+    internal static HoverTip BuildHoverTip(OrbView orb)
+    {
+        var description = new LocString("static_hover_tips", $"LIBRARIAN_{LibrarianHoverTips.OrbKey(orb.Kind)}.description");
+        description.Add("Value", orb.Value);
+        string text = description.GetFormattedText() + "\n"
+            + LibrarianLanguage.Format(orb.IsForeground ? "ORB_FRONT" : "ORB_BACK");
+        if (orb.IsLocked)
+            text += LibrarianLanguage.Format("LOCK_VALUE", ("Value", orb.Value))
+                + (orb.IsPermanentlyLocked ? LibrarianLanguage.Format("LOCK_PERMANENT") : LibrarianLanguage.Format("LOCK_TURNS", ("Turns", orb.LockedTurns)));
+        return LibrarianHoverTips.OrbTip(orb.Kind, text);
     }
 
     public void Pulse(OrbKind kind)

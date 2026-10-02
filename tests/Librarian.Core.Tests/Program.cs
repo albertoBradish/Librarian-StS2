@@ -609,22 +609,107 @@ Test("L01", "Lock extinguishes before callbacks, stacks duration, accepts gains 
     s.BeginOwnerTurn(); Check.False(s.IsLocked(OrbKind.Tide)); Check.False(s.IsActivated(OrbKind.Tide));
     s.Lock(OrbKind.Tide); s.Lock(OrbKind.Tide, 2); s.BeginOwnerTurn(); Check.Equal(-1, s.LockedTurns(OrbKind.Tide));
 });
-Test("L02", "Locked ring slots remain anchored while free slots rotate and turns preserve positions", () =>
+Test("L02", "Locked orbs move with gains and other orbs while remaining inactive", () =>
 {
     var s = new OrbCombatState("owner"); s.Lock(OrbKind.Fire, 2);
     s.Gain(OrbKind.Growth, 5);
+    Check.Sequence(new[] { OrbKind.Growth, OrbKind.Fire, OrbKind.Tide }, s.Positions);
+    Check.Equal(2, s.LockedTurns(OrbKind.Fire)); Check.False(s.IsActivated(OrbKind.Fire));
+    var gain = s.Gain(OrbKind.Fire, 3);
     Check.Sequence(new[] { OrbKind.Fire, OrbKind.Growth, OrbKind.Tide }, s.Positions);
+    Check.Sequence(new[] { OrbEventKind.ForegroundChanged, OrbEventKind.Gained }, gain.Events.Select(e => e.Kind));
+    Check.Equal(3, s.Value(OrbKind.Fire)); Check.False(s.IsActivated(OrbKind.Fire));
     s.Gain(OrbKind.Tide, 2);
-    Check.Sequence(new[] { OrbKind.Fire, OrbKind.Tide, OrbKind.Growth }, s.Positions);
-    s.Lock(OrbKind.Growth); s.Gain(OrbKind.Tide, 1); s.BeginOwnerTurn();
-    Check.Sequence(new[] { OrbKind.Fire, OrbKind.Tide, OrbKind.Growth }, s.Positions);
-    Check.Equal(OrbOperationStatus.Blocked, s.SwapPositions(OrbKind.Fire, OrbKind.Tide).Status);
-    s.Lock(OrbKind.Tide); s.Activate(OrbKind.Fire, OrbScope.All);
+    Check.Sequence(new[] { OrbKind.Tide, OrbKind.Fire, OrbKind.Growth }, s.Positions);
+    s.Lock(OrbKind.Growth);
+    var zeroGain = s.Gain(OrbKind.Growth, 0);
+    Check.Sequence(new[] { OrbKind.Growth, OrbKind.Tide, OrbKind.Fire }, s.Positions);
+    Check.Sequence(new[] { OrbEventKind.ForegroundChanged, OrbEventKind.Gained }, zeroGain.Events.Select(e => e.Kind));
+    s.BeginOwnerTurn();
+    Check.Sequence(new[] { OrbKind.Growth, OrbKind.Tide, OrbKind.Fire }, s.Positions);
+    Check.Equal(1, s.LockedTurns(OrbKind.Fire)); Check.Equal(OrbView.PermanentLock, s.LockedTurns(OrbKind.Growth));
+    s.Lock(OrbKind.Tide);
+    Check.Equal(OrbOperationStatus.Blocked, s.Activate(OrbKind.Fire, OrbScope.All).Status);
+    Check.Equal(OrbOperationStatus.Blocked, s.ActivateWithoutSwitch(OrbKind.Growth).Status);
     Check.Equal(0, s.Select(OrbScope.All, ActivationFilter.Active).Count);
+});
+Test("L07", "Explicit swaps move finite and permanent locks without activating or changing their duration", () =>
+{
+    foreach (int? turns in new int?[] { 2, null })
+    {
+        var s = new OrbCombatState("swap"); s.Lock(OrbKind.Fire, turns);
+        var frontSwap = s.SwapPositions(OrbKind.Fire, OrbKind.Growth);
+        Check.Equal(OrbOperationStatus.Applied, frontSwap.Status);
+        Check.Sequence(new[] { OrbKind.Growth, OrbKind.Tide, OrbKind.Fire }, s.Positions);
+        Check.Equal(OrbEventKind.ForegroundChanged, frontSwap.Events.Single().Kind);
+        Check.Equal<OrbKind?>(OrbKind.Fire, frontSwap.Events.Single().PreviousForeground);
+        s.Lock(OrbKind.Tide);
+        var backSwap = s.SwapPositions(OrbKind.Fire, OrbKind.Tide);
+        Check.Equal(OrbOperationStatus.Applied, backSwap.Status);
+        Check.Sequence(new[] { OrbKind.Growth, OrbKind.Fire, OrbKind.Tide }, s.Positions);
+        Check.Equal(OrbEventKind.PositionsChanged, backSwap.Events.Single().Kind);
+        Check.Equal(1L, s.SwitchesThisTurn);
+        Check.Equal(turns ?? OrbView.PermanentLock, s.LockedTurns(OrbKind.Fire));
+        Check.Equal(OrbView.PermanentLock, s.LockedTurns(OrbKind.Tide));
+        Check.False(s.IsActivated(OrbKind.Fire)); Check.False(s.IsActivated(OrbKind.Tide));
+        Check.Equal(0, s.SwapPositions(OrbKind.Fire, OrbKind.Fire).Events.Count);
+        Check.Equal(OrbOperationStatus.Blocked, s.Activate(OrbKind.Fire, OrbScope.All).Status);
+        Check.Equal(OrbOperationStatus.Blocked, s.ActivateWithoutSwitch(OrbKind.Tide).Status);
+    }
+});
+Test("L08", "SwitchLocked still anchors the foreground while locked backgrounds may move", () =>
+{
+    var s = new OrbCombatState("switch-lock") { SwitchLocked = true };
+    s.Lock(OrbKind.Fire, 2); s.Lock(OrbKind.Tide);
+    s.Gain(OrbKind.Growth, 4);
+    Check.Sequence(new[] { OrbKind.Fire, OrbKind.Growth, OrbKind.Tide }, s.Positions);
+    var lockedGain = s.Gain(OrbKind.Tide, 5);
+    Check.Sequence(new[] { OrbKind.Fire, OrbKind.Tide, OrbKind.Growth }, s.Positions);
+    Check.Equal(OrbEventKind.PositionsChanged, lockedGain.Events.First().Kind);
+    Check.False(lockedGain.Events.Any(e => e.Kind is OrbEventKind.Imbued or OrbEventKind.Channelled or OrbEventKind.Activated));
+    Check.Equal(0L, s.SwitchesThisTurn); Check.False(s.IsActivated(OrbKind.Tide));
+    Check.Equal(OrbOperationStatus.Blocked, s.SwapPositions(OrbKind.Fire, OrbKind.Tide).Status);
+    Check.Equal(OrbOperationStatus.Blocked, s.SwapPositions(OrbKind.Growth, OrbKind.Fire).Status);
+    Check.Equal(OrbOperationStatus.Applied, s.SwapPositions(OrbKind.Tide, OrbKind.Growth).Status);
+    Check.Sequence(new[] { OrbKind.Fire, OrbKind.Growth, OrbKind.Tide }, s.Positions);
+    s.Activate(OrbKind.Growth, OrbScope.All);
+    Check.True(s.IsActivated(OrbKind.Growth)); Check.Equal(OrbKind.Fire, s.Foreground);
+    s.SwitchLocked = false;
+    s.Gain(OrbKind.Tide, 0);
+    Check.Equal(OrbKind.Tide, s.Foreground); Check.False(s.IsActivated(OrbKind.Tide));
+    Check.Equal(1L, s.SwitchesThisTurn);
+});
+Test("L09", "Snapshot JSON round-trip preserves moved locks, kind identity and ring order", () =>
+{
+    var s = new OrbCombatState("snapshot"); s.BeginOwnerTurn();
+    s.Strengthen(OrbKind.Fire, 7, OrbScope.All); s.Strengthen(OrbKind.Tide, 11, OrbScope.All);
+    s.Lock(OrbKind.Fire, 3); s.Lock(OrbKind.Tide);
+    s.Gain(OrbKind.Growth, 5); s.SwapPositions(OrbKind.Fire, OrbKind.Growth);
+    s.SwapPositions(OrbKind.Fire, OrbKind.Tide);
+    var before = s.Snapshot();
+    var saved = System.Text.Json.JsonSerializer.Serialize(before);
+    var loaded = System.Text.Json.JsonSerializer.Deserialize<OrbCombatSnapshot>(saved)!;
+    Check.Equal(before.OwnerId, loaded.OwnerId); Check.Equal(before.OwnerTurn, loaded.OwnerTurn);
+    Check.Equal(OrbKind.Tide, loaded.Foreground);
+    Check.Sequence(s.Positions, loaded.Orbs.Select(o => o.Kind));
+    foreach (var kind in s.Positions)
+        Check.Equal(before[kind], loaded[kind]);
+    Check.Equal(3, loaded[OrbKind.Fire].LockedTurns);
+    Check.Equal(OrbView.PermanentLock, loaded[OrbKind.Tide].LockedTurns);
+    Check.False(loaded[OrbKind.Fire].IsActivated); Check.False(loaded[OrbKind.Tide].IsActivated);
+    Check.True(loaded[OrbKind.Tide].IsForeground);
+    s.BeginOwnerTurn();
+    Check.Sequence(loaded.Orbs.Select(o => o.Kind), s.Positions);
+    Check.Equal(2, s.LockedTurns(OrbKind.Fire));
+    Check.Equal(OrbView.PermanentLock, s.LockedTurns(OrbKind.Tide));
 });
 AsyncTest("L03", "Lock blocks immediate, natural and extra settlements without inflating counters", async () =>
 {
     var s = new OrbCombatState("owner"); s.Gain(OrbKind.Fire, 15); s.Lock(OrbKind.Fire, 1);
+    s.Gain(OrbKind.Growth, 1); s.Extinguish(OrbKind.Growth, OrbScope.All);
+    Check.Sequence(new[] { OrbKind.Growth, OrbKind.Fire, OrbKind.Tide }, s.Positions);
+    s.SwapPositions(OrbKind.Fire, OrbKind.Growth);
+    Check.Equal(OrbKind.Fire, s.Foreground); Check.True(s.IsLocked(OrbKind.Fire));
     s.QueueExtraSettlement(OrbSelector.Named(OrbKind.Fire), 3, "extra");
     Check.Equal(0, await s.SettleImmediatelyAsync(OrbSelector.Named(OrbKind.Fire), 2, _ => throw new Exception("locked"), "now"));
     await s.ResolveEndTurnAsync(new(OrbScope.All), _ => throw new Exception("locked"));
