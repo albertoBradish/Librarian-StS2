@@ -82,8 +82,6 @@ public sealed class PracticeMakesPerfectPower : ImplementedLibrarianPower, IOrbE
 
 public sealed class ToBeContinuedPower : ImplementedLibrarianPower
 {
-    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> ExtraHoverTips =>
-        [Librarian.Mechanics.LibrarianHoverTips.Tip("HAND"), Librarian.Mechanics.LibrarianHoverTips.Tip("DRAW_PILE")];
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext context, Player player)
     {
         if (Owner.Player != player || Owner.IsDead) return;
