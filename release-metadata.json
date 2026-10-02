@@ -18,7 +18,7 @@
     {
       "name": "Librarian.dll",
       "bytes": 1655808,
-      "sha256": "48062e55db175a3f8f27c5e67946fc25e1354d6951ef713bf5d855ca3682abd8"
+      "sha256": "c840bd35e1eb9ff0551110b1838035c15feaa2fd97cd822f887a1f43d55b702f"
     },
     {
       "name": "Librarian.json",
@@ -33,6 +33,25 @@
   ],
   "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable",
   "runtime_release_status": "published",
-  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
-  "channel": "stable"
+  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete. Workshop migration build changes only the DLL stable URL; existing GitHub release tags and attachments retain their original hashes.",
+  "channel": "stable",
+  "workshop_item_id": "3811677053",
+  "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053",
+  "original_github_release_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 1655808,
+      "sha256": "48062e55db175a3f8f27c5e67946fc25e1354d6951ef713bf5d855ca3682abd8"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 523,
+      "sha256": "ed144dbec21c15a5eb05ce1412a457258998f52e05cb8f7c24e367395190c7ba"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 108364832,
+      "sha256": "711a907743bd5f4db584fc4ba309945a4234d778ef0f5f9b5f6b0b9ee0bd2b69"
+    }
+  ]
 }

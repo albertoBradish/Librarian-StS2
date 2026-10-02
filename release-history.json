@@ -330,5 +330,17 @@
   "recommended_tag": "v1.1.0-stable",
   "recommended_channel": "stable",
   "recommended_beta_version": "1.1.0-beta1",
-  "recommended_beta_tag": "v1.1.0-beta1"
+  "recommended_beta_tag": "v1.1.0-beta1",
+  "current_workshop": {
+    "stable": {
+      "item_id": "3811677053",
+      "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053",
+      "replaced_item_id": "3809003723",
+      "migration_record": "release-history/stable-workshop-migration-20261001.json"
+    },
+    "beta": {
+      "item_id": "3801958367",
+      "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367"
+    }
+  }
 }

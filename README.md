@@ -25,7 +25,8 @@ custom translation packs.
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Historical V1.0.0 stable / 历史正式版 16 个附件下载核验](release-history/1.0.0-stable-verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
-- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3809003723)
+- 2026-10-01：正式版已迁移至新的公开工坊页；旧页停止维护。当前 Steam 包修正了游戏内工坊按钮链接，GitHub 发行标签和附件保留原验收快照。
+- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053)
 - [Build / 构建](BUILDING.md) · [Release / 发版](RELEASING.md) · [Contributing](CONTRIBUTING.md)
 - [Translation packs / 翻译包](TRANSLATIONS.md)
 

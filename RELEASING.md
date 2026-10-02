@@ -1,6 +1,6 @@
 # Stable release workflow
 
-This branch builds **Librarian 1.1.0 for game 0.107.1 stable** only. Both **BaseLib 3.4.5** and the complete **RitsuLib 0.6.2** bundle matching game API 0.107.1 are required. Use the separate stable Workshop item 3809003723. The beta counterpart is **1.1.0-beta1**, tag **`v1.1.0-beta1`**, game 0.111.0 on `codex/beta` / item 3801958367.
+This branch builds **Librarian 1.1.0 for game 0.107.1 stable** only. Both **BaseLib 3.4.5** and the complete **RitsuLib 0.6.2** bundle matching game API 0.107.1 are required. Use the separate stable Workshop item 3811677053. The beta counterpart is **1.1.0-beta1**, tag **`v1.1.0-beta1`**, game 0.111.0 on `codex/beta` / item 3801958367.
 
 The formal tag is **`v1.1.0-stable`**. The mod manifest version remains **`1.1.0`**. Historical tags, including `v1.0.0` and `v1.0.0-stable`, must not be moved or overwritten.
 
