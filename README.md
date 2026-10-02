@@ -6,9 +6,13 @@
 
 ### 感谢大家的支持！！！模组已经发布，快去游玩体验吧~
 
-本分支维护游戏 **stable 0.107.1** 的正式 **V1.1.0**。游戏 public-beta 0.111.0 请使用 [codex/beta](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) 与 [v1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)，不要混用两个通道的运行文件。
+本分支当前源码为游戏 **stable 0.107.1** 的 **V1.1.1**。本版合并文本精简与词条修订，并接入已验收的 beta6 界面修复；Steam V1.1.1 已发布，服务器页面及 public 分支内容已核对，订阅端仍待验证。最近的 GitHub 独立发行仍为 [V1.1.0 stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)。游戏 public-beta 0.111.0 请使用 [codex/beta](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) 与 [beta 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，不要混用两个通道的运行文件。
 
-This branch maintains **V1.1.0 for stable 0.107.1**. Use `codex/beta` and the `v1.1.0-beta1` release for public-beta 0.111.0.
+This branch contains **V1.1.1 source for stable 0.107.1**, combining the text and tooltip revision with the validated beta6 interface fixes. Steam V1.1.1 is published, with its server pages and public-branch content verified; subscriber files remain unverified. The latest separate GitHub runtime release remains **V1.1.0 stable**. Use `codex/beta` and the beta Workshop item for public-beta 0.111.0.
+
+V1.1.1 精简法球及状态文案、补齐嵌套词条，手牌／抽牌堆及三法球名称仅保留金字。锁定法球允许位移和交换，仍不能注魔或结算，独立前台固定限制保留。修复选择法球／复读预览的费用徽标、额外结算预览、双语法球说明，以及开始提示鼠标焦点；“更新公告”直接打开本版改动说明。禁页打击、封页护身、见缝插针、归零检索恢复详细描述。费用、数值和现有配图沿用 stable 版本。
+
+V1.1.1 simplifies Orb and status text, completes nested tooltips, and keeps Hand, Draw Pile, and the three Orb names in gold without extra tooltips. Locked Orbs can move or swap, but cannot Activate or Settle; the independent foreground restriction remains. It fixes cost badges in Orb selection and Reread previews, extra-Settlement previews, bilingual Orb descriptions, and mouse focus in the introduction. “Change Notes” opens this version's update entry. Forbidden Strike, Sealed Shelter, Thread the Needle, and Zero Search regain their detailed descriptions. Card costs, values, and existing artwork retain the stable baseline.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -19,13 +23,13 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Current stable release / 当前正式版 V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)
-- [Current public-beta / 当前测试版 V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)
+- [Latest GitHub stable release / 最近的 GitHub 正式发行 V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。Steam beta 当前为 V1.1.0-beta6。
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Historical V1.0.0 stable / 历史正式版 16 个附件下载核验](release-history/1.0.0-stable-verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
-- 2026-10-01：正式版已迁移至新的公开工坊页；旧页停止维护。当前 Steam 包修正了游戏内工坊按钮链接，GitHub 发行标签和附件保留原验收快照。
+- V1.1.1 已发布至 [正式版 Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053)，中英文完整页面、其他语言英文回退及 public 分支内容已核对。本机尚未安装 stable 订阅包，订阅端三文件未验；GitHub 独立发行标签和附件继续保留 V1.1.0 原验收快照，本轮不另建独立 Release。
 - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053)
 - [Build / 构建](BUILDING.md) · [Release / 发版](RELEASING.md) · [Contributing](CONTRIBUTING.md)
 - [Translation packs / 翻译包](TRANSLATIONS.md)
@@ -56,9 +60,9 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.1.0**, game **stable 0.107.1**. See [release metadata](release-metadata.json).
+Current source baseline: **1.1.1**, game **stable 0.107.1**. See [release metadata](release-metadata.json).
 
-`main` maintains stable; [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) maintains game public-beta 0.111.0. Do not mix packages or enable both Workshop items. The formal V1.1.0 release uses **`v1.1.0-stable`**. Historical tags remain unchanged.
+`main` maintains stable; [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) maintains game public-beta 0.111.0. Do not mix packages or enable both Workshop items. The latest separate GitHub stable runtime release is **V1.1.0**, tag **`v1.1.0-stable`**; this V1.1.1 source update does not replace its attachments. Historical tags remain unchanged.
 
 | Component | Verified baseline |
 | --- | --- |

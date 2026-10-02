@@ -1,6 +1,6 @@
 {
   "mod_id": "Librarian",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "active_cards": 91,
   "game": {
     "version": "0.107.1",
@@ -17,23 +17,23 @@
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 1655808,
-      "sha256": "c840bd35e1eb9ff0551110b1838035c15feaa2fd97cd822f887a1f43d55b702f"
+      "bytes": 1740288,
+      "sha256": "153d458abc786024da64925e5c1f6b223ba397e98fb4a2aa80cb687dca880d65"
     },
     {
       "name": "Librarian.json",
-      "bytes": 523,
-      "sha256": "ed144dbec21c15a5eb05ce1412a457258998f52e05cb8f7c24e367395190c7ba"
+      "bytes": 487,
+      "sha256": "20a805ea86ac231a6d4b268747dc91a431139fb0a407bf82dbefaf778cf722bf"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 108364832,
-      "sha256": "711a907743bd5f4db584fc4ba309945a4234d778ef0f5f9b5f6b0b9ee0bd2b69"
+      "bytes": 108369284,
+      "sha256": "e9914042526f438616bdbe3f965716ab9f3525e8aa060cc083b53759ad178e8c"
     }
   ],
-  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable",
-  "runtime_release_status": "published",
-  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete. Workshop migration build changes only the DLL stable URL; existing GitHub release tags and attachments retain their original hashes.",
+  "runtime_release_url": null,
+  "runtime_release_status": "not_published",
+  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete. Historical Workshop migration changed only the DLL stable URL; existing GitHub release tags and attachments retain their original hashes.",
   "channel": "stable",
   "workshop_item_id": "3811677053",
   "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053",

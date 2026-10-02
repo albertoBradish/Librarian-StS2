@@ -186,13 +186,16 @@ internal static class DevelopmentModelAudit
         if (text.Contains("格挡")) Require(tips.Any(t => t.Id == MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.Static(MegaCrit.Sts2.Core.HoverTips.StaticHoverTip.Block).Id), "Missing Block tip: " + card.Id);
         if (card.Id.Entry == "LIBRARIAN-RENEWAL")
         {
-            Require(tips.Length == 1 && tips[0].Id == LibrarianHoverTips.Tip("GROWTH").Id,
-                "Renewal must explain only Growth, not Fire or Lock");
-            MainFile.Logger.Info($"KEYWORD_SCOPE_PASS Renewal upgraded={card.IsUpgraded} growth_only=True");
+            Require(tips.Any(t => t.Id == LibrarianHoverTips.Tip("GROWTH").Id)
+                && tips.Any(t => t.Id == LibrarianHoverTips.Tip("LOCK").Id)
+                && !tips.Any(t => t.Id == LibrarianHoverTips.Tip("FIRE").Id),
+                "Renewal must explain Growth and Lock without treating the Fire Orb name as a gain action");
+            MainFile.Logger.Info($"KEYWORD_SCOPE_PASS Renewal upgraded={card.IsUpgraded} growth=True lock=True fire=False");
         }
         if (card.Id.Entry == "LIBRARIAN-SEDIMENTATION")
-            Require(tips.Length == 2 && tips.Any(t => t.Id == LibrarianHoverTips.Tip("STRENGTHEN").Id),
-                "Sedimentation card must explain Strengthen without a zero-value power preview");
+            Require(new[] { "STRENGTHEN", "EXTINGUISH", "BACKGROUND" }
+                .All(key => tips.Any(t => t.Id == LibrarianHoverTips.Tip(key).Id)),
+                "Sedimentation must explain Strengthen, Extinguish and Background without a zero-value power preview");
         if (card.Id.Entry == "LIBRARIAN-SHIFTING_PAGES")
             Require(!tips.OfType<MegaCrit.Sts2.Core.HoverTips.HoverTip>().Any(t => t.Title == card.Title),
                 "Shifting Pages card must not preview its own power");

@@ -1,5 +1,5 @@
 {
-  "LIBRARIAN_LOCK_VALUE": "\n数值：{Value}\n",
+  "LIBRARIAN_LOCK_VALUE": "\n法球数值：{Value}\n",
   "LIBRARIAN_LOCK_PERMANENT": "永久锁定",
   "LIBRARIAN_LOCK_TURNS": "锁定：剩余{Turns}回合",
   "LIBRARIAN_TIDE_EXPIRED": "潮涌格挡到期 −{Amount}",
@@ -12,5 +12,13 @@
   "LIBRARIAN_KEYWORD_ACTIVATE": "注魔",
   "LIBRARIAN_KEYWORD_SETTLE": "结算",
   "LIBRARIAN_KEYWORD_WAVES": "浪潮",
-  "LIBRARIAN_KEYWORD_BLOCK": "格挡"
+  "LIBRARIAN_KEYWORD_BLOCK": "格挡",
+  "LIBRARIAN_KEYWORD_LOCK": "锁定|解锁",
+  "LIBRARIAN_KEYWORD_EXTINGUISH": "熄灭",
+  "LIBRARIAN_KEYWORD_FOREGROUND": "前台",
+  "LIBRARIAN_KEYWORD_BACKGROUND": "后台",
+  "LIBRARIAN_KEYWORD_EXTRA_SETTLE": "额外结算",
+  "LIBRARIAN_PRACTICE_PROGRESS": "还需{Remaining}次（每{Interval}次触发）",
+  "LIBRARIAN_ORB_FRONT": "[gold]前台[/gold]：这个法球会按照正常效果结算。",
+  "LIBRARIAN_ORB_BACK": "[gold]后台[/gold]：这个法球的结算效果减半。"
 }

@@ -134,7 +134,7 @@ internal static class LibrarianLanguage
             }
             catch (Exception e)
             {
-                Status += (Status.Length == 0 ? "" : "\n") + code + ": " + e.Message;
+                Status += (Status.Length == 0 ? "" : "\n") + SettingsStatus("language_pack_failed", ("Pack", code), ("Reason", e.Message));
                 MainFile.Logger.Warn("Language pack rejected: " + code + "; bundled fallback retained. Details are shown in mod settings.");
             }
         }
@@ -192,7 +192,7 @@ internal static class LibrarianLanguage
             foreach (var table in pair.Value.Tables)
                 WriteNew(Path.Combine(directory, table.Key + ".json"), JsonSerializer.Serialize(table.Value, new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
         }
-        Status = TemplateDirectory;
+        Status = SettingsStatus("language_templates_exported", ("Path", TemplateDirectory));
     }
 
     private static void WriteNew(string file, string text)
@@ -253,6 +253,12 @@ internal static class LibrarianLanguage
         return true;
     }
     internal static void LeaveNativeScope(bool entered) { if (entered) _nativeScope--; }
+    internal static T NativeTip<T>(Func<T> create)
+    {
+        _nativeScope++;
+        try { return create(); }
+        finally { _nativeScope--; }
+    }
     internal static bool TryRuntimeTable(string name, out LocTable table)
     {
         table = null!;
@@ -275,13 +281,23 @@ internal static class LibrarianLanguage
                 !entries.TryGetValue(text.LocEntryKey, out var fallback) || fallback == raw) throw;
             string result = FormatRaw(fallback, variables);
             Packs[_selected].Tables[text.LocTable][text.LocEntryKey] = fallback;
-            Status = _selected + ": " + text.LocTable + "/" + text.LocEntryKey;
+            Status = SettingsStatus("language_entry_failed", ("Pack", _selected), ("Table", text.LocTable), ("Key", text.LocEntryKey));
             MainFile.Logger.Warn("External translation could not format; bundled entry restored. Details are shown in mod settings.");
             return result;
         }
     }
     internal static string FormatRaw(string raw, Dictionary<string, object> variables)
         => (string)FormatMethod.Invoke(FormatterField.GetValue(null), [Culture, raw, new object[] { variables }])!;
+    // Diagnostics use bundled text directly so an invalid external formatter cannot
+    // recursively break the fallback message itself, including during initial loading.
+    private static string SettingsStatus(string key, params (string Name, object Value)[] values)
+    {
+        string language = _initialized ? _selected : Detect(LocManager.Instance.Language);
+        var baseline = Bundled.GetValueOrDefault(language, Bundled["eng"]);
+        string raw = baseline.Tables["main_menu_ui"]["LIBRARIAN_SETTINGS." + key];
+        var vars = values.ToDictionary(p => p.Name, p => p.Value);
+        return (string)FormatMethod.Invoke(FormatterField.GetValue(null), [CultureInfo.GetCultureInfo(baseline.Info.Culture), raw, new object[] { vars }])!;
+    }
     internal static string Format(string key, params (string Name, object Value)[] values)
     {
         var text = new LocString("librarian_runtime", "LIBRARIAN_" + key);

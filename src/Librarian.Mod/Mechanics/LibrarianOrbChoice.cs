@@ -38,7 +38,9 @@ internal static class LibrarianOrbChoice
                 _ => ModelDb.Card<Renewal>().ToMutable()
             };
             card.Owner = source.Owner;
-            card.SetToFreeThisTurn();
+            // Native boss choices use a negative, non-X cost to hide the badge.
+            // Only these temporary previews change; the real starter cards keep their cost.
+            card.EnergyCost.SetCustomBaseCost(-1);
             Choices.Add(card, new(kind, source is ReRead, session.Orbs.Value(kind), session.Orbs.HighestValueThisCombat(kind)));
             return card;
         }).ToArray();

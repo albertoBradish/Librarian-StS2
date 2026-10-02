@@ -42,7 +42,7 @@ public partial class LibrarianWaveBar : Control
         _label.AddThemeColorOverride("font_outline_color", Colors.Black);
         _label.AddThemeConstantOverride("outline_size", 4);
         AddChild(_label);
-        MouseEntered += () => NHoverTipSet.CreateAndShow(this, LibrarianHoverTips.Tip("WAVES"), HoverTip.GetHoverTipAlignment(this))?.SetFollowOwner();
+        MouseEntered += () => NHoverTipSet.CreateAndShow(this, LibrarianHoverTips.Expand([LibrarianHoverTips.Tip("WAVES")]), HoverTip.GetHoverTipAlignment(this))?.SetFollowOwner();
         MouseExited += () => NHoverTipSet.Remove(this);
     }
 

@@ -83,7 +83,7 @@ public sealed class OrbCombatState
     public OrbOperationResult SwapPositions(OrbKind first, OrbKind second, OrbOrigin? origin = null)
     {
         EnsureHealthy(); Validate(first); Validate(second);
-        if (IsLocked(first) || IsLocked(second) || (SwitchLocked && (first == Foreground || second == Foreground)))
+        if (SwitchLocked && (first == Foreground || second == Foreground))
             return OrbOperationResult.Empty(OrbOperationStatus.Blocked);
         if (first == second) return OrbOperationResult.Empty(OrbOperationStatus.Applied);
         var before = Foreground;
@@ -391,8 +391,8 @@ public sealed class OrbCombatState
 
     private void SwitchTo(OrbKind kind, OrbOrigin origin, List<OrbEvent> events)
     {
-        if (IsLocked(kind)) return;
-        var movable = Enumerable.Range(0, 3).Where(i => !IsLocked(_positions[i]) && !(i == 0 && SwitchLocked)).ToArray();
+        // Orb locks prevent activation and settlement, not movement. Only SwitchLocked anchors the front slot.
+        var movable = Enumerable.Range(0, 3).Where(i => !(i == 0 && SwitchLocked)).ToArray();
         var ordered = movable.Select(i => _positions[i]).ToList();
         if (!ordered.Contains(kind) || ordered[0] == kind) return;
         var before = Foreground;

@@ -132,7 +132,7 @@ internal static class LibrarianNoticeHistory051
 /// <summary>Waits for a free native modal slot on the visible main menu, then retires itself.</summary>
 public partial class LibrarianUpdateNotice051 : Node
 {
-    internal const string WorkshopUrl = LibrarianNoticePopup102.WorkshopUrl;
+    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/changelog/3811677053";
     internal const string Email = "aery_bradish@163.com";
     internal const string Qq = "1850562239";
     private static readonly HashSet<string> Presented = new(StringComparer.Ordinal);
@@ -193,6 +193,7 @@ public partial class LibrarianUpdateNotice051 : Node
                 if (ReferenceEquals(container.OpenModal, popup)) container.Clear();
             });
             LibrarianNoticePopup102.ConfigureActions(popup, panel, suppress);
+            ConfigureNativeInputFocus(popup, panel);
             Presented.Add(version);
             MainFile.Logger.Info("UPDATE_NOTICE_SHOWN version=" + version);
             return popup;
@@ -204,6 +205,51 @@ public partial class LibrarianUpdateNotice051 : Node
             if (GodotObject.IsInstanceValid(popup)) popup.QueueFree();
             throw;
         }
+    }
+
+    private static void ConfigureNativeInputFocus(NGenericPopup popup, NVerticalPopup panel)
+    {
+        var controller = NControllerManager.Instance;
+        NPopupYesNoButton[] buttons = [panel.NoButton, panel.GetNode<NPopupYesNoButton>("NeverShowButton"), panel.YesButton];
+        void Refresh()
+        {
+            if (!GodotObject.IsInstanceValid(popup) || !popup.IsInsideTree()
+                || !ReferenceEquals(NModalContainer.Instance?.OpenModal, popup)) return;
+            foreach (var button in buttons)
+            {
+                if (button.GetNodeOrNull<CanvasItem>("%ControllerIcon") is not { } icon) continue;
+                // Stable calls this node ControllerIcon. Its native A/B bindings
+                // were disconnected, so the glyphs must not advertise those actions.
+                // Device/rebind updates can restore Visible; zero alpha also prevents drawing.
+                icon.Modulate = new Color(1, 1, 1, 0);
+                icon.Hide();
+            }
+            var focused = popup.GetViewport().GuiGetFocusOwner();
+            if (controller?.IsUsingController == true)
+            {
+                // Stable GenericPopup has no native DefaultFocusedControl.
+                // Its controller mode alone requires an initial GUI focus target.
+                if (focused is null || !popup.IsAncestorOf(focused)) panel.YesButton.GrabFocus();
+            }
+            else if (focused is not null && popup.IsAncestorOf(focused))
+            {
+                // Stable NClickableControl uses hover OR GUI focus for its outline.
+                // Mouse mode lets native MouseEntered/MouseExited own that state.
+                focused.ReleaseFocus();
+            }
+        }
+        Callable refresh = Callable.From(Refresh);
+        controller?.Connect(NControllerManager.SignalName.ControllerDetected, refresh);
+        controller?.Connect(NControllerManager.SignalName.MouseDetected, refresh);
+        // Run after ConfigureActions' deferred hotkey setup; both calls complete
+        // before the first draw, so mouse mode does not draw the default focus.
+        refresh.CallDeferred();
+        popup.TreeExiting += () =>
+        {
+            if (controller is null || !GodotObject.IsInstanceValid(controller)) return;
+            controller.Disconnect(NControllerManager.SignalName.ControllerDetected, refresh);
+            controller.Disconnect(NControllerManager.SignalName.MouseDetected, refresh);
+        };
     }
 
     internal static void ResetSessionForAudit() { Presented.Clear(); LibrarianNoticeHistory051.ForgetSessionForAudit(); }
