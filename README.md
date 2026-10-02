@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本分支维护游戏 **public-beta 0.111.0** 的 **V1.1.0-beta2**。长潮不息改为「你的回合开始时，潮涌1。你无法再获得浪潮。」，基础／升级费用仍为2／1。游戏 stable 0.107.1 的正式 **V1.1.0** 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.1.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，不要混用两个通道的运行文件。
+本分支维护游戏 **public-beta 0.111.0** 的 **V1.1.0-beta3**。临摹抄本明确为“抽牌堆底”，并补齐9张相关卡牌的手牌、抽牌堆金字和解释提示；卡牌效果与数值不变。游戏 stable 0.107.1 的正式 **V1.1.0** 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.1.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，不要混用两个通道的运行文件。
 
-This branch maintains **V1.1.0-beta2 for public-beta 0.111.0**. Endless Tide now grants 1 Tide at the start of your turn and prevents all new Waves; its base/upgraded costs remain 2/1. Use `main` and the `v1.1.0-stable` release for stable 0.107.1.
+This branch maintains **V1.1.0-beta3 for public-beta 0.111.0**. Transcribe now explicitly names the bottom of the Draw Pile. Hand and Draw Pile highlighting and tooltips are consistent across all 9 related cards; gameplay and values are unchanged. Use `main` and the `v1.1.0-stable` release for stable 0.107.1.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -23,7 +23,7 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。V1.1.0-beta2 已通过审核并发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，中英文页面与 public-beta 分支快照已核验。本次未发布新的 GitHub Release，最近的 GitHub 附件仍为 beta1。
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。V1.1.0-beta3 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，中英文页面与 public-beta 分支快照已核验。本次同步 beta 源码；最近的 GitHub 独立发行附件仍为 beta1。
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -57,7 +57,7 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.1.0-beta2**, for the game's public-beta branch.
+Current source baseline: **1.1.0-beta3**, for the game's public-beta branch.
 See [release metadata](release-metadata.json).
 
 | Component | Verified baseline |

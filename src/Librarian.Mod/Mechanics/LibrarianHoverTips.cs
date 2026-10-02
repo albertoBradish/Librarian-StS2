@@ -30,6 +30,8 @@ internal static class LibrarianHoverTips
         bool Matches(string key) => LibrarianLanguage.Format("KEYWORD_" + key).Split('|')
             .Any(word => highlighted.Contains(word, StringComparer.OrdinalIgnoreCase));
         if (Matches("BLOCK")) yield return HoverTipFactory.Static(StaticHoverTip.Block);
+        if (Matches("HAND")) yield return Tip("HAND");
+        if (Matches("DRAW_PILE")) yield return Tip("DRAW_PILE");
         foreach (var (key, _) in Terms)
             if (Matches(key)) yield return Tip(key);
     }

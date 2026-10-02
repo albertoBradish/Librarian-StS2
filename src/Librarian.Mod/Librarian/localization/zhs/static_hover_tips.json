@@ -18,5 +18,9 @@
   "LIBRARIAN_ORB_TIDE.title": "波涛法球",
   "LIBRARIAN_ORB_TIDE.description": "[gold]结算[/gold]：获得{Value}点[gold]格挡[/gold]和{Value}层[gold]浪潮[/gold]，不受敏捷或脆弱影响。\n自然[gold]结算[/gold]时，若处于后台，效果减半。",
   "LIBRARIAN_ORB_GROWTH.title": "翠叶法球",
-  "LIBRARIAN_ORB_GROWTH.description": "[gold]结算[/gold]：使其他法球中数值最低的一个[gold]强化[/gold]{Value}，并列时按环顺序选择。\n自然[gold]结算[/gold]时，若处于后台，效果减半。"
+  "LIBRARIAN_ORB_GROWTH.description": "[gold]结算[/gold]：使其他法球中数值最低的一个[gold]强化[/gold]{Value}，并列时按环顺序选择。\n自然[gold]结算[/gold]时，若处于后台，效果减半。",
+  "LIBRARIAN_HAND.title": "手牌",
+  "LIBRARIAN_HAND.description": "战斗中你当前持有的牌。手牌上限为10张。",
+  "LIBRARIAN_DRAW_PILE.title": "抽牌堆",
+  "LIBRARIAN_DRAW_PILE.description": "抽牌时从堆顶取牌。放到抽牌堆底部的牌排在其余牌之后。"
 }

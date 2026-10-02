@@ -18,5 +18,9 @@
   "LIBRARIAN_ORB_TIDE.title": "Tide Orb",
   "LIBRARIAN_ORB_TIDE.description": "[gold]Settle[/gold]: Gain {Value} [gold]Block[/gold] and {Value} [gold]Waves[/gold], unaffected by [gold]Dexterity[/gold] or [gold]Frail[/gold].\nWhen naturally [gold]Settling[/gold] from the back, the effect is halved.",
   "LIBRARIAN_ORB_GROWTH.title": "Growth Orb",
-  "LIBRARIAN_ORB_GROWTH.description": "[gold]Settle[/gold]: [gold]Strengthen[/gold] the lowest-valued other Orb by {Value}. Ties are resolved in Orb order.\nWhen naturally [gold]Settling[/gold] from the back, the effect is halved."
+  "LIBRARIAN_ORB_GROWTH.description": "[gold]Settle[/gold]: [gold]Strengthen[/gold] the lowest-valued other Orb by {Value}. Ties are resolved in Orb order.\nWhen naturally [gold]Settling[/gold] from the back, the effect is halved.",
+  "LIBRARIAN_HAND.title": "Hand",
+  "LIBRARIAN_HAND.description": "The cards you currently hold in combat. Your hand can hold up to 10 cards.",
+  "LIBRARIAN_DRAW_PILE.title": "Draw Pile",
+  "LIBRARIAN_DRAW_PILE.description": "Cards are drawn from the top. Cards placed on the bottom go after the other cards in this pile."
 }
