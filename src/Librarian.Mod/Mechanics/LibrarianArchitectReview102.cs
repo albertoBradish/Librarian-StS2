@@ -27,7 +27,7 @@ internal static class LibrarianNoticePopup102
 #if LIBRARIAN_STABLE && LIBRARIAN_BETA
 #error Select exactly one Librarian release channel.
 #elif LIBRARIAN_STABLE
-    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3809003723";
+    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053";
 #elif LIBRARIAN_BETA
     internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367";
 #else

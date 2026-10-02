@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-01",
+  "channel": "stable",
+  "old_item_id": "3809003723",
+  "new_item_id": "3811677053",
+  "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053",
+  "version": "1.1.0",
+  "game_branch": "public",
+  "visibility": "public",
+  "in_game_link_updated": true,
+  "source_change": "Only the stable Workshop URL constant; gameplay, JSON/PCK and art unchanged.",
+  "release_tags_and_assets_preserved": true,
+  "historical_workshop_ids_in_provenance_preserved": true,
+  "github_release_note": "Existing release attachments retain their original validated hashes; Workshop migration build changes only the DLL link constant.",
+  "subscriber_delivery_verified": false,
+  "new_item_recommendation_verified": false
+}
