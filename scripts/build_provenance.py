@@ -27,10 +27,10 @@ def environment_manifest(sdk, env):
     names = ['.research/tools/megadot/MegaDot_v4.5.1-stable_mono_win64_console.exe',
              '.research/compatibility-game/data_sts2_windows_x86_64/sts2.dll',
              '.research/compatibility-game/mods/BaseLib/BaseLib.dll',
-             '.research/tools/ritsulib/v0.6.2/RitsuLib.References.props',
+             '.research/tools/ritsulib/v0.6.4/RitsuLib.References.props',
              'src/Librarian.Mod/Directory.Build.props']
     paths = [ROOT / n for n in names]
-    paths.extend((ROOT / '.research/tools/ritsulib/v0.6.2').rglob('*.dll'))
+    paths.extend((ROOT / '.research/tools/ritsulib/v0.6.4').rglob('*.dll'))
     git = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
     return {'dotnet_sdk': result.stdout.strip(), 'git_head': git.stdout.strip() if git.returncode == 0 else None,
             'note': 'Source tree hash identifies working inputs; git HEAD alone may be older. Private dependency identities only, no extracted content.',

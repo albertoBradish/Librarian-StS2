@@ -13,15 +13,14 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Librarian.LibrarianCode.Powers.Implemented;
 
-/// <summary>Source 83/D15. Actual Tide gains and losses grant matching Waves per layer; zero changes do not trigger.</summary>
+/// <summary>Each owner lock operation grants Amount Waves, including another permanent lock.</summary>
 public sealed class TidalMarkPower : ImplementedLibrarianPower, IOrbEventListener
 {
     public async Task OnOrbEvent(LibrarianSession session, PlayerChoiceContext context, OrbEvent change)
     {
-        if (!OwnEvent(session, change) || change.Orb != OrbKind.Tide || change.ActualAmount <= 0
-            || change.Kind is not (OrbEventKind.Lost or OrbEventKind.Gained)) return;
+        if (!OwnEvent(session, change) || change.Kind != OrbEventKind.Locked) return;
         Flash();
-        session.Waves.Add(checked(change.ActualAmount * Amount));
+        session.Waves.Add(Amount);
         LibrarianRuntime.VerifyBlock(session);
         await Task.CompletedTask;
     }

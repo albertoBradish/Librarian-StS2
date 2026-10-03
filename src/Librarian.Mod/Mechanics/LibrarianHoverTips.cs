@@ -32,7 +32,6 @@ internal static class LibrarianHoverTips
         ("FIRE", ["燃火"]),
         ("TIDE", ["潮涌"]),
         ("GROWTH", ["生长"]),
-        ("STRENGTHEN", ["强化", "Strengthen"]),
         ("ACTIVATE", ["注魔", "activate", "Activate"]),
         ("SETTLE", ["结算", "settle", "Settle"]),
         ("WAVES", ["浪潮", "Waves"]),

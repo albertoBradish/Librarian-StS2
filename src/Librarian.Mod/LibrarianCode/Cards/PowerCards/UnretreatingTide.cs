@@ -13,7 +13,7 @@ namespace Librarian.LibrarianCode.Cards.PowerCards;
 /// <summary>v0.3.0 approved power rule.</summary>
 public sealed class UnretreatingTide() : ImplementedPowerCard(1, CardRarity.Uncommon)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<UnretreatingTidePower>(8m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<UnretreatingTidePower>(6m)];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int target = DynamicVars["UnretreatingTidePower"].IntValue;

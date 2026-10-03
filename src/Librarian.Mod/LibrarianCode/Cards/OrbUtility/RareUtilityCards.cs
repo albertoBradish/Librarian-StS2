@@ -34,7 +34,7 @@ public sealed class ThreefoldUnity() : OrbUtilityCard(3, CardType.Skill, CardRar
 public sealed class ZeroSearch() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new CalculationBaseVar(4m), new CalculationExtraVar(1m),
+        [new CalculationBaseVar(3m), new CalculationExtraVar(1m),
             new CalculatedVar("Cards").WithMultiplier((card, _) => PreviewSession(card)?.Orbs.LockedKindsThisCombatCount ?? 0)];
     protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
         => Draw(context, (int)DynamicVars.CalculationBase.BaseValue + Session.Orbs.LockedKindsThisCombatCount);
@@ -46,35 +46,35 @@ public sealed class ZeroSearch() : OrbUtilityCard(1, CardType.Skill, CardRarity.
     }
 }
 
-/// <summary>Source 68/r69. D10 explicitly removes Exhaust on upgrade.</summary>
+/// <summary>V1.2.0-beta1: three/four hits; both stages exhaust.</summary>
 public sealed class BookBurning() : OrbUtilityCard(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new CalculationBaseVar(0m), new ExtraDamageVar(1m),
+        [new CalculationBaseVar(0m), new ExtraDamageVar(1m), new RepeatVar(3),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewForeground(card, OrbKind.Fire))];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         int lost = await Lose(context, Session, OrbKind.Fire);
         await DamageCmd.Attack(lost).FromCard(this, play).TargetingAllOpponents(CombatState!)
-            .WithHitCount(4).WithHitFx("vfx/vfx_attack_slash").Execute(context);
+            .WithHitCount(Amount("Repeat")).WithHitFx("vfx/vfx_attack_slash").Execute(context);
     }
-    protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);
+    protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1m);
 }
 
-/// <summary>v0.3.6: draw, Fire2, Tide3, Growth4; the approved order leaves Growth foreground.</summary>
+/// <summary>V1.2.0-beta1: energy1, Growth2, Tide3, Fire4; Fire ends foreground.</summary>
 public sealed class ReadWidely() : OrbUtilityCard(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new EnergyVar(1), new DynamicVar("Growth", 4m), new DynamicVar("Tide", 3m), new DynamicVar("Fire", 2m)];
+        [new EnergyVar(1), new DynamicVar("Growth", 2m), new DynamicVar("Tide", 3m), new DynamicVar("Fire", 4m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
         await PlayerCmd.GainEnergy(Amount("Energy"), Owner);
-        await Gain(context, session, OrbKind.Fire, Amount("Fire"));
-        await Gain(context, session, OrbKind.Tide, Amount("Tide"));
         await Gain(context, session, OrbKind.Growth, Amount("Growth"));
+        await Gain(context, session, OrbKind.Tide, Amount("Tide"));
+        await Gain(context, session, OrbKind.Fire, Amount("Fire"));
     }
     protected override void OnUpgrade() => AddKeyword(CardKeyword.Innate);
 }
@@ -190,6 +190,7 @@ public sealed class SongOfIceAndFire() : Librarian.LibrarianCode.Cards.OrbUtilit
 /// <summary>Source 77/r78. The extra Growth task retains the ordinary foreground settlement scope.</summary>
 public sealed class LifeSymphony() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 8m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
@@ -200,15 +201,15 @@ public sealed class LifeSymphony() : OrbUtilityCard(1, CardType.Skill, CardRarit
     protected override void OnUpgrade() => DynamicVars["Growth"].UpgradeValueBy(4m);
 }
 
-/// <summary>Source 78/r79. D21 snapshots hand cards, counts successful Exhaust moves, and queues one aggregate Tide gain.</summary>
+/// <summary>V1.2.0-beta1: successful Exhaust moves queue one aggregate Waves gain.</summary>
 public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 5m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 5m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
-        int perCard = Amount("Tide");
+        int perCard = Amount("Waves");
         var cards = PileType.Hand.GetPile(Owner).Cards.Where(card => !ReferenceEquals(card, this)).ToArray();
         int exhausted = 0;
         foreach (var card in cards)
@@ -226,7 +227,7 @@ public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRar
             pending?.Schedule(session, tide);
         }
     }
-    protected override void OnUpgrade() => DynamicVars["Tide"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["Waves"].UpgradeValueBy(1m);
 }
 
 /// <summary>Source 79/r80. v0.3.4: settle the foreground X times, retain its value, and exhaust.</summary>

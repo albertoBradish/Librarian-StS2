@@ -1,4 +1,4 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
+<Project Sdk="Godot.NET.Sdk/4.5.1" InitialTargets="CheckDependencyPaths">
     <Import Project=".\Sts2PathDiscovery.props"/>
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
@@ -14,7 +14,7 @@
         <DefineConstants>$(DefineConstants);LIBRARIAN_BETA</DefineConstants>
     </PropertyGroup>
 
-    <Import Project="../../.research/tools/ritsulib/v0.6.2/RitsuLib.References.props" />
+    <Import Project="../../.research/tools/ritsulib/v0.6.4/RitsuLib.References.props" />
 
     <PropertyGroup>
         <!-- Diasble architecture mismatch warning; mods are ideally built for all platforms (MSIL)

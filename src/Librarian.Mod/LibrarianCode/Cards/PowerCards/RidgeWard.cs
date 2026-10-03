@@ -10,9 +10,10 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
-/// <summary>Source 61/r62. Upgrade changes cost only, retaining a single additional response multiplier per copy.</summary>
-public sealed class RidgeWard() : ImplementedPowerCard(2, CardRarity.Rare)
+/// <summary>V1.2.0-beta2: Ancient with Retain at both stages; its existing effects and cost upgrade remain.</summary>
+public sealed class RidgeWard() : ImplementedPowerCard(2, CardRarity.Ancient)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<RidgeWardPower>(1m)];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

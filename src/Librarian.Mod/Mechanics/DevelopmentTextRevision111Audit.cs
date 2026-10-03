@@ -100,6 +100,8 @@ internal static class DevelopmentTextRevision111Audit
                         Check(IHoverTip.RemoveDupes(tips).SequenceEqual(tips), "native dedupe " + label);
                         Check(tips.OfType<HoverTip>().All(t => !t.Description.Contains('{') && !t.Description.Contains('}')), "formatted tips " + label);
                         Check(!Has(tips, "HAND") && !Has(tips, "DRAW_PILE"), "simple-term tips absent " + label);
+                        Check(!Has(tips, "STRENGTHEN"), "retired Strengthen tip absent " + label);
+                        Check(!text.Contains("强化", StringComparison.Ordinal) && !Regex.IsMatch(text, @"\bstrengthen\w*\b", RegexOptions.IgnoreCase), "plain value vocabulary " + label);
                         Check(LibrarianHoverTips.ForText(text).All(t => tips.Any(actual => actual.Id == t.Id)), "description references present " + label);
                         string phaseId = card.Id.Entry + "/" + upgraded;
                         bool hasExtra = Has(LibrarianHoverTips.ForText(text), "EXTRA_SETTLE");
@@ -208,7 +210,14 @@ internal static class DevelopmentTextRevision111Audit
 
             await Reset();
             await Play(Create<Overfishing>());
-            Check(S().Orbs.SwitchLocked && S().Orbs.Foreground == OrbKind.Fire, "native Overfishing retains independent front lock");
+            Check(!S().Orbs.SwitchLocked && S().Orbs.Foreground == OrbKind.Fire
+                && !S().Orbs.IsLocked(OrbKind.Fire) && S().Orbs.IsLocked(OrbKind.Tide) && S().Orbs.IsLocked(OrbKind.Growth),
+                "native beta Overfishing locks backgrounds without fixing the foreground");
+            // Beta2 changed Overfishing. Exercise the independent switch-lock state
+            // explicitly rather than assuming the retired stable card behavior.
+            await Reset();
+            S().Orbs.SwitchLocked = true;
+            Check(S().Orbs.Foreground == OrbKind.Fire, "configured independent front lock starts on Fire");
             await Dispatch(S().Orbs.Lock(OrbKind.Tide));
             await Play(Create<Renewal>());
             await Play(Create<Trickle>());
@@ -226,7 +235,8 @@ internal static class DevelopmentTextRevision111Audit
 
             await Reset();
             screenshots = await Capture(player, models, output, Check);
-            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_AUDIT") == "1")
+            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_AUDIT") == "1"
+                || System.Environment.GetEnvironmentVariable("LIBRARIAN_ORB_VALUE_TEXT_AUDIT") == "1")
                 screenshots += await DevelopmentHoverBeta6Audit.Run(output, Check);
             File.WriteAllText(Path.Combine(output, "native-text-audit.json"),
                 JsonSerializer.Serialize(new { cards = 91, phases, checks, screenshots, realTurns, native = true,
@@ -253,7 +263,7 @@ internal static class DevelopmentTextRevision111Audit
         var layer = new CanvasLayer { Layer = 120 }; NGame.Instance.AddChild(layer);
         var panel = new Control(); layer.AddChild(panel);
         var background = new ColorRect { Color = new Color("20272e") }; panel.AddChild(background);
-        string[] ids = ["TRICKLE", "LIFE_SYMPHONY", "LIFELINE", "DEEP_SEA_BARRIER", "EMBER_RECKONING"];
+        string[] ids = ["TRICKLE", "LIFELINE", "EARTH_COLLAPSE", "EMBER_RECKONING", "ANCIENT_CATALOG"];
         var nodes = new List<NCard>();
         foreach (string id in ids)
         {

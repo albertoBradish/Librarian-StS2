@@ -10,20 +10,21 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本分支维护游戏 **public-beta 0.111.0** 的 **V1.1.0-beta6**。本版合并此前未发布的 beta4／beta5 修订：精简中英文文案并补齐词条解释，手牌、抽牌堆与三法球名保留金字。锁定法球可移动或交换，但仍无法注魔或结算；独立前台限制继续适用。法球选择与复读预览隐藏费用徽标，修复额外结算预览及中英文法球提示；禁页打击、封页护身、见缝插针、归零检索恢复详细说明。开始弹窗修正鼠标与方向导航焦点，更新入口直达本版改动说明。卡牌费用、数值与既有美术保持。游戏 stable 0.107.1 的正式 **V1.1.0** 请使用 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main) 与 [v1.1.0-stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，不要混用两个通道的运行文件。
+本次源码同步目标为游戏 **public-beta 0.111.0** 的 **V1.2.0-beta5**。沿用已发布 beta4 的32卡修订与 r3 先古卡图，仅更新97个中英文法球文案条目（中文52、英文45）：保留生长／潮涌／燃火动作简称，数值增减和清空直接写对应法球数值，移除“强化”玩家提示。玩法、数值与美术沿用 beta4。教学与精简提示、调试初始化等功能留待后续独立版本。游戏 stable 0.107.1 的已发布 **V1.1.1** 源码在 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main)；最近的独立 GitHub stable 下载仍为 [V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，两个通道的运行文件不可混用。
 
-This branch maintains **V1.1.0-beta6 for public-beta 0.111.0**, combining the previously unpublished beta4 and beta5 revisions. Chinese and English descriptions are shorter and linked tooltips are complete; Hand, Draw Pile and Orb names retain gold highlighting. Locked Orbs can move and swap, but cannot Activate or Settle; the independent front-Orb restriction still applies. Orb selection and Reread previews hide their cost badges, with extra-Settlement previews and bilingual Orb tooltips repaired. Forbidden Strike, Sealed Shelter, Thread the Needle and Zero Search restore their detailed descriptions. The welcome notice fixes mouse and directional-navigation focus; its update button opens this edition's Change Notes. Card costs, values and existing artwork are unchanged. Use `main` and the `v1.1.0-stable` release for stable 0.107.1.
+This source update targets **V1.2.0-beta5 for public-beta 0.111.0**. It retains published beta4's 32-card revision and approved r3 Ancient card artwork, and changes only 97 localization entries: 52 Chinese and 45 English. Growth, Tide and Fire action keywords remain; changes to stored Orb values use explicit value wording, and the Strengthen player tooltip is removed. Rules, values and artwork retain the beta4 baseline. Practice, compact tooltips and debug initialization remain separate future versions. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) contains the published **V1.1.1 source for stable 0.107.1**; the latest separate GitHub stable runtime download remains **V1.1.0**. Keep the two channels' runtime files separate.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
 Includes Simplified Chinese and English, independent language settings, and
 custom translation packs.
 
-图书管理员通过烈焰、潮涌、翠叶三种法球的注魔、结算与锁定组织战斗。
+图书管理员通过烈焰、波涛、翠叶三种法球的注魔、结算与锁定组织战斗。
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。V1.1.0-beta6 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，中英文页面、public-beta 分支快照和本机订阅三文件字节已核对。本次同步 beta 源码；最近的 GitHub 独立发行附件仍为 beta1，本轮不另建独立 Release。
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。本轮仅同步 beta 源码，独立 GitHub Release 与附件仍保留 beta1。This is a beta source update; the separate GitHub runtime release remains beta1.
+- [Release batches / 发布批次](RELEASE-BATCHES.md)。V1.2.0-beta5 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，服务器与完整双语正文已核对；本机订阅当前仍为beta4。V1.2.0-beta5 is server-verified on Steam; the local subscriber still has beta4.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -41,7 +42,7 @@ Seven original chapters in Simplified Chinese and English unfold through the exi
 
 ### Three elements, scattered scrolls / 三元素与散落书卷
 
-烈焰、潮涌、翠叶通过注魔、结算与锁定相互配合。锁定显示可选默认的红色负数回合、旧回合显示，或球心原值加下方回合；显示方式不改变法球规则。
+烈焰、波涛、翠叶通过注魔、结算与锁定相互配合。锁定显示可选默认的红色负数回合、旧回合显示，或球心原值加下方回合；显示方式不改变法球规则。
 
 Channel, evoke and lock Fire, Tide and Growth orbs. Choose red negative lock turns, the old turn counter, or the original value with turns below. These display choices leave orb rules unchanged.
 
@@ -57,14 +58,14 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.1.0-beta6**, for the game's public-beta branch.
+Source baseline for this update: **1.2.0-beta5**, for the game's public-beta branch.
 See [release metadata](release-metadata.json).
 
 | Component | Verified baseline |
 | --- | --- |
 | Slay the Spire 2 | **0.111.0 public-beta**, BuildID 24724944, commit 41cef1ea |
 | [BaseLib](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.5) | 3.4.5 |
-| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.2) | 0.6.2, complete bundle for game API 0.111.0 |
+| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.4) | 0.6.4, complete bundle with `compat/0.111.0/` and `shared/` |
 
 Manifest minimum versions are not a promise of compatibility with newer game
 or dependency versions. Single-player is the primary supported path. Multiplayer

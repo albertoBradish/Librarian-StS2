@@ -30,7 +30,7 @@ public sealed class Calibrate() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUt
 }
 
 // Catalog 44. The existing starter-card visuals serve as the two choice previews only.
-public sealed class DrawBranch() : LibrarianCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+public sealed class DrawBranch() : LibrarianCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
@@ -116,6 +116,9 @@ public sealed class NourishingLife() : LibrarianCard(1, CardType.Attack, CardRar
 public sealed class Transcribe() : LibrarianCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> ExtraHoverTips =>
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromKeyword(CardKeyword.Ethereal),
+         MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
     protected override bool IsPlayable => IsMutable && Owner is { } player
         && LibrarianCrossCharacter040.LastPlayed(player) is not null;
     protected override void AddExtraArgsToDescription(LocString description)
@@ -153,7 +156,7 @@ public sealed class Transcribe() : LibrarianCard(1, CardType.Skill, CardRarity.R
 /// <summary>v0.3.0 approved revision, catalog 69. Stable model ID retained.</summary>
 public sealed class FireInscription() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(10m), new ExtraDamageVar(4m), new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewSession(card)?.Orbs.SettlementsThisCombat ?? 0)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(8m), new ExtraDamageVar(4m), new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewSession(card)?.Orbs.SettlementsThisCombat ?? 0)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Hit(context, play, Amount("CalculationBase") + Session.Orbs.SettlementsThisCombat * Amount("ExtraDamage"));
@@ -176,7 +179,7 @@ public sealed class ImmortalSpark() : LibrarianCard(1, CardType.Skill, CardRarit
         set { AssertMutable(); _permanentIncrease = value; DynamicVars["Fire"].BaseValue = checked(1 + value); }
     }
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Fire", 1m), new IntVar("Increase", 4m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new IntVar("Fire", 1m), new IntVar("Increase", 2m)];
     protected override void OnUpgrade() => DynamicVars["Increase"].UpgradeValueBy(2m);
     protected override void AfterDowngraded() => DynamicVars["Fire"].BaseValue = checked(1 + PermanentIncrease);
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)

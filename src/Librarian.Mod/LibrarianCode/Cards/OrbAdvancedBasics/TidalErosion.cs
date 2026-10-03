@@ -14,7 +14,7 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 public sealed class TidalErosion() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(9m, ValueProp.Move), new PowerVar<WeakPower>(1m)];
+        [new DamageVar(8m, ValueProp.Move), new PowerVar<WeakPower>(1m)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -4,15 +4,17 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
-Current beta source revision: **Librarian 1.1.0-beta6**, game **public-beta 0.111.0**,
-source branch **`codex/beta`**. This revision merges unpublished beta4/beta5 changes
-and fixes selection costs, extra-Settlement previews and Orb tooltips; four card
-descriptions retain their detailed wording. Source synchronization and the beta
-Workshop update do not create a new GitHub Release. The latest separate beta
-runtime release remains **1.1.0-beta1**, tag **`v1.1.0-beta1`**. Both **BaseLib 3.4.5**
-and the complete **RitsuLib 0.6.2** bundle matching game API 0.111.0 are required.
-The stable counterpart uses manifest version **1.1.0**, tag **`v1.1.0-stable`**
-and game **0.107.1** on `main`; keep its candidate and validation separate.
+Beta source revision for this update: **Librarian 1.2.0-beta5**, game **public-beta
+0.111.0**, source branch **`codex/beta`**. It retains published beta4's 32-card
+revision and r3 Ancient artwork, and applies only 97 Chinese/English Orb text
+changes and the Strengthen tooltip removal. Later functional batches are listed
+in [RELEASE-BATCHES.md](RELEASE-BATCHES.md). Source synchronization and a Steam
+update do not create a new GitHub Release. The latest separate beta runtime
+release remains **1.1.0-beta1**, tag **`v1.1.0-beta1`**. Both **BaseLib 3.4.5** and the
+complete **RitsuLib 0.6.4** bundle, including `compat/0.111.0/` and `shared/`, are
+required. `main` contains published stable **1.1.1** source for game **0.107.1**;
+its latest independent GitHub runtime release remains **1.1.0**, tag
+**`v1.1.0-stable`**. Keep each channel's source, candidate and validation separate.
 
 1. Finish the release's source changes and compatibility/native validation. Record
    exact game/build, BaseLib/RitsuLib versions, known limitations and source commit.

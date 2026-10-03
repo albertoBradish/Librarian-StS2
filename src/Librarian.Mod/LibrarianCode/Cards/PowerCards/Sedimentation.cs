@@ -13,7 +13,7 @@ namespace Librarian.LibrarianCode.Cards.PowerCards;
 /// <summary>v0.3.0 approved power rule.</summary>
 public sealed class Sedimentation() : ImplementedPowerCard(1, CardRarity.Uncommon)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SedimentationPower>(6m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SedimentationPower>(5m)];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await Apply<SedimentationPower>(choiceContext, DynamicVars["SedimentationPower"].BaseValue);

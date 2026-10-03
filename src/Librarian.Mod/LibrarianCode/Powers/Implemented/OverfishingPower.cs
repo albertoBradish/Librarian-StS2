@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Librarian.LibrarianCode.Powers.Implemented;
 
-/// <summary>Source 58 basic. Each layer separately loses floor(current/2) from the explicitly selected backgrounds.</summary>
+/// <summary>Each remaining owner turn doubles the orb that is foreground at that turn's start.</summary>
 public sealed class OverfishingPower : ImplementedLibrarianPower
 {
     public override PowerStackType StackType => PowerStackType.Single;
@@ -34,19 +34,9 @@ public sealed class OverfishingPower : ImplementedLibrarianPower
         InvokeDisplayAmountChanged();
         return true;
     }
-    public override Task AfterApplied(Creature? applier, CardModel? cardSource)
-    {
-        if (Owner.Player is { } player) LibrarianRuntime.Get(player).Orbs.SwitchLocked = true;
-        return Task.CompletedTask;
-    }
-    public override Task AfterRemoved(Creature oldOwner)
-    {
-        if (LibrarianRuntime.For(oldOwner) is { } session) session.Orbs.SwitchLocked = false;
-        return Task.CompletedTask;
-    }
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
-        if (player != Owner.Player) return;
+        if (player != Owner.Player || Owner.IsDead || !Owner.Powers.Contains(this)) return;
         var session = LibrarianRuntime.Get(player);
         if (!session.Orbs.TryMarkFirstThisTurn(Id.ToString()) || !TryConsumeTurn()) return;
         var kind = session.Orbs.Foreground;

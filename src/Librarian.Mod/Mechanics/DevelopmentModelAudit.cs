@@ -127,9 +127,9 @@ internal static class DevelopmentModelAudit
             spark.FinalizeUpgradeInternal();
             var loaded = (ImmortalSpark)CardModel.FromSerializable(spark.ToSerializable());
             Require(loaded.PermanentIncrease == 7 && loaded.DynamicVars["Fire"].IntValue == 8
-                && loaded.DynamicVars["Increase"].IntValue == 6, "Permanent growth/upgrade serialization mismatch");
+                && loaded.DynamicVars["Increase"].IntValue == 4, "Permanent growth/upgrade serialization mismatch");
             loaded.DowngradeInternal();
-            Require(loaded.DynamicVars["Fire"].IntValue == 8 && loaded.DynamicVars["Increase"].IntValue == 4,
+            Require(loaded.DynamicVars["Fire"].IntValue == 8 && loaded.DynamicVars["Increase"].IntValue == 2,
                 "Downgrade must preserve accumulated growth");
             foreach (var kind in Enum.GetValues<Librarian.Core.OrbKind>())
             {
@@ -151,7 +151,7 @@ internal static class DevelopmentModelAudit
         {
             "LIBRARIAN-SCATTERED_FLAMES" => 8,
             "LIBRARIAN-IGNITE" => upgraded ? 10 : 7,
-            "LIBRARIAN-FIRE_INSCRIPTION" => 10,
+            "LIBRARIAN-FIRE_INSCRIPTION" => 8,
             _ => null
         };
         if (expected is null) return;
@@ -174,11 +174,12 @@ internal static class DevelopmentModelAudit
         var tips = card.HoverTips.ToArray();
         foreach (var tip in tips.OfType<MegaCrit.Sts2.Core.HoverTips.HoverTip>())
             Require(!string.IsNullOrWhiteSpace(tip.Description) && !tip.Description.Contains('{'), $"Unresolved hover tip {card.Id}: {tip.Description}");
+        Require(!tips.Any(t => t.Id == LibrarianHoverTips.Tip("STRENGTHEN").Id), "Retired Strengthen tip must be absent: " + card.Id);
         string text = card.GetDescriptionForPile(PileType.None);
         foreach (var tip in tips.OfType<MegaCrit.Sts2.Core.HoverTips.HoverTip>())
             Require(tip.CanonicalModel is not Librarian.LibrarianCode.Powers.LibrarianPower,
                 $"Card must not preview its own combat status: {card.Id}");
-        foreach (string word in new[] { "燃火", "潮涌", "生长", "强化", "注魔", "结算", "浪潮", "格挡" })
+        foreach (string word in new[] { "燃火", "潮涌", "生长", "注魔", "结算", "浪潮", "格挡" })
         {
             string withoutGold = System.Text.RegularExpressions.Regex.Replace(text, @"\[gold\].*?\[/gold\]", "");
             Require(!withoutGold.Contains(word), $"Keyword must be gold: {card.Id} {word}");
@@ -193,9 +194,9 @@ internal static class DevelopmentModelAudit
             MainFile.Logger.Info($"KEYWORD_SCOPE_PASS Renewal upgraded={card.IsUpgraded} growth=True lock=True fire=False");
         }
         if (card.Id.Entry == "LIBRARIAN-SEDIMENTATION")
-            Require(new[] { "STRENGTHEN", "EXTINGUISH", "BACKGROUND" }
+            Require(new[] { "EXTINGUISH", "BACKGROUND" }
                 .All(key => tips.Any(t => t.Id == LibrarianHoverTips.Tip(key).Id)),
-                "Sedimentation must explain Strengthen, Extinguish and Background without a zero-value power preview");
+                "Sedimentation must explain Extinguish and Background without a zero-value power preview");
         if (card.Id.Entry == "LIBRARIAN-SHIFTING_PAGES")
             Require(!tips.OfType<MegaCrit.Sts2.Core.HoverTips.HoverTip>().Any(t => t.Title == card.Title),
                 "Shifting Pages card must not preview its own power");

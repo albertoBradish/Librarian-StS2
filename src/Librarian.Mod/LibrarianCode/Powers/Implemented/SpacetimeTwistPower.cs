@@ -17,16 +17,17 @@ public sealed class SpacetimeTwistPower : ImplementedLibrarianPower
 {
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
     {
-        if (player != Owner.Player) return;
+        if (player != Owner.Player || Owner.IsDead || !Owner.Powers.Contains(this)) return;
         var session = LibrarianRuntime.Get(player);
+        if (!session.Orbs.TryMarkFirstThisTurn(Id.ToString())) return;
         var locked = session.Orbs.ResolveSelector(OrbSelector.Random(OrbScope.All), new LibrarianRuntime.GameOrbRandom(player))!.Value;
         var others = session.Orbs.Positions.Where(k => k != locked).ToArray();
         Flash();
+        await LibrarianRuntime.Dispatch(session, choiceContext, session.Orbs.Lock(locked, 1, Origin));
         foreach (var kind in others)
         {
             await LibrarianRuntime.Dispatch(session, choiceContext, session.Orbs.Strengthen(kind, Amount, OrbScope.All, Origin));
             await LibrarianRuntime.Dispatch(session, choiceContext, session.Orbs.Activate(kind, OrbScope.All, Origin));
         }
-        await LibrarianRuntime.Dispatch(session, choiceContext, session.Orbs.Lock(locked, 1, Origin));
     }
 }

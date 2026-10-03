@@ -42,7 +42,7 @@ def main():
         for dependency in [game_data / 'sts2.dll', game_data / '0Harmony.dll',
                            ROOT / '.research/compatibility-game/mods/BaseLib/BaseLib.dll']:
             shutil.copy2(dependency, export_cache / dependency.name)
-        ritsu = ROOT / '.research/tools/ritsulib/v0.6.2'
+        ritsu = ROOT / '.research/tools/ritsulib/v0.6.4'
         for dependency in [*(ritsu / 'compat/0.111.0').glob('*.dll'), *(ritsu / 'shared').glob('*.dll')]:
             shutil.copy2(dependency, export_cache / dependency.name)
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')

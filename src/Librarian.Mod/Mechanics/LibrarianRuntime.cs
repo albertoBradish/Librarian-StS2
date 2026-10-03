@@ -352,7 +352,6 @@ public sealed class LibrarianCombatHooks : CustomSingletonModel
             if (LibrarianRuntime.For(creature) is { } session)
             {
                 session.SyncTurn();
-                session.Orbs.SwitchLocked = creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.OverfishingPower>() is not null;
                 session.Waves.Retained = creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.RidgeWardPower>() is not null;
                 session.Waves.RetentionFloor = creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.UnretreatingTidePower>()?.Amount ?? 0;
                 session.Waves.StartTurn(session.Orbs.OwnerTurn);

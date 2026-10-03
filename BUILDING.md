@@ -25,7 +25,7 @@ Supply legally obtained, matching private dependencies locally:
 | `.research/tools/megadot/` | `MegaDot_v4.5.1-stable_mono_win64_console.exe` and matching runtime files |
 | `.research/compatibility-game/` | isolated copy of Slay the Spire 2 0.111.0 public-beta |
 | `.research/compatibility-game/mods/BaseLib/` | official BaseLib 3.4.5 runtime |
-| `.research/tools/ritsulib/v0.6.2/` | complete RitsuLib 0.6.2 bundle, `RitsuLib.References.props`, `compat/0.111.0/`, `shared/` |
+| `.research/tools/ritsulib/v0.6.4/` | complete RitsuLib 0.6.4 bundle, `RitsuLib.References.props`, `compat/0.111.0/`, `shared/` |
 
 Acquire BaseLib and RitsuLib through their official upstream projects linked in
 the README. MegaDot is the game-compatible Godot distribution supplied by the
