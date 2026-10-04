@@ -37,11 +37,16 @@ public sealed class LibrarianSession(Player player)
     internal Dictionary<CardPlay, CardModel> PendingPlaySnapshots { get; } = new();
     internal List<(long Turn, Func<PlayerChoiceContext, Task> Action)> StartTasks { get; } = [];
     internal List<Func<PlayerChoiceContext, Task>> EndTasks { get; } = [];
+    internal List<Action<EndTurnBlockProjection>?> EndTaskPreviews { get; } = [];
     internal Queue<Func<PlayerChoiceContext, Task>> AfterHandCleanup { get; } = new();
     internal HashSet<CardModel> EndTurnHandCards { get; } = [];
     internal LibrarianBottomPlay041.EndTurnBottomSnapshot? EndTurnBottomSnapshot { get; set; }
     public void QueueNextTurn(Func<PlayerChoiceContext, Task> action) => StartTasks.Add((Orbs.OwnerTurn + 1, action));
-    public void QueueEndTurn(Func<PlayerChoiceContext, Task> action) => EndTasks.Add(action);
+    public void QueueEndTurn(Func<PlayerChoiceContext, Task> action, Action<EndTurnBlockProjection>? preview = null)
+    {
+        EndTasks.Add(action);
+        EndTaskPreviews.Add(preview);
+    }
     public Task AfterCleanupOrNow(PlayerChoiceContext context, Func<PlayerChoiceContext, Task> action)
     {
         if (!ResolvingEndTurn) return action(context);
@@ -412,6 +417,7 @@ public sealed class LibrarianCombatHooks : CustomSingletonModel
                     }
                     var pending = session.EndTasks.ToArray();
                     session.EndTasks.Clear();
+                    session.EndTaskPreviews.Clear();
                     foreach (var task in pending)
                         if (!CombatManager.Instance.IsOverOrEnding && !creature.IsDead) await task(choiceContext);
                     foreach (var listener in creature.Powers.OfType<IOrbEndTurnListener>().ToArray())

@@ -13,6 +13,18 @@ public sealed class WaveState(Func<bool>? canGain = null)
     private int _phaseFrozenAmount;
     private int _phaseTideContribution;
 
+    public WaveState CopyForPreview(bool allowGain = true)
+    {
+        // The copy must not invoke the live predicate, even if a caller supplied a stateful delegate.
+        return new WaveState(() => allowGain)
+        {
+            Amount = Amount, Retained = Retained, RetentionFloor = RetentionFloor,
+            _lastEnd = _lastEnd, _legacyTideSettlement = _legacyTideSettlement,
+            _phaseTurn = _phaseTurn, _completedPhaseTurn = _completedPhaseTurn,
+            _phaseFrozenAmount = _phaseFrozenAmount, _phaseTideContribution = _phaseTideContribution
+        };
+    }
+
     /// <summary>
     /// Freezes the Waves value used by the current owner's end-turn payout.  The
     /// freeze deliberately happens before any end-turn card/orb action, so Waves

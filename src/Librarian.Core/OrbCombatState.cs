@@ -42,7 +42,28 @@ public sealed class OrbCombatState
     public long SwitchesThisTurn { get; private set; }
     public bool TideGainBlocked { get; private set; }
     public bool IsFaulted => _faulted;
-    public TideBlockLedger BlockLedger { get; } = new();
+    public TideBlockLedger BlockLedger { get; private set; } = new();
+
+    /// <summary>Deep disposable state for planning through the same end-turn resolver.</summary>
+    public OrbCombatState CopyForPreview()
+    {
+        EnsureHealthy();
+        if (_resolving) throw new InvalidOperationException("Cannot project an in-flight end turn.");
+        var copy = new OrbCombatState(OwnerId)
+        {
+            OwnerTurn = OwnerTurn, SwitchLocked = SwitchLocked, TideGainBlocked = TideGainBlocked,
+            SettlementsThisTurn = SettlementsThisTurn, SettlementsThisCombat = SettlementsThisCombat,
+            ZeroCount = ZeroCount, LossCount = LossCount, SwitchesThisTurn = SwitchesThisTurn,
+            _eventSequence = _eventSequence, _resolvedTurn = _resolvedTurn, BlockLedger = BlockLedger.CopyForPreview()
+        };
+        copy._positions.Clear(); copy._positions.AddRange(_positions);
+        Array.Copy(_lockedTurns, copy._lockedTurns, 3); Array.Copy(_values, copy._values, 3);
+        Array.Copy(_highWater, copy._highWater, 3); Array.Copy(_active, copy._active, 3);
+        copy._firstThisTurn.UnionWith(_firstThisTurn); copy._suppressed.UnionWith(_suppressed);
+        copy._lockedKindsThisCombat.UnionWith(_lockedKindsThisCombat); copy._preserved.UnionWith(_preserved);
+        copy._extraTasks.AddRange(_extraTasks);
+        return copy;
+    }
     /// <summary>Orb kinds successfully locked at least once in this combat.</summary>
     public IReadOnlySet<OrbKind> LockedKindsThisCombat => _lockedKindsThisCombat;
     public int LockedKindsThisCombatCount => _lockedKindsThisCombat.Count;
