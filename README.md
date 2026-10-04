@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本次源码同步目标为游戏 **public-beta 0.111.0** 的 **V1.2.0-beta5**。沿用已发布 beta4 的32卡修订与 r3 先古卡图，仅更新97个中英文法球文案条目（中文52、英文45）：保留生长／潮涌／燃火动作简称，数值增减和清空直接写对应法球数值，移除“强化”玩家提示。玩法、数值与美术沿用 beta4。教学与精简提示、调试初始化等功能留待后续独立版本。游戏 stable 0.107.1 的已发布 **V1.1.1** 源码在 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main)；最近的独立 GitHub stable 下载仍为 [V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，两个通道的运行文件不可混用。
+本次源码同步目标为游戏 **public-beta 0.111.0** 的 **V1.2.0-beta6**。在已发布 beta5 基础上加入四项遗物与两项药水修订，并预览波涛与浪潮在回合结束时带来的潮涌格挡。beta5的法球数值文案调整及“强化”玩家提示移除沿用。游戏 stable 0.107.1 的已发布 **V1.1.1** 源码在 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main)；最近的独立 GitHub stable 下载仍为 [V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，两个通道的运行文件不可混用。
 
-This source update targets **V1.2.0-beta5 for public-beta 0.111.0**. It retains published beta4's 32-card revision and approved r3 Ancient card artwork, and changes only 97 localization entries: 52 Chinese and 45 English. Growth, Tide and Fire action keywords remain; changes to stored Orb values use explicit value wording, and the Strengthen player tooltip is removed. Rules, values and artwork retain the beta4 baseline. Practice, compact tooltips and debug initialization remain separate future versions. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) contains the published **V1.1.1 source for stable 0.107.1**; the latest separate GitHub stable runtime download remains **V1.1.0**. Keep the two channels' runtime files separate.
+This source update targets **V1.2.0-beta6 for public-beta 0.111.0**. Building on published beta5, it includes four relic and two potion revisions, plus an end-turn preview of Tidal Block from Tide and Waves. Beta5's Orb value wording and retired Strengthen player tooltip remain in the baseline. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) contains the published **V1.1.1 source for stable 0.107.1**; the latest separate GitHub stable runtime download remains **V1.1.0**. Keep the two channels' runtime files separate.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -24,7 +24,7 @@ custom translation packs.
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
 - [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。本轮仅同步 beta 源码，独立 GitHub Release 与附件仍保留 beta1。This is a beta source update; the separate GitHub runtime release remains beta1.
-- [Release batches / 发布批次](RELEASE-BATCHES.md)。V1.2.0-beta5 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，服务器与完整双语正文已核对；本机订阅当前仍为beta4。V1.2.0-beta5 is server-verified on Steam; the local subscriber still has beta4.
+- [Release batches / 发布批次](RELEASE-BATCHES.md)。V1.2.0-beta6 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，服务器与完整双语正文已核对；本机订阅当前仍为beta5。V1.2.0-beta6 is server-verified on Steam; the local subscriber still has beta5.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -58,7 +58,7 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Source baseline for this update: **1.2.0-beta5**, for the game's public-beta branch.
+Source baseline for this update: **1.2.0-beta6**, for the game's public-beta branch.
 See [release metadata](release-metadata.json).
 
 | Component | Verified baseline |
