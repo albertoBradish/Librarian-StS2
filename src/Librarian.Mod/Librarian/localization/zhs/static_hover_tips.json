@@ -12,7 +12,7 @@
   "LIBRARIAN_SETTLE.title": "结算",
   "LIBRARIAN_SETTLE.description": "触发一次法球效果。",
   "LIBRARIAN_WAVES.title": "浪潮",
-  "LIBRARIAN_WAVES.description": "你的回合结束时，将本次[gold]波涛[/gold]法球提供的[gold]格挡[/gold]补足至结束回合前的[gold]浪潮[/gold]层数。\n随后[gold]浪潮[/gold]层数减半。",
+  "LIBRARIAN_WAVES.description": "本回合结束时，潮涌结算的格挡不低于[gold]浪潮[/gold]的层数。然后[gold]浪潮[/gold]的层数减半。",
   "LIBRARIAN_ORB_FIRE.title": "烈焰",
   "LIBRARIAN_ORB_FIRE.description": "法球：对一名随机敌人造成{Value}点伤害。",
   "LIBRARIAN_ORB_TIDE.title": "波涛",

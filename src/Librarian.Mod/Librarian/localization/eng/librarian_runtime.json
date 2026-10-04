@@ -1,4 +1,13 @@
 {
+  "LIBRARIAN_BLOCK_PREVIEW_TITLE": "Expected Tidal Block",
+  "LIBRARIAN_BLOCK_PREVIEW_DESCRIPTION": "New Block expected from Tide and Waves if you end your turn now. Existing Block stays on the shield.",
+  "LIBRARIAN_BLOCK_PREVIEW_UNKNOWN": "Est.",
+  "LIBRARIAN_BLOCK_PREVIEW_BOTTOM": "Bottom cards will be played at turn end. Block is determined after they resolve.",
+  "LIBRARIAN_BLOCK_PREVIEW_EFFECTS": "A turn-end effect cannot be safely predicted. Block is determined during resolution.",
+  "LIBRARIAN_BLOCK_PREVIEW_MODIFIERS": "An additional Block effect is active. Block is determined during resolution.",
+  "LIBRARIAN_BLOCK_PREVIEW_COMBAT": "Orb or relic damage may end combat. Block is determined during resolution.",
+  "LIBRARIAN_BLOCK_PREVIEW_RANDOM": "A random effect can change Block. The range shows the possible results.",
+  "LIBRARIAN_BLOCK_PREVIEW_RESOLVING": "Turn end is resolving.",
   "LIBRARIAN_LOCK_VALUE": "\nStored value: {Value}\n",
   "LIBRARIAN_LOCK_PERMANENT": "Permanently locked",
   "LIBRARIAN_LOCK_TURNS": "Locked for {Turns} {Turns:plural:turn|turns}",

@@ -36,7 +36,7 @@ public sealed class DeepSeaPendingPower : ImplementedLibrarianPower
             await PowerCmd.ModifyAmount(context, this, -value, null, null);
             session.Waves.Add(value);
             LibrarianRuntime.VerifyBlock(session);
-        });
+        }, preview => { if (Owner.Powers.Contains(this) && !Owner.IsDead) preview.Waves.Add(value); });
     }
 }
 

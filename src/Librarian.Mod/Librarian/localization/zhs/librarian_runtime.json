@@ -1,4 +1,13 @@
 {
+  "LIBRARIAN_BLOCK_PREVIEW_TITLE": "预计潮涌格挡",
+  "LIBRARIAN_BLOCK_PREVIEW_DESCRIPTION": "按当前状态结束回合时，波涛与浪潮预计新增的格挡。已有格挡仍显示在盾牌中。",
+  "LIBRARIAN_BLOCK_PREVIEW_UNKNOWN": "预计",
+  "LIBRARIAN_BLOCK_PREVIEW_BOTTOM": "回合结束时会自动打出底牌，格挡需等待这些牌结算后确定。",
+  "LIBRARIAN_BLOCK_PREVIEW_EFFECTS": "有无法提前计算的回合结束效果，格挡将在实际结算时确定。",
+  "LIBRARIAN_BLOCK_PREVIEW_MODIFIERS": "有额外格挡效果，格挡将在实际结算时确定。",
+  "LIBRARIAN_BLOCK_PREVIEW_COMBAT": "法球或遗物伤害可能结束战斗，格挡将在实际结算时确定。",
+  "LIBRARIAN_BLOCK_PREVIEW_RANDOM": "随机效果可能改变格挡；范围表示当前可能的结果。",
+  "LIBRARIAN_BLOCK_PREVIEW_RESOLVING": "正在结算回合。",
   "LIBRARIAN_LOCK_VALUE": "\n法球数值：{Value}\n",
   "LIBRARIAN_LOCK_PERMANENT": "永久锁定",
   "LIBRARIAN_LOCK_TURNS": "锁定：剩余{Turns}回合",

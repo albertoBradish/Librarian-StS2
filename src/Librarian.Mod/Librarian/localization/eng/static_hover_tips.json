@@ -12,7 +12,7 @@
   "LIBRARIAN_SETTLE.title": "Settle",
   "LIBRARIAN_SETTLE.description": "Trigger an orb's effect once.",
   "LIBRARIAN_WAVES.title": "Waves",
-  "LIBRARIAN_WAVES.description": "At the end of your turn, top up the [gold]Tide[/gold] Orb's [gold]Block[/gold] for this end turn to the [gold]Waves[/gold] you had before ending your turn.\nThen halve your [gold]Waves[/gold].",
+  "LIBRARIAN_WAVES.description": "At the end of this turn, gain at least as much [gold]Tidal Block[/gold] as your [gold]Waves[/gold]. Then halve your [gold]Waves[/gold].",
   "LIBRARIAN_ORB_FIRE.title": "Fire",
   "LIBRARIAN_ORB_FIRE.description": "Orb: Deal {Value} damage to a random enemy.",
   "LIBRARIAN_ORB_TIDE.title": "Tide",

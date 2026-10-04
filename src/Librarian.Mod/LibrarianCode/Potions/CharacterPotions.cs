@@ -15,7 +15,7 @@ public sealed class KindlingPotion : LibrarianPotion
     public override PotionRarity Rarity => PotionRarity.Common;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 8m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 6m)];
     public override IEnumerable<IHoverTip> ExtraHoverTips => [LibrarianHoverTips.Tip("FIRE")];
     protected override Task OnUse(PlayerChoiceContext context, Creature? target)
     {
@@ -30,7 +30,7 @@ public sealed class ClarityPotion : LibrarianPotion
     public override PotionRarity Rarity => PotionRarity.Uncommon;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 14m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 9m)];
     public override IEnumerable<IHoverTip> ExtraHoverTips => [LibrarianHoverTips.Tip("WAVES")];
     protected override Task OnUse(PlayerChoiceContext context, Creature? target)
     {
