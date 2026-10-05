@@ -1,4 +1,5 @@
 {
+  "LIBRARIAN_UPDATE.toast": "The Librarian has been updated to [{Version}]. Click here to learn more.",
   "LIBRARIAN_SETTINGS.title": "Librarian",
   "LIBRARIAN_SETTINGS.presentation_hint": "Local display and audio settings apply immediately and save automatically.",
   "LIBRARIAN_SETTINGS.effects": "Card and Orb Effects",

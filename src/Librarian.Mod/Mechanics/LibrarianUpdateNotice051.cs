@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 using MegaCrit.Sts2.Core.Nodes.Screens.MainMenu;
 using MegaCrit.Sts2.Core.Nodes.Screens.ScreenContext;
 using MegaCrit.Sts2.Core.Platform;
+using STS2RitsuLib.Ui.Toast;
 
 namespace Librarian.Mechanics;
 
@@ -129,7 +130,7 @@ internal static class LibrarianNoticeHistory051
     internal static void ForgetSessionForAudit() { SessionAcknowledged.Clear(); SessionForgotten.Clear(); }
 }
 
-/// <summary>Waits for a free native modal slot on the visible main menu, then retires itself.</summary>
+/// <summary>Offers a timed toast; only an explicit click may queue the native details dialog.</summary>
 public partial class LibrarianUpdateNotice051 : Node
 {
     internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/changelog/3811677053";
@@ -138,6 +139,9 @@ public partial class LibrarianUpdateNotice051 : Node
     private static readonly HashSet<string> Presented = new(StringComparer.Ordinal);
     private static WeakReference<NMainMenu>? _menu;
     private double _wait = 2.1; // Native main-menu fade lasts two seconds.
+    internal const double ToastDurationSeconds = 8;
+    private RitsuToastHandle? _toast;
+    private bool _openRequested;
     internal static string? CurrentVersion => ModManager.GetLoadedMods()
         .FirstOrDefault(m => m.manifest?.id == MainFile.ModId && m.assembly == typeof(MainFile).Assembly)?.manifest?.version;
 
@@ -146,20 +150,42 @@ public partial class LibrarianUpdateNotice051 : Node
         _wait -= delta;
         if (_wait > 0) return;
         _wait = 0.25;
+        if (_toast is not null && !_openRequested && !_toast.IsAlive()) { QueueFree(); return; }
         if (GetParent() is not NMainMenu menu || !menu.IsVisibleInTree() || menu.SubmenuStack.SubmenusOpen
             || ActiveScreenContext.Instance is null || !ActiveScreenContext.Instance.IsCurrent(menu)) return;
         if (NModalContainer.Instance is null || NModalContainer.Instance.OpenModal is not null) return;
         if (LibrarianArchitectReview102.HasPendingMenuNotice) return;
         string? version = CurrentVersion;
         if (string.IsNullOrWhiteSpace(version)) { QueueFree(); return; }
-        if (Presented.Contains(version) || LibrarianNoticeHistory051.IsAcknowledged(version)) { QueueFree(); return; }
-        try { if (Show(version) is not null) QueueFree(); }
+        try
+        {
+            if (_openRequested)
+            {
+                if (Show(version) is not null) QueueFree();
+                return;
+            }
+            if (_toast is not null) return;
+            if (Presented.Contains(version) || LibrarianNoticeHistory051.IsAcknowledged(version)) { QueueFree(); return; }
+            var text = new LocString("main_menu_ui", "LIBRARIAN_UPDATE.toast");
+            text.Add("Version", version);
+            _toast = RitsuToastService.ShowTracked(new RitsuToastRequest(text.GetFormattedText(),
+                durationSeconds: ToastDurationSeconds, onClick: () =>
+                {
+                    if (GodotObject.IsInstanceValid(this) && IsInsideTree() && !IsQueuedForDeletion())
+                        _openRequested = true;
+                }));
+            Presented.Add(version);
+            MainFile.Logger.Info("UPDATE_NOTICE_TOAST_QUEUED version=" + version);
+            if (!_toast.IsAlive()) QueueFree(); // Respect the player's RitsuLib notification settings.
+        }
         catch (Exception e)
         {
             MainFile.Logger.Warn("Update notice unavailable; main menu remains usable: " + e.GetType().Name);
             QueueFree();
         }
     }
+
+    public override void _ExitTree() => _toast?.Close(true);
 
     internal static NGenericPopup? Show(string version, Action<string>? openLink = null)
     {
@@ -262,19 +288,25 @@ public partial class LibrarianUpdateNotice051 : Node
         LibrarianNoticeHistory051.Forget(version);
         Presented.Remove(version);
         if (_menu?.TryGetTarget(out var menu) == true && GodotObject.IsInstanceValid(menu) && menu.IsInsideTree())
-            Schedule(menu);
+            Schedule(menu, openDetails: true);
         return true;
     }
 
-    internal static void Schedule(NMainMenu menu)
+    internal static void Schedule(NMainMenu menu, bool openDetails = false)
     {
         _menu = new(menu);
         if (menu.GetNodeOrNull<LibrarianUpdateNotice051>("LibrarianUpdateNoticeScheduler") is { } existing)
         {
-            if (!existing.IsQueuedForDeletion()) { existing.SetProcess(true); return; }
+            if (!existing.IsQueuedForDeletion())
+            {
+                existing._openRequested |= openDetails;
+                if (openDetails) existing._toast?.Close(true);
+                existing.SetProcess(true);
+                return;
+            }
             menu.RemoveChild(existing);
         }
-        menu.AddChild(new LibrarianUpdateNotice051 { Name = "LibrarianUpdateNoticeScheduler" });
+        menu.AddChild(new LibrarianUpdateNotice051 { Name = "LibrarianUpdateNoticeScheduler", _openRequested = openDetails });
     }
 }
 
