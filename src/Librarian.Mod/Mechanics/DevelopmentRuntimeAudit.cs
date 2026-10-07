@@ -178,6 +178,16 @@ internal static partial class DevelopmentRuntimeAudit
         try
         {
             MainFile.Logger.Info("RUNTIME_AUDIT_BEGIN profile=" + OS.GetUserDataDir());
+            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_MOD_RESET_AUDIT") is not null)
+            {
+                await DevelopmentModResetAudit.Run();
+                return;
+            }
+            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_ONBOARDING_AUDIT") == "1")
+            {
+                await DevelopmentOnboardingAudit.Run();
+                return;
+            }
             if (System.Environment.GetEnvironmentVariable("LIBRARIAN_LANGUAGE_AUDIT") == "1")
             {
                 try { await RunLanguageAudit(); }

@@ -6,9 +6,9 @@
 
 ### 感谢大家的支持！！！模组已经发布，快去游玩体验吧~
 
-本分支当前源码为游戏 **stable 0.107.1** 的 **V1.1.1**。本版合并文本精简与词条修订，并接入已验收的 beta6 界面修复；Steam V1.1.1 已发布，服务器页面及 public 分支内容已核对，订阅端仍待验证。最近的 GitHub 独立发行仍为 [V1.1.0 stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)。游戏 public-beta 0.111.0 请使用 [codex/beta](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) 与 [beta 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，不要混用两个通道的运行文件。
+本分支为游戏 **stable 0.107.1** 的 **V1.1.1 开发源码**，已补齐截至 2026-10-07 的本地维护：法球数值文案、教学与设置页面、精简提示及初始化、底牌自动打牌选牌等待、未完待续抽牌顺序、釜底抽薪／三相归一上下文修复，以及回合末格挡净变化预览。这些后续维护尚未发布到 stable 工坊；已发布 Steam 版本仍为 V1.1.1，最近的独立 GitHub 下载仍为 [V1.1.0 stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)。详见 [源码与发布状态](RELEASE-BATCHES.md)。
 
-This branch contains **V1.1.1 source for stable 0.107.1**, combining the text and tooltip revision with the validated beta6 interface fixes. Steam V1.1.1 is published, with its server pages and public-branch content verified; subscriber files remain unverified. The latest separate GitHub runtime release remains **V1.1.0 stable**. Use `codex/beta` and the beta Workshop item for public-beta 0.111.0.
+This branch contains **V1.1.1 development source for stable 0.107.1**, including local maintenance through **2026-10-07**: Orb value wording, tutorial and settings pages, compact tooltips and initialization, bottom-autoplay choice waiting, the To Be Continued draw-order fix, Fuel the Fire / Threefold Unity choice-context fixes, and an end-turn net Block preview. These additions are **not included in the published stable Steam package**. Steam remains V1.1.1; the separate GitHub runtime download remains V1.1.0 stable. Use [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) for public-beta 0.111.0. See [source and release status](RELEASE-BATCHES.md).
 
 V1.1.1 精简法球及状态文案、补齐嵌套词条，手牌／抽牌堆及三法球名称仅保留金字。锁定法球允许位移和交换，仍不能注魔或结算，独立前台固定限制保留。修复选择法球／复读预览的费用徽标、额外结算预览、双语法球说明，以及开始提示鼠标焦点；“更新公告”直接打开本版改动说明。禁页打击、封页护身、见缝插针、归零检索恢复详细描述。费用、数值和现有配图沿用 stable 版本。
 
@@ -24,7 +24,7 @@ custom translation packs.
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
 - [Latest GitHub stable release / 最近的 GitHub 正式发行 V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。Steam beta 当前为 V1.1.0-beta6。
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。Steam beta 当前为 V1.2.0-beta9。
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Historical V1.0.0 stable / 历史正式版 16 个附件下载核验](release-history/1.0.0-stable-verification.json)
@@ -60,7 +60,8 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current source baseline: **1.1.1**, game **stable 0.107.1**. See [release metadata](release-metadata.json).
+Current development source: **1.1.1 plus unpublished maintenance**, game **stable 0.107.1**.
+[Source fingerprint](source-snapshot.json) identifies this tree; [release metadata](release-metadata.json) identifies the separately published Steam runtime baseline. The branch head is not that runtime snapshot.
 
 `main` maintains stable; [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) maintains game public-beta 0.111.0. Do not mix packages or enable both Workshop items. The latest separate GitHub stable runtime release is **V1.1.0**, tag **`v1.1.0-stable`**; this V1.1.1 source update does not replace its attachments. Historical tags remain unchanged.
 

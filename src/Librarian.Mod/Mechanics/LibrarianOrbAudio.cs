@@ -95,5 +95,23 @@ internal static class LibrarianOrbAudio
         }
         catch { return false; } // Query and playback failures must never interrupt card resolution.
     }
+    private static long _lastPreview = long.MinValue / 2;
+    internal static bool TryPreview(Cue cue)
+    {
+        try
+        {
+            // Explicit settings action can play outside combat; the normal combat gate stays unchanged.
+            if (TestMode.IsOn || NonInteractiveMode.IsActive || NAudioManager.Instance is null ||
+                !LibrarianPreferences050.Current.OrbSounds || LibrarianPreferences050.Current.SoundVolume == 0 ||
+                !Sounds.TryGetValue(cue, out var sound) || !FmodAudio.EventExists(sound.Path)) return false;
+            long now = (long)Time.GetTicksMsec();
+            if (now - _lastPreview < 350) return false;
+            _lastPreview = now;
+            SfxCmd.Play(sound.Path, sound.Volume * LibrarianPreferences050.Current.SoundVolume / 100f);
+            Submitted++;
+            return true;
+        }
+        catch { return false; }
+    }
     internal static void ResetAuditCounters() { _gate = new Gate(); Submitted = 0; Throttled = 0; }
 }

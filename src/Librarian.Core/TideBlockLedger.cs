@@ -64,6 +64,14 @@ public sealed class TideBlockLedger
 
     public long Total => _total;
 
+    internal TideBlockLedger CopyForPreview()
+    {
+        var copy = new TideBlockLedger { _lastBatchId = _lastBatchId, _total = _total, TideIsPermanent = TideIsPermanent };
+        foreach (var batch in _batches)
+            copy._batches.Add(new(batch.Id, batch.Kind, batch.CreatedOwnerTurn, batch.Expiry, batch.Remaining, batch.IsPermanent));
+        return copy;
+    }
+
     public long TideRemaining => _batches
         .Where(batch => batch.Kind == BlockBatchKind.Tide)
         .Sum(batch => (long)batch.Remaining);

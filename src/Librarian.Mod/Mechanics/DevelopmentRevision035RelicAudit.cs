@@ -205,7 +205,7 @@ internal static class DevelopmentRevision035RelicAudit
             Check(Session().Orbs.Snapshot().Orbs.All(o => o.Value == 1), "Restored strengthens all including locked");
             Check(Session().Orbs.IsActivated(Session().Orbs.Foreground), "Restored activates foreground");
             Check(Session().Orbs.LockedTurns(OrbKind.Tide) == OrbView.PermanentLock, "Restored preserves locks");
-            Check(ModelDb.Relic<TatteredSpellScroll>().HoverTips.OfType<MegaCrit.Sts2.Core.HoverTips.HoverTip>().Any(t => t.Id.Contains("LIBRARIAN_STRENGTHEN")), "Starter Strengthen hover tip available");
+            Check(!ModelDb.Relic<TatteredSpellScroll>().HoverTips.OfType<MegaCrit.Sts2.Core.HoverTips.HoverTip>().Any(t => t.Id.Contains("LIBRARIAN_STRENGTHEN")), "Starter retired Strengthen hover tip absent");
             MainFile.Logger.Info($"RELIC035_RUNTIME_AUDIT_PASS checks={checks}");
         }
         finally { await Reset(); }

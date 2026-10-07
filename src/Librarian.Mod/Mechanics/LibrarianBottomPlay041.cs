@@ -1,6 +1,8 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -82,7 +84,25 @@ public static class LibrarianBottomPlay041
         if (forceExhaust)
             card.ExhaustOnNextPlay = true;
 
-        await CardCmd.AutoPlay(choiceContext, card, target: null);
+        // A global singleton hook has no owner on 0.107.1, while 0.111.0
+        // falls back to the first player. Neither identifies this card's owner.
+        // Give only that hook-origin play its own native action context. Nested
+        // card plays keep the existing context, so they can pause/resume the
+        // currently executing action without enqueueing behind themselves.
+        if (choiceContext is HookPlayerChoiceContext hook &&
+            (hook.Source is LibrarianCombatHooks || !ReferenceEquals(hook.Owner, player)))
+        {
+            var owned = new HookPlayerChoiceContext(card, LocalContext.NetId!.Value,
+                player.Creature.CombatState!, GameActionType.Combat);
+            await owned.AssignTaskAndWaitForPauseOrCompletion(CardCmd.AutoPlay(owned, card, target: null));
+            // Wait for the result pile and all nested effects before the next
+            // Fuel layer, delayed task, or natural orb settlement can start.
+            await owned.WaitForCompletion();
+        }
+        else
+        {
+            await CardCmd.AutoPlay(choiceContext, card, target: null);
+        }
         return new(card, true);
     }
 

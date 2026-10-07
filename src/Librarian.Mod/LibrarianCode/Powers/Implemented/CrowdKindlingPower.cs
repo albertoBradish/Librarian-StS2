@@ -2,15 +2,12 @@ using Librarian.Core;
 using Librarian.Mechanics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 
 namespace Librarian.LibrarianCode.Powers.Implemented;
 
 /// <summary>One owner's counter listens to each actual allied card play, including replayed attacks.</summary>
 public sealed class CrowdKindlingPower : ImplementedLibrarianPower
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [LibrarianHoverTips.Tip("STRENGTHEN")];
-
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // CardPlay.Player is the actual player, even if the card transferred ownership during play.

@@ -33,7 +33,7 @@
   ],
   "runtime_release_url": null,
   "runtime_release_status": "not_published",
-  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete. Historical Workshop migration changed only the DLL stable URL; existing GitHub release tags and attachments retain their original hashes.",
+  "note": "baseline_runtime_artifacts identify the last published Steam package, not a build of this branch head. The authored development snapshot includes unreleased maintenance listed in RELEASE-BATCHES.md. This source synchronization creates no runtime Release. Public-clone native gameplay and real multi-client validation are not established by pure-rule CI.",
   "channel": "stable",
   "workshop_item_id": "3811677053",
   "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053",
@@ -53,5 +53,11 @@
       "bytes": 108364832,
       "sha256": "711a907743bd5f4db584fc4ba309945a4234d778ef0f5f9b5f6b0b9ee0bd2b69"
     }
-  ]
+  ],
+  "current_source_version": "1.1.1",
+  "baseline_runtime_version": "1.1.1",
+  "source_status": "development_snapshot_with_unreleased_maintenance",
+  "source_matches_baseline_runtime": false,
+  "source_snapshot": "source-snapshot.json",
+  "source_snapshot_local_date": "2026-10-07"
 }

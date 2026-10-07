@@ -120,7 +120,7 @@ internal static class DevelopmentHoverBeta6Audit
                         Check(!Has(expanded, "FIRE") && !Has(expanded, "TIDE") && !Has(expanded, "GROWTH"), "orb noun is not gain action " + label);
                         if (kind == OrbKind.Tide) Check(expanded.Any(t => t.Id == LibrarianLanguage.NativeTip(() => HoverTipFactory.Static(StaticHoverTip.Block)).Id)
                             && Has(expanded, "WAVES"), "Tide Block and Waves references " + label);
-                        if (kind == OrbKind.Growth) Check(Has(expanded, "STRENGTHEN"), "Growth Strengthen reference " + label);
+                        Check(!Has(expanded, "STRENGTHEN"), "retired Strengthen reference absent " + label);
                         evidence.Add(new { language = lang, kind = kind.ToString(), front, active, lockedTurns, tip.Title, tip.Description,
                             icon = tip.Icon?.ResourcePath, references = expanded.Select(t => t.Id).ToArray() });
                         cases++;
