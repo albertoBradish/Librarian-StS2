@@ -86,17 +86,18 @@ public sealed class ToBeContinuedPower : ImplementedLibrarianPower
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext context, Player player)
     {
         if (Owner.Player != player || Owner.IsDead) return;
-        int repeats = Amount;
-        for (int i = 0; i < repeats && !Owner.IsDead; i++)
-        {
-            Flash();
-            await CardPileCmd.Draw(context, 1, player);
-            var prefs = new CardSelectorPrefs(new LocString("card_selection", "LIBRARIAN_TO_BE_CONTINUED"), 1);
-            var selected = await CardSelectCmd.FromHand(context, player, prefs, null, this);
-            foreach (var card in selected)
-                if (card.Pile?.Type == PileType.Hand)
-                    await LibrarianBottomPlay041.MoveToBottomAsync(context, card);
-        }
+        int count = Amount;
+        if (count <= 0) return;
+        Flash();
+        // Finish every stacked draw before presenting the one combined choice.
+        // Native draw limits and selection of all remaining cards still apply.
+        await CardPileCmd.Draw(context, count, player);
+        if (Owner.IsDead) return;
+        var prefs = new CardSelectorPrefs(new LocString("card_selection", "LIBRARIAN_TO_BE_CONTINUED"), count);
+        var selected = await CardSelectCmd.FromHand(context, player, prefs, null, this);
+        foreach (var card in selected)
+            if (card.Pile?.Type == PileType.Hand)
+                await LibrarianBottomPlay041.MoveToBottomAsync(context, card);
     }
 }
 

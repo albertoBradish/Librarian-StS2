@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本次源码同步目标为游戏 **public-beta 0.111.0** 的 **V1.2.0-beta6**。在已发布 beta5 基础上加入四项遗物与两项药水修订，并预览波涛与浪潮在回合结束时带来的潮涌格挡。beta5的法球数值文案调整及“强化”玩家提示移除沿用。游戏 stable 0.107.1 的已发布 **V1.1.1** 源码在 [main](https://github.com/albertoBradish/Librarian-StS2/tree/main)；最近的独立 GitHub stable 下载仍为 [V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)，两个通道的运行文件不可混用。
+本分支已同步游戏 **public-beta 0.111.0** 的 **V1.2.0-beta9** 已发布功能与截至 2026-10-07 的开发维护。新增内容包括四页设置、示例与声音试听、精简提示、二次确认初始化、未完待续抽牌顺序修复及 12 步互动教学。当前源码还包含尚未发布到工坊的回合末格挡净变化预览；具体范围见 [源码与发布状态](RELEASE-BATCHES.md)。Steam 最新版为 beta9，最近的独立 GitHub beta 下载仍为 [V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。
 
-This source update targets **V1.2.0-beta6 for public-beta 0.111.0**. Building on published beta5, it includes four relic and two potion revisions, plus an end-turn preview of Tidal Block from Tide and Waves. Beta5's Orb value wording and retired Strengthen player tooltip remain in the baseline. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) contains the published **V1.1.1 source for stable 0.107.1**; the latest separate GitHub stable runtime download remains **V1.1.0**. Keep the two channels' runtime files separate.
+This branch contains **V1.2.0-beta9 features for public-beta 0.111.0** and development maintenance through **2026-10-07**: four settings pages, examples and sound previews, compact tooltips, confirmed initialization, the To Be Continued draw-order fix, and a 12-step interactive tutorial. The source also includes an **unreleased end-turn net Block preview**. See [source and release status](RELEASE-BATCHES.md). Steam's latest beta is beta9; the separate GitHub runtime download remains V1.1.0-beta1. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) targets stable 0.107.1 and includes its own unpublished maintenance. Keep the channels' runtime files separate.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -23,8 +23,8 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。本轮仅同步 beta 源码，独立 GitHub Release 与附件仍保留 beta1。This is a beta source update; the separate GitHub runtime release remains beta1.
-- [Release batches / 发布批次](RELEASE-BATCHES.md)。V1.2.0-beta6 已发布至 [beta Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)，服务器与完整双语正文已核对；本机订阅当前仍为beta5。V1.2.0-beta6 is server-verified on Steam; the local subscriber still has beta5.
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。独立 GitHub 下载仍为 V1.1.0-beta1；本次同步开发源码。The separate runtime download remains V1.1.0-beta1; this update synchronizes development source.
+- [Source and release status / 源码与发布状态](RELEASE-BATCHES.md)。Steam V1.2.0-beta9 已经服务器核验；订阅端收到新版仍待确认。Steam beta9 is server-verified; subscriber delivery remains unverified.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -58,8 +58,8 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Source baseline for this update: **1.2.0-beta6**, for the game's public-beta branch.
-See [release metadata](release-metadata.json).
+Current development source: **1.2.0-beta9 plus unpublished maintenance**, for the game's public-beta branch.
+[Source fingerprint](source-snapshot.json) identifies this tree; [release metadata](release-metadata.json) identifies the separately published Steam runtime baseline. The branch head is not that runtime snapshot.
 
 | Component | Verified baseline |
 | --- | --- |

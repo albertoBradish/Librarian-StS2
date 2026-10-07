@@ -44,6 +44,14 @@ internal static class LibrarianHoverTips
     internal static IEnumerable<IHoverTip> ForText(string text)
         => Expand(DirectForText(text));
 
+    // Only these mod concepts may be omitted when they are reached through another
+    // tip. Direct card/model requirements and every native tip always remain.
+    internal static readonly HashSet<string> CompactNestedKeys = new(StringComparer.Ordinal)
+    {
+        "SETTLE", "FOREGROUND", "BACKGROUND", "ACTIVATE", "EXTINGUISH"
+    };
+    private const string ExtraSettlementPattern = @"额外\s*\[gold\]结算\[/gold\]|(?:extra|additional)\s+\[gold\]settle\w*\[/gold\]|\[gold\]settle\w*\[/gold\](?:(?!\[gold\]settle\w*\[/gold\])[^.!?;\n])*\b(?:extra|additional)\s+times?\b";
+
     // Gold marks emphasis, not a tooltip contract. English orb names share words
     // with gain actions; exclude ordinary singular/plural orb noun phrases first.
     private static IEnumerable<IHoverTip> DirectForText(string text)
@@ -51,13 +59,18 @@ internal static class LibrarianHoverTips
         text = Regex.Replace(text,
             @"(?:\[gold\](?:Fire|Tide|Growth)\[/gold\](?:\s*(?:,\s*(?:and|or)?|and|or|/)\s*)?)+\s+Orbs?\b", "",
             RegexOptions.IgnoreCase);
-        var highlighted = Regex.Matches(text, @"\[gold\](.*?)\[/gold\]").Select(m => m.Groups[1].Value).ToArray();
+        var highlighted = Regex.Matches(text, @"\[gold\](.*?)\[/gold\]").ToArray();
+        var extraSettlements = Regex.Matches(text, ExtraSettlementPattern, RegexOptions.IgnoreCase).ToArray();
         bool Matches(string key) => LibrarianLanguage.Format("KEYWORD_" + key).Split('|')
-            .Any(word => highlighted.Contains(word, StringComparer.OrdinalIgnoreCase));
+            .Any(word => highlighted.Any(mark => string.Equals(mark.Groups[1].Value, word, StringComparison.OrdinalIgnoreCase)
+                // An extra settlement is its own concept. Its highlighted verb is
+                // not a second direct requirement for an ordinary settlement tip.
+                && (key != "SETTLE" || !extraSettlements.Any(extra => mark.Index >= extra.Index
+                    && mark.Index + mark.Length <= extra.Index + extra.Length))));
         if (Matches("BLOCK")) yield return LibrarianLanguage.NativeTip(() => HoverTipFactory.Static(StaticHoverTip.Block));
         foreach (var (key, _) in Terms)
             if (Matches(key)) yield return Tip(key);
-        if (Regex.IsMatch(text, @"额外\s*\[gold\]结算\[/gold\]|(?:extra|additional)\s+\[gold\]settle\w*\[/gold\]|\[gold\]settle\w*\[/gold\][^.!?;\n]*\b(?:extra|additional)\b", RegexOptions.IgnoreCase))
+        if (extraSettlements.Length > 0)
             yield return Tip("EXTRA_SETTLE");
     }
 
@@ -68,11 +81,19 @@ internal static class LibrarianHoverTips
         var expanded = IHoverTip.RemoveDupes(roots).ToList();
         var pending = new Queue<IHoverTip>(expanded);
         var visited = expanded.Where(t => !string.IsNullOrEmpty(t.Id)).Select(t => t.Id).ToHashSet(StringComparer.Ordinal);
+        var compactIds = LibrarianPreferences050.Current.CompactHoverTips
+            ? CompactNestedKeys.Select(key => Tip(key).Id).ToHashSet(StringComparer.Ordinal) : null;
         while (pending.TryDequeue(out var tip))
         {
             if (tip is HoverTip described)
                 foreach (var referenced in DirectForText(described.Description))
-                    if (visited.Add(referenced.Id)) { expanded.Add(referenced); pending.Enqueue(referenced); }
+                    if (visited.Add(referenced.Id))
+                    {
+                        if (compactIds?.Contains(referenced.Id) != true) expanded.Add(referenced);
+                        // Follow hidden nodes as well: their native and core mod
+                        // descendants are still part of the explanation contract.
+                        pending.Enqueue(referenced);
+                    }
         }
         return IHoverTip.RemoveDupes(expanded);
     }

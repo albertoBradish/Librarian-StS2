@@ -25,6 +25,7 @@ public sealed class LibrarianPreferences050
     public bool OrbIdle { get; set; } = true;
     public bool WaveBar { get; set; } = true;
     public bool TideBlockFeedback { get; set; }
+    public bool CompactHoverTips { get; set; }
     public LibrarianLockedOrbDisplayMode LockedOrbDisplay { get; set; } = LibrarianLockedOrbDisplayMode.NegativeTurns;
     public bool OrbSounds { get; set; } = true;
     public int EffectOpacity { get; set; } = 80;

@@ -1,6 +1,6 @@
 {
   "mod_id": "Librarian",
-  "version": "1.2.0-beta6",
+  "version": "1.2.0-beta9",
   "active_cards": 91,
   "game": {
     "version": "0.111.0",
@@ -17,21 +17,28 @@
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 1937408,
-      "sha256": "442d041878147a1a908c3e11bddcea93d12595334e43bd70769e7bb8a0b9bbfc"
+      "bytes": 2439680,
+      "sha256": "b3e39ac1d85a4f803d79ea0f3d31efdee369711388ef495c97e4c18ba12b46ca"
     },
     {
       "name": "Librarian.json",
       "bytes": 493,
-      "sha256": "a4a45008d868e086be1d2021d2b8570e412c61db95b20ba13fd646173f3a13d2"
+      "sha256": "bfff2b4513c746dd2cfb39fe5c316bbff69fb7d15fe19107a454409f7c28bc82"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 108212584,
-      "sha256": "ddf3f7dc56eb6875da0366a97e7609bfa90a8dc762ad45890dd148bd58a0a7a7"
+      "bytes": 124948744,
+      "sha256": "d060adbb4392b8023190d35daab536d932e97da6f91146ad8df75fdc504f9096"
     }
   ],
   "runtime_release_url": null,
   "runtime_release_status": "not_published",
-  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete."
+  "note": "baseline_runtime_artifacts identify the last published Steam package, not a build of this branch head. The authored development snapshot includes unreleased maintenance listed in RELEASE-BATCHES.md. This source synchronization creates no runtime Release. Public-clone native gameplay and real multi-client validation are not established by pure-rule CI.",
+  "channel": "beta",
+  "current_source_version": "1.2.0-beta9",
+  "baseline_runtime_version": "1.2.0-beta9",
+  "source_status": "development_snapshot_with_unreleased_maintenance",
+  "source_matches_baseline_runtime": false,
+  "source_snapshot": "source-snapshot.json",
+  "source_snapshot_local_date": "2026-10-07"
 }

@@ -93,7 +93,8 @@ internal static class DevelopmentPending120Audit
         async Task Turn(int expected, string label)
         {
             var preview = LibrarianEndTurnPreview.Read(S());
-            Check(preview.Exact && preview.Minimum == expected, "preview " + label + "=" + JsonSerializer.Serialize(preview));
+            Check(preview.Exact && preview.FinalMinimum == expected && player.Creature.Block + preview.Minimum == expected,
+                "preview " + label + "=" + JsonSerializer.Serialize(preview));
             _watch = player; _blockAfterEnd = null;
             int round = player.Creature.CombatState!.RoundNumber;
             CombatManager.Instance.SetReadyToEndTurn(player, false);
@@ -247,7 +248,7 @@ internal static class DevelopmentPending120Audit
             await LibrarianRuntime.GainTidalBlock(S(),7);
             S().Orbs.BlockLedger.Consume(7);
             S().Orbs.BlockLedger.RecordTideGain(7,S().Orbs.OwnerTurn-1);
-            var expiry=LibrarianEndTurnPreview.Read(S()); Check(expiry.ExpiringBlock==7 && expiry.Minimum==20,"old Tidal Block expiry separate from new preview");
+            var expiry=LibrarianEndTurnPreview.Read(S()); Check(expiry.ExpiringBlock==7 && expiry.Minimum==13 && expiry.FinalMinimum==20,"old Tidal Block expiry is included in net preview");
             await Turn(20,"old Tidal Block expires before new gain");
             await Reset(); await RelicCmd.Obtain<LibrarianRarePlaceholderOne>(player); S().Orbs.Strengthen(OrbKind.Tide,20,OrbScope.All);
             string randomBefore=JsonSerializer.Serialize(player.RunState.Rng.ToSerializable());

@@ -49,7 +49,7 @@ internal static class LibrarianLanguage
     internal static string Selected => _selected;
     internal static string FilePath => ProjectSettings.GlobalizePath("user://Librarian/language.json");
     internal static string PackDirectory => ProjectSettings.GlobalizePath("user://Librarian/languages");
-    internal static string TemplateDirectory => ProjectSettings.GlobalizePath("user://Librarian/translation-templates/" + LibrarianUpdateNotice051.CurrentVersion);
+    internal static string TemplateDirectory { get; private set; } = "";
     internal static string Status { get; private set; } = "";
     internal static CultureInfo Culture => CultureInfo.GetCultureInfo(Packs.TryGetValue(_selected, out var p) ? p.Info.Culture : "en-US");
     internal static string TableName(LocTable table) => ReadTableName(table);
@@ -181,18 +181,38 @@ internal static class LibrarianLanguage
         Refresh();
     }
 
-    internal static void ExportTemplates()
+    internal static void ExportTemplates(bool openDirectory = true, string? destinationDirectory = null)
     {
         Initialize();
-        foreach (var pair in Bundled)
+        try
         {
-            string directory = Path.Combine(TemplateDirectory, pair.Key);
-            Directory.CreateDirectory(directory);
-            WriteNew(Path.Combine(directory, "pack.json"), JsonSerializer.Serialize(pair.Value.Info, new JsonSerializerOptions { WriteIndented = true }));
-            foreach (var table in pair.Value.Tables)
-                WriteNew(Path.Combine(directory, table.Key + ".json"), JsonSerializer.Serialize(table.Value, new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+            string exportDirectory = LibrarianExportDestination.CreateUniqueDirectory("Librarian-translations-" + LibrarianUpdateNotice051.CurrentVersion, destinationDirectory, partial: true);
+            foreach (var pair in Bundled)
+            {
+                string directory = Path.Combine(exportDirectory, pair.Key);
+                Directory.CreateDirectory(directory);
+                WriteNew(Path.Combine(directory, "pack.json"), JsonSerializer.Serialize(pair.Value.Info, new JsonSerializerOptions { WriteIndented = true }));
+                foreach (var table in pair.Value.Tables)
+                    WriteNew(Path.Combine(directory, table.Key + ".json"), JsonSerializer.Serialize(table.Value, new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+            }
+            string completedDirectory = exportDirectory[..^".partial".Length];
+            Directory.Move(exportDirectory, completedDirectory);
+            exportDirectory = completedDirectory;
+            TemplateDirectory = exportDirectory;
+            Status = SettingsStatus("language_templates_exported", ("Path", exportDirectory));
         }
-        Status = SettingsStatus("language_templates_exported", ("Path", TemplateDirectory));
+        catch (Exception e)
+        {
+            Status = SettingsStatus("language_templates_failed", ("Reason", e.Message));
+            MainFile.Logger.Warn("Translation template export failed: " + e.Message);
+            return;
+        }
+
+        if (openDirectory && !LibrarianExportDestination.TryOpenDirectory(TemplateDirectory, out string reason))
+        {
+            Status += "\n" + SettingsStatus("folder_open_failed", ("Reason", reason));
+            MainFile.Logger.Warn("Translation templates exported, but the export folder could not be opened: " + reason);
+        }
     }
 
     private static void WriteNew(string file, string text)

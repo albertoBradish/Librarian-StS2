@@ -1,52 +1,51 @@
-# Release batches / 发布批次
+# Source and release status / 源码与发布状态
 
-## 2026-10-04 source maintenance / 源码维护
+2026-10-07 本地（America/Los_Angeles）。本次按用户要求同步尚未进入 GitHub 的自有源码、现用资源、测试及公开文档；开发源树按通道分别导出。
 
-`main` and `codex/beta` now include a maintenance change to the update notice: the
-Librarian uses RitsuLib's timed toast (8 seconds) instead of automatically opening
-the details dialog. Clicking the toast opens the existing dialog. Explicit
-per-version suppression and manual redisplay remain available.
+This source synchronization includes authored code, production assets, tests and public documentation through 2026-10-07. Each channel uses its own source tree.
 
-`main` 与 `codex/beta` 新增更新通知维护：复用 RitsuLib 的 8 秒限时提示，玩家点击后
-才打开原有详情；保留当前版本“不再显示”和设置主动重显。中文提示为
-“图书管理员已更新至【版本号】，点此查看更多”。
+| 通道 / Channel | 当前 Git 源码 / Current source | 已发布 Steam 包 / Published Steam package | 独立 GitHub 下载 / Separate GitHub runtime download |
+| --- | --- | --- | --- |
+| `main` | stable 0.107.1，V1.1.1 加后续维护 / V1.1.1 plus later maintenance | V1.1.1 | V1.1.0 stable |
+| `codex/beta` | public-beta 0.111.0，V1.2.0-beta9 加净格挡预览 / V1.2.0-beta9 plus net Block preview | V1.2.0-beta9 | V1.1.0-beta1 |
 
-The implementation was checked on each channel's fixed native game with bilingual
-mouse input, both 1280×720 and 1920×1080 windows, timeout behavior, process restarts,
-and a new run / combat / save / reload. Each channel passed 67 notice checks.
-The public source receives this focused change; other unpublished development
-batches retain their existing status.
+## Beta 已发布功能 / Published beta features
 
-两通道分别通过 67 项通知检查、双语鼠标操作、双窗口尺寸、超时及独立进程重启，
-并核查新局／战斗／保存重载。用户最终观感及实体手柄对提示的直接操作尚未验收。
+- beta7：常用／显示／特效与声音／工具四页设置、示例与声音试听、Downloads 导出、精简提示、二次确认初始化、8 秒限时更新通知及永久锁定说明。
+- beta8：未完待续先抽总数再统一选择置底；萌发护壁双语说明更新，既有 6／9 格挡保留。
+- beta9：12 步互动教学、说明／实景／状态三栏、进度与操作栏、设置入口，以及教学期间的初始化保护。
 
-This is source maintenance pending a future release. Steam packages, version
-numbers, release-metadata.json runtime hashes, and existing GitHub release tags
-and attachments remain their published baselines. No new binary release is
-created by this source push.
+- beta7: four settings pages, examples and sound previews, Downloads export, compact tooltips, confirmed initialization, an 8-second update toast, and permanent-lock wording.
+- beta8: To Be Continued draws the total before one bottom-placement choice; Sprouting Bulwark receives revised bilingual wording with its existing 6/9 Block.
+- beta9: a 12-step interactive tutorial with explanation, native scene and status columns, progress and controls, settings access, and initialization protection during practice.
 
-本次是待后续发版的源码维护；Steam 安装包、版本号、release-metadata.json 中的
-运行文件哈希及既有 GitHub 标签／附件保留已发布基线，本次源码推送不创建新发行。
+以上三个 beta 包均已有服务器发布证据；订阅端新版到达仍待确认。当前 Git 源码进一步包含下述开发维护。
 
-本轮同步 `codex/beta` 的 V1.2.0-beta6 源码。以已发布 beta5 为基础，本批包含四项遗物与两项药水修订，以及波涛与浪潮在回合结束时带来的潮涌格挡预览。beta5 的法球文案改动与此前卡牌内容继续沿用；教学、精简提示和调试初始化不在本版。
+All three beta packages have server publication evidence. Subscriber delivery remains unverified. The current Git source also includes the maintenance below.
 
-This update synchronizes V1.2.0-beta6 source on `codex/beta`, building on published beta5. It includes four relic and two potion revisions, plus an end-turn preview of Tidal Block from Tide and Waves. Earlier beta5 Orb wording and card content remain in the source; character practice, compact hovers and debug initialization are excluded.
+## 未发布维护 / Unreleased maintenance
 
-| Beta version | Scope / 范围 | Status / 状态 |
+| 范围 / Scope | stable | beta |
 | --- | --- | --- |
-| V1.2.0-beta5 | 法球文案 / Orb value wording | 已发布，服务器核验通过 / Published; server verified |
-| V1.2.0-beta6 | 四项遗物与两项药水修订；回合结束潮涌格挡预览 / Four relic and two potion revisions; end-turn Tidal Block preview | 已发布，服务器核验通过 / Published; server verified |
-| V1.2.0-beta7 | 角色教学、精简提示、入口修复、金色描边与21项教学文案 / Character practice, compact hovers, entry fixes, gold outline and 21 teaching text updates | 未发布，须独立验收 / Unpublished; separate release acceptance required |
-| V1.2.0-beta8 | 二次确认调试初始化、设置刷新 / Confirmed debug initialization and settings refresh | 未发布，须独立验收 / Unpublished; separate release acceptance required |
+| 法球数值文案、教学／设置、精简提示与初始化 / Orb wording, tutorial/settings, compact tooltips and initialization | 已同步源码，未发布 stable 包 / Source synchronized; not in published stable package | 已含于当前 beta 发布功能 / Included in published beta features |
+| 底牌自动打牌选牌等待、釜底抽薪／三相归一 owner 上下文 / Bottom-autoplay choice waiting and Fuel the Fire / Threefold Unity owner context | 已同步本地修复，未发布 stable 包 / Local fixes synchronized; not in published stable package | 保留 beta 自身接口实现 / Retains beta's own API implementation |
+| 未完待续顺序及萌发护壁说明 / To Be Continued order and Sprouting Bulwark wording | 已同步源码，未发布 stable 包 / Source synchronized; not in published stable package | beta8 已发布 / Published in beta8 |
+| 回合末格挡净变化预览 / End-turn net Block preview | 已同步源码，未发布 / Source synchronized; unreleased | 已同步源码，未发布 / Source synchronized; unreleased |
 
-后续批次不包含在 beta6 中。各批仍需分别确认范围和验收；本地实现或测试完成不等于已经发布。
+回合末预览显示当前格挡到玩家回合末结算完成后的净变化，包含支持的原版格挡来源、到期潮涌及回合末伤害，可显示负数、随机范围；未知连锁或多人场景显示问号。stable 的玩法与 API 保持自身通道，不从 beta 整树覆盖。
 
-Later batches are excluded from beta6. Each needs its own scope and acceptance. Local implementation or testing does not establish publication.
+The preview reports net Block change through the player's end-turn effects, including supported native sources, expiring Tidal Block and end-turn damage. It can show negative values or random ranges; unknown chains and multiplayer cases use a question mark. Stable retains its own gameplay and API behavior.
 
-`main` 保持已发布 stable V1.1.1 源码。本轮不公开 stable 尚未发布的教学、初始化或底牌自动打牌选牌修复；选牌修复等待独立 stable 维护版本。
+## 文件身份与验证 / File identity and validation
 
-`main` retains published stable V1.1.1 source. This update excludes unpublished stable practice, initialization and bottom-autoplay selection fixes; the selection fix awaits a separate stable maintenance release.
+`source-snapshot.json` 保存当前自有开发输入的逐文件 SHA-256。`release-metadata.json` 的 `baseline_runtime_artifacts` 指向各通道最后已发布 Steam 包，不能用它代表当前分支的新构建。两份元数据明确 `source_matches_baseline_runtime: false`。
 
-GitHub 源码同步与独立 Release 分别记录。独立下载仍为 beta V1.1.0-beta1 和 stable V1.1.0；本轮只同步 beta 源码，不新增 Release，也不替换历史标签或附件。
+`source-snapshot.json` records SHA-256 for the current authored development inputs. `baseline_runtime_artifacts` in `release-metadata.json` identifies each channel's last published Steam package, not a new build of the branch head. Both metadata files state `source_matches_baseline_runtime: false`.
 
-GitHub source synchronization is separate from runtime Releases. Separate downloads remain beta V1.1.0-beta1 and stable V1.1.0. This batch synchronizes beta source only; it creates no Release and replaces no historical tag or attachment.
+已有本地隔离原生验收分别覆盖教学、设置、卡牌修复及格挡预览；它们对应各自当时的候选。格挡预览每通道完成 137 项检查及 26 个真实回合。公开分支此次运行纯规则测试；CI 仅证明这些规则测试，不能视为新公开副本的菜单／新局／战斗／存读档或真实多客户端验收。实体手柄、用户最终观感与听感、长期平衡及第三方任意组合仍按各项原验证边界保留。
+
+Prior isolated native checks covered the tutorial, settings, card fixes and Block preview with their own candidates. The preview passed 137 checks and 26 real turns per channel. This synchronization runs the public pure-rule suite; CI does not establish a fresh public-clone native menu/new-run/combat/save/reload or multi-client pass. Controller input, final user visual/audio acceptance, long-term balance and arbitrary third-party combinations retain their existing validation limits.
+
+本次不创建运行文件 Release，不替换既有标签或附件。原始设计表格、私有依赖、提取资源与研究历史继续留在本地；公开内容沿用根 LICENSE 的自定义限制性许可。
+
+This synchronization creates no runtime Release and replaces no existing tags or attachments. Original planning spreadsheets, private dependencies, extracted assets and internal research history remain local. Public content retains the custom restrictive LICENSE.

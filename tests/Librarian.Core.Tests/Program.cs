@@ -4,6 +4,31 @@ var tests = new List<(string Id, string Name, Func<Task> Run)>();
 void Test(string id, string name, Action run) => tests.Add((id, name, () => { run(); return Task.CompletedTask; }));
 void AsyncTest(string id, string name, Func<Task> run) => tests.Add((id, name, run));
 
+Test("BlockTotals", "Final total uses native per-gain truncation, loss and cap", () =>
+{
+    var total = new EndTurnBlockTotals(12);
+    total.Gain(8); total.Lose(7); total.Gain(20);
+    Check.Equal(33,total.FinalBlock); Check.Equal(21,total.NetChange);
+    var capped = new EndTurnBlockTotals(999999994);
+    capped.Gain(20); Check.Equal(5,capped.NetChange); Check.Equal(999999999,capped.FinalBlock);
+    var fractional = new EndTurnBlockTotals(3);
+    fractional.Gain(0.75m); fractional.Gain(0.75m); Check.Equal(3,fractional.FinalBlock);
+    fractional.Lose(9); Check.Equal(-3,fractional.NetChange); Check.Equal(0,fractional.FinalBlock);
+});
+AsyncTest("BlockTotalsResolver", "Preview uses actual expiry and each unpowered gain without changing live state", async () =>
+{
+    var s = new OrbCombatState("total"); s.BeginOwnerTurn(); s.Gain(OrbKind.Tide,20);
+    s.BlockLedger.RecordTideGain(7,0);s.BlockLedger.RecordOrdinaryGain(5,1);
+    var p = new EndTurnBlockProjection(s,new WaveState()); var total = new EndTurnBlockTotals(12);
+    p.BlockExpired=total.Lose;p.TidalBlockGained=amount=>total.Gain(amount*2m);
+    await p.Resolve(new(OrbScope.All));
+    Check.Equal(45,total.FinalBlock);Check.Equal(33,total.NetChange);
+    Check.Equal(12L,s.BlockLedger.Total);Check.Equal(20,s.Value(OrbKind.Tide));
+    Check.False(s.EndTurnResolved);Check.True(p.Orbs.EndTurnResolved);
+    p.Orbs.BeginOwnerTurn();Check.False(p.Orbs.EndTurnResolved);
+});
+
+
 AsyncTest("120PreviewExamples", "Tide and frozen Waves share one end-turn payout, including inactive and locked Tide", async () =>
 {
     foreach (var (waves, tide, back, inactive, locked, expected) in new[] {
