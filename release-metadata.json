@@ -70,6 +70,7 @@
   },
   "note": "The beta10 tag resolves to matching public authored source. The private validated build includes non-public design inputs and local build configuration. This metadata identifies the GitHub beta10 runtime and separately preserves the Steam beta9 runtime. BaseLib remains required. Real multi-client, long-term balance and complete normal-speed visual/audio acceptance are pending.",
   "runtime_source_commit": "135686b9dafeeadffcff173c2216bac76ccda9a7",
-  "runtime_release_id": "RE_kwDOUuHp_s4YOoIx",
-  "downloaded_sha256_verified": true
+  "runtime_release_id": 406487601,
+  "downloaded_sha256_verified": true,
+  "release_node_id": "RE_kwDOUuHp_s4YOoIx"
 }

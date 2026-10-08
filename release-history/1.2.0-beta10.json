@@ -122,12 +122,13 @@
   "steam_published_version": "1.2.0-beta9",
   "notes": "Card rules, IDs and artwork retained. BaseLib remains required. Optional audit fixture only runs with explicit validation environment variables. Test timing is accelerated; real multi-client, full normal-speed visual/audio and long-term balance remain pending.",
   "source_files": 1295,
-  "release_id": "RE_kwDOUuHp_s4YOoIx",
+  "release_id": 406487601,
   "published_at": "2026-10-08T06:25:24Z",
   "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10",
   "prerelease": true,
   "ci": {
     "id": 37737296642,
     "conclusion": "success"
-  }
+  },
+  "release_node_id": "RE_kwDOUuHp_s4YOoIx"
 }
