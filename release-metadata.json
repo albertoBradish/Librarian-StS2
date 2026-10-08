@@ -39,7 +39,7 @@
   "source_snapshot": "source-snapshot.json",
   "source_snapshot_local_date": "2026-10-07",
   "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10",
-  "runtime_release_status": "planned",
+  "runtime_release_status": "published",
   "runtime_source_sha256": "96d29137311baa7e33745d7f8534eae72c5b2dab5fa8edba08fa2f624cbff4f5",
   "steam_published_version": "1.2.0-beta9",
   "steam_runtime_artifacts": [
@@ -68,5 +68,8 @@
     "multiclient": false,
     "normal_speed_visual_acceptance": false
   },
-  "note": "The beta10 tag resolves to matching public authored source. The private validated build includes non-public design inputs and local build configuration. This metadata identifies the GitHub beta10 runtime and separately preserves the Steam beta9 runtime. BaseLib remains required. Real multi-client, long-term balance and complete normal-speed visual/audio acceptance are pending."
+  "note": "The beta10 tag resolves to matching public authored source. The private validated build includes non-public design inputs and local build configuration. This metadata identifies the GitHub beta10 runtime and separately preserves the Steam beta9 runtime. BaseLib remains required. Real multi-client, long-term balance and complete normal-speed visual/audio acceptance are pending.",
+  "runtime_source_commit": "135686b9dafeeadffcff173c2216bac76ccda9a7",
+  "runtime_release_id": "RE_kwDOUuHp_s4YOoIx",
+  "downloaded_sha256_verified": true
 }

@@ -13,7 +13,7 @@
     "BaseLib": "3.4.5",
     "STS2-RitsuLib": "0.6.4"
   },
-  "source_commit": "resolve v1.2.0-beta10 annotated tag; matching public source-snapshot.json",
+  "source_commit": "135686b9dafeeadffcff173c2216bac76ccda9a7",
   "runtime_source_sha256": "96d29137311baa7e33745d7f8534eae72c5b2dab5fa8edba08fa2f624cbff4f5",
   "runtime_artifacts": [
     {
@@ -116,9 +116,18 @@
     "multiclient": false,
     "normal_speed_visual_audio_acceptance": false
   },
-  "status": "validated_candidate_awaiting_publication",
-  "downloaded_sha256_verified": false,
+  "status": "published",
+  "downloaded_sha256_verified": true,
   "steam_uploaded": false,
   "steam_published_version": "1.2.0-beta9",
-  "notes": "Card rules, IDs and artwork retained. BaseLib remains required. Optional audit fixture only runs with explicit validation environment variables. Test timing is accelerated; real multi-client, full normal-speed visual/audio and long-term balance remain pending."
+  "notes": "Card rules, IDs and artwork retained. BaseLib remains required. Optional audit fixture only runs with explicit validation environment variables. Test timing is accelerated; real multi-client, full normal-speed visual/audio and long-term balance remain pending.",
+  "source_files": 1295,
+  "release_id": "RE_kwDOUuHp_s4YOoIx",
+  "published_at": "2026-10-08T06:25:24Z",
+  "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10",
+  "prerelease": true,
+  "ci": {
+    "id": 37737296642,
+    "conclusion": "success"
+  }
 }
