@@ -4,17 +4,7 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
-Beta source revision for this update: **Librarian 1.2.0-beta5**, game **public-beta
-0.111.0**, source branch **`codex/beta`**. It retains published beta4's 32-card
-revision and r3 Ancient artwork, and applies only 97 Chinese/English Orb text
-changes and the Strengthen tooltip removal. Later functional batches are listed
-in [RELEASE-BATCHES.md](RELEASE-BATCHES.md). Source synchronization and a Steam
-update do not create a new GitHub Release. The latest separate beta runtime
-release remains **1.1.0-beta1**, tag **`v1.1.0-beta1`**. Both **BaseLib 3.4.5** and the
-complete **RitsuLib 0.6.4** bundle, including `compat/0.111.0/` and `shared/`, are
-required. `main` contains published stable **1.1.1** source for game **0.107.1**;
-its latest independent GitHub runtime release remains **1.1.0**, tag
-**`v1.1.0-stable`**. Keep each channel's source, candidate and validation separate.
+Current beta GitHub runtime: **Librarian 1.2.0-beta10**, tag **`v1.2.0-beta10`**, game **public-beta 0.111.0 / 41cef1ea**, branch **`codex/beta`**. It migrates 91 active cards and nine legacy-save models to RitsuLib without changing their rules or published IDs, and includes the previously validated net Block preview and beta9 features. Steam Workshop remains beta9. Both **BaseLib 3.4.5** and the complete **RitsuLib 0.6.4** bundle (`compat/0.111.0/` and `shared/`) remain required. The remaining character, pools, powers, relics, potions and helpers still use BaseLib. `main` remains stable 0.107.1 with its own maintenance; its independent runtime Release remains **v1.1.0-stable**.
 
 1. Finish the release's source changes and compatibility/native validation. Record
    exact game/build, BaseLib/RitsuLib versions, known limitations and source commit.

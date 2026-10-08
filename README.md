@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本分支已同步游戏 **public-beta 0.111.0** 的 **V1.2.0-beta9** 已发布功能与截至 2026-10-07 的开发维护。新增内容包括四页设置、示例与声音试听、精简提示、二次确认初始化、未完待续抽牌顺序修复及 12 步互动教学。当前源码还包含尚未发布到工坊的回合末格挡净变化预览；具体范围见 [源码与发布状态](RELEASE-BATCHES.md)。Steam 最新版为 beta9，最近的独立 GitHub beta 下载仍为 [V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。
+本分支提供游戏 **public-beta 0.111.0** 的 **V1.2.0-beta10** 源码与[独立 GitHub 预发行包](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10)。91 张活动卡及 9 张旧档兼容模型迁移至 RitsuLib，原 ID、规则、文案及卡图保留；同时纳入此前验证的回合末格挡净变化预览，并包含 beta9 的教学、设置与修复。**角色、能力、遗物、药水和辅助代码仍需 BaseLib，两个前置都必须启用。** Steam 工坊当前仍为 beta9；具体范围见 [源码与发布状态](RELEASE-BATCHES.md)。
 
-This branch contains **V1.2.0-beta9 features for public-beta 0.111.0** and development maintenance through **2026-10-07**: four settings pages, examples and sound previews, compact tooltips, confirmed initialization, the To Be Continued draw-order fix, and a 12-step interactive tutorial. The source also includes an **unreleased end-turn net Block preview**. See [source and release status](RELEASE-BATCHES.md). Steam's latest beta is beta9; the separate GitHub runtime download remains V1.1.0-beta1. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) targets stable 0.107.1 and includes its own unpublished maintenance. Keep the channels' runtime files separate.
+This branch provides **V1.2.0-beta10 source and a [separate GitHub pre-release](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10) for public-beta 0.111.0**. All 91 active cards and nine legacy-save models use RitsuLib while retaining their IDs, rules, text and artwork. It includes the previously verified end-turn net Block preview and beta9's tutorial, settings and fixes. **BaseLib remains required by character, powers, relics, potions and helpers; enable both libraries.** Steam Workshop remains beta9. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) retains stable 0.107.1 and its own development maintenance.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -23,7 +23,7 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。独立 GitHub 下载仍为 V1.1.0-beta1；本次同步开发源码。The separate runtime download remains V1.1.0-beta1; this update synchronizes development source.
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.2.0-beta10](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10)。下载同一发行的三份运行文件与许可。Download the three runtime files and notices from the same release.
 - [Source and release status / 源码与发布状态](RELEASE-BATCHES.md)。Steam V1.2.0-beta9 已经服务器核验；订阅端收到新版仍待确认。Steam beta9 is server-verified; subscriber delivery remains unverified.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
@@ -58,8 +58,8 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current development source: **1.2.0-beta9 plus unpublished maintenance**, for the game's public-beta branch.
-[Source fingerprint](source-snapshot.json) identifies this tree; [release metadata](release-metadata.json) identifies the separately published Steam runtime baseline. The branch head is not that runtime snapshot.
+Current runtime source: **1.2.0-beta10**, for the game's public-beta branch.
+[Source fingerprint](source-snapshot.json) records the public authored inputs; [release metadata](release-metadata.json) records this validated GitHub build and the separate Steam beta9 baseline. The version tag resolves to the exact public source commit used for this release.
 
 | Component | Verified baseline |
 | --- | --- |

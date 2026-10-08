@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbBasics;
 
 /// <summary>v0.3.0 approved revision, catalog 8. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-REIGNITE")]
 public sealed class Reignite() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -23,6 +24,7 @@ public sealed class Reignite() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUti
 }
 
 /// <summary>v0.3.0 approved revision, catalog 9. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-FLAME_STRIKE")]
 public sealed class FlameStrike() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new DynamicVar("Fire", 3m)];
@@ -38,6 +40,7 @@ public sealed class FlameStrike() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
 }
 
 /// <summary>v0.3.0 approved revision, catalog 10. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-WAVE_STRIKE")]
 public sealed class WaveStrike() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Tide", 2m)];
@@ -53,6 +56,7 @@ public sealed class WaveStrike() : Librarian.LibrarianCode.Cards.OrbUtility.OrbU
 }
 
 /// <summary>v0.3.0 approved revision, catalog 11. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SCATTERED_FLAMES")]
 public sealed class ScatteredFlames() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(8m), new ExtraDamageVar(5m), new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewLockedCount(card))];
@@ -68,6 +72,7 @@ public sealed class ScatteredFlames() : Librarian.LibrarianCode.Cards.OrbUtility
 }
 
 /// <summary>Catalog 15. The damage is fixed, not conditional on how much Fire was available.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ASHEN_BLOW")]
 public sealed class AshenBlow() : OrbBasicsCard(3, CardType.Attack, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(31m, ValueProp.Move)];
@@ -80,6 +85,7 @@ public sealed class AshenBlow() : OrbBasicsCard(3, CardType.Attack, TargetType.A
 }
 
 /// <summary>v0.3.0 approved revision, catalog 16. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SPRINGWATER")]
 public sealed class Springwater() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -94,6 +100,7 @@ public sealed class Springwater() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
 }
 
 /// <summary>v0.3.0 approved revision, catalog 17. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BURNING_PAGES")]
 public sealed class BurningPages() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 8m)];
@@ -109,6 +116,7 @@ public sealed class BurningPages() : Librarian.LibrarianCode.Cards.OrbUtility.Or
 }
 
 /// <summary>v0.3.0 approved revision, catalog 18. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-QUIET_EMBERS")]
 public sealed class QuietEmbers() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -125,6 +133,7 @@ public sealed class QuietEmbers() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
 }
 
 /// <summary>v0.3.0 approved revision, catalog 19. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-COLD_FLAME")]
 public sealed class ColdFlame() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 6m)];
@@ -140,6 +149,7 @@ public sealed class ColdFlame() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUt
 }
 
 /// <summary>V0.4.1 replacement for ColdFlame. ColdFlame remains loadable for old saves.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-READ_BACKWARD")]
 public sealed class ReadBackward() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
@@ -149,6 +159,7 @@ public sealed class ReadBackward() : Librarian.LibrarianCode.Cards.OrbUtility.Or
 }
 
 /// <summary>v0.3.0 approved revision, catalog 20. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-RENEWAL")]
 public sealed class Renewal() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 6m)];
@@ -164,6 +175,7 @@ public sealed class Renewal() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtil
 }
 
 /// <summary>v0.3.0 approved revision, catalog 21. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SPROUTING_SEED")]
 public sealed class SproutingSeed() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -183,6 +195,7 @@ public sealed class SproutingSeed() : Librarian.LibrarianCode.Cards.OrbUtility.O
 }
 
 /// <summary>v0.3.0 approved revision, catalog 22. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-NOURISH")]
 public sealed class Nourish() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
@@ -203,6 +216,7 @@ public sealed class Nourish() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtil
 }
 
 /// <summary>Catalog 23. Gain callbacks complete before drawing.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-CHANNEL_FLOW")]
 public sealed class ChannelFlow() : OrbBasicsCard(1, CardType.Skill, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 1m), new CardsVar(1)];
@@ -215,6 +229,7 @@ public sealed class ChannelFlow() : OrbBasicsCard(1, CardType.Skill, TargetType.
 }
 
 /// <summary>v0.3.0 approved revision, catalog 24. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-DRY_BRANCH_SEARCH")]
 public sealed class DryBranchSearch() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
@@ -230,6 +245,7 @@ public sealed class DryBranchSearch() : Librarian.LibrarianCode.Cards.OrbUtility
 }
 
 /// <summary>Catalog 25.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-VINE_SHIELD")]
 public sealed class VineShield() : OrbBasicsCard(2, CardType.Skill, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(11m, ValueProp.Move), new DynamicVar("Growth", 4m)];
@@ -246,6 +262,7 @@ public sealed class VineShield() : OrbBasicsCard(2, CardType.Skill, TargetType.S
 }
 
 /// <summary>v0.3.0 approved revision, catalog 26. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BURN_THE_RIVER")]
 public sealed class BurnTheRiver() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 5m)];

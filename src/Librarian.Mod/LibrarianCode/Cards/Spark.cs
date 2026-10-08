@@ -5,7 +5,8 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Librarian.LibrarianCode.Cards;
 
-public sealed class Spark() : LibrarianCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SPARK")]
+public sealed class Spark() : LibrarianRitsuCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 5m)];
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

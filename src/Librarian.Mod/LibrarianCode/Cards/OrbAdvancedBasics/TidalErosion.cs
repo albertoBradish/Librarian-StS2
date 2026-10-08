@@ -11,11 +11,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 33/r34. Independent activation condition; the two Weak applications retain text order.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TIDAL_EROSION")]
 public sealed class TidalErosion() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(8m, ValueProp.Move), new PowerVar<WeakPower>(1m)];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var session = Session;

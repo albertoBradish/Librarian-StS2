@@ -37,6 +37,11 @@ class ReleaseTests(unittest.TestCase):
             self.assertEqual(hash_value, sha256(self.output / name))
         self.assertTrue((self.output / 'licenses-dependency.txt').exists())
 
+    def test_current_pinned_ritsu_bundle(self):
+        self.manifest['dependencies'][1]['min_version'] = '0.6.4'
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.manifest))
+        self.assertFalse(self.run_prepare()['published'])
+
     def test_extra_dependency_rejected(self):
         (self.candidate / 'BaseLib.dll').write_bytes(b'not allowed')
         with self.assertRaisesRegex(ValueError, 'exactly'):

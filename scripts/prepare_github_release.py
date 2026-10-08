@@ -36,10 +36,12 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
     if channel == 'stable' and (not delivery or historical):
         raise ValueError('Stable preparation requires current verified Delivery evidence')
     deps = {d['id']: d['min_version'] for d in manifest.get('dependencies', [])}
-    current_deps = {'BaseLib': '3.4.5', 'STS2-RitsuLib': '0.6.2'}
+    # Keep the verified 0.6.2 release policy and accept the current pinned 0.6.4 bundle.
+    current_deps = [{'BaseLib': '3.4.5', 'STS2-RitsuLib': ritsu_version}
+                    for ritsu_version in ('0.6.2', '0.6.4')]
     if historical and not delivery:
         raise ValueError('Historical preparation requires verified artifact evidence')
-    if deps != current_deps and not (historical and deps == {'BaseLib': '3.4.5'}):
+    if deps not in current_deps and not (historical and deps == {'BaseLib': '3.4.5'}):
         raise ValueError('Dependency versions changed; review policy before releasing')
     if not manifest.get('has_dll') or not manifest.get('has_pck'):
         raise ValueError('Runtime manifest must declare DLL and PCK')

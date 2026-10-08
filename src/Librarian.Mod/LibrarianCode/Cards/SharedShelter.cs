@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Combat;
 namespace Librarian.LibrarianCode.Cards;
 
 /// <summary>Resolve the caster's card Block once, then copy it without recipient effect hooks.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SHARED_SHELTER")]
 public sealed class SharedShelter() : LibrarianCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;

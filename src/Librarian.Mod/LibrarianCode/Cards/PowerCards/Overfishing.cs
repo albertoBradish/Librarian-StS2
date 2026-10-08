@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>V1.2.0-beta2: permanently lock the current back Orbs, then double the current foreground for three/four turn starts.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-OVERFISHING")]
 public sealed class Overfishing() : ImplementedPowerCard(2, CardRarity.Rare)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Turns", 3m)];

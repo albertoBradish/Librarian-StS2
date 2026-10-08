@@ -229,7 +229,7 @@ internal static class LibrarianLanguage
         // Rebuild labels using their own source keys; the native language remains unchanged.
         AccessTools.Method(typeof(LocManager), "TriggerLocaleChange").Invoke(LocManager.Instance, null);
         if (NGame.Instance is { } game)
-            foreach (var card in game.FindChildren("*", "", true, false).OfType<NCard>().Where(n => n.IsNodeReady() && n.Model is LibrarianCard))
+            foreach (var card in game.FindChildren("*", "", true, false).OfType<NCard>().Where(n => n.IsNodeReady() && n.Model is ILibrarianCard))
             {
                 card.UpdateVisuals(card.DisplayingPile, CardPreviewMode.Normal);
                 AccessTools.Method(typeof(NCard), "UpdateTypePlaque").Invoke(card, null);
@@ -268,7 +268,7 @@ internal static class LibrarianLanguage
     }
     internal static bool EnterNativeScope(object model)
     {
-        if (model is not (LibrarianCard or LibrarianPower or LibrarianRelic or LibrarianPotion)) return false;
+        if (model is not (ILibrarianCard or LibrarianPower or LibrarianRelic or LibrarianPotion)) return false;
         _nativeScope++;
         return true;
     }

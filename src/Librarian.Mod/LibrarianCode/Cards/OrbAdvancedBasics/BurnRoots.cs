@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>v0.3.0 approved revision, catalog 32. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BURN_ROOTS")]
 public sealed class BurnRoots() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new DynamicVar("Fire", 6m)];

@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>Source 82/r83. v0.3.4: each extinguish gains Fire, with no draw effect.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-EMBER_BOOKMARK")]
 public sealed class EmberBookmark() : ImplementedPowerCard(1, CardRarity.Uncommon)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EmberBookmarkPower>(1m)];

@@ -291,6 +291,15 @@
       "tag_commit": "c1e8f08ab4830150981f3a9c203c361e0c595e22",
       "published_at": "2026-10-01T02:18:36Z",
       "downloaded_sha256_verified": true
+    },
+    {
+      "version": "1.2.0-beta10",
+      "tag": "v1.2.0-beta10",
+      "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10",
+      "provenance": "release-history/1.2.0-beta10.json",
+      "source_kind": "complete_matching_authored_source",
+      "status": "validated_candidate_awaiting_publication",
+      "downloaded_sha256_verified": false
     }
   ],
   "unavailable": [

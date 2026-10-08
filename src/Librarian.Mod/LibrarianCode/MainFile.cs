@@ -27,6 +27,7 @@ public partial class MainFile : Node
         Librarian.Mechanics.LibrarianUnlocks040.Initialize();
         Librarian.Mechanics.LibrarianSettings041.Initialize();
         harmony.PatchAll(assembly);
+        Librarian.Mechanics.LibrarianRitsuCardRegistration.Initialize();
         Librarian.Mechanics.LibrarianRuntime.Initialize();
         Logger.Info("Librarian character skeleton initialized. Orb mechanics connected=" + LibrarianMechanicsBridge.IsConnected);
     }

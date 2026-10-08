@@ -39,7 +39,9 @@ internal static partial class DevelopmentRuntimeAudit
 
     [HarmonyPostfix] private static void Postfix()
     {
-        if (_ran || System.Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") != "1") return;
+        if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "ritsu-sweep") return;
+        if (_ran || System.Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") != "1"
+            || System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "ritsu-coexist") return;
         if (!OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Runtime audit requires the dedicated validation profile.");
         _ran = true;

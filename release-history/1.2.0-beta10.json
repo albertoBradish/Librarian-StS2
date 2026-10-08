@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "version": "1.2.0-beta10",
+  "tag": "v1.2.0-beta10",
+  "kind": "complete_matching_authored_source",
+  "channel": "beta",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "BaseLib": "3.4.5",
+    "STS2-RitsuLib": "0.6.4"
+  },
+  "source_commit": "resolve v1.2.0-beta10 annotated tag; matching public source-snapshot.json",
+  "runtime_source_sha256": "96d29137311baa7e33745d7f8534eae72c5b2dab5fa8edba08fa2f624cbff4f5",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 2592256,
+      "sha256": "a694b5dbe806cf876db06a62cb23a36da35a425e86af7620c2e68f3fdd03dbcd"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 494,
+      "sha256": "ea821f8a2bb434df918b89bfc5f0ca90bd6c12b489c5726ed8ddcc630fb0a916"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124951148,
+      "sha256": "349d87425b236f6564e7892e703daed79394b97bda368cf50c21c8637d3100f1"
+    }
+  ],
+  "release_assets": [
+    {
+      "name": "ASSET-LICENSE.md",
+      "bytes": 2061,
+      "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7"
+    },
+    {
+      "name": "Librarian.dll",
+      "bytes": 2592256,
+      "sha256": "a694b5dbe806cf876db06a62cb23a36da35a425e86af7620c2e68f3fdd03dbcd"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 494,
+      "sha256": "ea821f8a2bb434df918b89bfc5f0ca90bd6c12b489c5726ed8ddcc630fb0a916"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124951148,
+      "sha256": "349d87425b236f6564e7892e703daed79394b97bda368cf50c21c8637d3100f1"
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 5467,
+      "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9"
+    },
+    {
+      "name": "licenses-Alchyr-Template-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "licenses-BaseLib-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "licenses-Godot-MIT.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+    },
+    {
+      "name": "licenses-Harmony-MIT.txt",
+      "bytes": 1073,
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d"
+    },
+    {
+      "name": "licenses-RitsuLib-MIT.txt",
+      "bytes": 1060,
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01"
+    },
+    {
+      "name": "licenses-sources.json",
+      "bytes": 1360,
+      "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566"
+    },
+    {
+      "name": "licenses-template-assets.json",
+      "bytes": 196,
+      "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1146,
+      "sha256": "30373e5832e7d433dc8047670c7fe796b3bcc038c35d8b1f9fcac506ccf1c403"
+    },
+    {
+      "name": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2772,
+      "sha256": "4e3bc1eead5d1a3c85190e930035bc84431fb872d19742091a87a91a08af4f3d"
+    }
+  ],
+  "validation": {
+    "active_cases": 182,
+    "matching_input_cases": 181,
+    "threefold_named_paths": 6,
+    "numeric_checks": 28,
+    "legacy_save_cards": 182,
+    "core": "71/71",
+    "complete_native_logs": 3,
+    "blocking_diagnostics": 0,
+    "multiclient": false,
+    "normal_speed_visual_audio_acceptance": false
+  },
+  "status": "validated_candidate_awaiting_publication",
+  "downloaded_sha256_verified": false,
+  "steam_uploaded": false,
+  "steam_published_version": "1.2.0-beta9",
+  "notes": "Card rules, IDs and artwork retained. BaseLib remains required. Optional audit fixture only runs with explicit validation environment variables. Test timing is accelerated; real multi-client, full normal-speed visual/audio and long-term balance remain pending."
+}

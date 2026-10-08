@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Models.Relics;
 
 namespace Librarian.LibrarianCode.Cards;
 
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ANCIENT_SPARK")]
 public sealed class AncientSpark() : OrbUtilityCard(1, CardType.Skill, CardRarity.Ancient, TargetType.Self)
 {
     public override string PortraitPath => "res://Librarian/images/card_portraits/ancient_spark.png";

@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace Librarian.LibrarianCode.Cards;
 
 // Keep the v0.3.5 model ID so existing copies and saves become the defined multiplayer card.
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-MULTIPLAYER_PLACEHOLDER_A")]
 public sealed class MultiplayerPlaceholderA() : ImplementedPowerCard(1, CardRarity.Rare)
 {
     public override string PortraitPath => "res://Librarian/images/card_portraits/crowd_kindling.png";

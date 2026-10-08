@@ -1,6 +1,8 @@
 {
   "mod_id": "Librarian",
-  "version": "1.2.0-beta9",
+  "channel": "beta",
+  "version": "1.2.0-beta10",
+  "current_source_version": "1.2.0-beta10",
   "active_cards": 91,
   "game": {
     "version": "0.111.0",
@@ -14,7 +16,33 @@
   },
   "license": "LicenseRef-Librarian-Personal-Use-1.0",
   "open_source": false,
+  "baseline_runtime_version": "1.2.0-beta10",
   "baseline_runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 2592256,
+      "sha256": "a694b5dbe806cf876db06a62cb23a36da35a425e86af7620c2e68f3fdd03dbcd"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 494,
+      "sha256": "ea821f8a2bb434df918b89bfc5f0ca90bd6c12b489c5726ed8ddcc630fb0a916"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124951148,
+      "sha256": "349d87425b236f6564e7892e703daed79394b97bda368cf50c21c8637d3100f1"
+    }
+  ],
+  "source_matches_baseline_runtime": true,
+  "source_status": "validated_github_prerelease_source",
+  "source_snapshot": "source-snapshot.json",
+  "source_snapshot_local_date": "2026-10-07",
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10",
+  "runtime_release_status": "planned",
+  "runtime_source_sha256": "96d29137311baa7e33745d7f8534eae72c5b2dab5fa8edba08fa2f624cbff4f5",
+  "steam_published_version": "1.2.0-beta9",
+  "steam_runtime_artifacts": [
     {
       "name": "Librarian.dll",
       "bytes": 2439680,
@@ -31,14 +59,14 @@
       "sha256": "d060adbb4392b8023190d35daab536d932e97da6f91146ad8df75fdc504f9096"
     }
   ],
-  "runtime_release_url": null,
-  "runtime_release_status": "not_published",
-  "note": "baseline_runtime_artifacts identify the last published Steam package, not a build of this branch head. The authored development snapshot includes unreleased maintenance listed in RELEASE-BATCHES.md. This source synchronization creates no runtime Release. Public-clone native gameplay and real multi-client validation are not established by pure-rule CI.",
-  "channel": "beta",
-  "current_source_version": "1.2.0-beta9",
-  "baseline_runtime_version": "1.2.0-beta9",
-  "source_status": "development_snapshot_with_unreleased_maintenance",
-  "source_matches_baseline_runtime": false,
-  "source_snapshot": "source-snapshot.json",
-  "source_snapshot_local_date": "2026-10-07"
+  "native_validation": {
+    "active_cases": 182,
+    "threefold_named_paths": 6,
+    "legacy_save_cards": 182,
+    "core": "71/71",
+    "complete_logs_passed": true,
+    "multiclient": false,
+    "normal_speed_visual_acceptance": false
+  },
+  "note": "The beta10 tag resolves to matching public authored source. The private validated build includes non-public design inputs and local build configuration. This metadata identifies the GitHub beta10 runtime and separately preserves the Steam beta9 runtime. BaseLib remains required. Real multi-client, long-term balance and complete normal-speed visual/audio acceptance are pending."
 }

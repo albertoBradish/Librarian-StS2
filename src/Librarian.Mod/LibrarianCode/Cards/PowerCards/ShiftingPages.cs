@@ -11,10 +11,11 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>Source 60/r61. Stack additive Block per real foreground switch.</summary>
-public sealed class ShiftingPages() : ImplementedPowerCard(1, CardRarity.Uncommon)
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SHIFTING_PAGES")]
+public sealed class ShiftingPages() : LibrarianRitsuCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ShiftingPagesPower>(3m)];
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        => Apply<ShiftingPagesPower>(choiceContext, DynamicVars["ShiftingPagesPower"].BaseValue);
+        => PowerCmd.Apply<ShiftingPagesPower>(choiceContext, Owner.Creature, DynamicVars["ShiftingPagesPower"].BaseValue, Owner.Creature, this);
     protected override void OnUpgrade() => DynamicVars["ShiftingPagesPower"].UpgradeValueBy(1m);
 }

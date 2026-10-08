@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>v0.3.0 approved revision, catalog 42. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TIDAL_GRAVITY")]
 public sealed class TidalGravity() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

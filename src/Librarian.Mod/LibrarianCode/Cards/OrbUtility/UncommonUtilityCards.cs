@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbUtility;
 
 /// <summary>Source 36/r37. The delayed amount is captured now; its context is supplied next turn.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SEEDBURIAL_STRIKE")]
 public sealed class SeedburialStrike() : OrbUtilityCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new DynamicVar("Growth", 10m)];
@@ -28,6 +29,7 @@ public sealed class SeedburialStrike() : OrbUtilityCard(2, CardType.Attack, Card
 }
 
 /// <summary>V0.4.1: one attack whose amount is the printed base plus current Fire.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-EMBER_RECKONING")]
 public sealed class EmberReckoning() : OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -44,6 +46,7 @@ public sealed class EmberReckoning() : OrbUtilityCard(1, CardType.Attack, CardRa
 }
 
 /// <summary>v0.3.0 approved revision, catalog 45. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-EVAPORATION")]
 public sealed class Evaporation() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 8m), new CardsVar(1)];
@@ -60,6 +63,7 @@ public sealed class Evaporation() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
 }
 
 /// <summary>v0.3.0 approved revision, catalog 46. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-COOLDOWN")]
 public sealed class Cooldown() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -78,6 +82,7 @@ public sealed class Cooldown() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUti
 }
 
 /// <summary>v0.3.0 approved revision, catalog 47. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SPROUTING_BULWARK")]
 public sealed class SproutingBulwark() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -95,6 +100,7 @@ public sealed class SproutingBulwark() : Librarian.LibrarianCode.Cards.OrbUtilit
 }
 
 /// <summary>V0.4.1: choose one enemy and branch on that enemy's current intent.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-RESIDUAL_WARMTH")]
 public sealed class ResidualWarmth() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     public override bool GainsBlock => true;
@@ -115,6 +121,7 @@ public sealed class ResidualWarmth() : OrbUtilityCard(1, CardType.Skill, CardRar
 }
 
 /// <summary>Source 50/r51. Explicit ALL overrides the default foreground scope.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SEAL_AWAY")]
 public sealed class SealAway() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -130,6 +137,7 @@ public sealed class SealAway() : OrbUtilityCard(1, CardType.Skill, CardRarity.Un
 }
 
 /// <summary>V0.4.1: Fire, draw one, and put an upgraded-state-preserving copy at draw-pile bottom.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-REKINDLE")]
 public sealed class Rekindle() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -148,6 +156,7 @@ public sealed class Rekindle() : OrbUtilityCard(1, CardType.Skill, CardRarity.Ra
 }
 
 /// <summary>V0.4.1: base is the background total; upgrade doubles that total without changing cost.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ARCHIVE_BULWARK")]
 public sealed class ArchiveBulwark() : OrbUtilityCard(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -163,6 +172,7 @@ public sealed class ArchiveBulwark() : OrbUtilityCard(0, CardType.Skill, CardRar
 }
 
 /// <summary>Source 54/r55. The active candidate set is resolved after drawing, and consumes RNG only for an actual tie.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-OUT_OF_CONTEXT")]
 public sealed class OutOfContext() : OrbUtilityCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -178,6 +188,7 @@ public sealed class OutOfContext() : OrbUtilityCard(0, CardType.Skill, CardRarit
 }
 
 /// <summary>Source 55/r56. User override: extinguish Fire in either position.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-AFFORESTATION")]
 public sealed class Afforestation() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 4m), new DynamicVar("Growth", 3m)];
@@ -192,6 +203,7 @@ public sealed class Afforestation() : OrbUtilityCard(1, CardType.Skill, CardRari
 }
 
 /// <summary>v0.3.0 approved revision, catalog 56. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-OVERLOAD_BURN")]
 public sealed class OverloadBurn() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move)];

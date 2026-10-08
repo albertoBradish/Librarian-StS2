@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.Stateful;
 
 /// <summary>v0.3.0 approved revision, catalog 48. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-CALIBRATE")]
 public sealed class Calibrate() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
@@ -30,6 +31,7 @@ public sealed class Calibrate() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUt
 }
 
 // Catalog 44. The existing starter-card visuals serve as the two choice previews only.
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-DRAW_BRANCH")]
 public sealed class DrawBranch() : LibrarianCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -55,12 +57,13 @@ public sealed class DrawBranch() : LibrarianCard(2, CardType.Skill, CardRarity.R
 }
 
 // v0.5.2: snapshot Growth once, use it for base damage and temporary Strength loss.
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BOOKWORM")]
 public sealed class Bookworm() : Librarian.LibrarianCode.Cards.OrbAdvancedBasics.OrbAdvancedCard(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         CalculatedDamage((card, _) => PreviewSession(card)?.Orbs.Value(OrbKind.Growth) ?? 0);
-    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> ExtraHoverTips =>
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips =>
         [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>()];
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
@@ -76,6 +79,7 @@ public sealed class Bookworm() : Librarian.LibrarianCode.Cards.OrbAdvancedBasics
 }
 
 // Catalog 66 / D12: mutable-instance field is copied by cloning, never written to DeckVersion or a saved property.
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-NOURISHING_LIFE")]
 public sealed class NourishingLife() : LibrarianCard(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
 {
     private int _absorbed;
@@ -113,10 +117,11 @@ public sealed class NourishingLife() : LibrarianCard(1, CardType.Attack, CardRar
 }
 
 // Catalog 67: runtime records the last successfully completed play from a pre-play clone.
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TRANSCRIBE")]
 public sealed class Transcribe() : LibrarianCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> ExtraHoverTips =>
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips =>
         [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromKeyword(CardKeyword.Ethereal),
          MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
     protected override bool IsPlayable => IsMutable && Owner is { } player
@@ -154,6 +159,7 @@ public sealed class Transcribe() : LibrarianCard(1, CardType.Skill, CardRarity.R
 }
 
 /// <summary>v0.3.0 approved revision, catalog 69. Stable model ID retained.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-FIRE_INSCRIPTION")]
 public sealed class FireInscription() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(8m), new ExtraDamageVar(4m), new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewSession(card)?.Orbs.SettlementsThisCombat ?? 0)];
@@ -169,6 +175,7 @@ public sealed class FireInscription() : Librarian.LibrarianCode.Cards.OrbUtility
 }
 
 // Catalog 74 / D20: saved permanent increment; upgrade affects future increments only.
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-IMMORTAL_SPARK")]
 public sealed class ImmortalSpark() : LibrarianCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     private int _permanentIncrease;

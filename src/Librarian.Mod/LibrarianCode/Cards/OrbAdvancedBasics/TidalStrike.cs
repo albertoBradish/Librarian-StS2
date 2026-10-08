@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 31/r32. Any positive Wave stacks grant the additional hit.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TIDAL_STRIKE")]
 public sealed class TidalStrike() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];

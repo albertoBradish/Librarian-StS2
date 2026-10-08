@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>v0.4.0: clear Growth even at X0; distribute its actual loss once across random hits.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-EARTH_COLLAPSE")]
 public sealed class EarthCollapse() : OrbAdvancedCard(0, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy)
 {
     protected override bool HasEnergyCostX => true;

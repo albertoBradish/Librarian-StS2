@@ -48,7 +48,7 @@ internal static class LibrarianCardVfx050
     internal static bool TryProfile(CardModel card, out SpellProfile050 profile)
     {
         profile = null!;
-        return card is LibrarianCard && Profiles.TryGetValue(card.GetType().Name, out profile);
+        return card is ILibrarianCard && Profiles.TryGetValue(card.GetType().Name, out profile);
     }
     internal static Color Tint(SpellElement050 e) => new(e switch
     { SpellElement050.Fire => "efa05e", SpellElement050.Water => "7bd6eb", SpellElement050.Leaf => "a3ce77", SpellElement050.Prismatic => "d1b7ed", _ => "ead4a4" });

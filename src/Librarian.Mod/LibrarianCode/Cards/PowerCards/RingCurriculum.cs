@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>v0.4.0: one energy; owner-turn Growth gain 4/6.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-RING_CURRICULUM")]
 public sealed class RingCurriculum() : ImplementedPowerCard(1, CardRarity.Uncommon)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<RingCurriculumPower>(3m)];

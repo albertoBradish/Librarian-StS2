@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>V1.2.0-beta2: its Power locks the selected Orb before strengthening and activating the others.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SPACETIME_TWIST")]
 public sealed class SpacetimeTwist() : ImplementedPowerCard(2, CardRarity.Rare)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<SpacetimeTwistPower>(4m)];

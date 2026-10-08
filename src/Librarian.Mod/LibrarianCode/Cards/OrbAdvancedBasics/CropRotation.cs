@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Each cast owns an independent chain, represented by a native visible power.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-CROP_ROTATION")]
 public sealed class CropRotation() : OrbAdvancedCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Turns", 2m)];

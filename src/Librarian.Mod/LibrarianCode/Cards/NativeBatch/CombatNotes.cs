@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.NativeBatch;
 
 /// <summary>Catalog 12, source row 13: damage all enemies, then gain ordinary block.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-COMBAT_NOTES")]
 public sealed class CombatNotes() : LibrarianCard(2, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
 {
     public override bool GainsBlock => true;

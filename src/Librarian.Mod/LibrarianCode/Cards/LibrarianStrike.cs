@@ -6,7 +6,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Librarian.LibrarianCode.Cards;
 
-public sealed class LibrarianStrike() : LibrarianCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-LIBRARIAN_STRIKE")]
+public sealed class LibrarianStrike() : LibrarianRitsuCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];

@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace Librarian.LibrarianCode.Cards;
 
 /// <summary>v0.4.0 replacement in new pools; SeverCurrent retains its historical model ID.</summary>
+[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BUILD_CANAL")]
 public sealed class BuildCanal() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
