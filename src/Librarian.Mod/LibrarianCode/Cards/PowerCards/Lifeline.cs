@@ -10,7 +10,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>v0.4.0: fixed one energy, no Retain, upgraded Innate; existing power timing retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-LIFELINE")]
 public sealed class Lifeline() : ImplementedPowerCard(1, CardRarity.Rare)
 {
 

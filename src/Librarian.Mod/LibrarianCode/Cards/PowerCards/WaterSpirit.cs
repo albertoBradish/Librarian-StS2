@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>v0.4.0: install the single passive before the immediate owner-only Tide gain.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-WATER_SPIRIT")]
 public sealed class WaterSpirit() : ImplementedPowerCard(2, CardRarity.Rare)
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;

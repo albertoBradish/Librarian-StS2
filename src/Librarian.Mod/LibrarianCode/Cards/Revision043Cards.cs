@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Librarian.LibrarianCode.Cards;
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-PRACTICE_MAKES_PERFECT")]
 public sealed class PracticeMakesPerfect() : LibrarianCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Interval", 4m), new EnergyVar(1)];
@@ -21,7 +20,6 @@ public sealed class PracticeMakesPerfect() : LibrarianCard(1, CardType.Power, Ca
     protected override void OnUpgrade() => DynamicVars["Interval"].UpgradeValueBy(-1m);
 }
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TO_BE_CONTINUED")]
 public sealed class ToBeContinued() : LibrarianCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ToBeContinuedPower>(1m)];
@@ -30,7 +28,6 @@ public sealed class ToBeContinued() : LibrarianCard(1, CardType.Power, CardRarit
     protected override void OnUpgrade() => AddKeyword(CardKeyword.Innate);
 }
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-RE_READ")]
 public sealed class ReRead() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -45,7 +42,6 @@ public sealed class ReRead() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare
     }
 }
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ENDLESS_TIDE")]
 public sealed class EndlessTide() : LibrarianCard(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EndlessTidePower>(1m)];

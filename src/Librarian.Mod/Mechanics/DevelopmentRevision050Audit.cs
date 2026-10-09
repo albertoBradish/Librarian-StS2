@@ -27,9 +27,9 @@ namespace Librarian.Mechanics;
 internal static class DevelopmentRevision050Audit
 {
     private static int _checks;
-    internal static string Output => System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "051"
+    internal static string Output => System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "051"
         ? @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.1\screenshots"
-        : @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.0\screenshots";
+        : @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.0\screenshots");
     internal static void Check(bool ok, string label)
     { if (!ok) throw new InvalidOperationException("050: " + label); _checks++; MainFile.Logger.Info("V050_CHECK_PASS " + label); }
     internal static async Task Wait(double seconds = 0.6) => await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);

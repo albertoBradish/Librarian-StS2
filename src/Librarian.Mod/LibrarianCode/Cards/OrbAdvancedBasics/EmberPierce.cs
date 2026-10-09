@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>V0.4.1: attack once, then remove the target's remaining Block when Fire is imbued.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-EMBER_PIERCE")]
 public sealed class EmberPierce() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12m, ValueProp.Move)];

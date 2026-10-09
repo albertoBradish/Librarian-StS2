@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Librarian.LibrarianCode.Cards;
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SPARK")]
 public sealed class Spark() : LibrarianRitsuCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 5m)];

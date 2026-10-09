@@ -2,10 +2,10 @@
   "schema_version": 1,
   "channel": "beta",
   "branch": "codex/beta",
-  "local_date": "2026-10-07",
-  "manifest_version": "1.2.0-beta10",
-  "kind": "validated_github_runtime_source",
-  "sha256": "72e2135e9e220e9ba6c23e02e5a48524218eea804ac60f88c94aba6bcc91ba8c",
+  "local_date": "2026-10-08",
+  "manifest_version": "1.2.0-beta11",
+  "kind": "validated_runtime_source",
+  "sha256": "a1276deb602e0fc82a3f2f4237d50db8ae367bab59c0c895317c402a8b18d2da",
   "files": [
     {
       "path": "global.json",
@@ -14,18 +14,18 @@
     },
     {
       "path": "scripts/build_librarian.py",
-      "bytes": 4090,
-      "sha256": "af75d815d44c56ac5f965eb40b0204b37cf1e6c13af2a110b7bd472b330d21a2"
+      "bytes": 4749,
+      "sha256": "69e11ac3306f6ba03c63f87ac2fbadf866584ef4f7f9442389ef8f8282e72937"
     },
     {
       "path": "scripts/build_provenance.py",
-      "bytes": 2410,
-      "sha256": "ac66f78a0434a6386cb1c98b4f2efc39f8b64056717f3fce9d94b5ca851b5c43"
+      "bytes": 2331,
+      "sha256": "bbdaf900a1154597be95c71c09bbbfd8778810eda66b227a2b008b8464e52db9"
     },
     {
       "path": "scripts/run_research_game.py",
-      "bytes": 7416,
-      "sha256": "314b2f66d853fd394289329c40fe2edc5532281b06ff7009ba18d5308ded2c37"
+      "bytes": 7521,
+      "sha256": "a6bf702442df39135e4a777d3cf3af6e6742bec656ad976b7b100f2538745252"
     },
     {
       "path": "src/Librarian.Core/DamagePartition.cs",
@@ -69,8 +69,8 @@
     },
     {
       "path": "src/Librarian.Core/WaveState.cs",
-      "bytes": 5276,
-      "sha256": "62f95d81c1c08d581b0bb3a59dd3b196d8ea9a98406f18bbd9c9ddb37730f773"
+      "bytes": 5932,
+      "sha256": "b86e2d610b08f566240cbb3cfb1f5c9f89e7505cf92c5c37a16a59d13709eea9"
     },
     {
       "path": "src/Librarian.Mod/.gitignore",
@@ -83,24 +83,9 @@
       "sha256": "3f899d088bbb67ddd9cab67d8ff31ac3b779faa882a7cd96dbe3e0ec278f1ada"
     },
     {
-      "path": "src/Librarian.Mod/Librarian.csproj",
-      "bytes": 7996,
-      "sha256": "eb9b9df64cd23030eed5017b74c91fc59e34f68da83fe3b2eba541a1cc12ce05"
-    },
-    {
-      "path": "src/Librarian.Mod/Librarian.json",
-      "bytes": 494,
-      "sha256": "ea821f8a2bb434df918b89bfc5f0ca90bd6c12b489c5726ed8ddcc630fb0a916"
-    },
-    {
-      "path": "src/Librarian.Mod/Librarian.sln",
-      "bytes": 1721,
-      "sha256": "1990583d65160b72eb3e14f8bc1a374063808ea2a0c9fb3e0e2885104314f08b"
-    },
-    {
-      "path": "src/Librarian.Mod/Librarian.sln.DotSettings",
-      "bytes": 16337,
-      "sha256": "63d06f1087959a7c75268d82678c67f4edc31a25f3e8609887524419f26b73a5"
+      "path": "src/Librarian.Mod/export_presets.cfg",
+      "bytes": 2611,
+      "sha256": "bc1f9e4a809f1b2d6be8c7e9c99c624ac493121b5d2c5dbbc58f0af7ee8358c2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/afforestation.png",
@@ -4809,8 +4794,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/cards.json",
-      "bytes": 22154,
-      "sha256": "091ef0ef5d76f1c4f435e8cfd78d837526798999020aee254e3c7edc91e64c3b"
+      "bytes": 22273,
+      "sha256": "7fbf5c892b6ed1f5565f06471feac207d01643f4569cee926b602bd96de18f65"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/characters.json",
@@ -4834,8 +4819,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/main_menu_ui.json",
-      "bytes": 26590,
-      "sha256": "89b28ac021304828e3f3f9af1b0292b1a17c7dd34ff94b2e272f5634e4509985"
+      "bytes": 26573,
+      "sha256": "b72db328b80c8367fda2a20fcfa55c19dfb208360a42997b8e7c31b66abae54a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/potions.json",
@@ -4869,8 +4854,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/cards.json",
-      "bytes": 21457,
-      "sha256": "e9ce935f240824582fed288e0a422750dca5021ccb2155dc906c48220a242e01"
+      "bytes": 21590,
+      "sha256": "62e1a0948f85fbba07ce0e59a20ecd434fb0a4751b39d83f7350c8a1047edd18"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/characters.json",
@@ -4894,8 +4879,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/main_menu_ui.json",
-      "bytes": 26146,
-      "sha256": "9737adfed794084e2e2baaca80fefded4b94b2aaece82ac8a22e6f6e47550673"
+      "bytes": 26128,
+      "sha256": "5d7a99fe35871b5b209f986d7c9909d664c17714ee6323a988f327c3cc102cd1"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/potions.json",
@@ -4998,24 +4983,44 @@
       "sha256": "43172733313b49b56695da6c188d2fb365d9d720446e610a717c23c54772b721"
     },
     {
+      "path": "src/Librarian.Mod/Librarian.csproj",
+      "bytes": 6453,
+      "sha256": "ce66df1bab3214f44b26d0c14fea9bf01a55b2c236124215df1a7e2ff1c34c05"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian.json",
+      "bytes": 424,
+      "sha256": "71dea8280c2c605a5c2e67d64e39c6ba9f5a3a47c63252ee690ec389be3238d4"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian.sln",
+      "bytes": 1721,
+      "sha256": "1990583d65160b72eb3e14f8bc1a374063808ea2a0c9fb3e0e2885104314f08b"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian.sln.DotSettings",
+      "bytes": 16337,
+      "sha256": "63d06f1087959a7c75268d82678c67f4edc31a25f3e8609887524419f26b73a5"
+    },
+    {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/AncientSpark.cs",
-      "bytes": 1691,
-      "sha256": "5d9f3806ff5b9cab93201da747ab93bb4fd033e4c139ac3a09a14ddc9b7b0d0f"
+      "bytes": 1628,
+      "sha256": "1b62c3186ff9d42c9b1fc24881b7f4e019bcbe1563bd66accf836a6e796a98a8"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/BuildCanal.cs",
-      "bytes": 1111,
-      "sha256": "ce9a51db2a68b361e21e2b0499a1f809e6714f8beb29e294a0fc97df6c09faa4"
+      "bytes": 1073,
+      "sha256": "b26aaf97f29cc3351daacea2de7d0caa982f880eb6855c8ce3d81445ed92ace6"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/CirculationNotes.cs",
-      "bytes": 1488,
-      "sha256": "edcb8916afcb2057b457d3406bc1ba7de931c356b3f37260d6cb7f63dc86f503"
+      "bytes": 1420,
+      "sha256": "7ac1b38fb7e84c0377da33abf09609465e42a52021bdd23efb563dbd0e975028"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/CrowdKindling.cs",
-      "bytes": 1279,
-      "sha256": "db8576a17aea23cf2301b18f6b9e633b3713b2fc690af34564774b1acdf696f9"
+      "bytes": 1203,
+      "sha256": "8536563b84b2c2b11dda168479a472fd50797448bc27aee92ea8f5c75f4fee24"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/ILibrarianCard.cs",
@@ -5029,88 +5034,88 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianDefend.cs",
-      "bytes": 893,
-      "sha256": "f12128a05ccf06093975cf9afc503c3e97bef7e35f264d5003da8195b71477bb"
+      "bytes": 828,
+      "sha256": "8768e8bef03e04f83aa8499ea520614787dbda38711add7914efe1e457ba7164"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianRitsuCard.cs",
-      "bytes": 1196,
-      "sha256": "e25fa9c2a9c122112709079cdb6270dad34a4fe76380da1aa122fa26a567bbc4"
+      "bytes": 1470,
+      "sha256": "2382902d25c77c11ae4c8adb9dcc466b7a2b8562e87d8850c22cd74055afa1de"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianStrike.cs",
-      "bytes": 1074,
-      "sha256": "50a00b0afd94b62a04211736eedb2084299ac0e35133c1b91d8251347cc1220d"
+      "bytes": 1009,
+      "sha256": "435aae77fd053cdd847ec08d0372ce0b4caceb2d563b5af762d5fa5179e7dd70"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/MultiplayerPlaceholders.cs",
-      "bytes": 979,
-      "sha256": "373945043f11d1a4825b2441b23008124bc50f547f5739438a25b8a461542b9a"
+      "bytes": 904,
+      "sha256": "aa13201b0c4868fc6fd7ac42753c5a0f6cd5f603d2349cc43d1f58ccf38b9ffc"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/CombatNotes.cs",
-      "bytes": 1399,
-      "sha256": "db232c57af9f9045b46a2cee79381765084e7c364362bdbad4c382723cc18107"
+      "bytes": 1336,
+      "sha256": "cf9c8bd20cef833ec7e6a0812aa904de1df1644acc7b839dfadb8b66f3d5172c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/FlyingPages.cs",
-      "bytes": 1231,
-      "sha256": "23e35f35cfa5017e8952da3f43a1cc450921600fbdfb574cb14242b9f60b9d31"
+      "bytes": 1168,
+      "sha256": "55ce0cfedce3acfb24d38e46621a8552df85382fc0bd1045929d6c3a4f947221"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/NeedleFlurry.cs",
-      "bytes": 1217,
-      "sha256": "dc6f9aa79c9779a9e739d48728b855ee4a73565ce4641097412579c1753abf32"
+      "bytes": 1153,
+      "sha256": "d546c4237f3bbb1b09391288873351e19b8d1c1c9db55ba730b6529274c81380"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/WearyIncantation.cs",
-      "bytes": 1581,
-      "sha256": "f5bf0dff87031c95c18177375f7d8439c8bdc0e22f1ef45d510b68191b712756"
+      "bytes": 1513,
+      "sha256": "d009b4ed25fab3ecfe67ac2549f071238311f8f60367644736f5b28bc985ec79"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/BurnRoots.cs",
-      "bytes": 1276,
-      "sha256": "28c41b5b58e93e510730bf09359a766609e2ca0e98f8afd4fe98d36725294a83"
+      "bytes": 1215,
+      "sha256": "057c3fc8344d811ba3b6bc1e4bd5ec488cc505066347429c142f613b93c38d5c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/CropRotation.cs",
-      "bytes": 1208,
-      "sha256": "76c1a9b4a4054d440409fc88865d814f53a602c4e77839d333be899290bb51b8"
+      "bytes": 1145,
+      "sha256": "6edf2794d0a172c5a5b6374e4c551c6b8573e2cad6b327eca1814eaa409c76d0"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/DamBreak.cs",
-      "bytes": 1102,
-      "sha256": "e4d94cb21106c368b42ec76f42572b8d5a9579eb7b8f3f806bdc208279172cd3"
+      "bytes": 1066,
+      "sha256": "110562488ff53efce6d6074bebabe40b3dfbc2988eb8860c91abd19010b4cd33"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/EarthCollapse.cs",
-      "bytes": 1759,
-      "sha256": "fd2820722db2487d3880cc6ad2a9b2ce8c117487cb5fcb1b8b44afcfc0359503"
+      "bytes": 1694,
+      "sha256": "efe9c031473ce2485c48a8caae388c3857f50436b9a027498d75d7138e05653e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/EmberPierce.cs",
-      "bytes": 1201,
-      "sha256": "96d4a264f10a655129cb0703af983c846f421f44cc675159acb79d186af9ab74"
+      "bytes": 1138,
+      "sha256": "850a42aabd762063d1ff52610bb18bbd9eb9c085a571ed85829236524e78b4cc"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/FlameBurst.cs",
-      "bytes": 1482,
-      "sha256": "cb2a197068b29958e21500e844bd9ee11f9263ae83ec210e9bc7cf64930faee8"
+      "bytes": 1420,
+      "sha256": "e574a75af2f0a72ef90a5ecc9597626d9f1d890942331a1fc03201941cc9c99b"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/GapNeedle.cs",
-      "bytes": 1665,
-      "sha256": "470b9906fc787b2134260a637a7b37010576fc7f782631dcdd9e6a80757af5bb"
+      "bytes": 1604,
+      "sha256": "94206f3c34328150de201794c96768d6d6becdb6d76f9ba639fc8e555babe95c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/Ignite.cs",
-      "bytes": 1408,
-      "sha256": "eac63c530b44ff804d891658e574287891bea82c14701e74acfc5d39888fd3f9"
+      "bytes": 1351,
+      "sha256": "3901ae453f4c667c456c2e6c168c8961360eeadb3d855ac487605be4d058e88f"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/OpeningTide.cs",
-      "bytes": 1210,
-      "sha256": "5dd674b692ccb058217e7706abaf16d7e14758d5ee978648029b27c28f6e3251"
+      "bytes": 1149,
+      "sha256": "37d5bd1ced89ce13d6826ef2b25e7a146c5b7dd48f758bca19c2e91a143f1508"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/OrbAdvancedCard.cs",
@@ -5119,53 +5124,53 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/Rootbind.cs",
-      "bytes": 1599,
-      "sha256": "d731b08e15566eb23d810eb6d6bc8f1c06a59a5dcfee6094e02b10dcdde3c7e2"
+      "bytes": 1541,
+      "sha256": "13025935db09e7e54c7565077fe66cc09ce92fd06bc66171a824683dac8f02a4"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/SeaBurial.cs",
-      "bytes": 1897,
-      "sha256": "209a38cf7a86776102bf3a7b2e800a647b5eb5bca7549be2583dd39b36c11e7a"
+      "bytes": 1859,
+      "sha256": "916710113a1f9f91ea07a388061e1040e6833c2884919bf16e4a6f6e41b308fc"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/SeverCurrent.cs",
-      "bytes": 1629,
-      "sha256": "b2ab681d3a529a413fa8759a6cb10caf2eaeaa2c5d5fb3e6c2bc80b15e6dcd15"
+      "bytes": 1565,
+      "sha256": "a0c8c1fdca9187a0b426742c0b182e895b1749bb88871f12db90442e06fceab8"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/SteamBlast.cs",
-      "bytes": 1191,
-      "sha256": "ecbb7b6e04aeab66d0a14c997ba3c389a244a70b2eb320a1101584adcc64ec38"
+      "bytes": 1129,
+      "sha256": "1ad6e7dbe82d9449bd4518430aa9233953c51c29d4e3e4377e66054ba2fd4d4a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/ThornBurst.cs",
-      "bytes": 1422,
-      "sha256": "11f5de1969fe30ca1dd026173ee1dbf09b9cf5106a43455fd45a494c6dd9753f"
+      "bytes": 1379,
+      "sha256": "0c5108e6b5ccccd0634444b5577c9d4021ec639cc32a76c783ce89a8e44d577e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/TidalErosion.cs",
-      "bytes": 1770,
-      "sha256": "e3a5929dba0f06bc1980cf2a94e9f1644f686603e5d5676fb735c544665a5e31"
+      "bytes": 1706,
+      "sha256": "1fc03dbc021b5dc1240fce89162b95ff61cd0b1d7cce9153bdfa71b2b2278f23"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/TidalGravity.cs",
-      "bytes": 1256,
-      "sha256": "8c48bbb6c7dbaa6c12243556fed47c2bcf66b4c588f6485ed3343033748816a4"
+      "bytes": 1192,
+      "sha256": "93dec496c5ebfbd0752322525f0be9b8fce75b41bff8e3c7882f8c1b746b3758"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/TidalStrike.cs",
-      "bytes": 1455,
-      "sha256": "f31c665b9d826d3ee903db4b4b19178af92a3fd2ab2ba577780c9c61e7edfac8"
+      "bytes": 1392,
+      "sha256": "6539b13ea22bbb2be4cc5047db90bb89f88f639eb2df1c449d157aa5f1613fce"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/WaveCurtain.cs",
-      "bytes": 1472,
-      "sha256": "d346056fbe75a10be1acc2ece6d2e2d00f5877a12871f8783b8e5ac76f76a499"
+      "bytes": 1409,
+      "sha256": "d9cdf7796c16baa6850c044f49011c9e3cf4c1a22deb488944946f0ed1daa358"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbBasics/OrbBasicCards.cs",
-      "bytes": 13214,
-      "sha256": "3a24375f8e1cc6089cf6ae7afc6b808c1c94c607e6ec18d44929ddedcb63237b"
+      "bytes": 12149,
+      "sha256": "1d269bae8c6973b8ea213e1697b10861df8ca8ba4f63a388501b2f9121ea1be5"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbBasics/OrbBasicsCard.cs",
@@ -5179,33 +5184,33 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbUtility/RareUtilityCards.cs",
-      "bytes": 14500,
-      "sha256": "56a291afdfd8464a982c291c40cb0ce12149186305cdc46ea7b0a8da1f4cf021"
+      "bytes": 13660,
+      "sha256": "957fbf38ce142e1899915489cd372e8ab6797d5e1f4a315a35fc3b3332c1769d"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbUtility/UncommonUtilityCards.cs",
-      "bytes": 12301,
-      "sha256": "224bf7c1e36c9ec696570aa71a38261bad1716426ba845fea7b89da3ac8c7ba6"
+      "bytes": 11534,
+      "sha256": "b16ad0506fe7dbb151de401806acfef7c2f90c55ee31ba69a32ecc312e45e7d8"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/AncientCatalog.cs",
-      "bytes": 1080,
-      "sha256": "6d1525976f9f53deebf0d6b746436e13992ec55c74568b45ba0e8df560435370"
+      "bytes": 1014,
+      "sha256": "83717319ff5db8a0f903f8fef50fc863b9ca5c2bbd67daeffe4a54b49f63c70b"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/BlazingChapter.cs",
-      "bytes": 1222,
-      "sha256": "e8f99ea34f79d68bc3b6c40174fcf9add0de6b16f6e8319975def9e001fd52a2"
+      "bytes": 1168,
+      "sha256": "976a0ed431e1a4be25e3d2d8796e0ab9a2171ea8675f95f7d6130f72089301de"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/EmberBookmark.cs",
-      "bytes": 1077,
-      "sha256": "e47e4cee7c5984e5de6a31057ca67b6a2bf8eb6fb1742f414ee5c5a04f577b4e"
+      "bytes": 1012,
+      "sha256": "4af2a3ea56b610d73d036eb92d878cf6e42edb90b1844483835c57d3d9d026cd"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/EternalGrimoire.cs",
-      "bytes": 1047,
-      "sha256": "79ec73063ba6912cdcdcb4bd59c5193cdd1fca0f9f7e2bac90af4e92185b151e"
+      "bytes": 980,
+      "sha256": "953a3219679ff12208982c9645be66610f8502c76df8a959c2f0d311d5f34c35"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/ImplementedPowerCard.cs",
@@ -5214,103 +5219,103 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/Lifeline.cs",
-      "bytes": 1016,
-      "sha256": "0b086abb2c4795dd24492f46bbf73201ec7b38406fb9cca490a3742440c32de6"
+      "bytes": 957,
+      "sha256": "94cf961acb60a92ead91ce9bda6b29868ee6211d4e2b8d0764ad99e239b04053"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/Overfishing.cs",
-      "bytes": 1429,
-      "sha256": "39ef7d50e8a889956cb0e508c4376e3e5bb9e06e8979ee73afc883ede70baa28"
+      "bytes": 1378,
+      "sha256": "2b84815a24312ba15597fc42604f83d6e961c0fb92a2d7ad8303150819dc92e5"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/OverlimitForm.cs",
-      "bytes": 1143,
-      "sha256": "ce369c720d1f4403553e009cb1b286d900530dab197e928ed6b524e5ca3039fe"
+      "bytes": 1078,
+      "sha256": "86ff2cb9e2f5aa250fbd6a3dc99e60d906a7e627ec0615e008427943dcb5710a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/RidgeWard.cs",
-      "bytes": 1585,
-      "sha256": "4bdf531f774eba82d78a424ab1417e04da2925729e62442501b68c07c4a0e4ce"
+      "bytes": 1528,
+      "sha256": "ab3cb476bcde1441b3c4a77f5db4db43a3b1cd293b3f6b1adaa8966db99ea57f"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/RingCurriculum.cs",
-      "bytes": 1036,
-      "sha256": "31f3f3495f2301726bbb3009632368e535c8ecd70e90797c1ee1528897452898"
+      "bytes": 970,
+      "sha256": "d1bc6960138761aec1979129e3d8d04a595151aa78f779feef0393494f85e7b6"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/Sedimentation.cs",
-      "bytes": 1032,
-      "sha256": "2d21f72dcfda49b5fe650a4394eeb7d727ca24ed79628b2fdb1bc522bacce651"
+      "bytes": 968,
+      "sha256": "2f9bbdf4c0e9811468fd5c973dd87bb8d1b06229808760af6b70ecad8978dc7e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/ShiftingPages.cs",
-      "bytes": 1122,
-      "sha256": "a498d9a40ed608ce859351c4049cd245caf16660a33c00bd9487361bda10a327"
+      "bytes": 1059,
+      "sha256": "0c9edc97a6639c62dea93e6ed07d444292392a7b1117b1019d0b4ed59b93393c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/SpacetimeTwist.cs",
-      "bytes": 1101,
-      "sha256": "1e3e130862552dc45421b484f22c917496f7ef5cc6ae359010236c60f8f2f9c2"
+      "bytes": 1036,
+      "sha256": "3cac34c8a10d10befb60a1aaebf76058c5379b5386abf24f0c89a96e80390995"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/TidalMark.cs",
-      "bytes": 1036,
-      "sha256": "27c7d575df477bc7f0268c195b31d2e90b6a6f0d6808bf784ba3ec78ce9ad7d0"
+      "bytes": 981,
+      "sha256": "63d860be6bf50719b27b1a59f63aab503d3da0e9777c93be8b50c9f46957c10e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/UnretreatingTide.cs",
-      "bytes": 1201,
-      "sha256": "4a38c23e16012ba83f95c90fab81d82e22f4f74c4a15368630f31f1c5e4a0178"
+      "bytes": 1133,
+      "sha256": "f0495fcb7f77a0da7b6d327c4220dd7f6f64750a24e1bc6a4ba0d3a34095f2b2"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/WaterSpirit.cs",
-      "bytes": 1332,
-      "sha256": "4102bcaf4f8709f6b529e2f9f355e6c472d087bfcbb6f36abe9ff28618c3f4cd"
+      "bytes": 1269,
+      "sha256": "e1e8ff70088d726adfbf075ea78b11755b5b7fc0b45381fccd9757ba710d7e60"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Revision043Cards.cs",
-      "bytes": 3064,
-      "sha256": "4457a085abcc245e723314e455d5c6c532a37c4d5c3f62b545c235e4f3f2bfed"
+      "bytes": 2805,
+      "sha256": "e4c82d7f1592bcb4120e3552b8b1e329ce35ed2c70464dc7b9522b3949b0f532"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/SharedShelter.cs",
-      "bytes": 2134,
-      "sha256": "047b139c0735680cdce81cab21f5199ef3bad4a027d82ac1b2992dde0d86e591"
+      "bytes": 2069,
+      "sha256": "0fb8d15668907f82b308cb28636d49b1185a9ceae381b0b03d8983cb8bdd06e4"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Spark.cs",
-      "bytes": 815,
-      "sha256": "f4f39abcaff0b68464820b95c6e4d0f69b4695d00ba9f8704823c7888e60badc"
+      "bytes": 761,
+      "sha256": "ef3fd8f7f836f5f88a3aac53da2d0338c18f20a08ab19a61936204e8beebd881"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Stateful/StatefulCards.cs",
-      "bytes": 11773,
-      "sha256": "a6ccf42465061a60b4485480d4af7c46979888857ce30d5540f051de5fa14f4a"
+      "bytes": 11333,
+      "sha256": "b36135eb6a71006e65dd1ac0a7171768dbc0693448b68b86688ddfc516d1e506"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Trickle.cs",
-      "bytes": 834,
-      "sha256": "42b82e5faef7d2f31a9a85b69562c30f208ec6797a600dd0e89c1f3338c3faaf"
+      "bytes": 776,
+      "sha256": "04d8a3d650d7a7d241a6ca245b506a2312c5b1e74e5b4d6fd98ae2c94e0f2973"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianCardPool.cs",
-      "bytes": 1745,
-      "sha256": "ac5689303c07a306ca20413f4f0cb6482332ec16e387ffa4662ce2630b685236"
+      "bytes": 1834,
+      "sha256": "f27a56d770f85b13fb0d858a2eb7a8c0c0e5606378bcd89cd5afc7c70d40d05f"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianCharacter.cs",
-      "bytes": 4080,
-      "sha256": "754b631589c1b0fa0d9890b950f80dd0f42c8b55a500cd75745715874868a13b"
+      "bytes": 3826,
+      "sha256": "fd0d53db5057a7fc7028a6d25e130cd8808ccb1b8cac6af1f43c48934ab6e6d1"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianPotionPool.cs",
-      "bytes": 486,
-      "sha256": "60e26fc7cbdc8f92b34ca66758116b196821295c42465078188acaf41cba149a"
+      "bytes": 595,
+      "sha256": "10c2b60ac6d3a04b31da7889e51c5e05b07dbe33c2e43a60205572a56d114494"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianRelicPool.cs",
-      "bytes": 424,
-      "sha256": "c3c9be8ab94db34a2a176bcfd8a05f9a7b474781f25b52e0bf9d2a163241a993"
+      "bytes": 532,
+      "sha256": "f5b35a50a0bf7d97b65d4838f11fc6f58e595bbff20abbc2dfca6a4bff4ae37a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Extensions/StringExtensions.cs",
@@ -5329,13 +5334,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Potions/CharacterPotions.cs",
-      "bytes": 2999,
-      "sha256": "2aedc5a4e27a63a8f3ce20f0949a7437e6e2d515281ef6e05bcfbb0c6e31110b"
+      "bytes": 3085,
+      "sha256": "d31b881666619f340d31ee769fd64780677f5ddbd90b70d0eaefce149a033894"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Potions/LibrarianPotion.cs",
-      "bytes": 954,
-      "sha256": "55154792c1ea7c50430a836a487c509a7914fa0d5079846cec8f8497f6680b8a"
+      "bytes": 883,
+      "sha256": "a5e7fa3803c38ce646eb145ddabd02fbde3703541a989094900fb323cf9f5d8b"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/AncientCatalogPower.cs",
@@ -5349,8 +5354,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/CooldownPower.cs",
-      "bytes": 529,
-      "sha256": "9104d540728a1134a269a5196484f948d6d740fc9caa3e8f1fc4b64012ba171a"
+      "bytes": 534,
+      "sha256": "d4d4e249fc3bc0b51584466bdc28fe29d0ce82bc9b1debba8cd03792c241c9f0"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/CropRotationPower.cs",
@@ -5399,8 +5404,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/Revision043Powers.cs",
-      "bytes": 5098,
-      "sha256": "80b1cae5a374b4db903868b4d98378371581129f4120e24476d60289aeeaa18e"
+      "bytes": 5186,
+      "sha256": "a830cefe3a7c935165563b51eb978bf228e0b3f52324bd6063fae9ba6a442940"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/RidgeWardPower.cs",
@@ -5439,8 +5444,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/TemporaryStrength052.cs",
-      "bytes": 1016,
-      "sha256": "d372e364a308ecc352c282dc710540a42b9bce977699a296f72c5e5a35a77228"
+      "bytes": 1158,
+      "sha256": "adfaf79d2e63f16f83470ba0c2dcbd3068a5f153ceb193143ba0bbed69f4a06a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/ThornBurstPower.cs",
@@ -5469,28 +5474,28 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/LibrarianPower.cs",
-      "bytes": 5251,
-      "sha256": "e9726c5b7572f93101607121af62611467216dca6ed206a1e418a542a25e7b20"
+      "bytes": 5235,
+      "sha256": "8dff5f1933d2b03c40366f83c1b72bc2e87d2f4856f0d47d12daa668cb9e7579"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/LibrarianPlaceholderRelic.cs",
-      "bytes": 9923,
-      "sha256": "95e5bbd12887145a1f9d4f37c9ac0af2a30f8c2080274f7357cf2b62d9f80c27"
+      "bytes": 9993,
+      "sha256": "b2e348f69da8cdb5679fea6c0915fade24d6e00904c8ace6c7364fb23db72baa"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/LibrarianRelic.cs",
-      "bytes": 1344,
-      "sha256": "84aeeb8ed269327be7d998c8dccc4c96d531845233cc70ccceb769661de18633"
+      "bytes": 1306,
+      "sha256": "91d75ae196e11a6109f115c0b90f6dab5b6f9c39eb4e999978e260b0dd4c0db1"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/RestoredSpellScroll.cs",
-      "bytes": 1480,
-      "sha256": "13b9a9d791ea53891ef527a9fbfc044c65c0d65b670fdd9e34751997926244ab"
+      "bytes": 1460,
+      "sha256": "c0332bc381a69878f266238aab11807f8338cf02bf737a2f393f67249d1f7ad2"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/TatteredSpellScroll.cs",
-      "bytes": 1744,
-      "sha256": "0075ae03a403a4bd259496c1186f79d7e66e37f30b6fda5311e4f3160d9daa3c"
+      "bytes": 1734,
+      "sha256": "79d975ff796b43d9736b9dfa27778035ce6badf6f677d10bac2a117d8b4ed360"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentAncientArt120Beta4Audit.cs",
@@ -5524,8 +5529,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentCharacter050Audit.cs",
-      "bytes": 6024,
-      "sha256": "0fd0025401fa75e952e20b8419e18359a10fabcd3581432f2e65190f022994fd"
+      "bytes": 6087,
+      "sha256": "dc275df82543b09d558d933e35b18c79179820ab2b35fc6662a6dd114ff24bfc"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentContinuedOrderAudit.cs",
@@ -5558,14 +5563,14 @@
       "sha256": "f505e3a305d5aeda5427983318fe8dd7c9a96d75c1179912fe32263910dd8d2f"
     },
     {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentModelAudit.cs",
+      "bytes": 15675,
+      "sha256": "e112ef9ceea23dc7a72259eddaa93040eddb83f9c6342472df74577894c7c00a"
+    },
+    {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentModResetAudit.cs",
       "bytes": 39778,
       "sha256": "78cb55385017973cfe02fe5741f76c4b3767ac1c107b967dc95684f0597aae46"
-    },
-    {
-      "path": "src/Librarian.Mod/Mechanics/DevelopmentModelAudit.cs",
-      "bytes": 15698,
-      "sha256": "e8c3041dd510b0e6b1fc51c15a33fad2d4c091a7a43d29d0dee76219eee08a0d"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentNotice051Audit.cs",
@@ -5584,18 +5589,18 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentPending120Audit.cs",
-      "bytes": 22853,
-      "sha256": "91d44e053a87d272aa2d6ce1613b71b896632ef44be8127b2255e175d5cfb275"
+      "bytes": 22880,
+      "sha256": "11be0c162206123e78a035f37f58dac6c1e67945e8b3853cd13483214ded1e68"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRelicAudit.cs",
-      "bytes": 9598,
-      "sha256": "2621ebc3f9821d0f9535b0ffcc5fc74fd11631555e305517d51308a44c32d0e3"
+      "bytes": 9740,
+      "sha256": "3a14135c3e1cbdccd85415ea1cbeb628782f8fe5bff4daaa0228c72cd17923b0"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision0310AudioAudit.cs",
-      "bytes": 5431,
-      "sha256": "36e73bafafbd8de6c5c3ecb13c2fd07a537e3ec20e37c50f5e495ff035dc09a2"
+      "bytes": 5518,
+      "sha256": "f6a3a7d3f043e05edd83099152c07bec3de9d1d0da51a4e703fa6a12d59af0e0"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision0310CardsAudit.cs",
@@ -5644,8 +5649,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision037VisualAudit.cs",
-      "bytes": 13914,
-      "sha256": "530cb2524dd32957a857939b087b149a3cfacae213544b7554112e2c3132798d"
+      "bytes": 14122,
+      "sha256": "0f5d7aa17ecbd66f310eb6928c6f05bcce35ecd854e1782fa3bfec6b6982848c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision038OrbVisualAudit.cs",
@@ -5754,8 +5759,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision042Audit.cs",
-      "bytes": 13202,
-      "sha256": "08b0785d30e969b03ea9e934b6ac1fabbd97afbb36eb744a7d8bf5286b866e60"
+      "bytes": 13384,
+      "sha256": "f6e1cc712e842d048ba10da4ad061afcc64331b1584149dc3154c87119050b1c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision043Audit.cs",
@@ -5769,8 +5774,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision050Audit.cs",
-      "bytes": 12163,
-      "sha256": "d963134da26ae598eaf736e1c02ccb4333e2e85c4d1044be6da0417efad6a543"
+      "bytes": 12267,
+      "sha256": "461dc0dc7521646421921909e77e50682c334421275cede7ad902e0f913b30e1"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision052Audit.cs",
@@ -5784,8 +5789,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision060Audit.cs",
-      "bytes": 17517,
-      "sha256": "c844d235a4664caf19deba7c9a6f9bd07227acf0047cca003cade853d38e989e"
+      "bytes": 17742,
+      "sha256": "464c39c8df557366a968fea41d9f6bac9b7f2bf729f0a59c7788625fdd5cccf2"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision061Audit.cs",
@@ -5794,13 +5799,13 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision101Audit.cs",
-      "bytes": 10777,
-      "sha256": "13b7e4127972e7ac6590a7c27f27a6b056481b274a910e2ec61a9e41d01ac5e8"
+      "bytes": 10984,
+      "sha256": "e5a3ff36680ff60e79493742b3cb3406de83ac12a132eb45c8c3b0df27765859"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102Audit.cs",
-      "bytes": 15231,
-      "sha256": "9c20a8270070dfcd76ec5f247feefd4db4bd3f48df420f9fc8c25752539866e0"
+      "bytes": 15241,
+      "sha256": "742103d3a7cfd313933f73f6208a3d64d161c2dbd0fdd03b1accfc89b5b19d39"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102Beta2OrbAudit.cs",
@@ -5849,18 +5854,23 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRitsuCardSweepAudit.cs",
-      "bytes": 23425,
-      "sha256": "60857df6a1d6d1f6a7ccf69a87b8c7dbb450d13ee53199555d357f5e33f01656"
+      "bytes": 24754,
+      "sha256": "ae0625a01eecfd5041eebb77356ebd8a9a11b47d8099aae420bb0bfe9e45c02e"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRitsuCoexistAudit.cs",
-      "bytes": 19416,
-      "sha256": "141cf3d9062719e9a78ea8f412cc97987fae3be305296c6f5f3dd081ba6093a9"
+      "bytes": 19761,
+      "sha256": "5aab6332f26d3be90bf61a4eae6c52061ab6f8221e02e19f5ece1f68bed2b17f"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRitsuFullMigrationAudit.cs",
+      "bytes": 18390,
+      "sha256": "f6ea4be5f55c486763f1a6848d531b1c4476fe3181389b280e6f4954c4667759"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRuntimeAudit.cs",
-      "bytes": 31641,
-      "sha256": "c07d5a8b1cc8eff8796ee3bf33bc3698b1241e9c6baa7e2b80ac2ac39f8a8608"
+      "bytes": 31675,
+      "sha256": "bc1e3f00e8ede8f0c89a71f099c54237106ab272cf1fa74aa99cfca7c0f6231f"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRuntimeAudit040.cs",
@@ -5884,8 +5894,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentStatus051Audit.cs",
-      "bytes": 9973,
-      "sha256": "a73892af34c6961131b52e19838a551446097a9949d67674eb323ce699408534"
+      "bytes": 9955,
+      "sha256": "f3a76fd9351f9d0a45cb34cc48517944017bcb5a32b6eba7daf4e77fdadaada0"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentTextRevision111Audit.cs",
@@ -5904,8 +5914,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentVisualAudit.cs",
-      "bytes": 22007,
-      "sha256": "bbf1e4ae20b20cb8471490e0c757990986799caf49216d6adaf54b038415cad3"
+      "bytes": 22271,
+      "sha256": "97a4bf88dce3b526b156866f30145aa3c6b6b0db3da1fae8afbbcd8300939289"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianArchitectReview102.cs",
@@ -6009,8 +6019,18 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianMerchantFactoryCompatibility.cs",
-      "bytes": 2740,
-      "sha256": "bcfe5efcbbf704deee833d1a7f786a0c692da77a664939112c2688f0d07cebf0"
+      "bytes": 2767,
+      "sha256": "25258c474d5c2ffb2d094ca4e2d4d490360c6fbe96d595ac05f74708bc2f7859"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianNativeAnimation.cs",
+      "bytes": 591,
+      "sha256": "c5aade808f5a97507d64a7c4365fa068d0650aaa5a41a0890805738a535e0555"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianNativeAudioQuery.cs",
+      "bytes": 1351,
+      "sha256": "31dec05301f66ddbeba24ddbb524f745ff5ab59869036c0a561e622386b26325"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianNativeBlockPreview.cs",
@@ -6024,8 +6044,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbAudio.cs",
-      "bytes": 6522,
-      "sha256": "a8a81ccb758c51b4e507bc6a3c51735680a776a039e537941ecc019931b5b7a2"
+      "bytes": 6570,
+      "sha256": "d28b2e1d8e15422d79aad6b153c0175ac2bc556be8beb32cb7166d8e5ea5a4a8"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbChoice.cs",
@@ -6068,6 +6088,11 @@
       "sha256": "6a379f756c7b7636633d61c7fe48799bda6823a2458d8d1744536abf474e0706"
     },
     {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianPotionLargeImage.cs",
+      "bytes": 633,
+      "sha256": "36ef3ef9b5651f72cca5ba0d9e7da6e03ea70dbf4dd69b9e439754f6baf87635"
+    },
+    {
       "path": "src/Librarian.Mod/Mechanics/LibrarianPracticeOverlay.cs",
       "bytes": 23204,
       "sha256": "17d064fce4240ed75af3222904a7b42063c507aa791365f0a601130e19f2ddd7"
@@ -6094,13 +6119,13 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianRitsuCardRegistration.cs",
-      "bytes": 22371,
-      "sha256": "17bf017dcdc8ff1a6bc899cefe90c13146c32b40e586873de5feabeaa33f7ca6"
+      "bytes": 33184,
+      "sha256": "23a134e23ef67ffbf2a771b5e75e4fda935f3207493998684c3610c38c467ce9"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianRuntime.cs",
-      "bytes": 27911,
-      "sha256": "0de4dee6248c84a47d9255fef7a7024091fe9954e95a1e83c391324a6ab773fc"
+      "bytes": 28027,
+      "sha256": "92e31016bab0741831ecf769635f9254491077cd6f30a24375feb7003d833f87"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSettings041.cs",
@@ -6114,8 +6139,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSpellVisualHooks040.cs",
-      "bytes": 3023,
-      "sha256": "29378d131bd34db1e50ba259b2e06df73c21093a5c399c0566a15b345de930c0"
+      "bytes": 3133,
+      "sha256": "0718ca1bc6698401a606b5ee673f4ad0e55edf9adcf62c0cccbbc21bc258e730"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSpellVisuals.cs",
@@ -6148,24 +6173,19 @@
       "sha256": "29e89138d78766fc7914d15483e93b43d414ed61503e5a3c54d68023e7ee6eaa"
     },
     {
+      "path": "src/Librarian.Mod/project.godot",
+      "bytes": 754,
+      "sha256": "24c9f4027648a78aaf3953c95a4389883eac519bd0273ea533d19de3f2bb93a3"
+    },
+    {
       "path": "src/Librarian.Mod/Sts2PathDiscovery.props",
-      "bytes": 439,
-      "sha256": "55bba4dbcde9dd06951bd4bcf1edcf659f78f41fff9961d5dc5f68db202a47fe"
+      "bytes": 440,
+      "sha256": "d61386f413230604087337715d66079bd050ad6cb368417b5d6bf5f27da3320d"
     },
     {
       "path": "src/Librarian.Mod/THIRD-PARTY-NOTICES.md",
       "bytes": 1251,
       "sha256": "cc5d878ef95d349f02a67579175b299d8adf3a4cab055472fe2d46d6f9a08430"
-    },
-    {
-      "path": "src/Librarian.Mod/export_presets.cfg",
-      "bytes": 2611,
-      "sha256": "bc1f9e4a809f1b2d6be8c7e9c99c624ac493121b5d2c5dbbc58f0af7ee8358c2"
-    },
-    {
-      "path": "src/Librarian.Mod/project.godot",
-      "bytes": 754,
-      "sha256": "24c9f4027648a78aaf3953c95a4389883eac519bd0273ea533d19de3f2bb93a3"
     },
     {
       "path": "tests/Librarian.Core.Tests/Librarian.Core.Tests.csproj",
@@ -6174,8 +6194,8 @@
     },
     {
       "path": "tests/Librarian.Core.Tests/Program.cs",
-      "bytes": 54993,
-      "sha256": "62356f98f71e87a5cb94b17c6b978674bb8c5fb06540e47a37b8d97284726462"
+      "bytes": 57217,
+      "sha256": "8adf642f5653715ae8e77afc37bc315e459844de88b854826a9c81cc63a37eb9"
     },
     {
       "path": "tests/test_update_note_style.py",
@@ -6183,6 +6203,6 @@
       "sha256": "0107da2c1c044a9a1301e0e87ceaf3f22793c594f25ffe94ca951c5a4345ce26"
     }
   ],
-  "note": "Exact public authored inputs. The matching private build provenance includes local configuration/design data excluded from the public allowlist; its full source hash is recorded separately.",
-  "runtime_source_sha256": "96d29137311baa7e33745d7f8534eae72c5b2dab5fa8edba08fa2f624cbff4f5"
+  "runtime_source_sha256": "c8d84eeca174f6043e36ae126483a2dc5756cf3ce6773612cbd247c4553ee944",
+  "note": "Public authored inputs corresponding to the native-verified beta11 runtime. Private design/configuration/game/dependency inputs remain excluded."
 }

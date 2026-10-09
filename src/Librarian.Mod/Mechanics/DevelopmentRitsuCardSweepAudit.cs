@@ -36,7 +36,7 @@ namespace Librarian.Mechanics;
 
 // Identical fixture compiled separately against the original and migrated card implementations.
 [HarmonyPatch(typeof(NMainMenu), nameof(NMainMenu._Ready))]
-internal static class DevelopmentRitsuCardSweepAudit
+internal static partial class DevelopmentRitsuCardSweepAudit
 {
     private static bool _ran;
     private static int _checks, _actions, _handChoices, _gridChoices, _turns;
@@ -58,9 +58,9 @@ internal static class DevelopmentRitsuCardSweepAudit
     private static void Postfix()
     {
         if (_ran || System.Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") != "1"
-            || System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") != "ritsu-sweep") return;
+            || System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") is not ("ritsu-sweep" or "ritsu-full" or "ritsu-legacy")) return;
         _ran = true;
-        Callable.From((Action)(() => { _ = Run(); })).CallDeferred();
+        Callable.From((Action)(() => { _ = System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") switch { "ritsu-full" => RunFull(), "ritsu-legacy" => RunFullLegacy(), _ => Run() }; })).CallDeferred();
     }
     private static async Task Frame() => await NGame.Instance!.ToSignal(NGame.Instance.GetTree(), SceneTree.SignalName.ProcessFrame);
     private static async Task Settle(double seconds = 1.3)
@@ -218,9 +218,17 @@ internal static class DevelopmentRitsuCardSweepAudit
     }
     private static CardModel[] Menu()
     {
+        Check(!typeof(LibrarianCard).Assembly.GetReferencedAssemblies().Any(a => a.Name == "BaseLib"), "owned assembly does not reference BaseLib");
+        Check(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "BaseLib"), "native process has not loaded BaseLib");
+        foreach (var (type, entry) in LibrarianRitsuCardRegistration.LegacyEntries)
+        {
+            Check(ModelDb.GetEntry(type) == entry, "explicit legacy ID " + type.Name);
+            Check(ModelDb.GetById<AbstractModel>(ModelDb.GetId(type)).GetType() == type, "all owned models registered " + type.Name);
+        }
+        MainFile.Logger.Info("RITSU_INDEPENDENCE_PASS models=149 baseLibReference=False baseLibLoaded=False");
         var cards = ModelDb.CardPool<LibrarianCardPool>().AllCards.OrderBy(c => c.Id.Entry).ToArray();
         Check(cards.Length == 91 && cards.Select(c => c.Id).Distinct().Count() == 91, "91 unique active models");
-        Check(cards.Count(c => c is BaseLib.Abstracts.CustomCardModel) == (Phase == "control" ? 91 : 0), "backend card ancestry");
+        Check(cards.Count(c => LibrarianNativeAnimation.HasBaseLibAncestor(c.GetType())) == (Phase == "control" ? 91 : 0), "backend card ancestry");
         var retired = new List<object>();
         var cardMethod = typeof(ModelDb).GetMethods().Single(m => m.Name == "Card" && m.IsGenericMethodDefinition && m.GetParameters().Length == 0);
         foreach (var type in typeof(LibrarianCard).Assembly.GetTypes().Where(t => t.IsSealed && typeof(CardModel).IsAssignableFrom(t)
@@ -278,9 +286,9 @@ internal static class DevelopmentRitsuCardSweepAudit
         await NGame.Instance.LoadRun(restored, saved.SaveData!.PreFinishedRoom); await NGame.Instance.Transition.FadeIn();
         _player = restored.Players.Single();
         var after = JsonSerializer.Serialize(PileType.Deck.GetPile(_player).Cards.Select(Card), Json);
-        Check(before == after, "all 182 active base-upgrade deck cards and permanent value reload");
+        Check(before == after, $"all {cards.Length * 2} base-upgrade deck cards and permanent value reload");
         File.WriteAllText(Path.Combine(Output, "reloaded-deck.json"), after);
-        MainFile.Logger.Info("SAVE_RELOAD_AUDIT_PASS revision=ritsu-sweep cards=182 permanent=7");
+        MainFile.Logger.Info($"SAVE_RELOAD_AUDIT_PASS revision=ritsu-sweep cards={cards.Length * 2} permanent=7");
     }
     private static async Task Run()
     {

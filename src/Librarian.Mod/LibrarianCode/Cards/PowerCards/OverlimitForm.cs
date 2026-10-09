@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>Source 88/r89. Extra counts add; each common snapshot checks all three active states once.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-OVERLIMIT_FORM")]
 public sealed class OverlimitForm() : ImplementedPowerCard(3, CardRarity.Rare)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];

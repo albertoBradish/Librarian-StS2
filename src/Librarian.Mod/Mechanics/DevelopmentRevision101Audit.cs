@@ -30,7 +30,7 @@ namespace Librarian.Mechanics;
 internal static class DevelopmentRevision101Audit
 {
     private static int _checks;
-    private const string Dir=@"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.1-beta1\screenshots";
+    private static string Dir => System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.1-beta1\screenshots";
     private static void Check(bool ok,string label){if(!ok)throw new InvalidOperationException("101: "+label);_checks++;MainFile.Logger.Info("V101_CHECK_PASS "+label);}
     private static async Task Wait(double seconds)=>await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(seconds),SceneTreeTimer.SignalName.Timeout);
     private static async Task Shot(string name){System.IO.Directory.CreateDirectory(Dir);await NGame.Instance!.ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);using var im=NGame.Instance.GetViewport().GetTexture().GetImage();Check(im.SavePng(System.IO.Path.Combine(Dir,name+".png"))==Error.Ok,"screenshot "+name);}

@@ -1,8 +1,8 @@
 # 图书管理员 · Librarian
 
-**必须同时订阅并启用 BaseLib 与 RitsuLib。** 工坊会列出两个前置，但仍需在游戏中启用它们；手动安装也必须同时安装、启用与游戏分支匹配的两个前置。
+**V1.2.0-beta11 仅需 RitsuLib 0.6.4，已移除 BaseLib 前置。历史发行按各自原清单安装。**
 
-**Subscribe to and enable both BaseLib and RitsuLib.** Workshop lists both dependencies; enable them in the game as well. Manual installation also requires both, with versions matching your game branch.
+**V1.2.0-beta11 requires RitsuLib 0.6.4 only. BaseLib is no longer required. Historical releases retain their original dependencies.**
 
 <p align="center">
   <img src="assets/librarian-avatar.png" alt="图书管理员 Q版头像" width="240" height="240">
@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-本分支提供游戏 **public-beta 0.111.0** 的 **V1.2.0-beta10** 源码与[独立 GitHub 预发行包](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10)。91 张活动卡及 9 张旧档兼容模型迁移至 RitsuLib，原 ID、规则、文案及卡图保留；同时纳入此前验证的回合末格挡净变化预览，并包含 beta9 的教学、设置与修复。**角色、能力、遗物、药水和辅助代码仍需 BaseLib，两个前置都必须启用。** Steam 工坊当前仍为 beta9；具体范围见 [源码与发布状态](RELEASE-BATCHES.md)。
+本分支提供游戏 **public-beta 0.111.0** 的 **V1.2.0-beta11** 源码与[独立 GitHub 预发行包](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11)。全量内容已迁移至 RitsuLib，保留原 ID 与现有美术；修复深海屏障回合末新增浪潮的格挡结算，以及四张攻击牌的附魔伤害显示，并包含回合末格挡净变化预览与 12 步实战教学。Steam 同步至 beta11；范围与验证限制见 [源码与发布状态](RELEASE-BATCHES.md)。
 
-This branch provides **V1.2.0-beta10 source and a [separate GitHub pre-release](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10) for public-beta 0.111.0**. All 91 active cards and nine legacy-save models use RitsuLib while retaining their IDs, rules, text and artwork. It includes the previously verified end-turn net Block preview and beta9's tutorial, settings and fixes. **BaseLib remains required by character, powers, relics, potions and helpers; enable both libraries.** Steam Workshop remains beta9. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) retains stable 0.107.1 and its own development maintenance.
+This branch provides **V1.2.0-beta11 source and a [separate GitHub pre-release](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11) for public-beta 0.111.0**. All content now uses RitsuLib, retaining published IDs and existing artwork. It fixes Deep Sea Barrier's end-turn Waves/Block settlement and enchanted damage displays on four attacks, and includes the net Block preview and 12-step tutorial. Steam Workshop is also beta11. [`main`](https://github.com/albertoBradish/Librarian-StS2/tree/main) retains stable 0.107.1 and its own maintenance.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -23,8 +23,8 @@ custom translation packs.
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.2.0-beta10](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10)。下载同一发行的三份运行文件与许可。Download the three runtime files and notices from the same release.
-- [Source and release status / 源码与发布状态](RELEASE-BATCHES.md)。Steam V1.2.0-beta9 已经服务器核验；订阅端收到新版仍待确认。Steam beta9 is server-verified; subscriber delivery remains unverified.
+- [Latest GitHub pre-release / 最近的 GitHub 测试发行 1.2.0-beta11](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11)。下载同一发行的三份运行文件与许可。Download the three runtime files and notices from the same release.
+- [Source and release status / 源码与发布状态](RELEASE-BATCHES.md)。Steam V1.2.0-beta11 已经服务器核验；订阅端收到新版仍待确认。Steam beta11 is server-verified; subscriber delivery remains unverified.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
@@ -58,13 +58,13 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current runtime source: **1.2.0-beta10**, for the game's public-beta branch.
-[Source fingerprint](source-snapshot.json) records the public authored inputs; [release metadata](release-metadata.json) records this validated GitHub build and the separate Steam beta9 baseline. The version tag resolves to the exact public source commit used for this release.
+Current source: **1.2.0-beta11**, for the game's public-beta branch.
+[Source fingerprint](source-snapshot.json) records public authored inputs; [release metadata](release-metadata.json) identifies the validated beta11 build and Steam delivery. The version tag resolves to the exact public source commit used for this release.
 
 | Component | Verified baseline |
 | --- | --- |
 | Slay the Spire 2 | **0.111.0 public-beta**, BuildID 24724944, commit 41cef1ea |
-| [BaseLib](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.5) | 3.4.5 |
+| BaseLib | Not required by beta11; historical releases retain their own manifests |
 | [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.4) | 0.6.4, complete bundle with `compat/0.111.0/` and `shared/` |
 
 Manifest minimum versions are not a promise of compatibility with newer game
@@ -75,8 +75,7 @@ validation remain incomplete. Visual/audio feedback is welcome.
 ## Install / 安装
 
 1. Use the game branch/version required by the chosen release.
-2. Install and enable **both BaseLib and the complete RitsuLib bundle** from their official releases;
-   they are separate dependencies and are not bundled here. For Workshop installation, subscribe to and enable both.
+2. Beta11 requires **the complete RitsuLib 0.6.4 bundle only**, with `compat/0.111.0/` and `shared/`. Use its official release. Historical packages retain their original manifests.
 3. Download `Librarian.dll`, `Librarian.json`, and `Librarian.pck` from the **same**
    GitHub release and place them in `mods/Librarian/` under your game installation.
    Keep the accompanying licenses/notices and verify `SHA256SUMS.txt` if provided.

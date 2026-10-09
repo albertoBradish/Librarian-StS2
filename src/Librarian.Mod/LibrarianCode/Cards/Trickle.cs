@@ -5,7 +5,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace Librarian.LibrarianCode.Cards;
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TRICKLE")]
 public sealed class Trickle() : LibrarianCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Water", 4m)];

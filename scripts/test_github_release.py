@@ -48,6 +48,37 @@ class ReleaseTests(unittest.TestCase):
             self.run_prepare()
         self.assertFalse(self.output.exists())
 
+    def test_ritsu_only_requires_matching_native_evidence(self):
+        self.manifest['dependencies'] = [{'id': 'STS2-RitsuLib', 'min_version': '0.6.4'}]
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.manifest))
+        with self.assertRaisesRegex(ValueError, 'requires verified'):
+            self.run_prepare()
+        delivery = self.root / 'delivery.json'
+        record = {'version': '1.0-beta3', 'channel': 'stable', 'validation': {'passed': True},
+                  'build': {'artifacts': [{'name': p.name, 'sha256': sha256(p)} for p in self.candidate.iterdir()]}}
+        delivery.write_text(json.dumps(record))
+        with self.assertRaisesRegex(ValueError, 'must certify'):
+            self.run_prepare(delivery)
+        record['channel'] = 'beta'
+        delivery.write_text(json.dumps(record))
+        self.assertFalse(self.run_prepare(delivery)['published'])
+        self.assertEqual({d['id'] for d in json.loads((self.output / 'Librarian.json').read_text())['dependencies']}, {'STS2-RitsuLib'})
+
+    def test_ritsu_only_wrong_channel_bundle_rejected(self):
+        self.manifest['dependencies'] = [{'id': 'STS2-RitsuLib', 'min_version': '0.6.2'}]
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.manifest))
+        with self.assertRaisesRegex(ValueError, 'Dependency'):
+            self.run_prepare()
+
+    def test_stable_ritsu_only_with_native_evidence(self):
+        self.manifest['min_game_version'] = '0.107.1'
+        self.manifest['dependencies'] = [{'id': 'STS2-RitsuLib', 'min_version': '0.6.2'}]
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.manifest))
+        delivery = self.root / 'delivery.json'
+        delivery.write_text(json.dumps({'version': '1.0-beta3', 'channel': 'stable', 'validation': {'passed': True},
+                                       'build': {'artifacts': [{'name': p.name, 'sha256': sha256(p)} for p in self.candidate.iterdir()]}}))
+        self.assertFalse(prepare(self.candidate, '1.0-beta3', self.output, delivery, root=self.root, channel='stable')['published'])
+
     def test_wrong_version_rejected(self):
         self.manifest['version'] = '0.6.1'
         (self.candidate / 'Librarian.json').write_text(json.dumps(self.manifest))

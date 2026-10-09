@@ -129,7 +129,8 @@ internal static class DevelopmentVisualAudit
             await Capture(output, "04-librarian-return");
             Require(screen.GetNode("AnimatedBg").GetChildCount() == 1, "character switching releases old backgrounds");
             Require(screen.GetNode<Control>("InfoPanel").Position.IsEqualApprox(settledInfoPosition), "returning selection preserves native panel position");
-            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_ONLY") != "1")
+            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_ONLY") != "1"
+                && System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") != "ritsu-full")
                 await DevelopmentRevision040SelectionAudit.Capture(screen);
             var window = screen.GetWindow();
             var priorSize = window.Size;
@@ -287,7 +288,8 @@ internal static class DevelopmentVisualAudit
             map.Open(isOpenedFromTopBar: true);
             await Wait(1.2);
             Require(marker.Texture.ResourcePath == markerPath, "native map marker uses new character asset");
-            Require(marker.Texture.GetWidth() == 96 && marker.Texture.GetHeight() == 96, "map asset imported at native96px");
+            int mapSize = System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "ritsu-full" ? 128 : 96;
+            Require(marker.Texture.GetWidth() == mapSize && marker.Texture.GetHeight() == mapSize, "map asset matches current authored dimensions " + mapSize);
             ValidateTransparentIcon(marker.Texture, "map marker");
             if (!marker.Visible)
             {

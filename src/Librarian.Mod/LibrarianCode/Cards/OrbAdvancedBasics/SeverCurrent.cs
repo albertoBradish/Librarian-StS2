@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 28/r29. User override: lose Tide in either position, snapshot remaining Tide, attack once or twice.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SEVER_CURRENT")]
 public sealed class SeverCurrent() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

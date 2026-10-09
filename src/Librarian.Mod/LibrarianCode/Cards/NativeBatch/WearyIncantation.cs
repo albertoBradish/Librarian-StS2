@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.NativeBatch;
 
 /// <summary>Catalog 13, source row 14: 9 damage and 2 Weak; upgraded to 11 and 3.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-WEARY_INCANTATION")]
 public sealed class WearyIncantation() : LibrarianCard(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

@@ -28,8 +28,8 @@ public sealed class WaveState(Func<bool>? canGain = null)
     /// <summary>
     /// Freezes the Waves value used by the current owner's end-turn payout.  The
     /// freeze deliberately happens before any end-turn card/orb action, so Waves
-    /// created by one of those actions cannot raise the same turn's comparison
-    /// baseline.
+    /// created by ordinary end-turn actions cannot raise the same turn's comparison
+    /// baseline. Explicit scheduled gains use AddScheduledEndTurnGain.
     /// </summary>
     public void BeginEndTurnPhase(long turn)
     {
@@ -117,6 +117,17 @@ public sealed class WaveState(Func<bool>? canGain = null)
         if (amount < 0) throw new System.ArgumentOutOfRangeException(nameof(amount));
         if (canGain is not null && !canGain()) return;
         Amount = checked(Amount + amount);
+    }
+    /// <summary>A queued card gain belongs to this end turn's Waves payout, unlike Waves created by Tide settlement.</summary>
+    public void AddScheduledEndTurnGain(long turn, int amount)
+    {
+        ValidateTurn(turn);
+        if (!IsEndTurnPhase(turn))
+            throw new InvalidOperationException("Scheduled Waves must be resolved during their owner's end-turn phase.");
+        int before = Amount;
+        Add(amount);
+        // Respect the ordinary gain policy, including Endless Tide's prohibition.
+        _phaseFrozenAmount = checked(_phaseFrozenAmount + (Amount - before));
     }
     public void StartTurn(long turn)
     {

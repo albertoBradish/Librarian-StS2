@@ -35,7 +35,7 @@ def main():
     parser.add_argument('--headless-frames', type=int, default=1800, help='Frame budget for a bounded loading check.')
     args = parser.parse_args()
     LOGS.mkdir(parents=True, exist_ok=True)
-    engine = ENGINE if args.mode != 'compatibility' else ROOT / '.research/compatibility-game/SlayTheSpire2.exe'
+    engine = ENGINE if args.mode != 'compatibility' else ROOT / '.research/ritsu-game/SlayTheSpire2.exe'
     if args.mode in ['launch', 'compatibility']:
         previous = LOGS / f'{args.mode}-latest.json'
         if previous.exists():
@@ -53,12 +53,12 @@ def main():
                             return
                 finally:
                     kernel.CloseHandle(ctypes.c_void_p(handle))
-    user_root = USER if args.mode != 'compatibility' else ROOT / '.research/compatibility-userdata'
+    user_root = USER if args.mode != 'compatibility' else ROOT / '.research/ritsu-userdata'
     if args.runtime_audit:
         if args.mode != 'compatibility':
             raise SystemExit('Runtime audit requires the isolated compatibility game')
-        user_root = ROOT / '.research/revision030-userdata'
-        source_profile = ROOT / '.research/compatibility-userdata/appdata/Sts2Compatibility-v0.111.0/default'
+        user_root = ROOT / '.research/ritsu-only/revision030-userdata'
+        source_profile = ROOT / '.research/ritsu-userdata/appdata/Sts2Compatibility-v0.111.0/default'
         target_profile = user_root / 'appdata/Sts2Compatibility-v0.111.0/default'
         if not target_profile.exists():
             shutil.copytree(source_profile, target_profile)
@@ -73,7 +73,7 @@ def main():
         if not args.runtime_audit or args.choice_audit:
             raise SystemExit('Legacy save audit requires runtime-audit without choice-audit')
         relative = Path('appdata/Sts2Compatibility-v0.111.0/default/1/modded/profile1/saves/current_run.save')
-        source = ROOT / '.research/compatibility-userdata' / relative
+        source = ROOT / '.research/ritsu-userdata' / relative
         destination = user_root / relative
         if destination.exists():
             shutil.copy2(destination, destination.with_name('current_run.before-legacy-audit.save'))

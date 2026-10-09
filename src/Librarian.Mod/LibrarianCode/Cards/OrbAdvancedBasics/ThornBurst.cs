@@ -12,7 +12,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>V0.4.1: lock Growth and schedule fixed six-point Growth at future owner turns.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-THORN_BURST")]
 public sealed class ThornBurst() : OrbAdvancedCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

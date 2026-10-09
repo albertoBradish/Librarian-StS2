@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 43/r44. Reading retained Tide does not mutate it; D05 creates ordinary block.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-WAVE_CURTAIN")]
 public sealed class WaveCurtain() : OrbAdvancedCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;

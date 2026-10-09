@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 5/r6. D24: Rare; gain Fire before reading damage.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-FLAME_BURST")]
 public sealed class FlameBurst() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

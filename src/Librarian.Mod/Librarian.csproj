@@ -43,8 +43,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.4.5" PrivateAssets="All"/>
-        <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.9" />
         <!-- Generates a .pck file when building if only using simple assets. May not work on all setups. Uncomment to test. -->
         <!-- <PackageReference Include="BSchneppe.StS2.PckPacker" Version="0.1.1" PrivateAssets="All" /> -->
         <AdditionalFiles Include="Librarian/localization/**/*.json"/> <!-- Used by analyzer -->
@@ -79,7 +77,7 @@
         <Error
                 Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
                Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
-        <Error Condition="$([System.IO.Path]::GetFullPath('$(Sts2DataDir)')) != $([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../.research/compatibility-game/data_sts2_windows_x86_64'))"
+        <Error Condition="$([System.IO.Path]::GetFullPath('$(Sts2DataDir)')) != $([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../.research/ritsu-game/data_sts2_windows_x86_64'))"
                Text="Librarian must reference the verified isolated v0.111.0 installation." />
         <GetFileHash Files="$(Sts2DataDir)/sts2.dll" Algorithm="SHA256">
             <Output TaskParameter="Items" ItemName="LibrarianGameAssemblyHash" />
@@ -88,33 +86,9 @@
                Text="The referenced sts2.dll is not the approved v0.111.0 binary." />
     </Target>
 
-    <Target Name="UpdateDependencyVersions" BeforeTargets="BeforeBuild" Condition="Exists('.godot/mono/temp/obj/project.assets.json')">
-        <PropertyGroup>
-            <ManifestPath>$(MSBuildProjectName).json</ManifestPath>
-        </PropertyGroup>
-
-        <PropertyGroup>
-            <NuGetData>$([System.IO.File]::ReadAllText(".godot/mono/temp/obj/project.assets.json"))</NuGetData>
-            <ActiveBaseLibVersion>$([System.Text.RegularExpressions.Regex]::Match($(NuGetData), '"Alchyr.Sts2.BaseLib\/([^"]*)').Result('$1'))</ActiveBaseLibVersion>
-            <OldContent>$([System.IO.File]::ReadAllText($(ManifestPath)))</OldContent>
-            <NewContent>$([System.Text.RegularExpressions.Regex]::Replace($(OldContent), '("id":\s*"BaseLib",\s*"min_version":\s*")[^"]*', '${1}$(ActiveBaseLibVersion)'))</NewContent>
-        </PropertyGroup>
-
-        <WriteLinesToFile
-                Condition="'$(OldContent)' != '$(NewContent)'"
-                File="$(ManifestPath)"
-                Lines="$(NewContent)"
-                Overwrite="true"
-                Encoding="UTF-8" />
-
-        <Message Condition="'$(OldContent)' != '$(NewContent)'"
-                 Text="Updated BaseLib dependency version in mod manifest json to version $(BaseLibVersion)"
-                 Importance="high" />
-    </Target>
-    
     <Target Name="CheckLibrarianDeployment" BeforeTargets="CopyToModsFolderOnBuild;GodotPublish">
-        <Error Condition="$([System.IO.Path]::GetFullPath('$(ModsPath)$(MSBuildProjectName)')) != $([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../.research/compatibility-game/mods/Librarian'))"
-               Text="Librarian deployment must stay in .research/compatibility-game/mods/Librarian." />
+        <Error Condition="$([System.IO.Path]::GetFullPath('$(ModsPath)$(MSBuildProjectName)')) != $([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../.research/ritsu-game/mods/Librarian'))"
+               Text="Librarian deployment must stay in .research/ritsu-game/mods/Librarian." />
     </Target>
     <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
         <Message Text="Copying .dll .pdb and .json to mods folder." Importance="high" />

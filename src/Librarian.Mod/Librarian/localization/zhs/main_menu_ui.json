@@ -1,7 +1,7 @@
 {
   "LIBRARIAN_UPDATE.toast": "图书管理员已更新至【{Version}】，点此查看更多",
   "LIBRARIAN_UPDATE.header": "图书管理员 · 版本提示",
-  "LIBRARIAN_UPDATE.body": "[b][gold]请同时订阅并启用 BaseLib 和 RitsuLib。[/gold][/b]\n点击“更新公告”查看版本改动。\n\n[b][gold]交流QQ群：1091648383[/gold][/b]\n当前版本：[gold]v{Version}[/gold]\n\n设置：主菜单右上角 [gold]RitsuLib[/gold] → 图书管理员。\n\n反馈：{Email}\nQQ：{QQ}",
+  "LIBRARIAN_UPDATE.body": "[b][gold]请订阅并启用 RitsuLib。[/gold][/b]\n点击“更新公告”查看版本改动。\n\n[b][gold]交流QQ群：1091648383[/gold][/b]\n当前版本：[gold]v{Version}[/gold]\n\n设置：主菜单右上角 [gold]RitsuLib[/gold] → 图书管理员。\n\n反馈：{Email}\nQQ：{QQ}",
   "LIBRARIAN_UPDATE.confirm": "确定",
   "LIBRARIAN_UPDATE.never_show": "不再显示",
   "LIBRARIAN_UPDATE.workshop": "更新公告",

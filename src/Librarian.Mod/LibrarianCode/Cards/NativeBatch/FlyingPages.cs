@@ -7,7 +7,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.NativeBatch;
 
 /// <summary>Catalog 14, source row 15: four separately randomized hits of 4, upgraded to 6.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-FLYING_PAGES")]
 public sealed class FlyingPages() : LibrarianCard(2, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

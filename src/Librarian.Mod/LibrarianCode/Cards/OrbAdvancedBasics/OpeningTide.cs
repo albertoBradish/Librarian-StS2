@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 41/r42. Both versions are Innate and Exhaust; Tide5 upgrades to7.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-OPENING_TIDE")]
 public sealed class OpeningTide() : OrbAdvancedCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Innate];

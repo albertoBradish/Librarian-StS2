@@ -1,4 +1,3 @@
-using BaseLib.Abstracts;
 using Librarian.LibrarianCode.Character;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -9,9 +8,13 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.Mechanics;
 
 /// <summary>Native combat notifications, presentation only. No damage or targeting is changed.</summary>
-public sealed class LibrarianSpellVisualHooks040 : CustomSingletonModel
+public sealed class LibrarianSpellVisualHooks040 : SingletonModel
 {
-    public LibrarianSpellVisualHooks040() : base(HookType.Combat) { }
+    public override bool ShouldReceiveCombatHooks => true;
+    public LibrarianSpellVisualHooks040()
+    {
+        MegaCrit.Sts2.Core.Modding.ModHelper.SubscribeForCombatStateHooks(Id.Entry, _ => [this]);
+    }
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {

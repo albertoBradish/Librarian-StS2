@@ -93,7 +93,7 @@ internal static class DevelopmentRitsuCoexistAudit
         Check(migrating.Length == 4, "four selected cards resolve exactly once");
         bool mixed = Phase != "baseline";
         Check(cards.Count(c => c is ModCardTemplate) == (mixed ? 4 : 0), "Ritsu card count " + mixed);
-        Check(cards.Count(c => c is BaseLib.Abstracts.CustomCardModel) == (mixed ? 87 : 91), "BaseLib card count " + mixed);
+        Check(cards.Count(c => LibrarianNativeAnimation.HasBaseLibAncestor(c.GetType())) == (mixed ? 87 : 91), "BaseLib card count " + mixed);
         foreach (var card in migrating)
         {
             Check(card.Id.Entry == LibrarianRitsuCardRegistration.LegacyEntries[card.GetType()], "published entry kept " + card.Id);

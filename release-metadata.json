@@ -1,8 +1,6 @@
 {
   "mod_id": "Librarian",
-  "channel": "beta",
-  "version": "1.2.0-beta10",
-  "current_source_version": "1.2.0-beta10",
+  "version": "1.2.0-beta11",
   "active_cards": 91,
   "game": {
     "version": "0.111.0",
@@ -11,66 +9,43 @@
     "commit": "41cef1ea"
   },
   "dependencies": {
-    "BaseLib": "3.4.5",
     "STS2-RitsuLib": "0.6.4"
   },
   "license": "LicenseRef-Librarian-Personal-Use-1.0",
   "open_source": false,
-  "baseline_runtime_version": "1.2.0-beta10",
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 2592256,
-      "sha256": "a694b5dbe806cf876db06a62cb23a36da35a425e86af7620c2e68f3fdd03dbcd"
+      "bytes": 2629632,
+      "sha256": "2c4b2ebfd543224109cd5d6519611f7275b744e784b292b9f60664cee48c76dc"
     },
     {
       "name": "Librarian.json",
-      "bytes": 494,
-      "sha256": "ea821f8a2bb434df918b89bfc5f0ca90bd6c12b489c5726ed8ddcc630fb0a916"
+      "bytes": 424,
+      "sha256": "71dea8280c2c605a5c2e67d64e39c6ba9f5a3a47c63252ee690ec389be3238d4"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 124951148,
-      "sha256": "349d87425b236f6564e7892e703daed79394b97bda368cf50c21c8637d3100f1"
+      "bytes": 124951908,
+      "sha256": "ba92d94b72e8ccee63a2ae785ac7a6a07239aa9b1dd78dd377d2720be6cc9f3e"
     }
   ],
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11",
+  "runtime_release_status": "planned",
+  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
+  "channel": "beta",
+  "current_source_version": "1.2.0-beta11",
+  "baseline_runtime_version": "1.2.0-beta11",
   "source_matches_baseline_runtime": true,
-  "source_status": "validated_github_prerelease_source",
   "source_snapshot": "source-snapshot.json",
-  "source_snapshot_local_date": "2026-10-07",
-  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta10",
-  "runtime_release_status": "published",
-  "runtime_source_sha256": "96d29137311baa7e33745d7f8534eae72c5b2dab5fa8edba08fa2f624cbff4f5",
-  "steam_published_version": "1.2.0-beta9",
-  "steam_runtime_artifacts": [
-    {
-      "name": "Librarian.dll",
-      "bytes": 2439680,
-      "sha256": "b3e39ac1d85a4f803d79ea0f3d31efdee369711388ef495c97e4c18ba12b46ca"
-    },
-    {
-      "name": "Librarian.json",
-      "bytes": 493,
-      "sha256": "bfff2b4513c746dd2cfb39fe5c316bbff69fb7d15fe19107a454409f7c28bc82"
-    },
-    {
-      "name": "Librarian.pck",
-      "bytes": 124948744,
-      "sha256": "d060adbb4392b8023190d35daab536d932e97da6f91146ad8df75fdc504f9096"
-    }
+  "runtime_source_sha256": "c8d84eeca174f6043e36ae126483a2dc5756cf3ce6773612cbd247c4553ee944",
+  "steam_published_version": "1.2.0-beta11",
+  "workshop_item_id": "3801958367",
+  "workshop_prerequisites": [
+    "RitsuLib"
   ],
-  "native_validation": {
-    "active_cases": 182,
-    "threefold_named_paths": 6,
-    "legacy_save_cards": 182,
-    "core": "71/71",
-    "complete_logs_passed": true,
-    "multiclient": false,
-    "normal_speed_visual_acceptance": false
-  },
-  "note": "The beta10 tag resolves to matching public authored source. The private validated build includes non-public design inputs and local build configuration. This metadata identifies the GitHub beta10 runtime and separately preserves the Steam beta9 runtime. BaseLib remains required. Real multi-client, long-term balance and complete normal-speed visual/audio acceptance are pending.",
-  "runtime_source_commit": "135686b9dafeeadffcff173c2216bac76ccda9a7",
-  "runtime_release_id": 406487601,
-  "downloaded_sha256_verified": true,
-  "release_node_id": "RE_kwDOUuHp_s4YOoIx"
+  "steam_verification": {
+    "manifest": "7128311656188148500",
+    "subscriber_verified": false
+  }
 }

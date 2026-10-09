@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 namespace Librarian.LibrarianCode.Cards;
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-MULTIPLAYER_PLACEHOLDER_B")]
 public sealed class MultiplayerPlaceholderB() : LibrarianCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override string PortraitPath => "res://Librarian/images/card_portraits/binding.png";

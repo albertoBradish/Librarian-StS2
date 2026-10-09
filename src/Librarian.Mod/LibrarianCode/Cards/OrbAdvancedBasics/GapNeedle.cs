@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 27/r28. D02 explicitly reads both background values and uses their absolute difference.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-GAP_NEEDLE")]
 public sealed class GapNeedle() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     private static int Difference(LibrarianSession session)

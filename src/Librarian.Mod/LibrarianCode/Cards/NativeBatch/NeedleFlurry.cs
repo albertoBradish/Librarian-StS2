@@ -9,7 +9,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.NativeBatch;
 
 /// <summary>v0.3.0 approved revision, catalog 7. Stable model ID retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-NEEDLE_FLURRY")]
 public sealed class NeedleFlurry() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move)];

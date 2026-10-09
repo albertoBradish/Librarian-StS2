@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>v0.3.0 approved revision, catalog 37. Stable model ID retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-STEAM_BLAST")]
 public sealed class SteamBlast() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(19m, ValueProp.Move)];

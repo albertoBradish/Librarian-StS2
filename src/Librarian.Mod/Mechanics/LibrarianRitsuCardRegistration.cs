@@ -112,6 +112,55 @@ internal static class LibrarianRitsuCardRegistration
         [typeof(global::Librarian.LibrarianCode.Cards.OrbAdvancedBasics.SeaBurial)] = "LIBRARIAN-SEA_BURIAL",
         [typeof(global::Librarian.LibrarianCode.Cards.OrbAdvancedBasics.SeverCurrent)] = "LIBRARIAN-SEVER_CURRENT",
         [typeof(global::Librarian.LibrarianCode.Cards.OrbAdvancedBasics.TidalStrike)] = "LIBRARIAN-TIDAL_STRIKE",
+        [typeof(global::Librarian.LibrarianCode.Character.LibrarianCardPool)] = "LIBRARIAN-LIBRARIAN_CARD_POOL",
+        [typeof(global::Librarian.LibrarianCode.Character.LibrarianCharacter)] = "LIBRARIAN-LIBRARIAN_CHARACTER",
+        [typeof(global::Librarian.LibrarianCode.Character.LibrarianPotionPool)] = "LIBRARIAN-LIBRARIAN_POTION_POOL",
+        [typeof(global::Librarian.LibrarianCode.Character.LibrarianRelicPool)] = "LIBRARIAN-LIBRARIAN_RELIC_POOL",
+        [typeof(global::Librarian.LibrarianCode.Potions.ClarityPotion)] = "LIBRARIAN-CLARITY_POTION",
+        [typeof(global::Librarian.LibrarianCode.Potions.FluidForbiddenFruit)] = "LIBRARIAN-FLUID_FORBIDDEN_FRUIT",
+        [typeof(global::Librarian.LibrarianCode.Potions.KindlingPotion)] = "LIBRARIAN-KINDLING_POTION",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.AncientCatalogPower)] = "LIBRARIAN-ANCIENT_CATALOG_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.BlazingChapterPower)] = "LIBRARIAN-BLAZING_CHAPTER_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.BookwormPower)] = "LIBRARIAN-BOOKWORM_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CooldownPower)] = "LIBRARIAN-COOLDOWN_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CropRotationPower)] = "LIBRARIAN-CROP_ROTATION_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CrowdKindlingPower)] = "LIBRARIAN-CROWD_KINDLING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.DeepSeaPendingPower)] = "LIBRARIAN-DEEP_SEA_PENDING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.EmberBookmarkPower)] = "LIBRARIAN-EMBER_BOOKMARK_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower)] = "LIBRARIAN-ENDLESS_TIDE_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.EternalGrimoirePower)] = "LIBRARIAN-ETERNAL_GRIMOIRE_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.FuelTheFirePower)] = "LIBRARIAN-FUEL_THE_FIRE_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.LifeSymphonyPendingPower)] = "LIBRARIAN-LIFE_SYMPHONY_PENDING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.LifelinePower)] = "LIBRARIAN-LIFELINE_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.OverfishingPower)] = "LIBRARIAN-OVERFISHING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.OverlimitFormPower)] = "LIBRARIAN-OVERLIMIT_FORM_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.PracticeMakesPerfectPower)] = "LIBRARIAN-PRACTICE_MAKES_PERFECT_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.RidgeWardPower)] = "LIBRARIAN-RIDGE_WARD_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.RingCurriculumPower)] = "LIBRARIAN-RING_CURRICULUM_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.RootbindPower)] = "LIBRARIAN-ROOTBIND_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.SedimentationPower)] = "LIBRARIAN-SEDIMENTATION_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.SeedburialPendingPower)] = "LIBRARIAN-SEEDBURIAL_PENDING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.SelectiveOverfishingPower)] = "LIBRARIAN-SELECTIVE_OVERFISHING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.ShiftingPagesPower)] = "LIBRARIAN-SHIFTING_PAGES_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.SpacetimeTwistPower)] = "LIBRARIAN-SPACETIME_TWIST_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.SproutingBulwarkPower)] = "LIBRARIAN-SPROUTING_BULWARK_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.ThornBurstPower)] = "LIBRARIAN-THORN_BURST_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.TidalBlockStatusPower)] = "LIBRARIAN-TIDAL_BLOCK_STATUS_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.TidalMarkPower)] = "LIBRARIAN-TIDAL_MARK_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.ToBeContinuedPower)] = "LIBRARIAN-TO_BE_CONTINUED_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.UnretreatingTidePower)] = "LIBRARIAN-UNRETREATING_TIDE_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.WaterSpiritPower)] = "LIBRARIAN-WATER_SPIRIT_POWER",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianCommonPlaceholder)] = "LIBRARIAN-LIBRARIAN_COMMON_PLACEHOLDER",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianRarePlaceholderOne)] = "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_ONE",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianRarePlaceholderThree)] = "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_THREE",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianRarePlaceholderTwo)] = "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_TWO",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianShopPlaceholder)] = "LIBRARIAN-LIBRARIAN_SHOP_PLACEHOLDER",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianUncommonPlaceholderOne)] = "LIBRARIAN-LIBRARIAN_UNCOMMON_PLACEHOLDER_ONE",
+        [typeof(global::Librarian.LibrarianCode.Relics.LibrarianUncommonPlaceholderTwo)] = "LIBRARIAN-LIBRARIAN_UNCOMMON_PLACEHOLDER_TWO",
+        [typeof(global::Librarian.LibrarianCode.Relics.RestoredSpellScroll)] = "LIBRARIAN-RESTORED_SPELL_SCROLL",
+        [typeof(global::Librarian.LibrarianCode.Relics.TatteredSpellScroll)] = "LIBRARIAN-TATTERED_SPELL_SCROLL",
+        [typeof(global::Librarian.Mechanics.LibrarianCombatHooks)] = "LIBRARIAN-LIBRARIAN_COMBAT_HOOKS",
+        [typeof(global::Librarian.Mechanics.LibrarianSpellVisualHooks040)] = "LIBRARIAN-LIBRARIAN_SPELL_VISUAL_HOOKS040",
     };
 
     internal static void Initialize()
@@ -217,22 +266,68 @@ internal static class LibrarianRitsuCardRegistration
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.OrbAdvancedBasics.SeaBurial>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.OrbAdvancedBasics.SeverCurrent>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.OrbAdvancedBasics.TidalStrike>()
+            .Character<global::Librarian.LibrarianCode.Character.LibrarianCharacter>()
+            .Potion<LibrarianPotionPool, global::Librarian.LibrarianCode.Potions.ClarityPotion>()
+            .Potion<LibrarianPotionPool, global::Librarian.LibrarianCode.Potions.FluidForbiddenFruit>()
+            .Potion<LibrarianPotionPool, global::Librarian.LibrarianCode.Potions.KindlingPotion>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.AncientCatalogPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.BlazingChapterPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.BookwormPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.CooldownPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.CropRotationPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.CrowdKindlingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.DeepSeaPendingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.EmberBookmarkPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.EternalGrimoirePower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.FuelTheFirePower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.LifeSymphonyPendingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.LifelinePower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.OverfishingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.OverlimitFormPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.PracticeMakesPerfectPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.RidgeWardPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.RingCurriculumPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.RootbindPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.SedimentationPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.SeedburialPendingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.SelectiveOverfishingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.ShiftingPagesPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.SpacetimeTwistPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.SproutingBulwarkPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.ThornBurstPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.TidalBlockStatusPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.TidalMarkPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.ToBeContinuedPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.UnretreatingTidePower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.WaterSpiritPower>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianCommonPlaceholder>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianRarePlaceholderOne>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianRarePlaceholderThree>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianRarePlaceholderTwo>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianShopPlaceholder>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianUncommonPlaceholderOne>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianUncommonPlaceholderTwo>()
+            .Relic<MegaCrit.Sts2.Core.Models.RelicPools.EventRelicPool, global::Librarian.LibrarianCode.Relics.RestoredSpellScroll>()
+            .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.TatteredSpellScroll>()
+            .Singleton<global::Librarian.Mechanics.LibrarianCombatHooks>()
+            .Singleton<global::Librarian.Mechanics.LibrarianSpellVisualHooks040>()
+            .TouchOfOrobasRefinement<global::Librarian.LibrarianCode.Relics.TatteredSpellScroll, global::Librarian.LibrarianCode.Relics.RestoredSpellScroll>()
             .Apply();
         MainFile.Logger.Info("RITSU_CARD_REGISTRATION registeredModels=100 expectedActive=91 compatibilityModels=9 legacyEntries=True");
     }
 }
 
-// Preserve published entries after both libraries' identity hooks, before ModelDb initializes.
-// Scope remains explicit: only the one hundred owned Ritsu card models above.
+// Preserve published entries after RitsuLib's identity hook, before ModelDb initializes.
+// Scope remains explicit: only explicitly registered owned models above.
 [HarmonyPatch(typeof(ModelDb), nameof(ModelDb.GetEntry))]
 internal static class LibrarianRitsuLegacyEntries
 {
     [HarmonyPostfix, HarmonyPriority(Priority.Last)]
-    [HarmonyAfter("BaseLib", Const.FrameworkContentRegistryHarmonyId)]
+    [HarmonyAfter(Const.FrameworkContentRegistryHarmonyId)]
     private static void Postfix(Type type, ref string __result)
     {
-        if (typeof(LibrarianRitsuCard).IsAssignableFrom(type)
-            && LibrarianRitsuCardRegistration.LegacyEntries.TryGetValue(type, out var entry))
+        if (LibrarianRitsuCardRegistration.LegacyEntries.TryGetValue(type, out var entry))
             __result = entry;
     }
 }

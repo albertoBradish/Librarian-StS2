@@ -38,7 +38,7 @@ internal static class DevelopmentRelicAudit
             Require(regular.Count(r => r.Rarity == rarity) == count, $"wrong count for {rarity}");
         Require(ModelDb.RelicPool<EventRelicPool>().AllRelics.Contains(upgrade), "upgrade missing from event pool");
         Require(!regular.Contains(upgrade) && upgrade.Rarity == RelicRarity.Starter, "upgrade must not enter normal rewards");
-        Require(starter.GetUpgradeReplacement().Id == upgrade.Id, "BaseLib upgrade mapping");
+        Require(starter.GetUpgradeReplacement().Id == upgrade.Id, "starter upgrade mapping");
         Require(ModelDb.Relic<TouchOfOrobas>().GetUpgradedStarterRelic(starter).Id == upgrade.Id, "native patched upgrade mapping");
         Require(pool.GetUnlockedRelics(UnlockState.all).Count() == 8, "normal pool unlock eligibility");
         var all = regular.Append(upgrade).ToArray();

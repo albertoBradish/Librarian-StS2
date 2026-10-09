@@ -16,7 +16,7 @@ public sealed class KindlingPotion : LibrarianPotion
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 6m)];
-    public override IEnumerable<IHoverTip> ExtraHoverTips => [LibrarianHoverTips.Tip("FIRE")];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [LibrarianHoverTips.Tip("FIRE")];
     protected override Task OnUse(PlayerChoiceContext context, Creature? target)
     {
         var session = LibrarianRuntime.Get(Owner);
@@ -31,7 +31,7 @@ public sealed class ClarityPotion : LibrarianPotion
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 9m)];
-    public override IEnumerable<IHoverTip> ExtraHoverTips => [LibrarianHoverTips.Tip("WAVES")];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [LibrarianHoverTips.Tip("WAVES")];
     protected override Task OnUse(PlayerChoiceContext context, Creature? target)
     {
         var session = LibrarianRuntime.Get(Owner);
@@ -46,7 +46,7 @@ public sealed class FluidForbiddenFruit : LibrarianPotion
     public override PotionRarity Rarity => PotionRarity.Rare;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.Self;
-    public override IEnumerable<IHoverTip> ExtraHoverTips => [LibrarianHoverTips.Tip("SETTLE")];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [LibrarianHoverTips.Tip("SETTLE")];
     protected override async Task OnUse(PlayerChoiceContext context, Creature? target)
     {
         var session = LibrarianRuntime.Get(Owner);

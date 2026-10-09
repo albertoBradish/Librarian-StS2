@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>Source 60/r61. Stack additive Block per real foreground switch.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SHIFTING_PAGES")]
 public sealed class ShiftingPages() : LibrarianRitsuCard(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ShiftingPagesPower>(3m)];

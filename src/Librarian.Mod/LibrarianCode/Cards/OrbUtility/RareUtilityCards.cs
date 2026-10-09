@@ -12,7 +12,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbUtility;
 
 /// <summary>Source 63/r64. All three immediate settlements precede the three actual losses.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-THREEFOLD_UNITY")]
 public sealed class ThreefoldUnity() : OrbUtilityCard(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -32,7 +31,6 @@ public sealed class ThreefoldUnity() : OrbUtilityCard(3, CardType.Skill, CardRar
 }
 
 /// <summary>Source 65/r66. Capture cumulative actual-loss events before the attack.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ZERO_SEARCH")]
 public sealed class ZeroSearch() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -49,7 +47,6 @@ public sealed class ZeroSearch() : OrbUtilityCard(1, CardType.Skill, CardRarity.
 }
 
 /// <summary>V1.2.0-beta1: three/four hits; both stages exhaust.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BOOK_BURNING")]
 public sealed class BookBurning() : OrbUtilityCard(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -66,7 +63,6 @@ public sealed class BookBurning() : OrbUtilityCard(2, CardType.Attack, CardRarit
 }
 
 /// <summary>V1.2.0-beta1: energy1, Growth2, Tide3, Fire4; Fire ends foreground.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-READ_WIDELY")]
 public sealed class ReadWidely() : OrbUtilityCard(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -84,7 +80,6 @@ public sealed class ReadWidely() : OrbUtilityCard(0, CardType.Skill, CardRarity.
 }
 
 /// <summary>Source 71/r72. D11 freezes orb identities, not mutable values, before any loss callbacks.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-LONELY_SCROLL")]
 public sealed class LonelyScroll() : OrbUtilityCard(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
@@ -108,7 +103,6 @@ public sealed class LonelyScroll() : OrbUtilityCard(0, CardType.Skill, CardRarit
 }
 
 /// <summary>v0.3.0 approved revision, catalog 72. Stable model ID retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-DROUGHT_EDICT")]
 public sealed class DroughtEdict() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(2, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -125,7 +119,6 @@ public sealed class DroughtEdict() : Librarian.LibrarianCode.Cards.OrbUtility.Or
 }
 
 /// <summary>Legacy model retained for old saves; the active pool uses FuelTheFire.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-FOREST_WALL")]
 public sealed class ForestWall() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -145,7 +138,6 @@ public sealed class ForestWall() : OrbUtilityCard(1, CardType.Skill, CardRarity.
 }
 
 /// <summary>V0.4.1: each layer plays the draw-pile bottom once at the end of the owner's turn.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-FUEL_THE_FIRE")]
 public sealed class FuelTheFire() : LibrarianCard(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FuelTheFirePower>(1m)];
@@ -164,7 +156,6 @@ public sealed class FuelTheFire() : LibrarianCard(2, CardType.Power, CardRarity.
 }
 
 /// <summary>v0.3.0 approved revision, catalog 75. Stable model ID retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TREE_RING_BURST")]
 public sealed class TreeRingBurst() : OrbUtilityCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -180,7 +171,6 @@ public sealed class TreeRingBurst() : OrbUtilityCard(2, CardType.Skill, CardRari
 }
 
 /// <summary>v0.3.0 approved revision, catalog 76. Stable model ID retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SONG_OF_ICE_AND_FIRE")]
 public sealed class SongOfIceAndFire() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override bool GainsBlock => true;
@@ -198,7 +188,6 @@ public sealed class SongOfIceAndFire() : Librarian.LibrarianCode.Cards.OrbUtilit
 }
 
 /// <summary>Source 77/r78. The extra Growth task retains the ordinary foreground settlement scope.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-LIFE_SYMPHONY")]
 public sealed class LifeSymphony() : OrbUtilityCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -213,7 +202,6 @@ public sealed class LifeSymphony() : OrbUtilityCard(1, CardType.Skill, CardRarit
 }
 
 /// <summary>V1.2.0-beta1: successful Exhaust moves queue one aggregate Waves gain.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-DEEP_SEA_BARRIER")]
 public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -243,7 +231,6 @@ public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRar
 }
 
 /// <summary>Source 79/r80. v0.3.4: settle the foreground X times, retain its value, and exhaust.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-MULTIPLE_ERUPTION")]
 public sealed class MultipleEruption() : OrbUtilityCard(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override bool HasEnergyCostX => true;

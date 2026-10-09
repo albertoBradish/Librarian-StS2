@@ -23,11 +23,10 @@ Supply legally obtained, matching private dependencies locally:
 | --- | --- |
 | `.research/tools/dotnet/` | .NET SDK 9.0.317, including `dotnet.exe` |
 | `.research/tools/megadot/` | `MegaDot_v4.5.1-stable_mono_win64_console.exe` and matching runtime files |
-| `.research/compatibility-game/` | isolated copy of Slay the Spire 2 0.111.0 public-beta |
-| `.research/compatibility-game/mods/BaseLib/` | official BaseLib 3.4.5 runtime |
+| `.research/ritsu-game/` | isolated copy of Slay the Spire 2 0.111.0 public-beta |
 | `.research/tools/ritsulib/v0.6.4/` | complete RitsuLib 0.6.4 bundle, `RitsuLib.References.props`, `compat/0.111.0/`, `shared/` |
 
-Acquire BaseLib and RitsuLib through their official upstream projects linked in
+Acquire RitsuLib through their official upstream projects linked in
 the README. MegaDot is the game-compatible Godot distribution supplied by the
 game's modding toolchain; an arbitrary stock Godot binary is not a substitute.
 The engine and its proprietary extensions are not redistributed by this project.
@@ -45,18 +44,17 @@ Copy `src/Librarian.Mod/Directory.Build.props.example` to the ignored
 python scripts/build_librarian.py --pack
 ```
 
-NuGet restores BaseLib 3.4.5, ModAnalyzers 0.1.9 and Godot.NET.Sdk 4.5.1. The local
+NuGet restores Godot.NET.Sdk 4.5.1. BaseLib and ModAnalyzers are absent from the current development package graph. The local
 builder expects an existing `.research/nuget-packages/` directory or a populated
 user NuGet cache; create the workspace directory for an online fresh restore.
-Output is limited to `.research/compatibility-game/mods/Librarian/`. Build logs
+Output is limited to `.research/ritsu-game/mods/Librarian/`. Build logs
 and source/dependency fingerprints remain under `.research/logs/`.
 
 Historical `Development*.cs` audit helpers remain compiled because production
 entry points reference them. Some opt-in audits contain maintainer-specific
 output paths and need review before use on another computer. They are disabled
 in normal play. Compilation alone does not certify menu/new-run/combat/save/reload
-or multiplayer operation. A fresh full public-clone native build has not yet been
-performed; the release baseline has prior isolated native validation.
+or multiplayer operation. The full migration has isolated native menu/new-run/combat/save/reload validation in both fixed game channels. A fresh public-clone native build remains separate from that local evidence.
 
 Before running an isolated game, independently verify save paths and Steam Cloud
 isolation. Do not run the internal recovery modes as a normal player install step.

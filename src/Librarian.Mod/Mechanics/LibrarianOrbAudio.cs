@@ -1,4 +1,3 @@
-using BaseLib.Utils;
 using Godot;
 using Librarian.Core;
 using MegaCrit.Sts2.Core.Combat;
@@ -78,7 +77,7 @@ internal static class LibrarianOrbAudio
     {
         try
         {
-            if (!Available || !Sounds.TryGetValue(cue, out var sound) || !FmodAudio.EventExists(sound.Path)) return false;
+            if (!Available || !Sounds.TryGetValue(cue, out var sound) || !LibrarianNativeAudioQuery.EventExists(sound.Path)) return false;
             if (!_gate.Accept(cue, (long)Time.GetTicksMsec())) { Throttled++; return false; }
             return TryPlayValidatedEvent(sound.Path, sound.Volume);
         }
@@ -90,7 +89,7 @@ internal static class LibrarianOrbAudio
         try
         {
             if (!LibrarianPreferences050.Current.OrbSounds || LibrarianPreferences050.Current.SoundVolume == 0) return false;
-            if (!Available || string.IsNullOrWhiteSpace(path) || !path.StartsWith("event:/sfx/", StringComparison.Ordinal) || !FmodAudio.EventExists(path)) return false;
+            if (!Available || string.IsNullOrWhiteSpace(path) || !path.StartsWith("event:/sfx/", StringComparison.Ordinal) || !LibrarianNativeAudioQuery.EventExists(path)) return false;
             SfxCmd.Play(path, Math.Clamp(volume, 0f, 1f) * LibrarianPreferences050.Current.SoundVolume / 100f); Submitted++; return true;
         }
         catch { return false; } // Query and playback failures must never interrupt card resolution.
@@ -103,7 +102,7 @@ internal static class LibrarianOrbAudio
             // Explicit settings action can play outside combat; the normal combat gate stays unchanged.
             if (TestMode.IsOn || NonInteractiveMode.IsActive || NAudioManager.Instance is null ||
                 !LibrarianPreferences050.Current.OrbSounds || LibrarianPreferences050.Current.SoundVolume == 0 ||
-                !Sounds.TryGetValue(cue, out var sound) || !FmodAudio.EventExists(sound.Path)) return false;
+                !Sounds.TryGetValue(cue, out var sound) || !LibrarianNativeAudioQuery.EventExists(sound.Path)) return false;
             long now = (long)Time.GetTicksMsec();
             if (now - _lastPreview < 350) return false;
             _lastPreview = now;

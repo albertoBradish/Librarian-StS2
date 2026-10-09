@@ -39,7 +39,7 @@ internal static partial class DevelopmentRuntimeAudit
 
     [HarmonyPostfix] private static void Postfix()
     {
-        if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "ritsu-sweep") return;
+        if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") is "ritsu-sweep" or "ritsu-full" or "ritsu-legacy") return;
         if (_ran || System.Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") != "1"
             || System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "ritsu-coexist") return;
         if (!OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase))

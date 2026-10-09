@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>v0.5.2: single target, Growth activation gates temporary Strength loss.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ROOTBIND")]
 public sealed class Rootbind() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

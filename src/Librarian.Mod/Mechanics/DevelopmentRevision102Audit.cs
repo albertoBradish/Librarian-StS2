@@ -99,8 +99,8 @@ internal static class DevelopmentRevision102Audit
                 var third = Desc(panel).OfType<NPopupYesNoButton>().Single(b => b != panel.YesButton && b != panel.NoButton);
                 string body = panel.GetNode<RichTextLabel>("Description").GetParsedText();
                 string firstLine = body.Split('\n')[0];
-                Check(firstLine.Contains("BaseLib") && firstLine.Contains("RitsuLib")
-                    && body.Contains(expectedVersion) && body.Contains("1091648383"), "welcome starts with both required dependencies and settings route " + lang);
+                Check(!firstLine.Contains("BaseLib") && firstLine.Contains("RitsuLib")
+                    && body.Contains(expectedVersion) && body.Contains("1091648383"), "welcome starts with the required RitsuLib dependency and settings route " + lang);
                 Check(third.Visible && third.Position.X > panel.NoButton.Position.X && third.Position.X < panel.YesButton.Position.X, "suppression button in middle " + lang);
                 await Shot("welcome-" + lang + "-" + size.X);
                 panel.YesButton.EmitSignal(NClickableControl.SignalName.Released, panel.YesButton); await Wait();

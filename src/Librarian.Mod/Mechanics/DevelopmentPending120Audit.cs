@@ -34,7 +34,7 @@ internal static class DevelopmentPending120Audit
     [HarmonyPatch(typeof(LibrarianCombatHooks), nameof(LibrarianCombatHooks.BeforeSideTurnEnd))]
     private static class ObserveEnd
     {
-        private static bool Prepare() => System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "120-pending";
+        private static bool Prepare() => System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") is "120-pending" or "ritsu-full";
         private static void Postfix(CombatSide side, IEnumerable<Creature> participants, ref Task __result)
         {
             var player = _watch;
@@ -229,7 +229,7 @@ internal static class DevelopmentPending120Audit
             await Reset(); await Dispatch(S().Orbs.Gain(OrbKind.Fire,100)); await Dispatch(S().Orbs.Gain(OrbKind.Tide,8)); await Dispatch(S().Orbs.Gain(OrbKind.Growth,12));
             S().Orbs.QueueExtraSettlement(OrbSelector.Named(OrbKind.Tide,OrbScope.All),2,"audit-extra"); await Turn(50,"Growth before Tide and full extras");
             await Reset(); S().Waves.Add(9); var pending=await PowerCmd.Apply<DeepSeaPendingPower>(context,player.Creature,30,player.Creature,null); pending!.Schedule(S(),30);
-            await PowerCmd.Apply<CooldownPower>(context,player.Creature,1,player.Creature,null); await Turn(9,"delayed Waves frozen and Cooldown");
+            await PowerCmd.Apply<CooldownPower>(context,player.Creature,1,player.Creature,null); await Turn(39,"scheduled Waves pay this turn with Cooldown");
             Check(S().Waves.Amount==39,"Cooldown preserves delayed Waves");
             await Reset(); await Dispatch(S().Orbs.Gain(OrbKind.Tide,20)); await PowerCmd.Apply<EndlessTidePower>(context,player.Creature,1,player.Creature,null); await Turn(20,"Endless Tide no Wave gain");
             await Reset(); S().Waves.Add(14); await PowerCmd.Apply<UnretreatingTidePower>(context,player.Creature,10,player.Creature,null);

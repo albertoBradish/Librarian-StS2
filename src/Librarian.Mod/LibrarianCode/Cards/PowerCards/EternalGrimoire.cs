@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>Source 6/r7. D24 Rare; upgraded card gains Innate while the rule remains Single.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-ETERNAL_GRIMOIRE")]
 public sealed class EternalGrimoire() : ImplementedPowerCard(1, CardRarity.Rare)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<EternalGrimoirePower>(1m)];

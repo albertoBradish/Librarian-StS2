@@ -25,8 +25,7 @@ def source_manifest():
 def environment_manifest(sdk, env):
     result = subprocess.run([str(sdk / 'dotnet.exe'), '--version'], env=env, cwd=ROOT, capture_output=True, text=True, check=True)
     names = ['.research/tools/megadot/MegaDot_v4.5.1-stable_mono_win64_console.exe',
-             '.research/compatibility-game/data_sts2_windows_x86_64/sts2.dll',
-             '.research/compatibility-game/mods/BaseLib/BaseLib.dll',
+             '.research/ritsu-game/data_sts2_windows_x86_64/sts2.dll',
              '.research/tools/ritsulib/v0.6.4/RitsuLib.References.props',
              'src/Librarian.Mod/Directory.Build.props']
     paths = [ROOT / n for n in names]

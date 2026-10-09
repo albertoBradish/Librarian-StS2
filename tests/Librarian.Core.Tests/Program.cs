@@ -4,6 +4,40 @@ var tests = new List<(string Id, string Name, Func<Task> Run)>();
 void Test(string id, string name, Action run) => tests.Add((id, name, () => { run(); return Task.CompletedTask; }));
 void AsyncTest(string id, string name, Func<Task> run) => tests.Add((id, name, run));
 
+Test("FeedbackDeepPayout", "Scheduled Waves pay this turn and decay only once", () =>
+{
+    var w=new WaveState();w.BeginEndTurnPhase(1);w.AddScheduledEndTurnGain(1,15);
+    Check.Equal(15,w.TakeEndTurnAmount(1));Check.Equal(7,w.Amount);
+    Check.Equal(0,w.TakeEndTurnAmount(1));Check.Equal(7,w.Amount);
+    var large=new WaveState();large.Add(int.MaxValue-10);large.BeginEndTurnPhase(1);
+    large.AddScheduledEndTurnGain(1,10);Check.Equal(int.MaxValue,large.TakeEndTurnAmount(1));
+    Check.Throws<InvalidOperationException>(()=>new WaveState().AddScheduledEndTurnGain(1,5));
+});
+Test("FeedbackDeepTide", "Scheduled Waves raise the frozen floor without double-paying Tide", () =>
+{
+    foreach(var (existing,pending,tide) in new[]{(0,10,0),(0,10,8),(0,10,20),(9,10,8),(9,10,20)})
+    {
+        var w=new WaveState();w.Add(existing);w.BeginEndTurnPhase(1);w.AddScheduledEndTurnGain(1,pending);
+        w.RecordEndTurnTideContribution(1,tide);w.Add(tide);
+        Check.Equal(Math.Max(existing+pending,tide),tide+w.TakeEndTurnAmount(1));
+        Check.Equal((existing+pending+tide)/2,w.Amount);
+    }
+});
+Test("FeedbackDeepPolicy", "Forbidden gains cannot raise the payout and retention preserves the new Waves", () =>
+{
+    bool allow=true;var w=new WaveState(()=>allow);w.Add(9);w.BeginEndTurnPhase(1);allow=false;
+    w.AddScheduledEndTurnGain(1,20);Check.Equal(9,w.TakeEndTurnAmount(1));Check.Equal(4,w.Amount);
+    var kept=new WaveState{Retained=true};kept.Add(9);kept.BeginEndTurnPhase(1);kept.AddScheduledEndTurnGain(1,10);
+    Check.Equal(19,kept.TakeEndTurnAmount(1));Check.Equal(19,kept.Amount);
+    kept.Retained=false;kept.BeginEndTurnPhase(2);Check.Equal(19,kept.TakeEndTurnAmount(2));Check.Equal(9,kept.Amount);
+});
+AsyncTest("FeedbackDeepPreview", "Scheduled Waves preview matches payout while preserving live state", async () =>
+{
+    var s=new OrbCombatState("feedback");s.BeginOwnerTurn();s.Gain(OrbKind.Tide,8);var w=new WaveState();w.Add(9);
+    var p=new EndTurnBlockProjection(s,w);await p.Resolve(new(OrbScope.All),x=>x.Waves.AddScheduledEndTurnGain(x.Orbs.OwnerTurn,10));
+    Check.Equal(19,p.NewTidalBlock);Check.Equal(13,p.Waves.Amount);Check.Equal(9,w.Amount);Check.False(s.EndTurnResolved);
+});
+
 Test("BlockTotals", "Final total uses native per-gain truncation, loss and cap", () =>
 {
     var total = new EndTurnBlockTotals(12);

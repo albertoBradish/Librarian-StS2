@@ -1,11 +1,13 @@
-﻿using BaseLib.Abstracts;
 using Librarian.LibrarianCode.Extensions;
 using Godot;
 
+using STS2RitsuLib.Scaffolding.Content;
+
 namespace Librarian.LibrarianCode.Character;
 
-public class LibrarianPotionPool : CustomPotionPoolModel
+public class LibrarianPotionPool : TypeListPotionPoolModel
 {
+    public override string EnergyColorName => Id.Category + "∴" + Id.Entry;
     public override Color LabOutlineColor => LibrarianCharacter.Color;
     
 

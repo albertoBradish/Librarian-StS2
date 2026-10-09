@@ -69,7 +69,7 @@ public sealed class LibrarianUncommonPlaceholderTwo : LibrarianPlaceholderRelic
 {
     private bool _used;
     public override RelicRarity Rarity => RelicRarity.Uncommon;
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => base.ExtraHoverTips.Append(HoverTipFactory.FromKeyword(CardKeyword.Exhaust));
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => base.AdditionalHoverTips.Append(HoverTipFactory.FromKeyword(CardKeyword.Exhaust));
     public override Task BeforeCombatStart() { _used = false; Status = RelicStatus.Normal; return Task.CompletedTask; }
     internal bool Qualifies(CardModel card) => !IsMelted && !_used && card.Owner == Owner && card.Keywords.Contains(CardKeyword.Exhaust);
     internal void Consume() { _used = true; Status = RelicStatus.Disabled; Flash(); Owner.PlayerCombatState?.RecalculateCardValues(); }

@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Librarian.LibrarianCode.Cards;
 
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-LIBRARIAN_DEFEND")]
 public sealed class LibrarianDefend() : LibrarianRitsuCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
 

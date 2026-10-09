@@ -6,7 +6,6 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace Librarian.LibrarianCode.Cards;
 
 /// <summary>A small repeatable, directed draw exchange; native branching context handles teammate choices.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-CIRCULATION_NOTES")]
 public sealed class CirculationNotes() : LibrarianCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
 {
     public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;

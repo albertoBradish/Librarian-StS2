@@ -120,7 +120,7 @@ internal static class DevelopmentRevision042Audit
 
             await Reset(); await Play(Create<CropRotation>(up));
             var crop = player.Creature.GetPower<CropRotationPower>();
-            Check(crop is not null && crop.Amount == (up ? 3 : 2) && ResourceLoader.Exists(crop.CustomPackedIconPath), "Crop native power icon and amount " + up);
+            Check(crop is not null && crop.Amount == (up ? 3 : 2) && ResourceLoader.Exists(crop.CustomIconPath), "Crop native power icon and amount " + up);
             await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(0.7), SceneTreeTimer.SignalName.Timeout);
             var node = MegaCrit.Sts2.Core.Nodes.Rooms.NCombatRoom.Instance!.GetCreatureNode(player.Creature)!;
             var powers = node.FindChildren("*", "", true, false).OfType<MegaCrit.Sts2.Core.Nodes.Combat.NPower>();

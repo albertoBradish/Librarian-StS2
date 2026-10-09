@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 33/r34. Independent activation condition; the two Weak applications retain text order.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-TIDAL_EROSION")]
 public sealed class TidalErosion() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

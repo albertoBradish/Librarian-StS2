@@ -34,9 +34,9 @@ public sealed class DeepSeaPendingPower : ImplementedLibrarianPower
             if (!Owner.Powers.Contains(this) || Owner.IsDead) return;
             Flash();
             await PowerCmd.ModifyAmount(context, this, -value, null, null);
-            session.Waves.Add(value);
+            session.Waves.AddScheduledEndTurnGain(session.Orbs.OwnerTurn, value);
             LibrarianRuntime.VerifyBlock(session);
-        }, preview => { if (Owner.Powers.Contains(this) && !Owner.IsDead) preview.Waves.Add(value); });
+        }, preview => { if (Owner.Powers.Contains(this) && !Owner.IsDead) preview.Waves.AddScheduledEndTurnGain(preview.Orbs.OwnerTurn, value); });
     }
 }
 

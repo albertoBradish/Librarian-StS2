@@ -3,15 +3,11 @@
   "name": "图书管理员",
   "author": "LibrarianProject",
   "description": "原创角色：图书管理员。包含91张卡牌、9件遗物和3种药水。",
-  "version": "1.2.0-beta10",
+  "version": "1.2.0-beta11",
   "min_game_version": "0.111.0",
   "has_pck": true,
   "has_dll": true,
   "dependencies": [
-    {
-      "id": "BaseLib",
-      "min_version": "3.4.5"
-    },
     {
       "id": "STS2-RitsuLib",
       "min_version": "0.6.4"

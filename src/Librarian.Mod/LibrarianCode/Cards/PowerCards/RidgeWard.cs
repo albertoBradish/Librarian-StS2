@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>V1.2.0-beta2: Ancient with Retain at both stages; its existing effects and cost upgrade remain.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-RIDGE_WARD")]
 public sealed class RidgeWard() : ImplementedPowerCard(2, CardRarity.Ancient)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];

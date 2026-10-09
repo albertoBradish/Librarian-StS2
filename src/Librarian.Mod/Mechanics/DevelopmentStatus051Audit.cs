@@ -78,7 +78,7 @@ internal static class DevelopmentStatus051Audit
         foreach (var canonical in powers)
         {
             Check(canonical.Icon is not null && canonical.BigIcon is not null, "native loader small and big icons " + canonical.Id);
-            Check(canonical.Icon.ResourcePath == canonical.CustomPackedIconPath, "actual packed icon route " + canonical.Id);
+            Check(canonical.Icon.ResourcePath == canonical.CustomIconPath, "actual packed icon route " + canonical.Id);
             Check(canonical.ResolvedBigIconPath == canonical.CustomBigIconPath, "actual big icon route " + canonical.Id);
             var p = canonical.ToMutable();
             await PowerCmd.Apply(context, p, player.Creature, 2, player.Creature, null);
@@ -91,8 +91,8 @@ internal static class DevelopmentStatus051Audit
             LocManager.Instance.SetLanguage("zhs");
             await PowerCmd.Remove(p);
         }
-        Check(ModelDb.Power<SeedburialPendingPower>().CustomPackedIconPath.Contains("/power.png") &&
-            ModelDb.Power<DeepSeaPendingPower>().CustomPackedIconPath.Contains("/power.png"), "user retained both ambiguous icons");
+        Check(ModelDb.Power<SeedburialPendingPower>().CustomIconPath.Contains("/power.png") &&
+            ModelDb.Power<DeepSeaPendingPower>().CustomIconPath.Contains("/power.png"), "user retained both ambiguous icons");
 
         foreach (bool up in new[] { false, true })
         {

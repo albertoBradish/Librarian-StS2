@@ -4,7 +4,7 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
-Current beta GitHub runtime: **Librarian 1.2.0-beta10**, tag **`v1.2.0-beta10`**, game **public-beta 0.111.0 / 41cef1ea**, branch **`codex/beta`**. It migrates 91 active cards and nine legacy-save models to RitsuLib without changing their rules or published IDs, and includes the previously validated net Block preview and beta9 features. Steam Workshop remains beta9. Both **BaseLib 3.4.5** and the complete **RitsuLib 0.6.4** bundle (`compat/0.111.0/` and `shared/`) remain required. The remaining character, pools, powers, relics, potions and helpers still use BaseLib. `main` remains stable 0.107.1 with its own maintenance; its independent runtime Release remains **v1.1.0-stable**.
+Current beta runtime: **Librarian 1.2.0-beta11**, tag **`v1.2.0-beta11`**, game **public-beta 0.111.0 / 41cef1ea**, branch **`codex/beta`**. All content has migrated to RitsuLib; the sole prerequisite is the complete **RitsuLib 0.6.4** bundle (`compat/0.111.0/` and `shared/`). Beta11 fixes end-turn Waves/Block settlement and enchanted damage displays, and includes the net Block preview and tutorial. Steam Workshop is independently published as beta11. `main` remains stable 0.107.1 with its own maintenance; its independent runtime Release remains **v1.1.0-stable**.
 
 1. Finish the release's source changes and compatibility/native validation. Record
    exact game/build, BaseLib/RitsuLib versions, known limitations and source commit.

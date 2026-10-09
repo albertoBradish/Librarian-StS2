@@ -1,4 +1,3 @@
-﻿using BaseLib.Utils;
 using Godot;
 using Librarian.Core;
 using Librarian.LibrarianCode;
@@ -27,11 +26,11 @@ internal static class DevelopmentRevision0310AudioAudit
         Require(Available, "real native FMOD command path available in combat");
         foreach (var (cue, sound) in Sounds)
         {
-            Require(FmodAudio.EventExists(sound.Path), "loaded bank contains " + sound.Path);
+            Require(LibrarianNativeAudioQuery.EventExists(sound.Path), "loaded bank contains " + sound.Path);
             MainFile.Logger.Info($"AUDIO_0310_EVENT cue={cue} path={sound.Path} relativeVolume={sound.Volume} source=nativeBank");
         }
-        Require(FmodAudio.BusExists("bus:/master") && FmodAudio.BusExists("bus:/master/sfx"), "native Master and SFX buses exist");
-        float masterBefore = FmodAudio.GetBusVolume("bus:/master"), sfxBefore = FmodAudio.GetBusVolume("bus:/master/sfx");
+        Require(LibrarianNativeAudioQuery.BusExists("bus:/master") && LibrarianNativeAudioQuery.BusExists("bus:/master/sfx"), "native Master and SFX buses exist");
+        float masterBefore = LibrarianNativeAudioQuery.GetBusVolume("bus:/master"), sfxBefore = LibrarianNativeAudioQuery.GetBusVolume("bus:/master/sfx");
         var gate = new Gate();
         Require(gate.Accept(Cue.Fire, 1000) && gate.Accept(Cue.Tide, 1000) && gate.Accept(Cue.Growth, 1000), "three distinct natural settlements are audible");
         Require(Enumerable.Range(0, 100).All(i => !gate.Accept(Cue.Fire, 1001 + i)), "100 repeated same-element requests suppressed");
@@ -52,7 +51,7 @@ internal static class DevelopmentRevision0310AudioAudit
             Require(!TryCue(cue), "immediate live duplicate suppressed " + cue);
         }
         Require(Submitted == Sounds.Count && Throttled == Sounds.Count, "live submission and suppression counts");
-        Require(FmodAudio.GetBusVolume("bus:/master") == masterBefore && FmodAudio.GetBusVolume("bus:/master/sfx") == sfxBefore,
+        Require(LibrarianNativeAudioQuery.GetBusVolume("bus:/master") == masterBefore && LibrarianNativeAudioQuery.GetBusVolume("bus:/master/sfx") == sfxBefore,
             $"playback preserves user bus levels master={masterBefore} sfx={sfxBefore}");
         var session = LibrarianRuntime.Get(player);
         var context = new ThrowingPlayerChoiceContext();

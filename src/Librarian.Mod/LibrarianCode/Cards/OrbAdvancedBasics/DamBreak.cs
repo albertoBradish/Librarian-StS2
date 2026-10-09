@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>Source 35/r36; author-supplied D08 upgrade reduces cost 2 to 1.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-DAM_BREAK")]
 public sealed class DamBreak() : OrbAdvancedCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => CalculatedDamage((card, _) => PreviewForeground(card, OrbKind.Tide));

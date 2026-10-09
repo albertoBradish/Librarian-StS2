@@ -62,7 +62,7 @@
   "LIBRARIAN_SETTINGS.logs_missing_files": "No runtime logs are available.",
   "LIBRARIAN_SETTINGS.logs_unreadable": "No runtime log could be read.",
   "LIBRARIAN_UPDATE.header": "Librarian · Version Notice",
-  "LIBRARIAN_UPDATE.body": "[b][gold]Subscribe to and enable both BaseLib and RitsuLib.[/gold][/b]\nSee Update notes for version changes.\n\n[b][gold]QQ group: 1091648383[/gold][/b]\nCurrent version: [gold]v{Version}[/gold]\n\nSettings: [gold]RitsuLib[/gold] at the main menu's top-right → Librarian.\n\nFeedback: {Email}",
+  "LIBRARIAN_UPDATE.body": "[b][gold]Subscribe to and enable RitsuLib.[/gold][/b]\nSee Update notes for version changes.\n\n[b][gold]QQ group: 1091648383[/gold][/b]\nCurrent version: [gold]v{Version}[/gold]\n\nSettings: [gold]RitsuLib[/gold] at the main menu's top-right → Librarian.\n\nFeedback: {Email}",
   "LIBRARIAN_UPDATE.email": "lrq1850562239@gmail.com",
   "LIBRARIAN_UPDATE.confirm": "OK",
   "LIBRARIAN_UPDATE.never_show": "Don't show again",

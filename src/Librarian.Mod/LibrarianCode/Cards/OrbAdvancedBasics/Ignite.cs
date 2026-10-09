@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>v0.3.0 approved revision, catalog 57. Stable model ID retained.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-IGNITE")]
 public sealed class Ignite() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override bool GainsBlock => true;

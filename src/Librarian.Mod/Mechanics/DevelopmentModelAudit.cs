@@ -100,13 +100,13 @@ internal static class DevelopmentModelAudit
             DevelopmentRelicAudit.ValidateModels();
             foreach (var power in ModelDb.AllPowers.OfType<Librarian.LibrarianCode.Powers.LibrarianPower>())
             {
-                Require(ResourceLoader.Exists(power.CustomPackedIconPath), $"Missing power icon {power.Id}: {power.CustomPackedIconPath}");
+                Require(ResourceLoader.Exists(power.CustomIconPath), $"Missing power icon {power.Id}: {power.CustomIconPath}");
                 Require(ResourceLoader.Exists(power.CustomBigIconPath), $"Missing big power icon {power.Id}: {power.CustomBigIconPath}");
-                var smallIcon = ResourceLoader.Load<Texture2D>(power.CustomPackedIconPath);
+                var smallIcon = ResourceLoader.Load<Texture2D>(power.CustomIconPath);
                 var bigIcon = ResourceLoader.Load<Texture2D>(power.CustomBigIconPath);
                 Require(smallIcon.GetWidth() <= 64 && smallIcon.GetHeight() <= 64, $"Oversized power icon: {power.Id}");
                 Require(bigIcon.GetWidth() <= 256 && bigIcon.GetHeight() <= 256, $"Oversized big power icon: {power.Id}");
-                MainFile.Logger.Info($"POWER_ICON_AUDIT {power.Id} {power.CustomPackedIconPath}");
+                MainFile.Logger.Info($"POWER_ICON_AUDIT {power.Id} {power.CustomIconPath}");
             }
             MainFile.Logger.Info($"CONSOLE_OVERLAY_AUDIT mounted={MegaCrit.Sts2.Core.Nodes.NGame.Instance?.GetNodeOrNull("ChineseDebugConsoleOverlay") is not null}");
             var limited = (Librarian.LibrarianCode.Powers.Implemented.OverfishingPower)ModelDb.Power<Librarian.LibrarianCode.Powers.Implemented.OverfishingPower>().ToMutable();

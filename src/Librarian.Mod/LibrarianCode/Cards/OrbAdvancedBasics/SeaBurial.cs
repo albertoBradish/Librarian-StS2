@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
 /// <summary>V0.4.1: snapshot Tide, clear it, then make two/three random hits before locking Fire and Growth.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-SEA_BURIAL")]
 public sealed class SeaBurial() : OrbAdvancedCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.RandomEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

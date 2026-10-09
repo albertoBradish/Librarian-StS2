@@ -39,10 +39,14 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
     # Keep the verified 0.6.2 release policy and accept the current pinned 0.6.4 bundle.
     current_deps = [{'BaseLib': '3.4.5', 'STS2-RitsuLib': ritsu_version}
                     for ritsu_version in ('0.6.2', '0.6.4')]
+    ritsu_only = {'STS2-RitsuLib': '0.6.2' if channel == 'stable' else '0.6.4'}
+    current_deps.append(ritsu_only)
     if historical and not delivery:
         raise ValueError('Historical preparation requires verified artifact evidence')
     if deps not in current_deps and not (historical and deps == {'BaseLib': '3.4.5'}):
         raise ValueError('Dependency versions changed; review policy before releasing')
+    if deps == ritsu_only and not delivery:
+        raise ValueError('Ritsu-only preparation requires verified Delivery evidence')
     if not manifest.get('has_dll') or not manifest.get('has_pck'):
         raise ValueError('Runtime manifest must declare DLL and PCK')
     actual = {name: sha256(candidate / name) for name in RUNTIME}
@@ -51,6 +55,9 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
         expected = {f['name']: f['sha256'].lower() for f in record['build']['artifacts']}
         if record['version'] != version or expected != actual:
             raise ValueError('Candidate differs from versioned Delivery evidence')
+        if deps == ritsu_only and (record.get('channel') != channel
+                                  or not record.get('validation', {}).get('passed')):
+            raise ValueError('Ritsu-only Delivery must certify its channel and runtime validation')
         if channel == 'stable' and (record.get('channel') != 'stable'
                                    or not record.get('validation', {}).get('passed')):
             raise ValueError('Stable Delivery must certify the stable channel and runtime validation')

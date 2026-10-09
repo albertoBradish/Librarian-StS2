@@ -1,5 +1,3 @@
-using BaseLib.Abstracts;
-using BaseLib.Utils.NodeFactories;
 using Godot;
 using Librarian.LibrarianCode.Cards;
 using Librarian.LibrarianCode.Extensions;
@@ -8,9 +6,11 @@ using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 using Librarian.Mechanics;
 
+using STS2RitsuLib.Scaffolding.Characters;
+
 namespace Librarian.LibrarianCode.Character;
 
-public sealed class LibrarianCharacter : PlaceholderCharacterModel
+public sealed class LibrarianCharacter : ModCharacterTemplate<LibrarianCardPool, LibrarianRelicPool, LibrarianPotionPool>
 {
     public const string CharacterId = "LibrarianCharacter";
     public static readonly Color Color = LibrarianVisualTheme.ThemeColor;
@@ -22,8 +22,13 @@ public sealed class LibrarianCharacter : PlaceholderCharacterModel
     public override int StartingHp => 72;
     public override int StartingGold => 99;
     public override int MaxEnergy => 3;
+    public override float AttackAnimDelay => 0.15f;
+    public override float CastAnimDelay => 0.25f;
+    public override List<string> GetArchitectAttackVfx() =>
+        ModelDb.Character<MegaCrit.Sts2.Core.Models.Characters.Ironclad>().GetArchitectAttackVfx();
+    public override string CustomIconPath => CustomIconTexturePath;
 
-    public override IEnumerable<CardModel> StartingDeck =>
+    protected override IEnumerable<CardModel> LocalStartingDeck =>
     [
         ModelDb.Card<LibrarianStrike>(), ModelDb.Card<LibrarianStrike>(),
         ModelDb.Card<LibrarianStrike>(), ModelDb.Card<LibrarianStrike>(),
@@ -32,28 +37,15 @@ public sealed class LibrarianCharacter : PlaceholderCharacterModel
         ModelDb.Card<Spark>(), ModelDb.Card<Trickle>()
     ];
 
-    public override IReadOnlyList<RelicModel> StartingRelics => [ModelDb.Relic<TatteredSpellScroll>()];
-    public override CardPoolModel CardPool => ModelDb.CardPool<LibrarianCardPool>();
-    public override RelicPoolModel RelicPool => ModelDb.RelicPool<LibrarianRelicPool>();
-    public override PotionPoolModel PotionPool => ModelDb.PotionPool<LibrarianPotionPool>();
+    protected override IEnumerable<RelicModel> LocalStartingRelics => [ModelDb.Relic<TatteredSpellScroll>()];
 
-    // BaseLib resolves the other placeholder scenes from the game's resources at runtime.
-    // No extracted game scene or texture is redistributed by this project.
-    public override Control CustomIcon
-    {
-        get
-        {
-            var icon = NodeFactory<Control>.CreateFromResource(CustomIconTexturePath);
-            icon.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-            return icon;
-        }
-    }
-    public override string CustomCharacterSelectBg => LibrarianCharacterSelect040.ScenePath;
+    // Existing owned scenes and runtime references are registered through RitsuLib.
+    public override string CustomCharacterSelectBgPath => LibrarianCharacterSelect040.ScenePath;
     public override string CustomIconTexturePath => "res://Librarian/images/charui/v0.3.9/character_icon.png";
     public override string CustomCharacterSelectIconPath => "res://Librarian/images/character_select/floating_archive/portrait.png";
     public override string CustomCharacterSelectLockedIconPath => "res://Librarian/images/character_select/floating_archive/portrait_locked.png";
     public override string CustomMapMarkerPath => "res://Librarian/images/charui/map_marker_librarian.png";
-    public override string CustomVisualPath => "res://Librarian/scenes/character/v0.3.7/combat.tscn";
+    public override string CustomVisualsPath => "res://Librarian/scenes/character/v0.3.7/combat.tscn";
     public override string CustomRestSiteAnimPath => "res://Librarian/scenes/character/v0.4.0/rest.tscn";
     public override string CustomMerchantAnimPath => "res://Librarian/scenes/character/v0.3.7/shop.tscn";
     public override string CustomIconOutlineTexturePath => "res://Librarian/images/charui/v0.3.9/character_icon_outline.png";
@@ -63,5 +55,5 @@ public sealed class LibrarianCharacter : PlaceholderCharacterModel
     public override string CustomArmScissorsTexturePath => "res://Librarian/images/character/v0.3.7/hand_scissors.png";
     public override string CustomTrailPath => "res://Librarian/scenes/character/v0.3.7/card_trail.tscn";
     public override string CustomCharacterSelectTransitionPath => "res://Librarian/scenes/character/v0.3.7/transition.tres";
-    public override float DeathAnimTime => 1.65f;
+    public float DeathAnimTime => 1.65f;
 }

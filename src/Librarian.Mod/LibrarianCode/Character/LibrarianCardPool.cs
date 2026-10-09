@@ -1,12 +1,13 @@
-using BaseLib.Abstracts;
 using Godot;
 using Librarian.Mechanics;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Unlocks;
 
+using STS2RitsuLib.Scaffolding.Content;
+
 namespace Librarian.LibrarianCode.Character;
 
-public class LibrarianCardPool : CustomCardPoolModel
+public class LibrarianCardPool : TypeListCardPoolModel
 {
     // Retain registered legacy types for old save deserialization, but remove retired
     // models from current card libraries, rewards, random generation and this catalog.
@@ -24,7 +25,8 @@ public class LibrarianCardPool : CustomCardPoolModel
     public override string TextEnergyIconPath => LibrarianVisualTheme.TextEnergyIconPath;
     // The dedicated theme material preserves native frame shading and sets the
     // requested orange explicitly; the native HSV shader only rotates source colors.
-    public override Color ShaderColor => LibrarianCharacter.Color;
+    public Color ShaderColor => LibrarianCharacter.Color;
+    public override string EnergyColorName => Id.Category + "∴" + Id.Entry;
     //Color of small card icons
     public override Color DeckEntryCardColor => LibrarianCharacter.Color;
     

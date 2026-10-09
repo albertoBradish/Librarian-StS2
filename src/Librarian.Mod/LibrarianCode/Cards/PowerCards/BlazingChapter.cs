@@ -11,7 +11,6 @@ using MegaCrit.Sts2.Core.Models;
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
 /// <summary>V1.2.0-beta2: immediately add one extra Fire settlement; lock the other Orbs after two/three turns.</summary>
-[BaseLib.Utils.Attributes.CustomID("LIBRARIAN-BLAZING_CHAPTER")]
 public sealed class BlazingChapter() : ImplementedPowerCard(2, CardRarity.Rare)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>

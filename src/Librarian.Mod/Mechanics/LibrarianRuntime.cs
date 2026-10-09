@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-using BaseLib.Abstracts;
 using Godot;
 using HarmonyLib;
 using Librarian.Core;
@@ -104,7 +103,7 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
     public static void Initialize()
     {
         LibrarianMechanicsBridge.Current = Instance;
-        // ModelDb constructs and registers CustomSingletonModel after mod initializers finish.
+        // ModelDb constructs and registers SingletonModel after mod initializers finish.
         MainFile.Logger.Info("Librarian mechanics connected: independent three-orb state and tidal Block ledger.");
     }
 
@@ -312,11 +311,15 @@ internal static class LibrarianModelsReady
         => MainFile.Logger.Info("Librarian combat hooks registered=" + ModelDb.Singleton<LibrarianCombatHooks>().ShouldReceiveCombatHooks);
 }
 
-public sealed class LibrarianCombatHooks : CustomSingletonModel
+public sealed class LibrarianCombatHooks : SingletonModel
 {
+    public override bool ShouldReceiveCombatHooks => true;
     internal static int SuppressedEtherealTriggers { get; private set; }
 
-    public LibrarianCombatHooks() : base(HookType.Combat) { }
+    public LibrarianCombatHooks()
+    {
+        MegaCrit.Sts2.Core.Modding.ModHelper.SubscribeForCombatStateHooks(Id.Entry, _ => [this]);
+    }
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
