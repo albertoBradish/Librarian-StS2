@@ -31,7 +31,7 @@
     }
   ],
   "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11",
-  "runtime_release_status": "planned",
+  "runtime_release_status": "published",
   "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
   "channel": "beta",
   "current_source_version": "1.2.0-beta11",
@@ -47,5 +47,8 @@
   "steam_verification": {
     "manifest": "7128311656188148500",
     "subscriber_verified": false
-  }
+  },
+  "release_source_commit": "4a147a347becd373f9d16c2533aee43020dc5301",
+  "runtime_release_published_at": "2026-10-09T01:07:18Z",
+  "downloaded_sha256_verified": true
 }

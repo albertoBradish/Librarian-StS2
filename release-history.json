@@ -302,6 +302,17 @@
       "downloaded_sha256_verified": true,
       "tag_commit": "135686b9dafeeadffcff173c2216bac76ccda9a7",
       "published_at": "2026-10-08T06:25:24Z"
+    },
+    {
+      "version": "1.2.0-beta11",
+      "tag": "v1.2.0-beta11",
+      "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11",
+      "provenance": "release-history/1.2.0-beta11.json",
+      "source_kind": "complete_matching_authored_source",
+      "status": "published",
+      "tag_commit": "4a147a347becd373f9d16c2533aee43020dc5301",
+      "published_at": "2026-10-09T01:07:18Z",
+      "downloaded_sha256_verified": true
     }
   ],
   "unavailable": [
@@ -337,11 +348,11 @@
     }
   ],
   "verification": "release-history/verification.json",
-  "published_release_count": 27,
+  "published_release_count": 28,
   "recommended_tag": "v1.1.0-stable",
   "recommended_channel": "stable",
-  "recommended_beta_version": "1.2.0-beta10",
-  "recommended_beta_tag": "v1.2.0-beta10",
+  "recommended_beta_version": "1.2.0-beta11",
+  "recommended_beta_tag": "v1.2.0-beta11",
   "current_workshop": {
     "stable": {
       "item_id": "3811677053",
