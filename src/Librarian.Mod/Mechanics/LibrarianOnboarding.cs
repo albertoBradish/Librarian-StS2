@@ -14,6 +14,7 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 using MegaCrit.Sts2.Core.Runs;
+using STS2RitsuLib.Settings;
 
 namespace Librarian.Mechanics;
 
@@ -29,6 +30,43 @@ internal static class LibrarianOnboarding
     internal static bool NeedsTutorial(int wins, int losses, bool decided, double playtime = 0)
         => wins == 0 && losses == 0 && playtime <= 0 && !decided;
     internal static bool NeedsCompact(int wins, bool decided) => wins > 0 && !decided;
+    private static bool _previewPending;
+
+    internal static async Task PreviewAsync(LibrarianTutorialMode mode, IModSettingsUiActionHost host)
+    {
+        if (_previewPending || LibrarianDebugReset.IsBusy) return;
+        if (!LibrarianDebugReset.CanReset) { host.RequestRefresh(); return; }
+        _previewPending = true;
+        bool settingsClosed = false;
+        try
+        {
+            var tree = NGame.Instance!.GetTree();
+            var menu = NGame.Instance.MainMenu;
+            var modals = NModalContainer.Instance;
+            int profile = SaveManager.Instance.CurrentProfileId;
+            var progress = SaveManager.Instance.Progress;
+            bool Current() => LibrarianDebugReset.CanReset && !LibrarianDebugReset.IsBusy
+                && ReferenceEquals(NGame.Instance?.MainMenu, menu) && ReferenceEquals(NModalContainer.Instance, modals)
+                && SaveManager.Instance.CurrentProfileId == profile && ReferenceEquals(SaveManager.Instance.Progress, progress);
+            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+            if (!Current() || modals is null) return;
+            settingsClosed = LibrarianDebugReset.CloseSettings(tree.Root);
+            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+            if (!Current()) return;
+            while (modals.OpenModal is not null)
+            {
+                await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+                if (!Current()) return;
+            }
+            var modal = new LibrarianTutorialModal { Name = "LibrarianTutorialPreview", Mode = mode, IsPreview = true };
+            var closed = new TaskCompletionSource<bool>();
+            modal.TreeExited += () => closed.TrySetResult(true);
+            modals.Add(modal);
+            MainFile.Logger.Info("LIBRARIAN_TUTORIAL_PREVIEW_SHOWN mode=" + mode + " writesReceipts=False");
+            await closed.Task;
+        }
+        finally { _previewPending = false; if (!settingsClosed) host.RequestRefresh(); }
+    }
 
     internal static void Record(string marker)
     {
@@ -78,6 +116,7 @@ public partial class LibrarianTutorialModal : NFtue
 {
     internal LibrarianTutorialMode Mode { get; set; }
     internal Action<bool>? Choice { get; set; }
+    internal bool IsPreview { get; set; }
     internal NVerticalPopup Panel { get; private set; } = null!;
     internal int Page { get; private set; }
     internal double Elapsed { get; private set; }
@@ -202,7 +241,7 @@ public partial class LibrarianTutorialModal : NFtue
     {
         if (_finished) return;
         _finished = true;
-        var callback = Choice;
+        var callback = IsPreview ? null : Choice;
         TreeExited += () => Callable.From(() => callback?.Invoke(answer)).CallDeferred();
         CloseFtue();
     }
@@ -226,12 +265,14 @@ public partial class LibrarianTutorialModal : NFtue
         switch (Mode)
         {
             case LibrarianTutorialMode.Consent:
-                Panel.SetText(Key("title"), Key("ask"));
+                Panel.SetText(Key("title") + (IsPreview ? " · " + Key("preview") : ""), Key("ask")
+                    + (IsPreview ? "\n\n" + Key("preview_hint") : ""));
                 Panel.YesButton.SetText(Key("yes"));
                 RefreshCountdown(Math.Max(0, (int)Math.Ceiling(5 - Elapsed)));
                 break;
             case LibrarianTutorialMode.CompactOffer:
-                Panel.SetText(Key("compact_title"), Key("compact_ask"));
+                Panel.SetText(Key("compact_title") + (IsPreview ? " · " + Key("preview") : ""), Key("compact_ask")
+                    + (IsPreview ? "\n\n" + Key("preview_hint") : ""));
                 Panel.YesButton.SetText(Key("compact_yes")); Panel.NoButton.SetText(Key("compact_no"));
                 break;
         }

@@ -15,3 +15,5 @@ jobs:
           global-json-file: global.json
       - name: Test authored rules without game binaries
         run: dotnet run --project tests/Librarian.Core.Tests/Librarian.Core.Tests.csproj -c Release
+      - name: Test progress JSON preservation without game binaries
+        run: dotnet run --project tests/Librarian.Progress.Tests/Librarian.Progress.Tests.csproj -c Release

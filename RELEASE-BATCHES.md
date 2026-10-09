@@ -1,34 +1,34 @@
 # Source and release status / 源码与发布状态
 
-2026-10-08（America/Los_Angeles）。beta11 同步 Steam 与独立 GitHub 预发行，单前置 RitsuLib 0.6.4。
+2026-10-09（America/Los_Angeles）。beta12同步Steam与独立GitHub预发行，仍仅需RitsuLib。
 
-Beta11 is published separately on Steam and GitHub. It requires RitsuLib 0.6.4 only.
+Beta12 is published separately on Steam and GitHub and still requires RitsuLib only.
 
 | 通道 / Channel | 当前源码 / Current source | Steam | GitHub runtime |
 | --- | --- | --- | --- |
-| `main` | stable 0.107.1，V1.1.1 加后续维护 / V1.1.1 plus maintenance | V1.1.1 | V1.1.0 stable |
-| `codex/beta` | public-beta 0.111.0，V1.2.0-beta11 | V1.2.0-beta11 | V1.2.0-beta11 prerelease |
+| `main` | stable 0.107.1，V1.1.1加后续维护 / V1.1.1 plus maintenance | V1.1.1 | V1.1.0 stable |
+| `codex/beta` | public-beta 0.111.0，V1.2.0-beta12 | V1.2.0-beta12 | V1.2.0-beta12 prerelease |
 
-## Beta11 范围 / Beta11 scope
+## Beta12范围 / Beta12 scope
 
-角色、三个池、100 张活动与旧档模型、能力、九件遗物、三种药水、全局挂钩与辅助路径已迁移至 RitsuLib，149 个原 ID 保留。BaseLib 已从构建、运行清单及 beta 工坊必需项移除；只需 RitsuLib 0.6.4。历史发行的依赖与文件保持原快照。
+修复设置内初始化的未知进度保留路径；为最终确认增加5秒等待和红字提醒。调试工具可预览首次教学邀请与精简提示，选项只关闭预览，不写入记录或修改设置。内容解锁新增图书管理员专属A10／A0，并提供难复现场景的调试说明。身份重复、字段冲突或无法匹配的结构仍会拒绝操作。
 
-Character, three pools, 100 active/legacy card models, powers, nine relics, three potions, hooks and helpers use RitsuLib, retaining 149 published IDs. BaseLib is removed from the build, runtime manifest and beta Workshop prerequisites. Only RitsuLib 0.6.4 is required. Historical releases retain their original files and dependencies.
+Fixes unknown-progress preservation during initialization and adds a five-second confirmation with a red warning. Debug tools preview the first-play invitation and compact-tooltip offer without writing receipts or changing settings. Unlock tools add Librarian-only A10/A0 options and debugging notes. Ambiguous identities, conflicting fields and unmatchable structures still reject the operation.
 
-深海屏障回合末新增浪潮参与当回合格挡结算，正常衰减／保留保持。余烬清算、蚀卷书虫、溃堤、焚书显示原生计算后的伤害，含锋利附魔及战斗修正；蚀卷书虫的力量损失仍按翠叶数值。蓝字预览回合末格挡净变化，支持已验收的原版来源及回合末伤害。继承 91 张活动卡、设置与 12 步实战教学，现有美术保留。
+沿用beta11的91张活动卡、100张活动与旧档模型、现有美术、12步教学与完整RitsuLib迁移。本次卡牌规则、数值和美术保持原字节；stable及历史发行保留各自的依赖和文件。
 
-Deep Sea Barrier's newly gained end-turn Waves contribute to that turn's Block settlement with normal decay/retention. Ember Reckoning, Bookworm, Dam Break and Book Burning show calculated damage including Sharp and combat modifiers; Bookworm's Strength loss still follows Growth value. The blue value previews the net Block change at turn end, including supported native sources and end-turn damage. The release retains 91 active cards, settings, the 12-step tutorial and existing artwork.
+Retains beta11's 91 active cards, 100 active/legacy models, artwork, 12-step tutorial and complete RitsuLib migration. Card rules, values and artwork remain byte-for-byte unchanged. Stable and historical releases retain their own dependencies and files.
 
 ## 身份与验证 / Identity and validation
 
-`source-snapshot.json` 保存公开自有输入逐文件 SHA256；`release-metadata.json` 标识本版已验证三文件。准确版本标签指向匹配源码提交。私有依赖、原始设计、研究日志与存档不进入公开树或附件。
+同一三文件包分别在固定游戏0.111.0和RitsuLib0.6.4／0.6.7下完成菜单、新局、战斗、初始化、普通局存读档及独立进程重载。预览选择前后逐文件哈希一致；A10／A0只改两项角色进阶字段。未知字段与不可用记录在主文件、镜像及双方备份中继续保留。Core75/75、纯JSON22/22通过；完整日志由既有门禁检查。
 
-`source-snapshot.json` records public authored inputs; `release-metadata.json` identifies the validated runtime. The version tag resolves to matching source. Private dependencies, original designs, research logs and saves are excluded.
+The same three-file package passes menu, new-run, combat, initialization, ordinary save/reload and independent-process restart checks in game 0.111.0 with RitsuLib 0.6.4 and 0.6.7. Preview choices preserve file hashes; A10/A0 alter only the two character Ascension fields. Unknown fields and unavailable records remain in the main save, mirror and both backups. Core75/75 and JSON22/22 pass; complete logs pass the existing quality gate.
 
-本版 Core75/75。专项验证覆盖 192 项攻击预览／384 双语文本、32 实际伤害组合、27 真实回合、48 张附魔牌存读档及继续战斗。Ritsu-only 整体验证 1621 检查，完整库存 200 卡／9 遗物／3 药水恢复并继续战斗；三份最终完整日志门禁通过。迁移另有逐卡基础／升级场景、原 BaseLib 旧档及退役模型证据。
+`source-snapshot.json`保存公开自有输入；`release-metadata.json`标识已验证包，版本标签对应准确源码提交。私有依赖、研究日志、原始设计和存档不进入公开树。
 
-Core75/75 passes. Focused checks cover 192 attack previews/384 bilingual texts, 32 actual-damage combinations, 27 real turns and 48 enchanted cards through save/reload and continued combat. Ritsu-only regression covers 1621 checks and a restored inventory of 200 cards/9 relics/3 potions with continued combat; three final complete logs pass. Separate migration evidence covers base/upgraded cards, old BaseLib saves and retired models.
+`source-snapshot.json` records public authored inputs; `release-metadata.json` identifies the verified package, and the tag resolves to matching source. Private dependencies, research logs, original designs and saves are excluded.
 
-真实多客户端／重连、长期平衡、实体手柄、完整正常速度视觉听感及任意第三方组合仍待验收。纯规则 CI 不替代原生运行；Steam 服务器确认不等于订阅端已收到新版。
+用户未提供存档，原日志具体失败字段仍未确认。一次早期原生菜单创建崩溃及加载补丁、文案问题的失败日志保留；修复后的最终完整运行通过。云同步后端、任意第三方组合、实体手柄、真实多人及长期平衡未新增验收。Steam服务端确认不等于本机订阅目录已收到新版。
 
-Real multi-client/reconnect, long-term balance, physical controller, full normal-speed visual/audio acceptance and arbitrary third-party combinations remain pending. Pure-rule CI does not replace native validation; Steam server verification does not establish subscriber arrival.
+No user save was supplied, so the exact offending fields remain unidentified. An earlier native menu-creation crash and failed patch/text iterations are retained; final complete runs pass. Cloud backend, arbitrary third-party combinations, physical controllers, true multiplayer and long-term balance remain unverified. Steam server verification does not establish local subscriber arrival.

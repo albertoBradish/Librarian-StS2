@@ -1,6 +1,6 @@
 {
   "mod_id": "Librarian",
-  "version": "1.2.0-beta11",
+  "version": "1.2.0-beta12",
   "active_cards": 91,
   "game": {
     "version": "0.111.0",
@@ -16,39 +16,36 @@
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 2629632,
-      "sha256": "2c4b2ebfd543224109cd5d6519611f7275b744e784b292b9f60664cee48c76dc"
+      "bytes": 2699264,
+      "sha256": "8b88406048ee6b4bca0fc3100b2b11b904f7bdc02ff056431406d974ff2ad1f9"
     },
     {
       "name": "Librarian.json",
-      "bytes": 424,
-      "sha256": "71dea8280c2c605a5c2e67d64e39c6ba9f5a3a47c63252ee690ec389be3238d4"
+      "bytes": 425,
+      "sha256": "108cde1e7e48fff457c57e5c30138b699d4f0df5b4417c0697caeac22fb36732"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 124951908,
-      "sha256": "ba92d94b72e8ccee63a2ae785ac7a6a07239aa9b1dd78dd377d2720be6cc9f3e"
+      "bytes": 124957428,
+      "sha256": "ab8f250d88e81b40068306c0233cb43a341606ebf338aed072825363fd76a67a"
     }
   ],
-  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11",
-  "runtime_release_status": "published",
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12",
+  "runtime_release_status": "planned",
   "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
   "channel": "beta",
-  "current_source_version": "1.2.0-beta11",
-  "baseline_runtime_version": "1.2.0-beta11",
+  "current_source_version": "1.2.0-beta12",
+  "baseline_runtime_version": "1.2.0-beta12",
   "source_matches_baseline_runtime": true,
   "source_snapshot": "source-snapshot.json",
-  "runtime_source_sha256": "c8d84eeca174f6043e36ae126483a2dc5756cf3ce6773612cbd247c4553ee944",
-  "steam_published_version": "1.2.0-beta11",
+  "runtime_source_sha256": "7a8650fff48aa943b88ee16ba459a9b283721821fc21fa017b083500decc1ab4",
+  "steam_published_version": "1.2.0-beta12",
   "workshop_item_id": "3801958367",
   "workshop_prerequisites": [
     "RitsuLib"
   ],
   "steam_verification": {
-    "manifest": "7128311656188148500",
+    "manifest": "1472846957872811088",
     "subscriber_verified": false
-  },
-  "release_source_commit": "4a147a347becd373f9d16c2533aee43020dc5301",
-  "runtime_release_published_at": "2026-10-09T01:07:18Z",
-  "downloaded_sha256_verified": true
+  }
 }

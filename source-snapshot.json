@@ -2,10 +2,10 @@
   "schema_version": 1,
   "channel": "beta",
   "branch": "codex/beta",
-  "local_date": "2026-10-08",
-  "manifest_version": "1.2.0-beta11",
+  "local_date": "2026-10-09",
+  "manifest_version": "1.2.0-beta12",
   "kind": "validated_runtime_source",
-  "sha256": "a1276deb602e0fc82a3f2f4237d50db8ae367bab59c0c895317c402a8b18d2da",
+  "sha256": "84556ff7d58b5ba14489c79d9b8b9996a0dcf3be84f136d7f2aebc66217eb12d",
   "files": [
     {
       "path": "global.json",
@@ -4819,8 +4819,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/main_menu_ui.json",
-      "bytes": 26573,
-      "sha256": "b72db328b80c8367fda2a20fcfa55c19dfb208360a42997b8e7c31b66abae54a"
+      "bytes": 29149,
+      "sha256": "5099d5c7954678551db3b256367a6fedd03e21ade8d2001b11530b3d0492f63e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/potions.json",
@@ -4879,8 +4879,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/main_menu_ui.json",
-      "bytes": 26128,
-      "sha256": "5d7a99fe35871b5b209f986d7c9909d664c17714ee6323a988f327c3cc102cd1"
+      "bytes": 28604,
+      "sha256": "6633fb0ce64673c8a9caeaba6dd5d5305b651a63039d4e3ece955f59db480ac0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/potions.json",
@@ -4989,8 +4989,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian.json",
-      "bytes": 424,
-      "sha256": "71dea8280c2c605a5c2e67d64e39c6ba9f5a3a47c63252ee690ec389be3238d4"
+      "bytes": 425,
+      "sha256": "108cde1e7e48fff457c57e5c30138b699d4f0df5b4417c0697caeac22fb36732"
     },
     {
       "path": "src/Librarian.Mod/Librarian.sln",
@@ -5569,8 +5569,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentModResetAudit.cs",
-      "bytes": 39778,
-      "sha256": "78cb55385017973cfe02fe5741f76c4b3767ac1c107b967dc95684f0597aae46"
+      "bytes": 46665,
+      "sha256": "5fb7fb5dc42f3a3e969778ecbbc7ce72c668709d0406db3f77d02d179feb3cc6"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentNotice051Audit.cs",
@@ -5923,6 +5923,11 @@
       "sha256": "8f39f856099be910cc0e6679638f6dc35e11c63a05fd590ae3e976cdacbef2ff"
     },
     {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianAscensionTools.cs",
+      "bytes": 3111,
+      "sha256": "4ad3ab5dec2bbe79fd662ba941d578385d70fafee57bab42620d3cb77afa2076"
+    },
+    {
       "path": "src/Librarian.Mod/Mechanics/LibrarianBottomPlay041.cs",
       "bytes": 8539,
       "sha256": "f275b388d8ac4e4ff7f357a49b6a3dad3867946c01f7b8b530a0601ee3338630"
@@ -5979,8 +5984,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianDebugReset.cs",
-      "bytes": 25969,
-      "sha256": "5c39639eb2eea9bf4284b2d02e7121b26fb76ff1617a939001bd4931d9fc2c37"
+      "bytes": 27547,
+      "sha256": "82c6212efeb4f047d37d9bc964b3e63a527f501d50b9d7c146c047bddca46c3b"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianEndTurnPreview.cs",
@@ -6039,8 +6044,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOnboarding.cs",
-      "bytes": 14931,
-      "sha256": "aa6ce5c021ac923e3d9c1b17c792f4da1d72e82ce8bd4dd83b66dd84b19513b1"
+      "bytes": 17278,
+      "sha256": "d5f79c616b9912f805ae4b93cc0af05738aa31e6d2e979041d4cc3106bd7a559"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbAudio.cs",
@@ -6108,6 +6113,16 @@
       "sha256": "c8c6ee67af6b1e2813fd1cc069b9c2d7bb7f6e3e9a0db49c8728237d09928427"
     },
     {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianProgressDocument.cs",
+      "bytes": 7246,
+      "sha256": "86bd7bf16ff36e9eb7aef5495e83cfd993f508e196a1fb385198b73943798868"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianProgressPreservation.cs",
+      "bytes": 7592,
+      "sha256": "823bb73ae0e2992d51e76238c9aa9aa4b17bff5da06a6357982dbc012483a6f3"
+    },
+    {
       "path": "src/Librarian.Mod/Mechanics/LibrarianRelicDetail101.cs",
       "bytes": 2044,
       "sha256": "4b7767a9c46730196240122284841a0c3282ac13b24cf928beef8f91701d1fb7"
@@ -6129,8 +6144,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSettings041.cs",
-      "bytes": 21642,
-      "sha256": "7b6b0d70229511826337e63683cad1c26f96eb0c0daf4a545563acc5ea29cd29"
+      "bytes": 24436,
+      "sha256": "eed43d786820639e1265c8dc1347459787d94ee8fa6cbd382b588d36751f6fac"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSettingsPreview.cs",
@@ -6198,11 +6213,21 @@
       "sha256": "8adf642f5653715ae8e77afc37bc315e459844de88b854826a9c81cc63a37eb9"
     },
     {
+      "path": "tests/Librarian.Progress.Tests/Librarian.Progress.Tests.csproj",
+      "bytes": 391,
+      "sha256": "4c971ec754ddc5d5575328aaad1dc638a658ddf3c17d1e7761a27eb34ebecc55"
+    },
+    {
+      "path": "tests/Librarian.Progress.Tests/Program.cs",
+      "bytes": 5414,
+      "sha256": "3486a4a9be8859fe1cbdad8c3fc4356a03ea2f0cc387274093e71da20d58dfec"
+    },
+    {
       "path": "tests/test_update_note_style.py",
       "bytes": 1627,
       "sha256": "0107da2c1c044a9a1301e0e87ceaf3f22793c594f25ffe94ca951c5a4345ce26"
     }
   ],
-  "runtime_source_sha256": "c8d84eeca174f6043e36ae126483a2dc5756cf3ce6773612cbd247c4553ee944",
-  "note": "Public authored inputs corresponding to the native-verified beta11 runtime. Private design/configuration/game/dependency inputs remain excluded."
+  "runtime_source_sha256": "7a8650fff48aa943b88ee16ba459a9b283721821fc21fa017b083500decc1ab4",
+  "note": "Public authored inputs corresponding to the native-verified beta12 runtime. Private design/configuration/game/dependency inputs remain excluded."
 }
