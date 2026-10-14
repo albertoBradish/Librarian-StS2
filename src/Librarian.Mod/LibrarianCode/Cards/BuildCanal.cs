@@ -1,4 +1,5 @@
 using Librarian.Core;
+using Librarian.Mechanics;
 using Librarian.LibrarianCode.Cards.OrbUtility;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,10 +12,11 @@ namespace Librarian.LibrarianCode.Cards;
 public sealed class BuildCanal() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 4m), new EnergyVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 4m), new EnergyVar(2)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        await Gain(context, Session, OrbKind.Tide, Amount("Tide"));
+        Session.Waves.Add(Amount("Waves"));
+        LibrarianRuntime.VerifyBlock(Session);
         await PlayerCmd.GainEnergy(Amount("Energy"), Owner);
     }
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);

@@ -1,0 +1,20 @@
+; V1.3.5 refined owned Spine. Ground shadow is independent; native Visuals stays child zero.
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://Mechanics/LibrarianSpineMerchantCharacter.cs" id="root_script"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Librarian/spine/v1.3.5-feedback/bank.res" id="bank"]
+
+[ext_resource type="Script" path="res://Mechanics/LibrarianGroundShadow.cs" id="ground_shadow"]
+
+[node name="LibrarianShop" type="Node2D"]
+script = ExtResource("root_script")
+
+[node name="Visuals" type="SpineSprite" parent="."]
+unique_name_in_owner = true
+skeleton_data_res = ExtResource("bank")
+scale = Vector2(0.3, 0.3)
+time_scale = 1.0
+
+[node name="LibrarianGroundShadow" type="Node2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -4)
+script = ExtResource("ground_shadow")

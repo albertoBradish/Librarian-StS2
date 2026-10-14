@@ -75,18 +75,11 @@ internal static class LibrarianEndTurnPreview
                                 copy.OrdinaryBlockGained?.Invoke(pages.Amount);
                         }
                 };
-                OrbKind? growthHigher = null;
-                copy.BeforeSettlement = request => growthHigher = request.Orb == OrbKind.Growth ? copy.Orbs.HighestOther(OrbKind.Growth) : null;
                 copy.AfterSettlement = request =>
                 {
                     foreach (var listener in relics.OfType<IOrbSettlementListener>())
-                    {
                         if (listener is LibrarianUncommonPlaceholderOne && request.Orb == OrbKind.Fire)
                             copy.Dispatch(copy.Orbs.Strengthen(OrbKind.Fire, 2, OrbScope.All));
-                        if (listener is LibrarianRarePlaceholderTwo && request.Orb == OrbKind.Growth
-                            && growthHigher is { } higher && request.EffectAmount() / 2 > 0)
-                            copy.Dispatch(copy.Orbs.Strengthen(higher, request.EffectAmount() / 2, OrbScope.All));
-                    }
                 };
                 int selectedBranch = branch;
                 var total = LibrarianNativeBlockPreview.Resolve(session, copy, () => copy.Resolve(rules, projection =>
@@ -110,13 +103,12 @@ internal static class LibrarianEndTurnPreview
                             if (candidates.Length > 0) copy.Dispatch(copy.Orbs.Activate(candidates[selectedBranch % candidates.Length].Kind, OrbScope.All));
                         }
                         if (listener is LibrarianShopPlaceholder && copy.Orbs.Snapshot().Orbs.All(o => o.IsActivated))
-                            foreach (var orb in copy.Orbs.Snapshot().Orbs)
-                                copy.Orbs.SettleImmediatelyAsync(OrbSelector.Named(orb.Kind, OrbScope.All), 1,
-                                    copy.Settle, "preview-badge").GetAwaiter().GetResult();
+                            copy.Orbs.SettleImmediatelyAsync(OrbSelector.Named(copy.Orbs.Foreground, OrbScope.All), 1,
+                                copy.Settle, "preview-badge").GetAwaiter().GetResult();
                     }
                 }, creature.GetPower<CooldownPower>() is not null).GetAwaiter().GetResult());
                 // Killing the last opponent interrupts real payouts. Do not promise an exact amount in that case.
-                long damage = copy.PotentialDamage;
+                long damage = copy.PotentialDamage + (relics.OfType<LibrarianRarePlaceholderTwo>().Any() ? 7L * copy.GrowthSettlements : 0);
                 if (damage > 0 && creature.CombatState.HittableEnemies.Any(e => e.CurrentHp + e.Block <= damage))
                     return LibrarianBlockPreview.Unknown("combat");
                 if (damage > 0 && LibrarianNativeBlockPreview.Uncertainty(session, settlementDamage: true) is { } damageUncertainty)
@@ -128,8 +120,8 @@ internal static class LibrarianEndTurnPreview
                 totals.Select(p => p.NetChange).Distinct().Count() > 1 ? "random" : null, results[0].ExpiringBlock,
                 creature.Block, totals.Min(p => p.FinalBlock), totals.Max(p => p.FinalBlock));
         }
-        catch (BlockPreviewUncertainException e) { return LibrarianBlockPreview.Unknown(e.Reason); }
         catch (PreviewRandomRequiredException) { return LibrarianBlockPreview.Unknown("random"); }
+        catch (BlockPreviewUncertainException e) { return LibrarianBlockPreview.Unknown(e.Reason); }
         catch (OverflowException) { return LibrarianBlockPreview.Unknown("effects"); }
     }
 

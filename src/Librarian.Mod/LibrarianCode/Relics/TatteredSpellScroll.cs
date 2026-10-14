@@ -16,7 +16,7 @@ public sealed class TatteredSpellScroll : LibrarianRelic
     protected override string PackedIconOutlinePath => "res://Librarian/images/relics/v0.4.0/tattered_scroll_outline.png";
     protected override string BigIconPath => "res://Librarian/images/relics/v0.4.0/big/tattered_scroll.png";
     public override RelicRarity Rarity => RelicRarity.Starter;
-    public override RelicModel GetUpgradeReplacement() => ModelDb.Relic<RestoredSpellScroll>();
+    public RelicModel GetUpgradeReplacement() => ModelDb.Relic<RestoredSpellScroll>();
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 1m)];
 
     // First player-side start supplies the synchronized choice context needed by the bridge.

@@ -22,7 +22,6 @@ public sealed class TidalGravity() : Librarian.LibrarianCode.Cards.OrbUtility.Or
     }
     protected override void OnUpgrade()
     {
-        DynamicVars["LockTurns"].UpgradeValueBy(-1m);
         RemoveKeyword(CardKeyword.Exhaust);
     }
 }

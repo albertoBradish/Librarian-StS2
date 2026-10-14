@@ -151,7 +151,7 @@ public sealed class ReadBackward() : Librarian.LibrarianCode.Cards.OrbUtility.Or
 /// <summary>v0.3.0 approved revision, catalog 20. Stable model ID retained.</summary>
 public sealed class Renewal() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 8m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Growth", 6m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Gain(context, Session, OrbKind.Growth, Amount("Growth"));
@@ -159,7 +159,7 @@ public sealed class Renewal() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtil
     }
     protected override void OnUpgrade()
     {
-        DynamicVars["Growth"].UpgradeValueBy(4m);
+        DynamicVars["Growth"].UpgradeValueBy(3m);
     }
 }
 
@@ -167,7 +167,7 @@ public sealed class Renewal() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtil
 public sealed class SproutingSeed() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move), new DynamicVar("Growth", 8m), new DynamicVar("LockTurns", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move), new DynamicVar("Growth", 7m), new DynamicVar("LockTurns", 2m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         int lockTurns = Amount("LockTurns");
@@ -177,7 +177,7 @@ public sealed class SproutingSeed() : Librarian.LibrarianCode.Cards.OrbUtility.O
     }
     protected override void OnUpgrade()
     {
-        DynamicVars["Growth"].UpgradeValueBy(2m);
+        DynamicVars["Growth"].UpgradeValueBy(3m);
         DynamicVars["LockTurns"].UpgradeValueBy(-1m);
     }
 }
@@ -248,7 +248,7 @@ public sealed class VineShield() : OrbBasicsCard(2, CardType.Skill, TargetType.S
 /// <summary>v0.3.0 approved revision, catalog 26. Stable model ID retained.</summary>
 public sealed class BurnTheRiver() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 6m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 5m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Gain(context, Session, OrbKind.Fire, Amount("Fire"));

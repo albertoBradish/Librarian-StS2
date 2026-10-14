@@ -1,6 +1,5 @@
 using System.IO;
 using Godot;
-using BaseLib.Utils;
 using Librarian.LibrarianCode;
 using Librarian.LibrarianCode.Cards;
 using Librarian.LibrarianCode.Powers;
@@ -78,7 +77,7 @@ internal static class DevelopmentRevision037VisualAudit
         Require(creature != null && creature.Visuals.Name == "LibrarianCombat", "mounted custom native combat visuals");
         Require(!creature!.HasSpineAnimation, "custom scene has no Ironclad skeleton");
         var animation = creature.Visuals.GetNode<AnimationPlayer>("Motion/AnimationPlayer");
-        Require(CustomAnimation.HasCustomAnimation(creature), "BaseLib discovers nested AnimationPlayer from real NCreature");
+        Require(LibrarianNativeAnimation.HasAnimationPlayer(creature), "BaseLib discovers nested AnimationPlayer from real NCreature");
         TextureCheck(creature.Visuals.GetNode<Sprite2D>("Visuals/Body").Texture, "combat body", 768);
         var originalDeathTask = creature.DeathAnimationTask;
         try
@@ -144,7 +143,7 @@ internal static class DevelopmentRevision037VisualAudit
         Require(shopMotion != null && shopMotion.IsNodeReady(), "native merchant nested motion component ready");
         TextureCheck(shopMotion!.GetParent().GetNode<Sprite2D>(shopMotion.VisualPath + "/Body").Texture, "merchant body", 768);
         shop.PlayAnimation("relaxed_loop", true);
-        Require(CustomAnimation.HasCustomAnimation(shop), "native merchant custom animation route");
+        Require(LibrarianNativeAnimation.HasAnimationPlayer(shop), "native merchant custom animation route");
         string shopAnimation = shopMotion!.GetNode<AnimationPlayer>("AnimationPlayer").CurrentAnimation;
         Require(shopAnimation == "idle" || shopAnimation == "Idle" || shopAnimation == "relaxed_loop",
             "native merchant relaxed route reaches AnimationPlayer");

@@ -30,3 +30,8 @@ project/assembly_name="Librarian"
 
 renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0.0923724, 0.122398, 0.116929, 1)
+
+[sentry]
+
+options/auto_init=false
+config/dsn=""

@@ -50,7 +50,7 @@ internal static class DevelopmentUpdateToastAudit
     private static async Task Click(Control node)
     {
         var point = node.GetViewport().GetStretchTransform() * node.GetGlobalTransformWithCanvas() * (node.Size * .5f);
-#if LIBRARIAN_BETA
+#if LIBRARIAN_API_0111
         NControllerManager.Instance!.ForceMouseMode();
 #endif
         Input.WarpMouse(point);

@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Librarian.LibrarianCode.Cards;
 
-public sealed class LibrarianDefend() : LibrarianCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
+public sealed class LibrarianDefend() : LibrarianRitsuCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
 
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];

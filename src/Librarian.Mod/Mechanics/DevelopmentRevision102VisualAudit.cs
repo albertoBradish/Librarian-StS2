@@ -40,7 +40,7 @@ internal static class DevelopmentRevision102VisualAudit
         async Task Wait(double seconds = .15) => await NGame.Instance!.ToSignal(
             NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
         string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT")
-            ?? @"D:\Slay The Spire_Mod Dev\.research\channels\stable\workspace\outputs\revision-v1.1.0-stable\screenshots";
+            ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.2-beta1\screenshots";
         Directory.CreateDirectory(output);
         async Task Shot(string name)
         {

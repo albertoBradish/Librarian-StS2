@@ -210,7 +210,14 @@ internal static class DevelopmentTextRevision111Audit
 
             await Reset();
             await Play(Create<Overfishing>());
-            Check(S().Orbs.SwitchLocked && S().Orbs.Foreground == OrbKind.Fire, "native Overfishing retains independent front lock");
+            Check(!S().Orbs.SwitchLocked && S().Orbs.Foreground == OrbKind.Fire
+                && !S().Orbs.IsLocked(OrbKind.Fire) && S().Orbs.IsLocked(OrbKind.Tide) && S().Orbs.IsLocked(OrbKind.Growth),
+                "native beta Overfishing locks backgrounds without fixing the foreground");
+            // Beta2 changed Overfishing. Exercise the independent switch-lock state
+            // explicitly rather than assuming the retired stable card behavior.
+            await Reset();
+            S().Orbs.SwitchLocked = true;
+            Check(S().Orbs.Foreground == OrbKind.Fire, "configured independent front lock starts on Fire");
             await Dispatch(S().Orbs.Lock(OrbKind.Tide));
             await Play(Create<Renewal>());
             await Play(Create<Trickle>());

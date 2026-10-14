@@ -1,9 +1,12 @@
 <Project>
-  <!-- Use the verified isolated v0.107.1 copy, never Steam path discovery. -->
+  <!-- Both API targets use verified, isolated inputs. No Steam path discovery. -->
   <PropertyGroup>
     <LibrarianWorkspace>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../..'))</LibrarianWorkspace>
-    <Sts2Path>$(LibrarianWorkspace)/.research/compatibility-game</Sts2Path>
+    <LibrarianGameVersion Condition="'$(LibrarianGameVersion)' == ''">0.111.0</LibrarianGameVersion>
+    <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.111.0'">$(LibrarianWorkspace)/.research/ritsu-game</Sts2Path>
+    <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.107.1'">$(LibrarianWorkspace)/.research/channels/stable/workspace/.research/ritsu-game</Sts2Path>
     <Sts2DataDir>$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
-    <ModsPath>$(Sts2Path)/mods/</ModsPath>
+    <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.111.0'">0861BFA1DF347538D932F22D580E75420F08082792EB914E53B4882764ACDBE9</LibrarianExpectedGameHash>
+    <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.107.1'">A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52</LibrarianExpectedGameHash>
   </PropertyGroup>
 </Project>

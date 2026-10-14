@@ -14,7 +14,10 @@ def fingerprint(path):
 
 def source_manifest():
     paths = [ROOT / 'global.json', ROOT / 'scripts/build_librarian.py', ROOT / 'scripts/build_provenance.py',
-             ROOT / 'scripts/run_research_game.py']
+             ROOT / 'scripts/run_research_game.py', ROOT / 'scripts/build_unified_librarian.py',
+             ROOT / 'scripts/librarian_bundle.py', ROOT / 'scripts/run_unified_game.py',
+             ROOT / 'scripts/inspect_owned_pck.py', ROOT / 'scripts/repack_owned_png.py',
+             ROOT / 'scripts/pack_exact_payloads.gd.in']
     for root in [ROOT / 'src', ROOT / 'tests', ROOT / 'data']:
         paths.extend(p for p in root.rglob('*') if p.is_file() and not EXCLUDED.intersection(p.relative_to(root).parts)
                      and p.suffix.lower() not in GENERATED_SUFFIXES)
@@ -25,12 +28,14 @@ def source_manifest():
 def environment_manifest(sdk, env):
     result = subprocess.run([str(sdk / 'dotnet.exe'), '--version'], env=env, cwd=ROOT, capture_output=True, text=True, check=True)
     names = ['.research/tools/megadot/MegaDot_v4.5.1-stable_mono_win64_console.exe',
-             '.research/compatibility-game/data_sts2_windows_x86_64/sts2.dll',
-             '.research/compatibility-game/mods/BaseLib/BaseLib.dll',
-             '.research/tools/ritsulib/v0.6.2/RitsuLib.References.props',
-             'src/Librarian.Mod/Directory.Build.props']
+             '.research/ritsu-game/data_sts2_windows_x86_64/sts2.dll',
+             '.research/channels/stable/workspace/.research/ritsu-game/data_sts2_windows_x86_64/sts2.dll',
+             '.research/tools/ritsulib/v0.6.4/RitsuLib.References.props',
+             'src/Librarian.Mod/Directory.Build.props',
+             '.research/ritsu-game/libspine_godot.windows.template_release.x86_64.dll',
+             '.research/channels/stable/workspace/.research/ritsu-game/libspine_godot.windows.template_release.x86_64.dll']
     paths = [ROOT / n for n in names]
-    paths.extend((ROOT / '.research/tools/ritsulib/v0.6.2').rglob('*.dll'))
+    paths.extend((ROOT / '.research/tools/ritsulib/v0.6.4').rglob('*.dll'))
     git = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True)
     return {'dotnet_sdk': result.stdout.strip(), 'git_head': git.stdout.strip() if git.returncode == 0 else None,
             'note': 'Source tree hash identifies working inputs; git HEAD alone may be older. Private dependency identities only, no extracted content.',

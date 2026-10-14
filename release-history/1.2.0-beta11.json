@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "version": "1.2.0-beta11",
+  "tag": "v1.2.0-beta11",
+  "kind": "complete_matching_authored_source",
+  "channel": "beta",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "STS2-RitsuLib": "0.6.4"
+  },
+  "source_commit": "4a147a347becd373f9d16c2533aee43020dc5301",
+  "runtime_source_sha256": "c8d84eeca174f6043e36ae126483a2dc5756cf3ce6773612cbd247c4553ee944",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 2629632,
+      "sha256": "2c4b2ebfd543224109cd5d6519611f7275b744e784b292b9f60664cee48c76dc"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 424,
+      "sha256": "71dea8280c2c605a5c2e67d64e39c6ba9f5a3a47c63252ee690ec389be3238d4"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124951908,
+      "sha256": "ba92d94b72e8ccee63a2ae785ac7a6a07239aa9b1dd78dd377d2720be6cc9f3e"
+    }
+  ],
+  "release_assets": [
+    {
+      "name": "ASSET-LICENSE.md",
+      "bytes": 2061,
+      "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7"
+    },
+    {
+      "name": "Librarian.dll",
+      "bytes": 2629632,
+      "sha256": "2c4b2ebfd543224109cd5d6519611f7275b744e784b292b9f60664cee48c76dc"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 424,
+      "sha256": "71dea8280c2c605a5c2e67d64e39c6ba9f5a3a47c63252ee690ec389be3238d4"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124951908,
+      "sha256": "ba92d94b72e8ccee63a2ae785ac7a6a07239aa9b1dd78dd377d2720be6cc9f3e"
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 5467,
+      "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9"
+    },
+    {
+      "name": "licenses-Alchyr-Template-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "licenses-BaseLib-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "licenses-Godot-MIT.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+    },
+    {
+      "name": "licenses-Harmony-MIT.txt",
+      "bytes": 1073,
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d"
+    },
+    {
+      "name": "licenses-RitsuLib-MIT.txt",
+      "bytes": 1060,
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01"
+    },
+    {
+      "name": "licenses-sources.json",
+      "bytes": 1360,
+      "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566"
+    },
+    {
+      "name": "licenses-template-assets.json",
+      "bytes": 196,
+      "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1146,
+      "sha256": "a9bd7bbccdaf72de9f760ab68cc1bcc8f7e0ccff60a83dfaec5516aa8925a816"
+    },
+    {
+      "name": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2922,
+      "sha256": "3fb108abef977afef4bca1b599a9ec223a883b728ffd120b4fa72709961392d3"
+    }
+  ],
+  "native_validation": {
+    "core": "75/75",
+    "final_complete_logs_passed": true,
+    "multiclient_verified": false,
+    "normal_speed_visual_audio_acceptance": false
+  },
+  "status": "published",
+  "release_id": 407393435,
+  "published_at": "2026-10-09T01:07:18Z",
+  "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta11",
+  "downloaded_sha256_verified": true,
+  "source_ci": 37868001951,
+  "steam": {
+    "version": "1.2.0-beta11",
+    "item_id": "3801958367",
+    "manifest": "7128311656188148500",
+    "single_prerequisite": "RitsuLib",
+    "subscriber_verified": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "open_source": false
+}

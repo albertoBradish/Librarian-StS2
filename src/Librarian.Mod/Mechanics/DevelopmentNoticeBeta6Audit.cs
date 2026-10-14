@@ -9,16 +9,17 @@ using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Multiplayer;
 using MegaCrit.Sts2.Core.Nodes.Screens.MainMenu;
+using MegaCrit.Sts2.Core.Saves;
 
 namespace Librarian.Mechanics;
 
-/// <summary>Stable 0.107.1 backport of the native welcome-notice input and persistence audit.</summary>
+/// <summary>Opt-in native input and persistence checks for the beta6 welcome notice.</summary>
 internal static class DevelopmentNoticeBeta6Audit
 {
     private static int _checks;
     private static void Check(bool ok, string label)
     {
-        if (!ok) throw new InvalidOperationException("stable111 notice: " + label);
+        if (!ok) throw new InvalidOperationException("beta6 notice: " + label);
         _checks++; MainFile.Logger.Info("BETA6_NOTICE_CHECK_PASS " + label);
     }
     private static async Task Wait(double seconds = .15) => await NGame.Instance!.ToSignal(
@@ -27,35 +28,25 @@ internal static class DevelopmentNoticeBeta6Audit
         typeof(NClickableControl), "IsFocused").GetValue(button)!;
     private static bool OutlineFocused(NPopupYesNoButton button) =>
         button.GetNode<Control>("%Outline").SelfModulate.IsEqualApprox(new Color("f0b400"));
-    private static void ControllerIconsHidden(IEnumerable<NPopupYesNoButton> buttons, string phase)
-    {
-        foreach (var button in buttons)
-        {
-            var icon = button.GetNodeOrNull<CanvasItem>("%ControllerIcon");
-            Check(icon is not null && icon.Modulate.A == 0 && !icon.Visible,
-                "stable controller glyph alpha zero and hidden " + phase + " " + button.Name);
-        }
-    }
     private static void State(NGenericPopup popup, IEnumerable<NPopupYesNoButton> buttons, string phase)
     {
         var focus = popup.GetViewport().GuiGetFocusOwner();
         string states = string.Join(";", buttons.Select(button => $"{button.Name}:gui={button.HasFocus()},native={NativeFocused(button)},"
             + $"hover={AccessTools.Field(typeof(NClickableControl), "_isHovered").GetValue(button)},"
             + $"controllerFocus={AccessTools.Field(typeof(NClickableControl), "_isControllerFocused").GetValue(button)},"
-            + $"outline={button.GetNode<Control>("%Outline").SelfModulate},"
-            + $"glyphVisible={button.GetNode<CanvasItem>("%ControllerIcon").Visible},"
-            + $"glyphAlpha={button.GetNode<CanvasItem>("%ControllerIcon").Modulate.A}"));
-        MainFile.Logger.Info($"BETA6_NOTICE_STATE phase={phase} isUsingController={NControllerManager.Instance?.IsUsingController}"
-            + $" windowFocused={NGame.IsGameFocusedWindow()}"
+            + $"outline={button.GetNode<Control>("%Outline").SelfModulate}"));
+#if LIBRARIAN_API_0111
+        string inputMode = $"input={NControllerManager.Instance?.InputType} keyboardMode={SaveManager.Instance.PrefsSave.KeyboardMode}";
+#else
+        string inputMode = $"controllerMode={NControllerManager.Instance?.IsUsingController} keyboardMode=unsupported";
+#endif
+        MainFile.Logger.Info($"BETA6_NOTICE_STATE phase={phase} {inputMode} windowFocused={NGame.IsGameFocusedWindow()}"
             + $" guiFocus={focus?.Name.ToString() ?? "null"} buttons={states}");
     }
     private static Vector2 PixelPoint(Control node, Vector2 local) =>
         node.GetViewport().GetStretchTransform() * node.GetGlobalTransformWithCanvas() * local;
     private static async Task Mouse(Vector2 pixel)
     {
-        // Stable ignores warp-generated motion during two controller-switch frames.
-        // Wait for that native guard before sending a real pointer-motion fixture.
-        if (NControllerManager.Instance?.IsUsingController == true) await Wait(.1);
         Input.WarpMouse(pixel);
         Input.ParseInputEvent(new InputEventMouseMotion
         {
@@ -97,12 +88,12 @@ internal static class DevelopmentNoticeBeta6Audit
             && OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "isolated opt-in profile");
         var container = NModalContainer.Instance!;
         string version = LibrarianUpdateNotice051.CurrentVersion ?? throw new InvalidOperationException("Loaded manifest unavailable");
-        Check(version == (System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_VERSION") ?? "1.1.1"), "actual loaded stable111 manifest");
+        Check(version == (System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_VERSION") ?? "1.1.0-beta6"), "actual loaded beta6 manifest");
         if (System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_NOTICE_PHASE") == "restart")
         {
-            Check(LibrarianNoticeHistory051.IsAcknowledged(version), "new process reads stable111 suppression from disk");
+            Check(LibrarianNoticeHistory051.IsAcknowledged(version), "new process reads beta6 suppression from disk");
             await Wait(2.7);
-            Check(container.OpenModal is null, "suppressed stable111 notice remains absent after new process startup");
+            Check(container.OpenModal is null, "suppressed beta6 notice remains absent after new process startup");
             MainFile.Logger.Info("BETA6_NOTICE_RESTART_PASS");
             return;
         }
@@ -112,10 +103,13 @@ internal static class DevelopmentNoticeBeta6Audit
         foreach (var entry in schedulers) entry.node.SetProcess(false);
         var controller = NControllerManager.Instance ?? throw new InvalidOperationException("Native input manager unavailable");
         string language = LibrarianLanguage.Selected;
+#if LIBRARIAN_API_0111
+        bool originalKeyboardMode = SaveManager.Instance.PrefsSave.KeyboardMode;
+#endif
         var viewport = NGame.Instance!.GetViewport();
         Vector2 originalMouse = viewport.GetStretchTransform() * viewport.GetMousePosition();
         string history = LibrarianNoticeHistory051.FilePath;
-        if (File.Exists(history)) File.Copy(history, history + ".before-stable111-notice-audit", true);
+        if (File.Exists(history)) File.Copy(history, history + ".before-beta6-audit", true);
         LibrarianNoticeHistory051.Forget(version);
         LibrarianUpdateNotice051.ResetSessionForAudit();
         int opened = 0; string? openedUrl = null;
@@ -124,9 +118,10 @@ internal static class DevelopmentNoticeBeta6Audit
             foreach (string lang in new[] { "zhs", "eng" })
             {
                 LibrarianLanguage.Select(lang);
+                LibrarianGameApi.ForceMouseMode(controller);
                 await Mouse(new Vector2(12, 12));
                 var popup = LibrarianUpdateNotice051.Show(version, url => { opened++; openedUrl = url; })
-                    ?? throw new InvalidOperationException("Native stable111 popup unavailable");
+                    ?? throw new InvalidOperationException("Native beta6 popup unavailable");
                 await NGame.Instance!.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
                 var panel = popup.GetNode<NVerticalPopup>("VerticalPopup");
                 var suppress = panel.GetNode<NPopupYesNoButton>("NeverShowButton");
@@ -140,9 +135,8 @@ internal static class DevelopmentNoticeBeta6Audit
                 Check(panel.NoButton.GetNode<Label>("%Label").Text == (lang == "zhs" ? "更新公告" : "Update notes"), "update notes action label " + lang);
                 Check(!text.Contains("点击“创意工坊”") && !text.Contains("Use Steam Workshop below"), "obsolete dependency-link instruction absent " + lang);
                 State(popup, buttons, lang + "-first-draw");
-                Check(!controller.IsUsingController && popup.GetViewport().GuiGetFocusOwner() is null
+                Check(!LibrarianGameApi.IsUsingDirectionalNavigation(controller) && popup.GetViewport().GuiGetFocusOwner() is null
                     && buttons.All(b => !NativeFocused(b) && !OutlineFocused(b)), "first mouse-mode draw has no default outline " + lang);
-                ControllerIconsHidden(buttons, lang + "-first-draw");
                 // Preserve the first-draw state check above, then wait out the
                 // native two-second main-menu fade before recording visual evidence.
                 await Wait(2.2);
@@ -158,39 +152,45 @@ internal static class DevelopmentNoticeBeta6Audit
                 }
                 int priorOpened = opened;
                 await Click(panel.NoButton);
-                Check(opened == priorOpened + 1 && openedUrl == "https://steamcommunity.com/sharedfiles/filedetails/changelog/3811677053",
-                    "real mouse release dispatches exact stable change-log URL " + lang);
+                Check(opened == priorOpened + 1 && openedUrl == "https://steamcommunity.com/sharedfiles/filedetails/changelog/3801958367",
+                    "real mouse release dispatches exact beta change-log URL " + lang);
                 Check(ReferenceEquals(container.OpenModal, popup) && !LibrarianNoticeHistory051.IsAcknowledged(version), "update notes click keeps notice open and unsuppressed " + lang);
                 await Mouse(idle);
                 Check(NGame.IsGameFocusedWindow(), "native window focused for directional input " + lang);
-                // Stable has a controller boolean, without beta's keyboard-only
-                // input mode. Establish native GUI focus through controller input,
-                // then test Godot arrow-key traversal within that focused modal.
-                // Stable names cardinal directions North/South/East/West;
-                // dPadEast is the native right-direction action in AllControllerInputs.
-                Input.ParseInputEvent(new InputEventAction { Action = Controller.dPadEast, Pressed = true });
-                Input.ParseInputEvent(new InputEventAction { Action = Controller.dPadEast, Pressed = false });
+                // Native arrow-key mode is explicitly opt-in through this preference.
+                // Keep the fixture in memory and restore it without saving preferences.
+#if LIBRARIAN_API_0111
+                SaveManager.Instance.PrefsSave.KeyboardMode = true;
+                await PressKey(Godot.Key.Right);
+                State(popup, buttons, lang + "-keyboard-detected");
+                Check(controller.InputType == InputType.KeyboardOnlyMode && panel.YesButton.HasFocus()
+                    && NativeFocused(panel.YesButton) && OutlineFocused(panel.YesButton), "arrow-key mode establishes native OK focus " + lang);
+                await Capture("beta6-notice-" + lang + "-keyboard-focus");
+                await PressKey(Godot.Key.Right);
+                State(popup, buttons, lang + "-keyboard-next");
+                Check(panel.NoButton.HasFocus() && NativeFocused(panel.NoButton) && OutlineFocused(panel.NoButton)
+                    && !NativeFocused(panel.YesButton), "native directional navigation moves focus to next button " + lang);
+                await Mouse(idle);
+                State(popup, buttons, lang + "-keyboard-to-mouse");
+                Check(controller.InputType == InputType.MouseAndKeyboard && popup.GetViewport().GuiGetFocusOwner() is null
+                    && buttons.All(b => !NativeFocused(b) && !OutlineFocused(b)), "mouse motion clears directional focus " + lang);
+#endif
+#if LIBRARIAN_API_0107
+                var direction = Controller.dPadEast;
+#else
+                var direction = Controller.dPadRight;
+#endif
+                Input.ParseInputEvent(new InputEventAction { Action = direction, Pressed = true });
+                Input.ParseInputEvent(new InputEventAction { Action = direction, Pressed = false });
                 await Wait();
                 State(popup, buttons, lang + "-controller-detected");
-                Check(controller.IsUsingController && panel.YesButton.HasFocus()
+                Check(LibrarianGameApi.IsUsingDirectionalNavigation(controller) && panel.YesButton.HasFocus()
                     && NativeFocused(panel.YesButton) && OutlineFocused(panel.YesButton), "controller detection establishes and retains native OK focus " + lang);
-                ControllerIconsHidden(buttons, lang + "-controller-detected");
                 await Wait();
                 Check(panel.YesButton.HasFocus() && OutlineFocused(panel.YesButton), "controller focus persists without mouse input " + lang);
                 await Capture("beta6-notice-" + lang + "-controller-focus");
-                await PressKey(Godot.Key.Right);
-                State(popup, buttons, lang + "-keyboard-next-with-controller-focus");
-                Check(controller.IsUsingController && panel.NoButton.HasFocus() && NativeFocused(panel.NoButton)
-                    && OutlineFocused(panel.NoButton) && !NativeFocused(panel.YesButton), "stable native arrow-key traversal moves focused modal to next button " + lang);
-                ControllerIconsHidden(buttons, lang + "-keyboard-with-controller-focus");
-                await Capture("beta6-notice-" + lang + "-keyboard-focus");
-                await PressKey(Godot.Key.Left);
-                Check(panel.YesButton.HasFocus() && NativeFocused(panel.YesButton), "stable native arrow-key traversal returns to OK " + lang);
                 await Mouse(idle);
-                State(popup, buttons, lang + "-controller-to-mouse");
-                Check(!controller.IsUsingController && popup.GetViewport().GuiGetFocusOwner() is null
-                    && buttons.All(b => !NativeFocused(b) && !OutlineFocused(b)), "controller-to-mouse returns to hover-only outline " + lang);
-                ControllerIconsHidden(buttons, lang + "-controller-to-mouse");
+                Check(buttons.All(b => !NativeFocused(b) && !OutlineFocused(b)), "controller-to-mouse returns to hover-only outline " + lang);
                 await Click(panel.YesButton);
                 Check(container.OpenModal is null && !LibrarianNoticeHistory051.IsAcknowledged(version), "OK closes without suppressing notice " + lang);
                 await Wait();
@@ -200,9 +200,15 @@ internal static class DevelopmentNoticeBeta6Audit
             await Click(finalPopup.GetNode<NPopupYesNoButton>("VerticalPopup/NeverShowButton"));
             Check(container.OpenModal is null, "explicit suppression closes native popup");
             LibrarianNoticeHistory051.ForgetSessionForAudit();
-            Check(LibrarianNoticeHistory051.IsAcknowledged(version), "explicit stable111 suppression rereads from disk");
+            Check(LibrarianNoticeHistory051.IsAcknowledged(version), "explicit beta6 suppression rereads from disk");
             Check(!LibrarianNoticeHistory051.IsAcknowledged(version + "-future"), "later release remains eligible");
-            MainFile.Logger.Info($"BETA6_NOTICE_AUDIT_PASS checks={_checks} languages=2 native_mouse=True keyboard=True keyboard_mode=controller_gui_focus controller_input=True live_controller_hardware=False");
+            MainFile.Logger.Info($"BETA6_NOTICE_AUDIT_PASS checks={_checks} languages=2 native_mouse=True keyboard=" +
+#if LIBRARIAN_API_0111
+                "True" +
+#else
+                "unsupported_on_0107" +
+#endif
+                " controller_input=True live_controller_hardware=False");
         }
         catch
         {
@@ -225,7 +231,11 @@ internal static class DevelopmentNoticeBeta6Audit
         {
             container.Clear();
             LibrarianLanguage.Select(language);
-            await Mouse(originalMouse);
+#if LIBRARIAN_API_0111
+            SaveManager.Instance.PrefsSave.KeyboardMode = originalKeyboardMode;
+#endif
+            LibrarianGameApi.ForceMouseMode(controller);
+            Input.WarpMouse(originalMouse);
             foreach (var entry in schedulers)
                 if (GodotObject.IsInstanceValid(entry.node)) entry.node.SetProcess(entry.process);
         }

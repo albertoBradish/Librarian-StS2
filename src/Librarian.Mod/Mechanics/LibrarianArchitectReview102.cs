@@ -24,15 +24,7 @@ namespace Librarian.Mechanics;
 /// <summary>Shared native popup layout and explicit actions; Back only dismisses.</summary>
 internal static class LibrarianNoticePopup102
 {
-#if LIBRARIAN_STABLE && LIBRARIAN_BETA
-#error Select exactly one Librarian release channel.
-#elif LIBRARIAN_STABLE
-    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053";
-#elif LIBRARIAN_BETA
     internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367";
-#else
-#error Define LIBRARIAN_BETA or LIBRARIAN_STABLE so player links match the compiled release channel.
-#endif
     internal const string IssuesUrl = "https://github.com/albertoBradish/Librarian-StS2/issues";
     internal const string QqGroup = "1091648383";
 

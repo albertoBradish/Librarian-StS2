@@ -1,63 +1,68 @@
 {
   "mod_id": "Librarian",
-  "version": "1.1.1",
+  "version": "1.3.0",
+  "current_source_version": "1.3.5",
+  "baseline_runtime_version": "1.3.0",
+  "channel": "unified",
   "active_cards": 91,
   "game": {
-    "version": "0.107.1",
-    "branch": "public",
-    "commit": "59260271",
-    "depot_manifest": "4733892780027453168"
+    "targets": [
+      {
+        "version": "0.107.1",
+        "branch": "public",
+        "commit": "59260271"
+      },
+      {
+        "version": "0.111.0",
+        "branch": "public-beta",
+        "commit": "41cef1ea"
+      }
+    ]
   },
   "dependencies": {
-    "BaseLib": "3.4.5",
-    "STS2-RitsuLib": "0.6.2"
+    "STS2-RitsuLib": "0.6.4"
   },
   "license": "LicenseRef-Librarian-Personal-Use-1.0",
   "open_source": false,
   "baseline_runtime_artifacts": [
     {
       "name": "Librarian.dll",
-      "bytes": 1740288,
-      "sha256": "153d458abc786024da64925e5c1f6b223ba397e98fb4a2aa80cb687dca880d65"
+      "bytes": 23552,
+      "sha256": "a69f792135dc668aa5fd2e2ad66b8de4ca381d6289f4bcc59c6f739abe29a54b"
     },
     {
       "name": "Librarian.json",
-      "bytes": 487,
-      "sha256": "20a805ea86ac231a6d4b268747dc91a431139fb0a407bf82dbefaf778cf722bf"
+      "bytes": 416,
+      "sha256": "a00c186155c9dfff8d917a7e9547482e7df814bbb815c97f094196f0931c5817"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 108369284,
-      "sha256": "e9914042526f438616bdbe3f965716ab9f3525e8aa060cc083b53759ad178e8c"
+      "bytes": 125378036,
+      "sha256": "3e89da1f32fac1e04db118ded64af933af0d00f3ea98eba159388aa6f638ffdd"
+    },
+    {
+      "name": "librarian-variants.manifest",
+      "bytes": 528,
+      "sha256": "3e34a1eb706ba1ced93b1f74298bd6c04ea9fad121618210cd2d04a9aff6e374"
+    },
+    {
+      "name": "compat/0.107.1/Librarian.dll",
+      "bytes": 2778112,
+      "sha256": "1defe1579dc76f0ec12198c466a94d35064e0de730aa5323e0daabcc69b3ba42"
+    },
+    {
+      "name": "compat/0.111.0/Librarian.dll",
+      "bytes": 2774016,
+      "sha256": "29316a070d3ecc212cb0b06493324e73a34451b901d7e364eb2610995ccaf577"
     }
   ],
+  "source_matches_baseline_runtime": false,
+  "source_status": "development_snapshot_with_unreleased_maintenance",
+  "source_snapshot": "source-snapshot.json",
+  "workshop_item_id": "3801958367",
+  "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367",
+  "steam_status": "published_server_verified_subscriber_download_pending",
   "runtime_release_url": null,
   "runtime_release_status": "not_published",
-  "note": "baseline_runtime_artifacts identify the last published Steam package, not a build of this branch head. The authored development snapshot includes unreleased maintenance listed in RELEASE-BATCHES.md. This source synchronization creates no runtime Release. Public-clone native gameplay and real multi-client validation are not established by pure-rule CI.",
-  "channel": "stable",
-  "workshop_item_id": "3811677053",
-  "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053",
-  "original_github_release_artifacts": [
-    {
-      "name": "Librarian.dll",
-      "bytes": 1655808,
-      "sha256": "48062e55db175a3f8f27c5e67946fc25e1354d6951ef713bf5d855ca3682abd8"
-    },
-    {
-      "name": "Librarian.json",
-      "bytes": 523,
-      "sha256": "ed144dbec21c15a5eb05ce1412a457258998f52e05cb8f7c24e367395190c7ba"
-    },
-    {
-      "name": "Librarian.pck",
-      "bytes": 108364832,
-      "sha256": "711a907743bd5f4db584fc4ba309945a4234d778ef0f5f9b5f6b0b9ee0bd2b69"
-    }
-  ],
-  "current_source_version": "1.1.1",
-  "baseline_runtime_version": "1.1.1",
-  "source_status": "development_snapshot_with_unreleased_maintenance",
-  "source_matches_baseline_runtime": false,
-  "source_snapshot": "source-snapshot.json",
-  "source_snapshot_local_date": "2026-10-07"
+  "note": "Artifacts identify the published V1.3.0 Steam package, not V1.3.5 source. No new GitHub runtime release. Native multi-client, user visual acceptance and independent performance validation remain incomplete."
 }

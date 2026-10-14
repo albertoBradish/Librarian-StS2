@@ -15,3 +15,11 @@ jobs:
           global-json-file: global.json
       - name: Test authored rules without game binaries
         run: dotnet run --project tests/Librarian.Core.Tests/Librarian.Core.Tests.csproj -c Release
+      - name: Test progress JSON preservation without game binaries
+        run: dotnet run --project tests/Librarian.Progress.Tests/Librarian.Progress.Tests.csproj -c Release
+      - name: Test universal loader selection and initialization
+        if: hashFiles('tests/Librarian.Loader.Tests/Librarian.Loader.Tests.csproj') != ''
+        run: dotnet run --project tests/Librarian.Loader.Tests/Librarian.Loader.Tests.csproj -c Release
+      - name: Test universal package validation
+        if: hashFiles('tests/test_librarian_bundle.py') != ''
+        run: python3 tests/test_librarian_bundle.py

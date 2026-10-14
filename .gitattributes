@@ -1,2 +1,5 @@
 * -text
 *.png binary
+*.webp binary
+*.spskel binary
+*.res binary

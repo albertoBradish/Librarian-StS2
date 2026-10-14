@@ -13,7 +13,7 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 /// <summary>v0.3.0 approved revision, catalog 37. Stable model ID retained.</summary>
 public sealed class SteamBlast() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(20m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(19m, ValueProp.Move)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Hit(context, play, Amount("Damage"), all: true);

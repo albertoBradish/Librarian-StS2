@@ -55,7 +55,7 @@ internal static class DevelopmentAncientAudit042
             var firstSeeds = new Dictionary<string,int>();
             for (int seed = 0; seed < 512; seed++)
             {
-                var rng = new Rng((uint)seed);
+                var rng = DevelopmentGameApi.CreateRng((ulong)seed);
                 var acts = ActModel.GetDefaultList().Select(a => a.ToMutable()).ToList();
                 var shared = state.SharedAncients.ToList().UnstableShuffle(rng);
                 foreach (var act in acts.Skip(1))
@@ -86,7 +86,7 @@ internal static class DevelopmentAncientAudit042
             var counts = new Dictionary<string,int>();
             for (int seed=0;seed<512;seed++)
             {
-                DevelopmentStableRng.Set(trial.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.UpFront, (uint)seed, 0);
+                DevelopmentGameApi.RestoreRng(trial.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.UpFront, DevelopmentGameApi.SnapshotRng(DevelopmentGameApi.CreateRng((ulong)seed)));
                 RunManager.Instance.GenerateRooms();
                 foreach (var act in trial.Acts)
                 {

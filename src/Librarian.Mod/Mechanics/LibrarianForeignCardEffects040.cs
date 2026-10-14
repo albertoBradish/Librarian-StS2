@@ -175,7 +175,7 @@ internal static class LibrarianForeignCardEffects040
 internal static class LibrarianForeignCardPlay040
 {
     private static IEnumerable<MethodBase> TargetMethods() => typeof(LibrarianCard).Assembly.GetTypes()
-        .Where(t => !t.IsAbstract && typeof(LibrarianCard).IsAssignableFrom(t))
+        .Where(t => !t.IsAbstract && typeof(ILibrarianCard).IsAssignableFrom(t))
         .Select(t => AccessTools.DeclaredMethod(t, "OnPlay")).Where(m => m is not null).Cast<MethodBase>();
 
     [HarmonyPrefix]

@@ -1,51 +1,46 @@
 # Source and release status / 源码与发布状态
 
-2026-10-07 本地（America/Los_Angeles）。本次按用户要求同步尚未进入 GitHub 的自有源码、现用资源、测试及公开文档；开发源树按通道分别导出。
+## 2026-10-13 当前统一源码 / Current unified source
 
-This source synchronization includes authored code, production assets, tests and public documentation through 2026-10-07. Each channel uses its own source tree.
+`main` 分批同步本次冻结的 V1.3.5 自有开发输入：当前卡图与生产资源、统一双目标引导与构建、烈焰表现、选角字体缓存、Spine 控制器及动画修订。完整批次结束后 `source-snapshot.json` 记录逐文件 SHA256。研究根仓库历史、原始设计、私有依赖、提取资源、存档及研究日志排除。
 
-| 通道 / Channel | 当前 Git 源码 / Current source | 已发布 Steam 包 / Published Steam package | 独立 GitHub 下载 / Separate GitHub runtime download |
+`main` receives a frozen V1.3.5 authored development snapshot in batches: current production art, dual-target loader/build, fire effects, font caching, Spine controllers and animation revisions. The final batch records exact input SHA256 values in `source-snapshot.json`. Private dependencies, extracted resources, original designs, saves and research history remain excluded.
+
+Steam 当前为已发布 V1.3.0（服务器核验；订阅端下载仍待），V1.3.5 仅为未发布开发源码。下方为保留的历史发行记录，不表示当前 `main` 仍为 stable。旧分支、标签与 GitHub 运行附件保持；本次不创建 Release。真实多人、长期平衡、用户视觉／听感及独立性能验收不因此新增通过。
+
+Steam currently publishes V1.3.0, server-verified with subscriber delivery pending. V1.3.5 remains unpublished development source. The records below are historical; `main` now maintains unified content. Existing branches, tags and runtime attachments remain intact. No new Release or additional multiplayer, balance, user visual/audio or independent performance acceptance is implied.
+
+## 历史记录 / Historical records
+
+2026-10-09（America/Los_Angeles）。beta12同步Steam与独立GitHub预发行，仍仅需RitsuLib。
+
+Beta12 is published separately on Steam and GitHub and still requires RitsuLib only.
+
+| 通道 / Channel | 当前源码 / Current source | Steam | GitHub runtime |
 | --- | --- | --- | --- |
-| `main` | stable 0.107.1，V1.1.1 加后续维护 / V1.1.1 plus later maintenance | V1.1.1 | V1.1.0 stable |
-| `codex/beta` | public-beta 0.111.0，V1.2.0-beta9 加净格挡预览 / V1.2.0-beta9 plus net Block preview | V1.2.0-beta9 | V1.1.0-beta1 |
+| `main` | stable 0.107.1，V1.1.1加后续维护 / V1.1.1 plus maintenance | V1.1.1 | V1.1.0 stable |
+| `codex/beta` | public-beta 0.111.0，V1.2.0-beta12 | V1.2.0-beta12 | V1.2.0-beta12 prerelease |
 
-## Beta 已发布功能 / Published beta features
+## Beta12范围 / Beta12 scope
 
-- beta7：常用／显示／特效与声音／工具四页设置、示例与声音试听、Downloads 导出、精简提示、二次确认初始化、8 秒限时更新通知及永久锁定说明。
-- beta8：未完待续先抽总数再统一选择置底；萌发护壁双语说明更新，既有 6／9 格挡保留。
-- beta9：12 步互动教学、说明／实景／状态三栏、进度与操作栏、设置入口，以及教学期间的初始化保护。
+修复设置内初始化的未知进度保留路径；为最终确认增加5秒等待和红字提醒。调试工具可预览首次教学邀请与精简提示，选项只关闭预览，不写入记录或修改设置。内容解锁新增图书管理员专属A10／A0，并提供难复现场景的调试说明。身份重复、字段冲突或无法匹配的结构仍会拒绝操作。
 
-- beta7: four settings pages, examples and sound previews, Downloads export, compact tooltips, confirmed initialization, an 8-second update toast, and permanent-lock wording.
-- beta8: To Be Continued draws the total before one bottom-placement choice; Sprouting Bulwark receives revised bilingual wording with its existing 6/9 Block.
-- beta9: a 12-step interactive tutorial with explanation, native scene and status columns, progress and controls, settings access, and initialization protection during practice.
+Fixes unknown-progress preservation during initialization and adds a five-second confirmation with a red warning. Debug tools preview the first-play invitation and compact-tooltip offer without writing receipts or changing settings. Unlock tools add Librarian-only A10/A0 options and debugging notes. Ambiguous identities, conflicting fields and unmatchable structures still reject the operation.
 
-以上三个 beta 包均已有服务器发布证据；订阅端新版到达仍待确认。当前 Git 源码进一步包含下述开发维护。
+沿用beta11的91张活动卡、100张活动与旧档模型、现有美术、12步教学与完整RitsuLib迁移。本次卡牌规则、数值和美术保持原字节；stable及历史发行保留各自的依赖和文件。
 
-All three beta packages have server publication evidence. Subscriber delivery remains unverified. The current Git source also includes the maintenance below.
+Retains beta11's 91 active cards, 100 active/legacy models, artwork, 12-step tutorial and complete RitsuLib migration. Card rules, values and artwork remain byte-for-byte unchanged. Stable and historical releases retain their own dependencies and files.
 
-## 未发布维护 / Unreleased maintenance
+## 身份与验证 / Identity and validation
 
-| 范围 / Scope | stable | beta |
-| --- | --- | --- |
-| 法球数值文案、教学／设置、精简提示与初始化 / Orb wording, tutorial/settings, compact tooltips and initialization | 已同步源码，未发布 stable 包 / Source synchronized; not in published stable package | 已含于当前 beta 发布功能 / Included in published beta features |
-| 底牌自动打牌选牌等待、釜底抽薪／三相归一 owner 上下文 / Bottom-autoplay choice waiting and Fuel the Fire / Threefold Unity owner context | 已同步本地修复，未发布 stable 包 / Local fixes synchronized; not in published stable package | 保留 beta 自身接口实现 / Retains beta's own API implementation |
-| 未完待续顺序及萌发护壁说明 / To Be Continued order and Sprouting Bulwark wording | 已同步源码，未发布 stable 包 / Source synchronized; not in published stable package | beta8 已发布 / Published in beta8 |
-| 回合末格挡净变化预览 / End-turn net Block preview | 已同步源码，未发布 / Source synchronized; unreleased | 已同步源码，未发布 / Source synchronized; unreleased |
+同一三文件包分别在固定游戏0.111.0和RitsuLib0.6.4／0.6.7下完成菜单、新局、战斗、初始化、普通局存读档及独立进程重载。预览选择前后逐文件哈希一致；A10／A0只改两项角色进阶字段。未知字段与不可用记录在主文件、镜像及双方备份中继续保留。Core75/75、纯JSON22/22通过；完整日志由既有门禁检查。
 
-回合末预览显示当前格挡到玩家回合末结算完成后的净变化，包含支持的原版格挡来源、到期潮涌及回合末伤害，可显示负数、随机范围；未知连锁或多人场景显示问号。stable 的玩法与 API 保持自身通道，不从 beta 整树覆盖。
+The same three-file package passes menu, new-run, combat, initialization, ordinary save/reload and independent-process restart checks in game 0.111.0 with RitsuLib 0.6.4 and 0.6.7. Preview choices preserve file hashes; A10/A0 alter only the two character Ascension fields. Unknown fields and unavailable records remain in the main save, mirror and both backups. Core75/75 and JSON22/22 pass; complete logs pass the existing quality gate.
 
-The preview reports net Block change through the player's end-turn effects, including supported native sources, expiring Tidal Block and end-turn damage. It can show negative values or random ranges; unknown chains and multiplayer cases use a question mark. Stable retains its own gameplay and API behavior.
+`source-snapshot.json`保存公开自有输入；`release-metadata.json`标识已验证包，版本标签对应准确源码提交。私有依赖、研究日志、原始设计和存档不进入公开树。
 
-## 文件身份与验证 / File identity and validation
+`source-snapshot.json` records public authored inputs; `release-metadata.json` identifies the verified package, and the tag resolves to matching source. Private dependencies, research logs, original designs and saves are excluded.
 
-`source-snapshot.json` 保存当前自有开发输入的逐文件 SHA-256。`release-metadata.json` 的 `baseline_runtime_artifacts` 指向各通道最后已发布 Steam 包，不能用它代表当前分支的新构建。两份元数据明确 `source_matches_baseline_runtime: false`。
+用户未提供存档，原日志具体失败字段仍未确认。一次早期原生菜单创建崩溃及加载补丁、文案问题的失败日志保留；修复后的最终完整运行通过。云同步后端、任意第三方组合、实体手柄、真实多人及长期平衡未新增验收。Steam服务端确认不等于本机订阅目录已收到新版。
 
-`source-snapshot.json` records SHA-256 for the current authored development inputs. `baseline_runtime_artifacts` in `release-metadata.json` identifies each channel's last published Steam package, not a new build of the branch head. Both metadata files state `source_matches_baseline_runtime: false`.
-
-已有本地隔离原生验收分别覆盖教学、设置、卡牌修复及格挡预览；它们对应各自当时的候选。格挡预览每通道完成 137 项检查及 26 个真实回合。公开分支此次运行纯规则测试；CI 仅证明这些规则测试，不能视为新公开副本的菜单／新局／战斗／存读档或真实多客户端验收。实体手柄、用户最终观感与听感、长期平衡及第三方任意组合仍按各项原验证边界保留。
-
-Prior isolated native checks covered the tutorial, settings, card fixes and Block preview with their own candidates. The preview passed 137 checks and 26 real turns per channel. This synchronization runs the public pure-rule suite; CI does not establish a fresh public-clone native menu/new-run/combat/save/reload or multi-client pass. Controller input, final user visual/audio acceptance, long-term balance and arbitrary third-party combinations retain their existing validation limits.
-
-本次不创建运行文件 Release，不替换既有标签或附件。原始设计表格、私有依赖、提取资源与研究历史继续留在本地；公开内容沿用根 LICENSE 的自定义限制性许可。
-
-This synchronization creates no runtime Release and replaces no existing tags or attachments. Original planning spreadsheets, private dependencies, extracted assets and internal research history remain local. Public content retains the custom restrictive LICENSE.
+No user save was supplied, so the exact offending fields remain unidentified. An earlier native menu-creation crash and failed patch/text iterations are retained; final complete runs pass. Cloud backend, arbitrary third-party combinations, physical controllers, true multiplayer and long-term balance remain unverified. Steam server verification does not establish local subscriber arrival.

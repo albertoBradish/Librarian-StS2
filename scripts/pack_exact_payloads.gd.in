@@ -1,0 +1,25 @@
+extends SceneTree
+
+func _init() -> void:
+	var args := OS.get_cmdline_user_args()
+	if args.size() != 1:
+		push_error("Expected exact owned payload configuration.")
+		quit(2)
+		return
+	var config = JSON.parse_string(FileAccess.get_file_as_string(args[0]))
+	var pack := PCKPacker.new()
+	if not config is Dictionary or pack.pck_start(config["output"]) != OK:
+		push_error("Could not start owned native package.")
+		quit(2)
+		return
+	for file in config["files"]:
+		if FileAccess.get_sha256(file["source"]) != file["sha256"] or pack.add_file(file["resource_path"], file["source"]) != OK:
+			push_error("Changed or rejected exact package payload: " + file["resource_path"])
+			quit(2)
+			return
+	if pack.flush() != OK:
+		push_error("Could not finish owned native package.")
+		quit(2)
+		return
+	print("OWNED_EXACT_PAYLOAD_PACK_PASS files=" + str(config["files"].size()))
+	quit(0)

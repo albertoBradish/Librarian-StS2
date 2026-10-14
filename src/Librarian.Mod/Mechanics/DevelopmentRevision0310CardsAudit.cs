@@ -130,10 +130,10 @@ internal static class DevelopmentRevision0310CardsAudit
             var twist=Create<SpacetimeTwist>(true);
             await CardCmd.AutoPlay(context,twist,null,skipCardPileVisuals:true);
             int index=S().Orbs.Positions.ToList().IndexOf(OrbKind.Fire);
-            for(uint seed=0;seed<1000;seed++) {
-                var rng=new Rng(seed);var saved=(rng.Seed,rng.Counter);
+            for(ulong seed=0;seed<1000;seed++) {
+                var rng=DevelopmentGameApi.CreateRng(seed);var saved=DevelopmentGameApi.SnapshotRng(rng);
                 if(rng.NextInt(3)!=index)continue;
-                DevelopmentStableRng.Set(player.RunState.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.CombatTargets, saved.Item1, saved.Item2);break;
+                DevelopmentGameApi.RestoreRng(player.RunState.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.CombatTargets, saved);break;
             }
             int triggers=0;
             observer=(session,_,change)=> {

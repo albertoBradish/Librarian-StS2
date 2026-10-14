@@ -90,8 +90,8 @@ public partial class LibrarianOrbMagicCircle : Node2D
             DrawPolyline([marker[0], marker[1], marker[2], marker[0]], shadow, 1f, true);
             return;
         }
-        var gold = new Color("EBA466") { A = 0.70f };
-        var faintGold = new Color("EBA466") { A = 0.30f };
+        var gold = new Color("EBA466") { A = 0.52f };
+        var faintGold = new Color("EBA466") { A = 0.22f };
         var center = Vector2.Zero;
         float inner = Radius - 8;
         DrawSetTransform(Vector2.Zero, RingAngle);

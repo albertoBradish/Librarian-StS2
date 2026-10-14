@@ -16,7 +16,7 @@ internal static class DevelopmentRevision102Beta2PopupAudit
 {
     private static int _checks;
     private static string Output => System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT")
-        ?? @"D:\Slay The Spire_Mod Dev\.research\channels\stable\workspace\outputs\revision-v1.1.0-stable\screenshots";
+        ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.2-beta2\screenshots";
     private static void Check(bool ok, string text)
     {
         if (!ok) throw new InvalidOperationException("102 beta2 popup: " + text);
@@ -111,7 +111,7 @@ internal static class DevelopmentRevision102Beta2PopupAudit
                     foreach (string kind in new[] { "welcome", "review" })
                     {
                         var popup = kind == "welcome"
-                            ? LibrarianUpdateNotice051.Show(LibrarianUpdateNotice051.CurrentVersion ?? "1.1.0", _ => opened++)
+                            ? LibrarianUpdateNotice051.Show(LibrarianUpdateNotice051.CurrentVersion ?? "1.0.2-beta2", _ => opened++)
                             : LibrarianArchitectReview102.Show(preview:true,openLink:_ => opened++);
                         Check(popup is not null,"created " + kind + " " + language);
                         await Wait();
@@ -147,7 +147,7 @@ internal static class DevelopmentRevision102Beta2PopupAudit
             settings.AspectRatioSetting = AspectRatioSetting.Auto;
             settings.WindowSize = new Vector2I(1280,720);
             game.ApplyDisplaySettings();
-            var resizing = LibrarianUpdateNotice051.Show(LibrarianUpdateNotice051.CurrentVersion ?? "1.1.0", _ => opened++)
+            var resizing = LibrarianUpdateNotice051.Show(LibrarianUpdateNotice051.CurrentVersion ?? "1.0.2-beta2", _ => opened++)
                 ?? throw new InvalidOperationException("Resize popup unavailable");
             foreach (var size in new[] { new Vector2I(2560,1600),new Vector2I(1280,720) })
             {

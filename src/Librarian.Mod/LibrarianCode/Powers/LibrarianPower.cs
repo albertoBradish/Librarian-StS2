@@ -1,7 +1,7 @@
-using BaseLib.Abstracts;
-using BaseLib.Extensions;
 using Librarian.LibrarianCode.Extensions;
 using MegaCrit.Sts2.Core.Entities.Powers;
+
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace Librarian.LibrarianCode.Powers;
 
@@ -11,7 +11,7 @@ namespace Librarian.LibrarianCode.Powers;
 /// This will generate a class that extends this one.
 /// You can also just create the class manually; just make sure to inherit from this class.
 /// </summary>
-public abstract class LibrarianPower : CustomPowerModel
+public abstract class LibrarianPower : ModPowerTemplate
 {
     protected new void Flash()
     {
@@ -90,7 +90,7 @@ public abstract class LibrarianPower : CustomPowerModel
         "ThornBurstPower" => "toric_toughness",
         _ => null
     };
-    public override string CustomPackedIconPath => Revision060Icon is { } icon
+    public override string CustomIconPath => Revision060Icon is { } icon
         ? $"res://Librarian/images/powers/v0.6.0/{icon}.png"
         : NativeIconName is { } native
         ? $"res://images/atlases/power_atlas.sprites/{native}_power.tres"

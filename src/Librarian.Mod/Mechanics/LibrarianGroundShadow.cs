@@ -10,6 +10,6 @@ public partial class LibrarianGroundShadow : Node2D
     {
         DrawSetTransform(new Vector2(0, -2), 0, new Vector2(1, 0.20f));
         for (int i = 8; i >= 1; i--)
-            DrawCircle(Vector2.Zero, Radius * (0.50f + i * 0.065f), new Color(0.02f, 0.03f, 0.04f, 0.032f));
+            DrawCircle(Vector2.Zero, Radius * (0.50f + i * 0.065f), new Color(0.02f, 0.03f, 0.04f, 0.048f));
     }
 }

@@ -13,7 +13,7 @@ public sealed class WearyIncantation() : LibrarianCard(2, CardType.Attack, CardR
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
         [new DamageVar(13m, ValueProp.Move), new PowerVar<WeakPower>(2m)];
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

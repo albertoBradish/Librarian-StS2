@@ -17,6 +17,7 @@ public enum LibrarianLockedOrbDisplayMode
 public sealed class LibrarianPreferences050
 {
     public bool CardEffects { get; set; } = true;
+    public bool LegacyDrawEffects { get; set; }
     public bool OrbEffects { get; set; } = true;
     public bool Particles { get; set; } = true;
     public bool ReducedMotion { get; set; }

@@ -10,11 +10,15 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Librarian.LibrarianCode.Cards.PowerCards;
 
-/// <summary>Source 85/r86. Add 1/2 extra Fire settlements; conversion is one rule run during the pre-snapshot phase.</summary>
+/// <summary>V1.2.0-beta2: immediately add one extra Fire settlement; lock the other Orbs after two/three turns.</summary>
 public sealed class BlazingChapter() : ImplementedPowerCard(2, CardRarity.Rare)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<BlazingChapterPower>(1m)];
-    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        => Apply<BlazingChapterPower>(choiceContext, DynamicVars["BlazingChapterPower"].BaseValue);
-    protected override void OnUpgrade() => DynamicVars["BlazingChapterPower"].UpgradeValueBy(1m);
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+        [new PowerVar<BlazingChapterPower>(1m), new DynamicVar("Turns", 2m)];
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        await Apply<BlazingChapterPower>(choiceContext, DynamicVars["BlazingChapterPower"].BaseValue);
+        Owner.Creature.GetPower<BlazingChapterPower>()?.RegisterDelay(DynamicVars["Turns"].IntValue);
+    }
+    protected override void OnUpgrade() => DynamicVars["Turns"].UpgradeValueBy(1m);
 }

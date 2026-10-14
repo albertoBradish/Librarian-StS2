@@ -31,7 +31,11 @@ internal static class DevelopmentEndTurnBlockAudit
 {
     private static Player? _watch;
     private static int? _actual;
-    [HarmonyPatch(typeof(Hook), "AfterTurnEnd")]
+#if LIBRARIAN_API_0107
+    [HarmonyPatch(typeof(Hook), nameof(Hook.AfterTurnEnd))]
+#else
+    [HarmonyPatch(typeof(Hook), nameof(Hook.AfterSideTurnEnd))]
+#endif
     private static class ObserveEnd
     {
         private static bool Prepare() => System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "block-preview";
@@ -173,12 +177,13 @@ internal static class DevelopmentEndTurnBlockAudit
             await Reset(plating: 8); await LibrarianRuntime.Dispatch(S(), context, S().Orbs.Gain(OrbKind.Fire, 12));
             await LibrarianRuntime.Dispatch(S(), context, S().Orbs.Gain(OrbKind.Tide, 5));
             await LibrarianRuntime.Dispatch(S(), context, S().Orbs.Gain(OrbKind.Growth, 20));
-            await RelicCmd.Obtain<LibrarianRarePlaceholderTwo>(player); await Turn(20, "channel-specific Growth settlement relic");
+            await RelicCmd.Obtain<LibrarianRarePlaceholderTwo>(player); await Turn(20, "unified Growth settlement relic");
             await Reset(waves: 9, plating: 8);
             var delayed = await PowerCmd.Apply<DeepSeaPendingPower>(context, player.Creature, 30, player.Creature, null);
             delayed!.Schedule(S(), 30);
-            await Turn(System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_CHANNEL") == "stable" ? 38 : 17,
-                "channel-specific delayed Deep Sea effect");
+            // Both API builds use beta13 rules: scheduled Waves join the existing
+            // Waves before this turn pays out. Independently expect 8 + 9 + 30.
+            await Turn(47, "unified delayed Deep Sea effect");
             await Reset(11, plating: 8); S().Orbs.Strengthen(OrbKind.Tide, 20, OrbScope.All);
             await RelicCmd.Obtain<LibrarianRarePlaceholderOne>(player);
             var range = LibrarianEndTurnPreview.Read(S());

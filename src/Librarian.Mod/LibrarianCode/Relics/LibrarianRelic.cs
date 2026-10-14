@@ -1,10 +1,9 @@
-using BaseLib.Abstracts;
 using Librarian.Mechanics;
 using MegaCrit.Sts2.Core.HoverTips;
-using BaseLib.Extensions;
-using BaseLib.Utils;
 using Librarian.LibrarianCode.Character;
 using Librarian.LibrarianCode.Extensions;
+
+using STS2RitsuLib.Scaffolding.Content;
 
 namespace Librarian.LibrarianCode.Relics;
 
@@ -17,10 +16,9 @@ namespace Librarian.LibrarianCode.Relics;
 /// The [Pool] annotation marks this relic as being tied to your specific character. Inheriting from this class means
 /// that your relics don't need to invidually say which pool they should be in.
 /// </summary>
-[Pool(typeof(LibrarianRelicPool))]
-public abstract class LibrarianRelic : CustomRelicModel
+public abstract class LibrarianRelic : ModRelicTemplate
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => LibrarianHoverTips.ForText(DynamicDescription.GetFormattedText());
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => LibrarianHoverTips.ForText(DynamicDescription.GetFormattedText());
     public override string PackedIconPath => "relic.png".RelicImagePath();
     protected override string PackedIconOutlinePath => "relic_outline.png".RelicImagePath();
     protected override string BigIconPath => "relic.png".BigRelicImagePath();

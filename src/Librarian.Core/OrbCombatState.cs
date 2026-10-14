@@ -44,6 +44,7 @@ public sealed class OrbCombatState
     public bool IsFaulted => _faulted;
     public bool EndTurnResolved => _resolvedTurn == OwnerTurn;
     public TideBlockLedger BlockLedger { get; private set; } = new();
+
     /// <summary>Deep disposable state for planning through the same end-turn resolver.</summary>
     public OrbCombatState CopyForPreview()
     {

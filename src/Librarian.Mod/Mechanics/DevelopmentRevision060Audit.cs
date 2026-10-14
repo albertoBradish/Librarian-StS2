@@ -57,7 +57,7 @@ internal static class DevelopmentRevision060Audit
         int checks = 0;
         void Check(bool ok, string label) { if (!ok) throw new InvalidOperationException("060: " + label); checks++; MainFile.Logger.Info("VISUAL060_CHECK_PASS " + label); }
         async Task Wait(double seconds = .2) => await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
-        string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.0-stable\audit-history\revision-v0.6.0\screenshots";
+        string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.6.0\screenshots";
         System.IO.Directory.CreateDirectory(output);
         async Task Capture(string name)
         {
@@ -66,12 +66,12 @@ internal static class DevelopmentRevision060Audit
             Check(image.SavePng(System.IO.Path.Combine(output, name + ".png")) == Error.Ok, "capture " + name);
         }
         Check(DisplayServer.GetName() != "headless", "native rendering enabled");
-        var powers = ModelDb.AllPowers.OfType<LibrarianPower>().Where(p => p.CustomPackedIconPath.Contains("/v0.6.0/")).ToArray();
+        var powers = ModelDb.AllPowers.OfType<LibrarianPower>().Where(p => p.CustomIconPath.Contains("/v0.6.0/")).ToArray();
         Check(powers.Length == 26, "26 current status mappings");
         foreach (var power in powers)
         {
-            Check(power.Icon.ResourcePath == power.CustomPackedIconPath, "native icon route " + power.Id);
-            Check(GD.Load<Texture2D>(power.CustomPackedIconPath).GetSize() == new Vector2(64,64), "small icon " + power.Id);
+            Check(power.Icon.ResourcePath == power.CustomIconPath, "native icon route " + power.Id);
+            Check(GD.Load<Texture2D>(power.CustomIconPath).GetSize() == new Vector2(64,64), "small icon " + power.Id);
             Check(GD.Load<Texture2D>(power.CustomBigIconPath).GetSize() == new Vector2(256,256), "big icon " + power.Id);
             Check(power.BigIcon is not null && power.ResolvedBigIconPath == power.CustomBigIconPath, "native big route " + power.Id);
         }

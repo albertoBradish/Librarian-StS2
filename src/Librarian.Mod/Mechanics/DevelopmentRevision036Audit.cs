@@ -80,6 +80,9 @@ internal static class DevelopmentRevision036Audit
         {
             await Hook.AfterCardPlayed(player.Creature.CombatState!, ctx, new CardPlay
             {
+#if LIBRARIAN_API_0111
+                Player = actor,
+#endif
                 Card = card, Target = Enemy(), ResultPile = PileType.Discard,
                 IsAutoPlay = true, PlayIndex = index, PlayCount = 2,
                 Resources = new() { EnergySpent = 0, EnergyValue = 0, StarsSpent = 0, StarValue = 0 }

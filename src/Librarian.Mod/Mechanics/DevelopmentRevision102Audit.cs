@@ -23,12 +23,12 @@ using STS2RitsuLib.Settings;
 
 namespace Librarian.Mechanics;
 
-/// <summary>Explicit opt-in checks in the disposable stable profile, never normal player startup.</summary>
+/// <summary>Explicit opt-in checks in the disposable beta profile, never normal player startup.</summary>
 internal static class DevelopmentRevision102Audit
 {
     private static int _checks;
     private static string Output => System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT")
-        ?? @"D:\Slay The Spire_Mod Dev\.research\channels\stable\workspace\outputs\revision-v1.1.0-stable\screenshots";
+        ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.2-beta1\screenshots";
     private static void Check(bool ok, string text)
     {
         if (!ok) throw new InvalidOperationException("102: " + text);
@@ -57,7 +57,7 @@ internal static class DevelopmentRevision102Audit
         if (File.Exists(path)) File.Copy(path, path + ".before-102-audit", true);
         File.WriteAllText(path, "{}");
     }
-    internal static async Task Menu(NMainMenu menu, string expectedVersion = "1.1.0")
+    internal static async Task Menu(NMainMenu menu, string expectedVersion = "1.0.2-beta1")
     {
         Check(OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "isolated validation profile");
         Check(LibrarianUpdateNotice051.CurrentVersion == expectedVersion, "actual loaded candidate version");
@@ -99,8 +99,8 @@ internal static class DevelopmentRevision102Audit
                 var third = Desc(panel).OfType<NPopupYesNoButton>().Single(b => b != panel.YesButton && b != panel.NoButton);
                 string body = panel.GetNode<RichTextLabel>("Description").GetParsedText();
                 string firstLine = body.Split('\n')[0];
-                Check(firstLine.Contains("BaseLib") && firstLine.Contains("RitsuLib")
-                    && body.Contains(expectedVersion) && body.Contains("1091648383"), "welcome starts with both required dependencies and settings route " + lang);
+                Check(!firstLine.Contains("BaseLib") && firstLine.Contains("RitsuLib")
+                    && body.Contains(expectedVersion) && body.Contains("1091648383"), "welcome starts with the required RitsuLib dependency and settings route " + lang);
                 Check(third.Visible && third.Position.X > panel.NoButton.Position.X && third.Position.X < panel.YesButton.Position.X, "suppression button in middle " + lang);
                 await Shot("welcome-" + lang + "-" + size.X);
                 panel.YesButton.EmitSignal(NClickableControl.SignalName.Released, panel.YesButton); await Wait();
@@ -188,12 +188,6 @@ internal static class DevelopmentRevision102Audit
         Check(!LibrarianArchitectReviewHistory102.Pending && !LibrarianArchitectReviewHistory102.Shown, "ordinary combat/run save did not qualify for review");
         await NGame.Instance.StartNewSingleplayerRun(ModelDb.Character<LibrarianCharacter>(), true, ActModel.GetDefaultList(), [], "LIBRARIAN102ARCHITECT", GameMode.Standard);
         SaveManager.Instance.Progress.GetOrCreateCharacterStats(ModelDb.Character<LibrarianCharacter>().Id).TotalWins = 0;
-        // Stable 0.107.1 advances to the next act before considering an Architect
-        // room terminal. Enter the final native act so this fixture exercises
-        // WinRun/UpdateWithRunData rather than an ordinary act transition.
-        var runState = RunManager.Instance.DebugOnlyGetState() ?? throw new InvalidOperationException("Architect fixture has no native run state");
-        await RunManager.Instance.EnterAct(runState.Acts.Count - 1);
-        Check(runState.CurrentActIndex == runState.Acts.Count - 1, "native Architect fixture enters final act");
         var room = (EventRoom)await RunManager.Instance.EnterRoomDebug(RoomType.Event, model:ModelDb.Event<TheArchitect>());
         await Wait(3.5); await SaveManager.Instance.SaveRun(null);
         var ev = room.LocalMutableEvent;

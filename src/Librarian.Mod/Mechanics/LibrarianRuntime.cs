@@ -1,5 +1,4 @@
 using System.Runtime.CompilerServices;
-using BaseLib.Abstracts;
 using Godot;
 using HarmonyLib;
 using Librarian.Core;
@@ -25,7 +24,8 @@ public sealed class LibrarianSession(Player player)
     public Player Player { get; } = player;
     public bool HasCharacterOrbs => Player.Character is LibrarianCharacter;
     public OrbCombatState Orbs { get; } = new(player.NetId.ToString());
-    public WaveState Waves { get; } = new();
+    public WaveState Waves { get; } = new(() =>
+        player.Creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>() is null);
     public EndTurnRules EndTurnRules { get; set; } = new();
     public bool ResolvingEndTurn { get; internal set; }
     public long FireLostThisCombat { get; internal set; }
@@ -36,11 +36,11 @@ public sealed class LibrarianSession(Player player)
     internal Dictionary<CardPlay, CardModel> PendingPlaySnapshots { get; } = new();
     internal List<(long Turn, Func<PlayerChoiceContext, Task> Action)> StartTasks { get; } = [];
     internal List<Func<PlayerChoiceContext, Task>> EndTasks { get; } = [];
+    internal List<Action<EndTurnBlockProjection>?> EndTaskPreviews { get; } = [];
     internal Queue<Func<PlayerChoiceContext, Task>> AfterHandCleanup { get; } = new();
     internal HashSet<CardModel> EndTurnHandCards { get; } = [];
     internal LibrarianBottomPlay041.EndTurnBottomSnapshot? EndTurnBottomSnapshot { get; set; }
     public void QueueNextTurn(Func<PlayerChoiceContext, Task> action) => StartTasks.Add((Orbs.OwnerTurn + 1, action));
-    internal List<Action<EndTurnBlockProjection>?> EndTaskPreviews { get; } = [];
     public void QueueEndTurn(Func<PlayerChoiceContext, Task> action, Action<EndTurnBlockProjection>? preview = null)
     {
         EndTasks.Add(action);
@@ -103,7 +103,7 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
     public static void Initialize()
     {
         LibrarianMechanicsBridge.Current = Instance;
-        // ModelDb constructs and registers CustomSingletonModel after mod initializers finish.
+        // ModelDb constructs and registers SingletonModel after mod initializers finish.
         MainFile.Logger.Info("Librarian mechanics connected: independent three-orb state and tidal Block ledger.");
     }
 
@@ -227,9 +227,10 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
                 if (fireTarget is not null && !enemies.Contains(fireTarget)) break;
                 if (enemy is null) break;
                 LibrarianOrbAudio.OnSettlement(session, request);
-                await LibrarianOrbVfx.Travel(session, OrbKind.Fire, enemy);
+                await LibrarianOrbVfx.Travel(session, OrbKind.Fire, enemy, settlementValue: request.Value);
                 if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.Creature.CombatState is null || !enemy.IsHittable) return;
-                await CreatureCmd.Damage(context, enemy, request.EffectAmount(), ValueProp.Unpowered, player.Creature);
+                using (LibrarianFireKillVfx.Observe(session, enemy, request.Value))
+                    await CreatureCmd.Damage(context, enemy, request.EffectAmount(), ValueProp.Unpowered, player.Creature);
                 break;
             case OrbKind.Tide:
                 LibrarianOrbAudio.OnSettlement(session, request);
@@ -242,8 +243,7 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
                 session.Waves.TryRecordEndTurnTideContribution(session.Orbs.OwnerTurn, tideAmount);
                 // Tide pays its Block before it creates the next Waves amount.
                 await GainTidalBlock(session, tideAmount);
-                if (player.Creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>() is null)
-                    session.Waves.Add(tideAmount);
+                session.Waves.Add(tideAmount);
                 break;
             case OrbKind.Growth:
                 if (session.Orbs.LowestOther(OrbKind.Growth) is { } kind)
@@ -312,11 +312,15 @@ internal static class LibrarianModelsReady
         => MainFile.Logger.Info("Librarian combat hooks registered=" + ModelDb.Singleton<LibrarianCombatHooks>().ShouldReceiveCombatHooks);
 }
 
-public sealed class LibrarianCombatHooks : CustomSingletonModel
+public sealed class LibrarianCombatHooks : SingletonModel
 {
+    public override bool ShouldReceiveCombatHooks => true;
     internal static int SuppressedEtherealTriggers { get; private set; }
 
-    public LibrarianCombatHooks() : base(HookType.Combat) { }
+    public LibrarianCombatHooks()
+    {
+        MegaCrit.Sts2.Core.Modding.ModHelper.SubscribeForCombatStateHooks(Id.Entry, _ => [this]);
+    }
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -357,7 +361,6 @@ public sealed class LibrarianCombatHooks : CustomSingletonModel
             if (LibrarianRuntime.For(creature) is { } session)
             {
                 session.SyncTurn();
-                session.Orbs.SwitchLocked = creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.OverfishingPower>() is not null;
                 session.Waves.Retained = creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.RidgeWardPower>() is not null;
                 session.Waves.RetentionFloor = creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.UnretreatingTidePower>()?.Amount ?? 0;
                 session.Waves.StartTurn(session.Orbs.OwnerTurn);

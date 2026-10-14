@@ -163,12 +163,12 @@ internal static class DevelopmentRevision040CardsAudit
                 // Zero growth still shuffles three zero shares (3 then 2 RNG bounds).
                 var targets = player.Creature.CombatState.HittableEnemies.ToArray();
                 bool seeded = false;
-                for (uint seed = 0; seed < 1000; seed++)
+                for (ulong seed = 0; seed < 1000; seed++)
                 {
-                    var rng = new Rng(seed); var saved = (rng.Seed, rng.Counter);
+                    var rng = DevelopmentGameApi.CreateRng(seed); var saved = DevelopmentGameApi.SnapshotRng(rng);
                     rng.NextInt(3); rng.NextInt(2);
                     if (targets[rng.NextInt(targets.Length)] != fragile) continue;
-                    DevelopmentStableRng.Set(player.RunState.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.CombatTargets, saved.Item1, saved.Item2); seeded = true; break;
+                    DevelopmentGameApi.RestoreRng(player.RunState.Rng, MegaCrit.Sts2.Core.Entities.Rngs.RunRngType.CombatTargets, saved); seeded = true; break;
                 }
                 Check(seeded, "soil retarget deterministic seed available " + up);
                 await Play(Create<EarthCollapse>(up), 3);

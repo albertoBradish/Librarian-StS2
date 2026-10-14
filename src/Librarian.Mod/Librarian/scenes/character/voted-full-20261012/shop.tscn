@@ -1,0 +1,13 @@
+; Preparation template. Fill actual G1 bank and measure Sprite transform before native validation.
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://Mechanics/LibrarianSpineMerchantCharacter.cs" id="root_script"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Librarian/spine/v0.4.1-voted-full/bank.res" id="bank"]
+
+[node name="LibrarianShop" type="Node2D"]
+script = ExtResource("root_script")
+
+[node name="Visuals" type="SpineSprite" parent="."]
+unique_name_in_owner = true
+skeleton_data_res = ExtResource("bank")
+scale = Vector2(0.3, 0.3)
+time_scale = 1.0

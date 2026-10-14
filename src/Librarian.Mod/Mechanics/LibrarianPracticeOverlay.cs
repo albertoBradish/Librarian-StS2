@@ -267,14 +267,14 @@ public partial class LibrarianPracticeOverlay : NFtue
         var key = input as InputEventKey;
         Key code = key is null ? Key.None : key.Keycode != Key.None ? key.Keycode : key.PhysicalKeycode;
         bool Action(string name) => InputMap.HasAction(name) && input.IsAction(name);
-        bool select = Action(MegaInput.select) || Action(MegaInput.accept) || code is Key.Enter or Key.KpEnter or Key.Space;
+        bool select = Action(MegaInput.select) || Action("ui_accept") || code is Key.Enter or Key.KpEnter or Key.Space;
         bool cancel = Action(MegaInput.cancel) || Action(MegaInput.pauseAndBack) || Action(MegaInput.back) || code == Key.Escape;
         bool direction = Action(MegaInput.left) || Action(MegaInput.right) || code is Key.Left or Key.Right;
         if (!select && !cancel && !direction) return;
         GetViewport().SetInputAsHandled();
         if (input.IsEcho()) return;
         bool released = key is { Pressed: false } || input.IsActionReleased(MegaInput.select)
-            || input.IsActionReleased(MegaInput.accept) || input.IsActionReleased(MegaInput.cancel)
+            || (InputMap.HasAction("ui_accept") && input.IsActionReleased("ui_accept")) || input.IsActionReleased(MegaInput.cancel)
             || input.IsActionReleased(MegaInput.pauseAndBack) || input.IsActionReleased(MegaInput.back);
         if (released && cancel) Exit();
         else if (released && select) { if (ReferenceEquals(GetViewport().GuiGetFocusOwner(), ExitButton)) Exit(); else Continue(); }

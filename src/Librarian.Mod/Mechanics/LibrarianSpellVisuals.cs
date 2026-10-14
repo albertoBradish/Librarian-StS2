@@ -11,20 +11,24 @@ using MegaCrit.Sts2.Core.TestSupport;
 namespace Librarian.Mechanics;
 
 /// <summary>Presentation receives actual results; it never chooses gameplay targets or consumes RNG.</summary>
-internal static class LibrarianSpellVisuals
+internal static partial class LibrarianSpellVisuals
 {
     private sealed class HitCooldown { internal ulong Last; }
     private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Creature, HitCooldown> ShieldHits = new();
+    // Compatibility callers retain VFX/power behavior without creating a fake CardPlay.
     internal static void CardPlayed(Player player, CardType type) => LibrarianOrbVfx.Safely(() =>
+        CardPlayedCore(player, type, LibrarianSpineRuntime.Find(player.Creature) is not null));
+
+    private static void CardPlayedCore(Player player, CardType type, bool ownedGesture)
     {
         if (TestMode.IsOn || DisplayServer.GetName() == "headless" || SaveManager.Instance.PrefsSave.FastMode == FastModeType.Instant) return;
         var creature = NCombatRoom.Instance?.GetCreatureNode(player.Creature);
         if (creature is null || player.Creature.IsDead) return;
-        if (!LibrarianPreferences050.Current.ReducedMotion) FindMotion(creature)?.PlayCardGesture(type);
+        if (!ownedGesture && !LibrarianPreferences050.Current.ReducedMotion) FindMotion(creature)?.PlayCardGesture(type);
         if (type == CardType.Power && LibrarianRuntime.TryGet(player, out var session) && session is not null)
             LibrarianOrbPanel.GetDisplay(session)?.MagicCircle.CastRevolution();
         // Per-card preparation is supplied by LibrarianCardVfx050.
-    });
+    }
 
     private static LibrarianCharacterMotion? FindMotion(Node root)
     {

@@ -48,7 +48,7 @@ internal static class LibrarianCardVfx050
     internal static bool TryProfile(CardModel card, out SpellProfile050 profile)
     {
         profile = null!;
-        return card is LibrarianCard && Profiles.TryGetValue(card.GetType().Name, out profile);
+        return card is ILibrarianCard && Profiles.TryGetValue(card.GetType().Name, out profile);
     }
     internal static Color Tint(SpellElement050 e) => new(e switch
     { SpellElement050.Fire => "efa05e", SpellElement050.Water => "7bd6eb", SpellElement050.Leaf => "a3ce77", SpellElement050.Prismatic => "d1b7ed", _ => "ead4a4" });
@@ -59,6 +59,7 @@ internal static class LibrarianCardVfx050
     internal static void Enter() { Active++; Peak = Math.Max(Peak, Active); }
     internal static void Exit() => Active = Math.Max(0, Active - 1);
     internal static void ResetCounters() { Peak = Active; Dropped = 0; }
+    internal static void RecordDropped() => Dropped++;
     internal static bool Available(Player? owner, bool orb = false)
     {
         var p = LibrarianPreferences050.Current;
@@ -69,6 +70,9 @@ internal static class LibrarianCardVfx050
     }
     internal static void Cast(CardPlay play)
     {
+        // Owned Spine hands now emit only from their current post-world sockets and release cue.
+        // Suppressed/Instant/reduced gestures do not revive the old fixed Hitbox offset.
+        if (LibrarianSpineCastVfx.OwnsCast(play)) return;
         if (TryProfile(play.Card, out var profile))
             Emit(play.Card.Owner.Creature, profile, "cast", play.Card.GetType().Name, radius: 28);
     }
@@ -105,6 +109,7 @@ internal static class LibrarianCardVfx050
     }
     internal static void Page(Player player, string stage, string source = "native")
     {
+        if (stage == "draw" && !LibrarianPreferences050.Current.LegacyDrawEffects) return;
         if (player.Character is LibrarianCharacter)
         {
             Emit(player.Creature, new(SpellElement050.Page, SpellShape050.Pages), stage, source, radius: 33);
@@ -148,6 +153,12 @@ internal static class LibrarianCardVfx050
     {
         var room = NCombatRoom.Instance;
         if (room is null || !room.IsInsideTree()) return;
+        if (LibrarianSpineCastVfx.TryResult(target, owner, profile, stage, point,
+            radius / Math.Max(.01f, room.GetCreatureNode(target)?.Hitbox?.GetGlobalTransform().Scale.Abs().X ?? 1), out bool emitted))
+        {
+            if (emitted) Observer?.Invoke(stage, target, source);
+            return;
+        }
         if (Active >= LibrarianPreferences050.Current.EffectLimit) { Dropped++; return; }
         var layer = room.CombatVfxContainer;
         var effect = new LibrarianCardSpell050

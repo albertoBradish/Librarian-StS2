@@ -1,36 +1,34 @@
 # 图书管理员 · Librarian
 
-**必须同时订阅并启用 BaseLib 与 RitsuLib。** 工坊会列出两个前置，但仍需在游戏中启用它们；手动安装也必须同时安装、启用与游戏分支匹配的两个前置。
+**当前开发版 V1.3.0：RitsuLib 0.6.4 单前置，单包适配游戏 0.107.1 / 0.111.0。发布与两版验收状态分别记录，尚不能据此称新版已上线。历史发行按各自原清单安装。**
 
-**Subscribe to and enable both BaseLib and RitsuLib.** Workshop lists both dependencies; enable them in the game as well. Manual installation also requires both, with versions matching your game branch.
+**V1.3.0 development uses RitsuLib 0.6.4 only and targets game 0.107.1 / 0.111.0 in one bundle. This source update does not announce a published release or completed native acceptance. Historical releases retain their original dependencies.**
 
-### 感谢大家的支持！！！模组已经发布，快去游玩体验吧~
+<p align="center">
+  <img src="assets/librarian-avatar.png" alt="图书管理员 Q版头像" width="240" height="240">
+</p>
 
-本分支为游戏 **stable 0.107.1** 的 **V1.1.1 开发源码**，已补齐截至 2026-10-07 的本地维护：法球数值文案、教学与设置页面、精简提示及初始化、底牌自动打牌选牌等待、未完待续抽牌顺序、釜底抽薪／三相归一上下文修复，以及回合末格挡净变化预览。这些后续维护尚未发布到 stable 工坊；已发布 Steam 版本仍为 V1.1.1，最近的独立 GitHub 下载仍为 [V1.1.0 stable](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)。详见 [源码与发布状态](RELEASE-BATCHES.md)。
+<p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-This branch contains **V1.1.1 development source for stable 0.107.1**, including local maintenance through **2026-10-07**: Orb value wording, tutorial and settings pages, compact tooltips and initialization, bottom-autoplay choice waiting, the To Be Continued draw-order fix, Fuel the Fire / Threefold Unity choice-context fixes, and an end-turn net Block preview. These additions are **not included in the published stable Steam package**. Steam remains V1.1.1; the separate GitHub runtime download remains V1.1.0 stable. Use [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) for public-beta 0.111.0. See [source and release status](RELEASE-BATCHES.md).
+当前统一开发源码为 **V1.3.5**，在 `main` 维护，由引导层自动选择两个固定游戏目标的内容 DLL。包含后续烈焰表现、首次选角字体缓存及 Spine 动画修订。Steam 当前已发布包为 **V1.3.0**；V1.3.5 尚未发布运行包。本次分批同步仅更新自有源码与生产资源，旧 `codex/beta` 分支、标签及独立发行附件保留。完整同步身份见 `source-snapshot.json`。
 
-V1.1.1 精简法球及状态文案、补齐嵌套词条，手牌／抽牌堆及三法球名称仅保留金字。锁定法球允许位移和交换，仍不能注魔或结算，独立前台固定限制保留。修复选择法球／复读预览的费用徽标、额外结算预览、双语法球说明，以及开始提示鼠标焦点；“更新公告”直接打开本版改动说明。禁页打击、封页护身、见缝插针、归零检索恢复详细描述。费用、数值和现有配图沿用 stable 版本。
-
-V1.1.1 simplifies Orb and status text, completes nested tooltips, and keeps Hand, Draw Pile, and the three Orb names in gold without extra tooltips. Locked Orbs can move or swap, but cannot Activate or Settle; the independent foreground restriction remains. It fixes cost badges in Orb selection and Reread previews, extra-Settlement previews, bilingual Orb descriptions, and mouse focus in the introduction. “Change Notes” opens this version's update entry. Forbidden Strike, Sealed Shelter, Thread the Needle, and Zero Search regain their detailed descriptions. Card costs, values, and existing artwork retain the stable baseline.
+The current **V1.3.5 development source** uses `main` and one loader selecting content for two fixed game APIs. It includes fire effects, first-selection font caching and Spine animation revisions. **V1.3.0 is published on Steam**; V1.3.5 has no published runtime package. This batched source sync preserves `codex/beta`, existing tags and runtime attachments. `source-snapshot.json` identifies the complete synchronized inputs.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
 Includes Simplified Chinese and English, independent language settings, and
 custom translation packs.
 
-图书管理员通过烈焰、潮涌、翠叶三种法球的注魔、结算与锁定组织战斗。
+图书管理员通过烈焰、波涛、翠叶三种法球的注魔、结算与锁定组织战斗。
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Latest GitHub stable release / 最近的 GitHub 正式发行 V1.1.0](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-stable)
-- [Latest GitHub pre-release / 最近的 GitHub 测试发行 V1.1.0-beta1](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.1.0-beta1)。Steam beta 当前为 V1.2.0-beta9。
+- [Published historical beta package / 已发布历史 beta 包 1.2.0-beta12](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12)。此历史版下载同一发行的三份运行文件与许可；V1.3.0 采用六文件结构。This historical release has three runtime files; V1.3.0 uses six.
+- [Source and release history / 源码与发布历史](RELEASE-BATCHES.md)。历史发行状态保留；当前统一包身份另见[构建元数据](release-metadata.json)。Historical publication records remain separate from this unified source snapshot.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
-- [Historical V1.0.0 stable / 历史正式版 16 个附件下载核验](release-history/1.0.0-stable-verification.json)
 - [Issues / 问题与建议](https://github.com/albertoBradish/Librarian-StS2/issues)
-- V1.1.1 已发布至 [正式版 Steam 工坊](https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053)，中英文完整页面、其他语言英文回退及 public 分支内容已核对。本机尚未安装 stable 订阅包，订阅端三文件未验；GitHub 独立发行标签和附件继续保留 V1.1.0 原验收快照，本轮不另建独立 Release。
-- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3811677053)
+- [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367)
 - [Build / 构建](BUILDING.md) · [Release / 发版](RELEASING.md) · [Contributing](CONTRIBUTING.md)
 - [Translation packs / 翻译包](TRANSLATIONS.md)
 
@@ -44,7 +42,7 @@ Seven original chapters in Simplified Chinese and English unfold through the exi
 
 ### Three elements, scattered scrolls / 三元素与散落书卷
 
-烈焰、潮涌、翠叶通过注魔、结算与锁定相互配合。锁定显示可选默认的红色负数回合、旧回合显示，或球心原值加下方回合；显示方式不改变法球规则。
+烈焰、波涛、翠叶通过注魔、结算与锁定相互配合。锁定显示可选默认的红色负数回合、旧回合显示，或球心原值加下方回合；显示方式不改变法球规则。
 
 Channel, evoke and lock Fire, Tide and Growth orbs. Choose red negative lock turns, the old turn counter, or the original value with turns below. These display choices leave orb rules unchanged.
 
@@ -60,16 +58,17 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current development source: **1.1.1 plus unpublished maintenance**, game **stable 0.107.1**.
-[Source fingerprint](source-snapshot.json) identifies this tree; [release metadata](release-metadata.json) identifies the separately published Steam runtime baseline. The branch head is not that runtime snapshot.
-
-`main` maintains stable; [`codex/beta`](https://github.com/albertoBradish/Librarian-StS2/tree/codex/beta) maintains game public-beta 0.111.0. Do not mix packages or enable both Workshop items. The latest separate GitHub stable runtime release is **V1.1.0**, tag **`v1.1.0-stable`**; this V1.1.1 source update does not replace its attachments. Historical tags remain unchanged.
+Current development source: **1.3.5**, with exact game-version selection.
+[Release metadata](release-metadata.json) distinguishes current development source
+from the published V1.3.0 Steam package and its artifact hashes. Steam server
+verification does not establish subscriber download delivery. This source update
+does not create a GitHub runtime release.
 
 | Component | Verified baseline |
 | --- | --- |
-| Slay the Spire 2 | **0.107.1 stable**, commit 59260271 |
-| [BaseLib](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.5) | 3.4.5 |
-| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.2) | 0.6.2, complete bundle for game API 0.107.1 |
+| Slay the Spire 2 | **0.107.1 public / 59260271** and **0.111.0 public-beta / 41cef1ea**; other versions stop at the loader |
+| BaseLib | Not required by unified V1.3.0; historical releases retain their own manifests |
+| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.4) | 0.6.4 compile baseline; complete bundle with both target `compat/` directories and `shared/` |
 
 Manifest minimum versions are not a promise of compatibility with newer game
 or dependency versions. Single-player is the primary supported path. Multiplayer
@@ -78,18 +77,17 @@ validation remain incomplete. Visual/audio feedback is welcome.
 
 ## Install / 安装
 
-1. Use the game branch/version required by the chosen release.
-2. Install and enable **both BaseLib and the complete RitsuLib bundle** from their official releases;
-   they are separate dependencies and are not bundled here. For Workshop installation, subscribe to and enable both.
-3. Download `Librarian.dll`, `Librarian.json`, and `Librarian.pck` from the **same**
-   GitHub release and place them in `mods/Librarian/` under your game installation.
-   Keep the accompanying licenses/notices and verify `SHA256SUMS.txt` if provided.
-4. Avoid loading both Workshop and manual copies of Librarian. Exit the game
+1. Use a game branch/version supported by the chosen release. Unified V1.3.0 supports only the two exact versions above.
+2. V1.3.0 requires **the complete RitsuLib bundle with baseline 0.6.4**, installed separately. Historical packages retain their original dependencies.
+3. For an available unified GitHub release, download all six runtime assets and follow `INSTALL-MAP.json`. Place root `Librarian.dll`, `Librarian.json`, `Librarian.pck` and `librarian-variants.manifest` in `mods/Librarian/`. Rename `compat-0.107.1-Librarian.dll` and `compat-0.111.0-Librarian.dll` to `Librarian.dll` in their respective `compat/<version>/` subdirectories. Keep notices and verify `SHA256SUMS.txt`. Historical three-file releases use their own instructions.
+4. For Workshop migration, subscribe to [3801958367](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367), quit the game, unsubscribe from old 3811677053, wait for the download, and restart with Librarian enabled. Keep saves. The old item remains public with a final migration notice after the new release succeeds; duplicate ModIds cannot guarantee that the new copy wins.
+5. Avoid loading both Workshop and manual copies of Librarian. Exit the game
    before changing mod files, back up saves, and use a spare profile/new run when
    testing a beta. Follow the game's mod activation/restart prompts.
 
 The automatically generated GitHub **Source code** archives are source snapshots,
-not installable mod packages. Download the three named runtime attachments.
+not installable mod packages. Download the complete runtime attachment set for
+the selected release. No full ZIP is produced by default.
 Historical binary archive tags contain provenance/notices only when a matching
 complete historical source tree is unavailable; they do not substitute current
 source for old versions. See the per-version release notes and provenance.

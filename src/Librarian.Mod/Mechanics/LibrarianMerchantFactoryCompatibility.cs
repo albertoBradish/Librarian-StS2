@@ -1,4 +1,3 @@
-using BaseLib.Utils;
 using Godot;
 using HarmonyLib;
 using Librarian.LibrarianCode;
@@ -8,7 +7,7 @@ namespace Librarian.Mechanics;
 
 /// <summary>
 /// Route the native merchant entry points for this character's non-Spine scene.
-/// BaseLib auto-conversion does not mark its factory flag and its flexible merchant
+/// Scene conversion does not mark its factory flag and its flexible merchant
 /// structure retains the original scene as a nested child. Detect our component recursively.
 /// </summary>
 [HarmonyPatch]
@@ -26,6 +25,7 @@ internal static class LibrarianMerchantFactoryCompatibility
 
     [HarmonyPatch(typeof(NMerchantCharacter), nameof(NMerchantCharacter._Ready))]
     [HarmonyPrefix, HarmonyPriority(Priority.First)]
+    [HarmonyBefore(STS2RitsuLib.Const.ModId + ".framework-character-assets")]
     private static bool Ready(NMerchantCharacter __instance)
     {
         if (FindMotion(__instance) is not { } motion) return true;
@@ -36,6 +36,7 @@ internal static class LibrarianMerchantFactoryCompatibility
 
     [HarmonyPatch(typeof(NMerchantCharacter), nameof(NMerchantCharacter.PlayAnimation))]
     [HarmonyPrefix, HarmonyPriority(Priority.First)]
+    [HarmonyBefore(STS2RitsuLib.Const.ModId + ".framework-character-assets")]
     private static bool Play(NMerchantCharacter __instance, string anim, bool loop)
     {
         if (FindMotion(__instance) is not { } motion) return true;
@@ -55,7 +56,6 @@ internal static class LibrarianMerchantFactoryCompatibility
         if (!player.HasAnimation(selected)) selected = "Idle";
         // Scope discovery to our component rather than other animations that a
         // factory or another mod may add to the enclosing merchant character.
-        if (!CustomAnimation.PlayCustomAnimation(motion, selected))
-            throw new InvalidOperationException("Librarian merchant custom animation could not be discovered: " + selected);
+        player.Play(selected);
     }
 }

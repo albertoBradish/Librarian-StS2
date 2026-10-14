@@ -133,7 +133,7 @@ internal static class LibrarianNoticeHistory051
 /// <summary>Offers a timed toast; only an explicit click may queue the native details dialog.</summary>
 public partial class LibrarianUpdateNotice051 : Node
 {
-    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/changelog/3811677053";
+    internal const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/changelog/3801958367";
     internal const string Email = "aery_bradish@163.com";
     internal const string Qq = "1850562239";
     private static readonly HashSet<string> Presented = new(StringComparer.Ordinal);
@@ -143,7 +143,7 @@ public partial class LibrarianUpdateNotice051 : Node
     private RitsuToastHandle? _toast;
     private bool _openRequested;
     internal static string? CurrentVersion => ModManager.GetLoadedMods()
-        .FirstOrDefault(m => m.manifest?.id == MainFile.ModId && m.assembly == typeof(MainFile).Assembly)?.manifest?.version;
+        .FirstOrDefault(m => m.manifest?.id == MainFile.ModId)?.manifest?.version;
 
     public override void _Process(double delta)
     {
@@ -236,39 +236,29 @@ public partial class LibrarianUpdateNotice051 : Node
     private static void ConfigureNativeInputFocus(NGenericPopup popup, NVerticalPopup panel)
     {
         var controller = NControllerManager.Instance;
-        NPopupYesNoButton[] buttons = [panel.NoButton, panel.GetNode<NPopupYesNoButton>("NeverShowButton"), panel.YesButton];
         void Refresh()
         {
             if (!GodotObject.IsInstanceValid(popup) || !popup.IsInsideTree()
                 || !ReferenceEquals(NModalContainer.Instance?.OpenModal, popup)) return;
-            foreach (var button in buttons)
-            {
-                if (button.GetNodeOrNull<CanvasItem>("%ControllerIcon") is not { } icon) continue;
-                // Stable calls this node ControllerIcon. Its native A/B bindings
-                // were disconnected, so the glyphs must not advertise those actions.
-                // Device/rebind updates can restore Visible; zero alpha also prevents drawing.
-                icon.Modulate = new Color(1, 1, 1, 0);
-                icon.Hide();
-            }
             var focused = popup.GetViewport().GuiGetFocusOwner();
-            if (controller?.IsUsingController == true)
+            if (LibrarianGameApi.IsUsingDirectionalNavigation(controller))
             {
-                // Stable GenericPopup has no native DefaultFocusedControl.
-                // Its controller mode alone requires an initial GUI focus target.
+                // GenericPopup has no native DefaultFocusedControl. Establish the
+                // default only when arrow-key/controller navigation is active.
                 if (focused is null || !popup.IsAncestorOf(focused)) panel.YesButton.GrabFocus();
             }
             else if (focused is not null && popup.IsAncestorOf(focused))
             {
-                // Stable NClickableControl uses hover OR GUI focus for its outline.
-                // Mouse mode lets native MouseEntered/MouseExited own that state.
+                // NClickableControl uses hover OR GUI focus to light its outline.
+                // Mouse mode must let native MouseEntered/MouseExited own that state.
                 focused.ReleaseFocus();
             }
         }
         Callable refresh = Callable.From(Refresh);
         controller?.Connect(NControllerManager.SignalName.ControllerDetected, refresh);
         controller?.Connect(NControllerManager.SignalName.MouseDetected, refresh);
-        // Run after ConfigureActions' deferred hotkey setup; both calls complete
-        // before the first draw, so mouse mode does not draw the default focus.
+        // Run after ConfigureActions' deferred hotkey setup; both deferred calls
+        // complete before the first draw, so mouse mode never draws the default focus.
         refresh.CallDeferred();
         popup.TreeExiting += () =>
         {

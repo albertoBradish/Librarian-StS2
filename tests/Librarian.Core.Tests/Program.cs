@@ -4,6 +4,40 @@ var tests = new List<(string Id, string Name, Func<Task> Run)>();
 void Test(string id, string name, Action run) => tests.Add((id, name, () => { run(); return Task.CompletedTask; }));
 void AsyncTest(string id, string name, Func<Task> run) => tests.Add((id, name, run));
 
+Test("FeedbackDeepPayout", "Scheduled Waves pay this turn and decay only once", () =>
+{
+    var w=new WaveState();w.BeginEndTurnPhase(1);w.AddScheduledEndTurnGain(1,15);
+    Check.Equal(15,w.TakeEndTurnAmount(1));Check.Equal(7,w.Amount);
+    Check.Equal(0,w.TakeEndTurnAmount(1));Check.Equal(7,w.Amount);
+    var large=new WaveState();large.Add(int.MaxValue-10);large.BeginEndTurnPhase(1);
+    large.AddScheduledEndTurnGain(1,10);Check.Equal(int.MaxValue,large.TakeEndTurnAmount(1));
+    Check.Throws<InvalidOperationException>(()=>new WaveState().AddScheduledEndTurnGain(1,5));
+});
+Test("FeedbackDeepTide", "Scheduled Waves raise the frozen floor without double-paying Tide", () =>
+{
+    foreach(var (existing,pending,tide) in new[]{(0,10,0),(0,10,8),(0,10,20),(9,10,8),(9,10,20)})
+    {
+        var w=new WaveState();w.Add(existing);w.BeginEndTurnPhase(1);w.AddScheduledEndTurnGain(1,pending);
+        w.RecordEndTurnTideContribution(1,tide);w.Add(tide);
+        Check.Equal(Math.Max(existing+pending,tide),tide+w.TakeEndTurnAmount(1));
+        Check.Equal((existing+pending+tide)/2,w.Amount);
+    }
+});
+Test("FeedbackDeepPolicy", "Forbidden gains cannot raise the payout and retention preserves the new Waves", () =>
+{
+    bool allow=true;var w=new WaveState(()=>allow);w.Add(9);w.BeginEndTurnPhase(1);allow=false;
+    w.AddScheduledEndTurnGain(1,20);Check.Equal(9,w.TakeEndTurnAmount(1));Check.Equal(4,w.Amount);
+    var kept=new WaveState{Retained=true};kept.Add(9);kept.BeginEndTurnPhase(1);kept.AddScheduledEndTurnGain(1,10);
+    Check.Equal(19,kept.TakeEndTurnAmount(1));Check.Equal(19,kept.Amount);
+    kept.Retained=false;kept.BeginEndTurnPhase(2);Check.Equal(19,kept.TakeEndTurnAmount(2));Check.Equal(9,kept.Amount);
+});
+AsyncTest("FeedbackDeepPreview", "Scheduled Waves preview matches payout while preserving live state", async () =>
+{
+    var s=new OrbCombatState("feedback");s.BeginOwnerTurn();s.Gain(OrbKind.Tide,8);var w=new WaveState();w.Add(9);
+    var p=new EndTurnBlockProjection(s,w);await p.Resolve(new(OrbScope.All),x=>x.Waves.AddScheduledEndTurnGain(x.Orbs.OwnerTurn,10));
+    Check.Equal(19,p.NewTidalBlock);Check.Equal(13,p.Waves.Amount);Check.Equal(9,w.Amount);Check.False(s.EndTurnResolved);
+});
+
 Test("BlockTotals", "Final total uses native per-gain truncation, loss and cap", () =>
 {
     var total = new EndTurnBlockTotals(12);
@@ -28,6 +62,56 @@ AsyncTest("BlockTotalsResolver", "Preview uses actual expiry and each unpowered 
     p.Orbs.BeginOwnerTurn();Check.False(p.Orbs.EndTurnResolved);
 });
 
+
+AsyncTest("120PreviewExamples", "Tide and frozen Waves share one end-turn payout, including inactive and locked Tide", async () =>
+{
+    foreach (var (waves, tide, back, inactive, locked, expected) in new[] {
+        (14,20,false,false,false,20), (14,8,false,false,false,14), (14,20,true,false,false,14),
+        (14,20,false,true,false,14), (14,20,false,false,true,14), (0,20,false,false,false,20) })
+    {
+        var s = new OrbCombatState("preview"); s.BeginOwnerTurn(); s.Gain(OrbKind.Tide,tide);
+        if(back) s.Gain(OrbKind.Fire,0);
+        if(inactive) s.Extinguish(OrbKind.Tide,OrbScope.All);
+        if(locked) s.Lock(OrbKind.Tide);
+        var w = new WaveState(); w.Add(waves);
+        var p = new EndTurnBlockProjection(s,w); await p.Resolve(new(OrbScope.All,HalfBackground:true));
+        Check.Equal(expected,p.NewTidalBlock); Check.Equal(waves,w.Amount);
+        Check.Equal(tide,s.Value(OrbKind.Tide));
+    }
+});
+AsyncTest("120PreviewGrowth", "Growth order and full extra Tide settlements use current copied values", async () =>
+{
+    var s = new OrbCombatState("growth"); s.BeginOwnerTurn(); s.Gain(OrbKind.Fire,100); s.Gain(OrbKind.Tide,8); s.Gain(OrbKind.Growth,12);
+    s.QueueExtraSettlement(OrbSelector.Named(OrbKind.Tide,OrbScope.All),2,"extra");
+    var w = new WaveState(); w.Add(9);
+    var p = new EndTurnBlockProjection(s,w); await p.Resolve(new(OrbScope.All,HalfBackground:true));
+    Check.Equal(50,p.NewTidalBlock); // Growth raises Tide to 20; half natural 10 + two full extras 40.
+    var second = new EndTurnBlockProjection(s,w); await second.Resolve(new(OrbScope.All,HalfBackground:true));
+    Check.Equal(50,second.NewTidalBlock); Check.Equal(8,s.Value(OrbKind.Tide));
+    Check.Equal(0,s.SettlementsThisCombat); Check.True(s.IsActivated(OrbKind.Growth));
+});
+AsyncTest("120PreviewDelayed", "Delayed Waves do not change the frozen floor, and retention applies after settlements", async () =>
+{
+    var s = new OrbCombatState("delayed"); s.BeginOwnerTurn(); var w = new WaveState(); w.Add(9);
+    var p = new EndTurnBlockProjection(s,w); await p.Resolve(new(OrbScope.All),x=>x.Waves.Add(30),preventDecay:true);
+    Check.Equal(9,p.NewTidalBlock); Check.Equal(39,p.Waves.Amount); Check.Equal(9,w.Amount);
+    var blocked = new EndTurnBlockProjection(s,w,false); await blocked.Resolve(new(OrbScope.All),x=>x.Waves.Add(30));
+    Check.Equal(9,blocked.NewTidalBlock); Check.Equal(4,blocked.Waves.Amount);
+});
+AsyncTest("120PreviewExpiry", "Tidal expiry stays separate from newly gained Block and cannot mutate the live ledger", async () =>
+{
+    var s = new OrbCombatState("ledger"); s.BeginOwnerTurn(); s.Gain(OrbKind.Tide,20);
+    s.BlockLedger.RecordTideGain(7,0,expireAtNextEnd:true); s.BlockLedger.RecordOrdinaryGain(5,1);
+    var p = new EndTurnBlockProjection(s,new WaveState()); await p.Resolve(new(OrbScope.All));
+    Check.Equal(7L,p.ExpiringBlock); Check.Equal(20,p.NewTidalBlock); Check.Equal(12L,s.BlockLedger.Total);
+});
+AsyncTest("120PreviewRandom", "A queued random selector cannot consume RNG or poison the live state during preview", async () =>
+{
+    var s = new OrbCombatState("random"); s.BeginOwnerTurn(); s.QueueExtraSettlement(OrbSelector.Random(OrbScope.All),1,"random");
+    try { await new EndTurnBlockProjection(s,new WaveState()).Resolve(new()); throw new Exception("Random preview should fail"); }
+    catch(PreviewRandomRequiredException) { }
+    Check.False(s.IsFaulted); Check.Equal(0,s.SettlementsThisCombat);
+});
 
 Test("061Waves", "One-shot retention preserves combined Waves without altering frozen payout or future decay", () =>
 {
@@ -831,6 +915,25 @@ AsyncTest("L06", "Combat settlement count survives turns, ignores locked attempt
     await s.SettleImmediatelyAsync(OrbSelector.Named(OrbKind.Fire), 3, _ => ValueTask.CompletedTask, "locked");
     Check.Equal(2, s.SettlementsThisCombat);
     Check.Equal(0, new OrbCombatState("owner").SettlementsThisCombat);
+});
+
+Test("W07", "Gain policy blocks every addition without erasing existing Waves or changing decay", () =>
+{
+    bool allowed = true;
+    var waves = new WaveState(() => allowed);
+    waves.Add(10);
+    allowed = false;
+    waves.Add(int.MaxValue);
+    Check.Equal(10, waves.Amount);
+    Check.Throws<ArgumentOutOfRangeException>(() => waves.Add(-1));
+    Check.Equal(10, waves.TakeEndTurnAmount(1));
+    Check.Equal(5, waves.Amount);
+    allowed = true;
+    waves.Add(3);
+    Check.Equal(8, waves.Amount);
+    var other = new WaveState();
+    other.Add(14);
+    Check.Equal(14, other.Amount);
 });
 
 int failed = 0;

@@ -141,7 +141,7 @@ internal static class DevelopmentSettingsPageAudit
         Diagnostic("before-native-click", wheelInputs);
         Check(Visible(), "actual mouse target lies within native clipping bounds " + control.Name);
         var point = control.GetViewport().GetStretchTransform() * control.GetGlobalTransformWithCanvas() * (control.Size * .5f);
-#if LIBRARIAN_BETA
+#if LIBRARIAN_API_0111
         NControllerManager.Instance!.ForceMouseMode();
 #endif
         Input.WarpMouse(point);
@@ -472,7 +472,7 @@ internal static class DevelopmentSettingsPageAudit
                 await HoverCapture(player);
                 File.WriteAllText(Path.Combine(Output, "captures.json"), JsonSerializer.Serialize(new {
                     game_version =
-#if LIBRARIAN_BETA
+#if LIBRARIAN_API_0111
                         NGame.GetGameVersion(),
 #else
                         MegaCrit.Sts2.Core.Debug.ReleaseInfoManager.Instance.ReleaseInfo?.Version,

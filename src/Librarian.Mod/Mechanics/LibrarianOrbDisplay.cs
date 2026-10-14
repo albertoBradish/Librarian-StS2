@@ -51,6 +51,9 @@ public partial class LibrarianOrbDisplay : Control
     private LibrarianWaterShield? _waterShield;
 
     internal float FormationRadius { get; private set; } = 138f;
+    private float _backgroundRise;
+    private float _backgroundSpread;
+    private float _foregroundRise;
     internal LibrarianOrbMagicCircle MagicCircle => _circle!;
     internal LibrarianOrbMagicCircle ForegroundNeedle => _needle!;
 
@@ -150,18 +153,24 @@ public partial class LibrarianOrbDisplay : Control
         }
         var creature = room?.GetCreatureNode(_session.Player.Creature);
         if (creature?.Hitbox is not { } hitbox) { Visible = false; if (_circle is not null) _circle.Visible = false; return; }
-        GlobalPosition = hitbox.GetGlobalTransform() * new Vector2(hitbox.Size.X / 2, hitbox.Size.Y * 0.30f);
+        bool refined = LibrarianSpineRuntime.Find(_session.Player.Creature) is not null;
+        GlobalPosition = hitbox.GetGlobalTransform() * new Vector2(hitbox.Size.X / 2, hitbox.Size.Y * (refined ? .46f : .30f));
         if (_waterShield is not null)
         {
             _waterShield.Position = new Vector2(0, hitbox.Size.Y * 0.20f);
             _waterShield.Radius = hitbox.Size.Y * 0.56f;
         }
-        FormationRadius = Math.Max(hitbox.Size.X / 2 + 28, hitbox.Size.Y * 0.30f + 48);
+        FormationRadius = Math.Max(hitbox.Size.X / 2 + 28, hitbox.Size.Y * (refined ? .575f : .30f) + 48);
         if (_remote) FormationRadius *= 0.75f;
+        // Three vertices of one equilateral triangle on the SAME circle, shared center.
+        _backgroundRise = refined ? -FormationRadius * .5f : 0;
+        _backgroundSpread = refined ? FormationRadius * (MathF.Sqrt(3) * .5f - 1) : 0;
+        _foregroundRise = 0;
         if (_circle is not null) { _circle.GlobalPosition = GlobalPosition; _circle.Configure(FormationRadius); }
         _circle?.Advance(delta);
         if (_remote && _circle is not null) _circle.Modulate = new Color(1, 1, 1, _hovered is null ? 0.28f : 0.65f);
         _needle?.Configure(FormationRadius);
+        if (_needle is not null) _needle.Position = new Vector2(0, -_foregroundRise);
         RefreshState();
         bool idle = LibrarianPreferences050.Current.OrbIdle && !LibrarianPreferences050.Current.ReducedMotion;
         _idleTime += idle ? delta : 0;
@@ -190,20 +199,23 @@ public partial class LibrarianOrbDisplay : Control
         foreach (var orb in state.Orbs)
         {
             var v = _visuals[orb.Kind];
-            var destination = orb.IsForeground ? new Vector2(-36, -FormationRadius - 36)
-                : new Vector2((background++ == 0 ? -FormationRadius : FormationRadius) - 36, -36);
+            var destination = orb.IsForeground ? new Vector2(-36, -FormationRadius - _foregroundRise - 36)
+                : new Vector2((background++ == 0 ? -1 : 1) * (FormationRadius + _backgroundSpread) - 36, -_backgroundRise - 36);
             float size = orb.IsForeground ? ForegroundScale : BackgroundScale;
             if (_remote) size *= 0.75f;
-            if (v.Foreground is null) { v.Root.Position = destination; v.Root.Scale = Vector2.One * size; }
+            if (v.Foreground is null || LibrarianPreferences050.Current.ReducedMotion)
+            { v.LayoutTween?.Kill(); v.Root.Position = destination; v.Root.Scale = Vector2.One * size; }
             else if (v.Destination != destination || v.Foreground != orb.IsForeground)
             {
                 v.LayoutTween?.Kill();
                 v.LayoutTween = CreateTween().SetParallel();
                 Vector2 start = v.Root.Position;
-                // Side-to-side travel curves below the body instead of crossing its face.
-                bool around = start.X < -100 && destination.X > 0;
+                // Refined side-to-side travel passes above the head/hand envelope.
+                // Keep the legacy curve for non-Spine recipients of the orb display.
+                bool raised = _backgroundRise != 0;
+                bool around = raised ? (start.X + 36) * (destination.X + 36) < 0 : start.X < -100 && destination.X > 0;
                 v.LayoutTween.TweenMethod(Callable.From<float>(t =>
-                    v.Root.Position = start.Lerp(destination, t) + new Vector2(0, around ? FormationRadius * Mathf.Sin(Mathf.Pi * t) : 0)),
+                    v.Root.Position = start.Lerp(destination, t) + new Vector2(0, around ? (raised ? -1 : 1) * FormationRadius * Mathf.Sin(Mathf.Pi * t) : 0)),
                     0f, 1f, 0.35).SetTrans(Tween.TransitionType.Sine);
                 v.LayoutTween.TweenProperty(v.Root, "scale", Vector2.One * size, 0.25);
             }

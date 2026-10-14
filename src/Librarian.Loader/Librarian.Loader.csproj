@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CheckLibrarianLoaderSdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <AssemblyName>Librarian.Loader</AssemblyName>
+    <RootNamespace>Librarian.Loader</RootNamespace>
+    <Version>1.3.5</Version>
+    <AssemblyVersion>1.3.5.0</AssemblyVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);MSB3270</NoWarn>
+    <LibrarianLoaderSdk>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../.research/channels/stable/workspace/.research/ritsu-game/data_sts2_windows_x86_64'))</LibrarianLoaderSdk>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sts2" HintPath="$(LibrarianLoaderSdk)/sts2.dll" Private="false" />
+    <Reference Include="GodotSharp" HintPath="$(LibrarianLoaderSdk)/GodotSharp.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(LibrarianLoaderSdk)/0Harmony.dll" Private="false" />
+  </ItemGroup>
+  <Target Name="CheckLibrarianLoaderSdk">
+    <Error Condition="!Exists('$(LibrarianLoaderSdk)/sts2.dll')" Text="Librarian.Loader requires the isolated fixed 0.107.1 SDK." />
+    <GetFileHash Files="$(LibrarianLoaderSdk)/sts2.dll" Algorithm="SHA256">
+      <Output TaskParameter="Items" ItemName="LibrarianLoaderSdkHash" />
+    </GetFileHash>
+    <Error Condition="'%(LibrarianLoaderSdkHash.FileHash)' != 'A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52'" Text="The Librarian.Loader SDK is not the approved 0.107.1 / 59260271 assembly." />
+  </Target>
+</Project>

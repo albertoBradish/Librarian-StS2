@@ -26,7 +26,11 @@ public partial class MainFile : Node
 
         Librarian.Mechanics.LibrarianUnlocks040.Initialize();
         Librarian.Mechanics.LibrarianSettings041.Initialize();
+        // Requires the real pinned G1 58-clip native bank before any character is constructed.
+        Librarian.Mechanics.LibrarianSpineIntegration.Initialize(
+            Librarian.Mechanics.LibrarianSpineAssetPins.Prepared(), e => Logger.Warn("Spine presentation: " + e));
         harmony.PatchAll(assembly);
+        Librarian.Mechanics.LibrarianRitsuCardRegistration.Initialize();
         Librarian.Mechanics.LibrarianRuntime.Initialize();
         Logger.Info("Librarian character skeleton initialized. Orb mechanics connected=" + LibrarianMechanicsBridge.IsConnected);
     }

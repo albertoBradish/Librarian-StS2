@@ -14,7 +14,7 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 public sealed class Ignite() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(7m), new CalculationExtraVar(5m), new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => PreviewLockedCount(card))];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(7m), new CalculationExtraVar(4m), new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => PreviewLockedCount(card))];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Block(play, Amount("CalculationBase") + LockedCount * Amount("CalculationExtra"));

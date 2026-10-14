@@ -11,7 +11,7 @@ namespace Librarian.LibrarianCode.Cards.OrbUtility;
 /// <summary>Source 36/r37. The delayed amount is captured now; its context is supplied next turn.</summary>
 public sealed class SeedburialStrike() : OrbUtilityCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new DynamicVar("Growth", 12m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(15m, ValueProp.Move), new DynamicVar("Growth", 10m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
@@ -31,11 +31,11 @@ public sealed class SeedburialStrike() : OrbUtilityCard(2, CardType.Attack, Card
 public sealed class EmberReckoning() : OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new CalculationBaseVar(7m), new ExtraDamageVar(1m),
+        [new CalculationBaseVar(9m), new ExtraDamageVar(1m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewForeground(card, OrbKind.Fire))];
     protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
         => Hit(context, play, DynamicVars.CalculationBase.BaseValue + Session.Orbs.Value(OrbKind.Fire));
-    protected override void OnUpgrade() => DynamicVars.CalculationBase.UpgradeValueBy(3m);
+    protected override void OnUpgrade() => DynamicVars.CalculationBase.UpgradeValueBy(4m);
     protected override void AfterDowngraded()
     {
         DynamicVars.RecalculateForUpgradeOrEnchant();
@@ -46,7 +46,7 @@ public sealed class EmberReckoning() : OrbUtilityCard(1, CardType.Attack, CardRa
 /// <summary>v0.3.0 approved revision, catalog 45. Stable model ID retained.</summary>
 public sealed class Evaporation() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 6m), new CardsVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 8m), new CardsVar(1)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Gain(context, Session, OrbKind.Fire, Amount("Fire"));
@@ -56,7 +56,6 @@ public sealed class Evaporation() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
     protected override void OnUpgrade()
     {
         DynamicVars["Fire"].UpgradeValueBy(3m);
-        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }
 
@@ -82,7 +81,7 @@ public sealed class Cooldown() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUti
 public sealed class SproutingBulwark() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Block(play, Amount("Block"));
@@ -181,7 +180,7 @@ public sealed class OutOfContext() : OrbUtilityCard(0, CardType.Skill, CardRarit
 /// <summary>Source 55/r56. User override: extinguish Fire in either position.</summary>
 public sealed class Afforestation() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 5m), new DynamicVar("Growth", 4m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 4m), new DynamicVar("Growth", 3m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;

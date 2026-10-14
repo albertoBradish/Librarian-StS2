@@ -10,10 +10,10 @@ public sealed class CrowdKindlingPower : ImplementedLibrarianPower
 {
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // CardPlay.Player is the actual player, even if the card transferred ownership during play.
+        // The API bridge preserves the actual player if ownership changes during play.
         // The native combat hook dispatch is shared by all players; never filter to local ownership.
         if (Amount <= 0 || Owner.IsDead || Owner.Player is not { } owner || Owner.CombatState is not { } combat
-            || cardPlay.Card.Type != CardType.Attack || cardPlay.Card.Owner.Creature.CombatState != combat)
+            || cardPlay.Card.Type != CardType.Attack || LibrarianGameApi.PlayingPlayer(cardPlay).Creature.CombatState != combat)
             return;
 
         var session = LibrarianRuntime.Get(owner);

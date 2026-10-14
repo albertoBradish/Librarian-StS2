@@ -18,16 +18,15 @@ namespace Librarian.Mechanics;
 internal static class DevelopmentRevision102Beta2TimelineAudit
 {
     private static int _checks;
-    // Stable 0.107.1 keeps this native art-state property private. Invoke the
-    // original getter instead of replacing its state test with our path check.
-    private static readonly System.Reflection.MethodInfo NativeHasRealPortraitGetter =
-        AccessTools.PropertyGetter(typeof(EpochModel), "HasRealPortrait")
-        ?? throw new MissingMethodException(typeof(EpochModel).FullName, "get_HasRealPortrait");
     private static bool NativeHasRealPortrait(EpochModel epoch)
-        => (bool)NativeHasRealPortraitGetter.Invoke(epoch, null)!;
+#if LIBRARIAN_API_0107
+        => (bool)AccessTools.PropertyGetter(typeof(EpochModel), "HasRealPortrait").Invoke(epoch, null)!;
+#else
+        => epoch.HasRealPortrait;
+#endif
     private static readonly Vector2I[] CaptureWindows = [new(1280,720),new(1920,1080),new(2560,1600)];
     private static string Output => System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT")
-        ?? @"D:\Slay The Spire_Mod Dev\.research\channels\stable\workspace\outputs\revision-v1.1.0-stable\screenshots";
+        ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.2-beta2\screenshots";
     private static readonly Regex ColorTags = new(@"\[(gold|blue|aqua|green|orange|pink|purple|red)(?:\s[^\]]*)?\]",RegexOptions.IgnoreCase);
     private static readonly Regex MotionTags = new(@"\[(sine|jitter)(?:\s[^\]]*)?\]",RegexOptions.IgnoreCase);
     private static readonly Regex MotionSpans = new(@"\[(sine|jitter)(?:\s[^\]]*)?\](.*?)\[/\1\]",RegexOptions.IgnoreCase|RegexOptions.Singleline);

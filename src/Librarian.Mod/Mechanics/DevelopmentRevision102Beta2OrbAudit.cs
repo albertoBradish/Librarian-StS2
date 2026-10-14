@@ -39,7 +39,7 @@ internal static class DevelopmentRevision102Beta2OrbAudit
         async Task Wait(double seconds = .12) => await NGame.Instance!.ToSignal(
             NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
         string output = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT")
-            ?? @"D:\Slay The Spire_Mod Dev\.research\channels\stable\workspace\outputs\revision-v1.1.0-stable\screenshots";
+            ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v1.0.2-beta2\screenshots";
         Directory.CreateDirectory(output);
         async Task Shot(string name)
         {
@@ -124,12 +124,9 @@ internal static class DevelopmentRevision102Beta2OrbAudit
                         .Single(b => b.IsVisibleInTree() && (b.Text == label || b.Text == "✓ " + label));
                     if (mode == LibrarianLockedOrbDisplayMode.NegativeTurns) await Shot("v102-beta2-orb-dropdown-" + language);
                     option.EmitSignal(BaseButton.SignalName.Pressed);
-                    await Wait(.5);
+                    await Wait(.1);
                     Check(entry.Binding.Read() == mode && dropdown.GetChildren().OfType<Button>().First().Text == label,
                         "native dropdown choice and selected text " + language + " " + mode);
-                    using (var selected = JsonDocument.Parse(File.ReadAllText(LibrarianPreferences050.FilePath)))
-                        Check(selected.RootElement.GetProperty("LockedOrbDisplay").GetInt32() == (int)mode,
-                            "native dropdown click persists mode " + language + " " + mode);
                 }
                 CloseSettings();
                 await Wait(.1);

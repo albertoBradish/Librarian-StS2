@@ -34,8 +34,9 @@ public sealed class DeepSeaPendingPower : ImplementedLibrarianPower
             if (!Owner.Powers.Contains(this) || Owner.IsDead) return;
             Flash();
             await PowerCmd.ModifyAmount(context, this, -value, null, null);
-            await Gain(context, session, OrbKind.Tide, value);
-        }, preview => { if (Owner.Powers.Contains(this) && !Owner.IsDead) preview.Dispatch(preview.Orbs.Gain(OrbKind.Tide, value)); });
+            session.Waves.AddScheduledEndTurnGain(session.Orbs.OwnerTurn, value);
+            LibrarianRuntime.VerifyBlock(session);
+        }, preview => { if (Owner.Powers.Contains(this) && !Owner.IsDead) preview.Waves.AddScheduledEndTurnGain(preview.Orbs.OwnerTurn, value); });
     }
 }
 
@@ -108,6 +109,6 @@ public sealed class EndlessTidePower : ImplementedLibrarianPower
         if (player != Owner.Player || Owner.IsDead) return;
         Flash();
         var session = LibrarianRuntime.Get(player);
-        await LibrarianRuntime.Dispatch(session, context, session.Orbs.Activate(OrbKind.Tide, origin: Origin));
+        await Gain(context, session, OrbKind.Tide, 1);
     }
 }

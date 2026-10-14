@@ -15,14 +15,27 @@ internal static partial class DevelopmentRuntimeAudit
         if (!OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("041 fixture requires isolated validation profile");
         string? focus = System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS");
-        bool updateToast = focus == "update-toast";
+        if (focus == "120-card-art-r5")
+        {
+            await DevelopmentCardArtR5Audit.Run();
+            return;
+        }
         bool continuedOrder = focus == "continued-order";
         bool blockPreview = focus == "block-preview";
         bool fuelFreeze = focus == "fuel-freeze";
+        bool pending120 = focus == "120-pending";
+        bool updateToast = focus == "update-toast";
         bool settingsRefresh = focus == "settings-refresh";
         bool autoplayChoice = focus == "autoplay-choice";
+        bool revision120Beta4 = focus == "120-art";
+        bool revision120Beta3 = focus == "120-hover";
+        bool revision120Cards = focus == "120-cards";
+        bool revision120Beta2 = focus == "120-powers";
         bool revisionText111 = focus == "111-text";
-        bool revisionBeta3 = focus is "beta3" or "stable";
+        bool revision110Beta4 = focus == "110-beta4";
+        bool revision110Beta3 = focus == "110-beta3";
+        bool revision110Beta2 = focus == "110-beta2";
+        bool revisionBeta3 = focus == "beta3";
         bool revision101 = focus == "101";
         bool revision102Beta2 = focus == "102-beta2";
         bool revision102 = focus == "102" || revision102Beta2;
@@ -38,7 +51,16 @@ internal static partial class DevelopmentRuntimeAudit
         bool revision043 = focus == "043";
         bool revision042 = focus is "042" or "042-cards";
         bool visualOnly = focus == "visual";
-        bool focused = blockPreview || fuelFreeze || continuedOrder || settingsRefresh || updateToast || autoplayChoice || revisionText111 || revision102 || revision101 || revisionBeta3 || revisionBeta2 || visualOnly || focus == "interactions" || revision042 || revision043 || revision044 || revision050 || revision051 || revision052 || revision053 || revision054 || revision060 || revision061;
+        bool focused = blockPreview || fuelFreeze || continuedOrder || settingsRefresh || updateToast || pending120 || autoplayChoice || revision120Beta4 || revision120Beta3 || revision120Beta2 || revision120Cards || revisionText111 || revision110Beta4 || revision110Beta3 || revision110Beta2 || revision102 || revision101 || revisionBeta3 || revisionBeta2 || visualOnly || focus == "interactions" || revision042 || revision043 || revision044 || revision050 || revision051 || revision052 || revision053 || revision054 || revision060 || revision061;
+        if (revisionText111 && System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_AUDIT") == "1")
+        {
+            await DevelopmentNoticeBeta6Audit.Run(NGame.Instance!.MainMenu!);
+            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_NOTICE_PHASE") == "restart")
+            {
+                if (System.Environment.GetEnvironmentVariable("LIBRARIAN_060_EXIT") == "1") NGame.Instance.Quit();
+                return;
+            }
+        }
         if (settingsRefresh) await DevelopmentSettingsPageAudit.Menu(NGame.Instance!.MainMenu!);
         if (updateToast)
         {
@@ -52,19 +74,10 @@ internal static partial class DevelopmentRuntimeAudit
         if (revision102)
         {
             string expectedVersion = System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_VERSION")
-                ?? "1.1.0";
+                ?? (revision102Beta2 ? "1.0.2-beta2" : "1.0.2-beta1");
             await DevelopmentRevision102Audit.Menu(NGame.Instance!.MainMenu!, expectedVersion);
             if (System.Environment.GetEnvironmentVariable("LIBRARIAN_102_PHASE") == "restart") return;
             if (revision102Beta2) await DevelopmentRevision102Beta2PopupAudit.Run(NGame.Instance!.MainMenu!);
-        }
-        if (revisionText111 && System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_AUDIT") == "1")
-        {
-            await DevelopmentNoticeBeta6Audit.Run(NGame.Instance!.MainMenu!);
-            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_BETA6_NOTICE_PHASE") == "restart")
-            {
-                if (System.Environment.GetEnvironmentVariable("LIBRARIAN_060_EXIT") == "1") NGame.Instance.Quit();
-                return;
-            }
         }
         if (revision051 || revision053)
         {
@@ -96,7 +109,7 @@ internal static partial class DevelopmentRuntimeAudit
             await DevelopmentRevision041MechanicsAudit.Run(_player, FreshFight);
             await FreshFight();
         }
-        if (!blockPreview && !fuelFreeze && !continuedOrder && !settingsRefresh && !updateToast && !autoplayChoice && !revisionText111 && !revision102 && !revision101 && !revisionBeta3 && !revisionBeta2 && !visualOnly && focus != "042-cards" && !revision043 && !revision044 && !revision050 && !revision051 && !revision052 && !revision053 && !revision054 && !revision060 && !revision061)
+        if (!blockPreview && !fuelFreeze && !continuedOrder && !settingsRefresh && !updateToast && !pending120 && !autoplayChoice && !revision120Beta4 && !revision120Beta3 && !revision120Beta2 && !revision120Cards && !revisionText111 && !revision110Beta4 && !revision110Beta3 && !revision110Beta2 && !revision102 && !revision101 && !revisionBeta3 && !revisionBeta2 && !visualOnly && focus != "042-cards" && !revision043 && !revision044 && !revision050 && !revision051 && !revision052 && !revision053 && !revision054 && !revision060 && !revision061)
         {
             await DevelopmentRevision041InteractionsAudit.Run(_player, FreshFight);
             await FreshFight();
@@ -105,8 +118,16 @@ internal static partial class DevelopmentRuntimeAudit
         else if (fuelFreeze) await DevelopmentFuelFreezeAudit.Run(_player, FreshFight);
         else if (continuedOrder) await DevelopmentContinuedOrderAudit.Run(_player, FreshFight);
         else if (settingsRefresh) await DevelopmentSettingsPageAudit.Combat(_player);
+        else if (pending120) await DevelopmentPending120Audit.Run(_player, FreshFight);
         else if (autoplayChoice) await DevelopmentAutoplayChoiceAudit.Run(_player, FreshFight);
+        else if (revision120Beta4) await DevelopmentAncientArt120Beta4Audit.Run(_player);
+        else if (revision120Beta3) await DevelopmentTranscribeHover120Beta3Audit.Run(_player);
+        else if (revision120Beta2) await DevelopmentRevision120Beta2Audit.Run(_player, FreshFight);
+        else if (revision120Cards) await DevelopmentRevision120CardsAudit.Run(_player, FreshFight);
         else if (revisionText111) await DevelopmentTextRevision111Audit.Run(_player, FreshFight);
+        else if (revision110Beta4) await DevelopmentRevision110Beta4Audit.Run(_player);
+        else if (revision110Beta3) await DevelopmentRevision110Beta3Audit.Run(_player);
+        else if (revision110Beta2) await DevelopmentRevision110Beta2Audit.Run(_player, FreshFight);
         else if (revision102Beta2)
         {
             await DevelopmentRevision102VisualAudit.Run(_player);
@@ -139,7 +160,6 @@ internal static partial class DevelopmentRuntimeAudit
         else if (revision043) await DevelopmentRevision043Audit.Run(_player, FreshFight);
         else if (revision042) await DevelopmentRevision042Audit.Run(_player, FreshFight);
         else if (!blockPreview && !settingsRefresh && !updateToast) await DevelopmentRevision041VisualAudit.Run(_player);
-        if (autoplayChoice || focus is "stable" or "101" || revision102 || revisionText111) await DevelopmentStableApiAudit.Run(_player, FreshFight);
         await SaveManager.Instance.SaveRun(null);
         var saved = SaveManager.Instance.LoadRunSave();
         Equal(true, saved.Success && saved.SaveData is not null, "041 real isolated save read");
@@ -150,7 +170,6 @@ internal static partial class DevelopmentRuntimeAudit
         await NGame.Instance.LoadRun(restored, saved.SaveData!.PreFinishedRoom);
         await NGame.Instance.Transition.FadeIn();
         Equal(true, RunManager.Instance.IsInProgress, "041 real menu/new run/combat/save/reload");
-        if (revisionBeta2) MainFile.Logger.Info("RUNTIME_BETA2_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
         if (blockPreview)
         {
             _player = restored.Players.Single();
@@ -158,7 +177,17 @@ internal static partial class DevelopmentRuntimeAudit
             await DevelopmentEndTurnBlockAudit.AfterReload(_player);
         }
         if (settingsRefresh) await DevelopmentSettingsPageAudit.AfterReload(restored.Players.Single());
-        MainFile.Logger.Info($"SAVE_RELOAD_AUDIT_PASS revision={(blockPreview ? "block-preview" : fuelFreeze ? "fuel-freeze" : continuedOrder ? "continued-order" : settingsRefresh ? "settings-refresh" : updateToast ? "update-toast" : revisionText111 ? "111-text" : revision102 ? "102" : revision061 ? "061" : revision060 ? "060" : revision054 ? "054" : revision053 ? "053" : revision052 ? "052" : revision051 ? "051" : revision050 ? "050" : revision044 ? "044" : revision043 ? "043" : revision042 ? "042" : "041")} checks=3");
+        if (pending120) DevelopmentPending120Audit.AfterReload(restored.Players.Single());
+        if (pending120) MainFile.Logger.Info("RUNTIME_PENDING120_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
+        if (autoplayChoice) MainFile.Logger.Info("RUNTIME_AUTOPLAY_CHOICE_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
+        if (revision120Cards) DevelopmentRevision120CardsAudit.AfterReload(restored.Players.Single());
+        if (revision120Beta2) DevelopmentRevision120Beta2Audit.AfterReload(restored.Players.Single());
+        if (revisionBeta2) MainFile.Logger.Info("RUNTIME_BETA2_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
+        MainFile.Logger.Info($"SAVE_RELOAD_AUDIT_PASS revision={(blockPreview ? "block-preview" : fuelFreeze ? "fuel-freeze" : continuedOrder ? "continued-order" : settingsRefresh ? "settings-refresh" : updateToast ? "update-toast" : pending120 ? "120-pending" : revision120Beta4 ? "120-art" : revision120Beta3 ? "120-hover" : revision120Beta2 ? "120-powers" : revision120Cards ? "120-cards" : revisionText111 ? "111-text" : revision110Beta4 ? "110-beta4" : revision110Beta3 ? "110-beta3" : revision110Beta2 ? "110-beta2" : revision102 ? "102" : revision061 ? "061" : revision060 ? "060" : revision054 ? "054" : revision053 ? "053" : revision052 ? "052" : revision051 ? "051" : revision050 ? "050" : revision044 ? "044" : revision043 ? "043" : revision042 ? "042" : "041")} checks=3");
+        if (revision120Beta4) MainFile.Logger.Info("RUNTIME_120_BETA4_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
+        if (revision120Beta3) MainFile.Logger.Info("RUNTIME_120_BETA3_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
+        if (revision120Cards) MainFile.Logger.Info("RUNTIME_120_CARDS_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
+        if (revision120Beta2) MainFile.Logger.Info("RUNTIME_120_BETA2_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
         if (revisionText111) MainFile.Logger.Info("RUNTIME_111_TEXT_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
         if (revision061) MainFile.Logger.Info("RUNTIME_061_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
         if (revision060) MainFile.Logger.Info("RUNTIME_060_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True liveMulticlient=False");
@@ -177,7 +206,7 @@ internal static partial class DevelopmentRuntimeAudit
         if (revisionBeta3) { MainFile.Logger.Info("RUNTIME_BETA3_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True"); await DevelopmentBeta3Audit.Architect(); }
         if (revision101) { MainFile.Logger.Info("RUNTIME_101_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True"); await DevelopmentRevision101Audit.Ancients(); }
         if (revision102) { await DevelopmentRevision102Audit.Architect(); MainFile.Logger.Info("RUNTIME_102_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True nativeArchitect=True"); if (revision102Beta2) MainFile.Logger.Info("RUNTIME_102_BETA2_AUDIT_PASS menu=True newRun=True combat=True save=True reload=True nativeArchitect=True"); }
-        if ((fuelFreeze || continuedOrder || autoplayChoice || revisionText111 || revision102 || revision101 || revisionBeta3 || revisionBeta2 || revision060 || revision061) && System.Environment.GetEnvironmentVariable("LIBRARIAN_060_EXIT") == "1")
+        if ((fuelFreeze || continuedOrder || pending120 || autoplayChoice || revision120Beta4 || revision120Beta3 || revision120Beta2 || revision120Cards || revisionText111 || revision110Beta4 || revision110Beta3 || revision110Beta2 || revision102 || revision101 || revisionBeta3 || revisionBeta2 || revision060 || revision061) && System.Environment.GetEnvironmentVariable("LIBRARIAN_060_EXIT") == "1")
         {
             await NGame.Instance.ReturnToMainMenu();
             await NGame.Instance.ToSignal(NGame.Instance.GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);

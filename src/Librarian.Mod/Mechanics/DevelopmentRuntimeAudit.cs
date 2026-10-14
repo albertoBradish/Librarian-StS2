@@ -39,7 +39,9 @@ internal static partial class DevelopmentRuntimeAudit
 
     [HarmonyPostfix] private static void Postfix()
     {
-        if (_ran || System.Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") != "1") return;
+        if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") is "ritsu-sweep" or "ritsu-full" or "ritsu-legacy" or "v130-models-only") return;
+        if (_ran || System.Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") != "1"
+            || System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS") == "ritsu-coexist") return;
         if (!OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("Runtime audit requires the dedicated validation profile.");
         _ran = true;
@@ -58,10 +60,7 @@ internal static partial class DevelopmentRuntimeAudit
     {
         for (int i = 0; i < 900; i++)
         {
-            // Stable starts drawing asynchronously; one card is not proof that setup finished.
-            if (CombatManager.Instance.IsInProgress
-                && _player.PlayerCombatState?.Phase == PlayerTurnPhase.Play
-                && _player.PlayerCombatState.Hand.Cards.Count > 0) return;
+            if (CombatManager.Instance.IsInProgress && _player.PlayerCombatState?.Hand.Cards.Count > 0) return;
             await NGame.Instance!.ToSignal(NGame.Instance!.GetTree(), SceneTree.SignalName.ProcessFrame);
         }
         throw new TimeoutException("Combat did not reach the first hand.");

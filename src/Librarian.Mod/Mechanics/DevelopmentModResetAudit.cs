@@ -131,10 +131,13 @@ internal static class DevelopmentModResetAudit
                 ["foreign_reset_nested_extension"] = "must-survive"
             })
         });
+        LibrarianDebugReset.VerifyRawPreservation(Request(bad.ToJsonString()));
+        Check(true, "foreign nested extension passes conservative preservation preflight");
+        encounters.Add(encounters.Last()!.DeepClone());
         bool rejected = false;
         try { LibrarianDebugReset.VerifyRawPreservation(Request(bad.ToJsonString())); }
         catch (InvalidDataException) { rejected = true; }
-        Check(rejected, "unsupported foreign nested extension is rejected before commit");
+        Check(rejected, "duplicate encounter identities are rejected before commit");
         Check(ReferenceEquals(live, SaveManager.Instance.Progress), "preflight leaves actual live progress reference unchanged");
         CheckHashes(before, RecordHashes(), "preflight leaves native mirror and local settings bytes unchanged");
     }
@@ -165,6 +168,8 @@ internal static class DevelopmentModResetAudit
             string category = section == "encounter_stats" ? "ENCOUNTER" : section == "enemy_stats" ? "MONSTER" : "EVENT";
             if (row is null) { row = new JsonObject { [idKey] = category + ".FOREIGN_DEBUG_" + section.ToUpperInvariant() }; array.Add(row); }
             row[rows] = new JsonArray(new JsonObject { ["character"] = character, ["wins"] = 4, ["losses"] = 2 }, new JsonObject { ["character"] = vanilla, ["wins"] = 8, ["losses"] = 3 });
+            row["foreign_beta12_extension"] = new JsonObject { ["keep"] = "nested-unchanged" };
+            Add(section, new JsonObject { [idKey] = category + ".FOREIGN_BETA12_MISSING_" + section.ToUpperInvariant(), [rows] = new JsonArray(), ["foreign_beta12_missing_extension"] = "preserve-entire-record" });
             Add(section, new JsonObject { [idKey] = category + ".LIBRARIAN-RETIRED_" + section.ToUpperInvariant(), [rows] = new JsonArray() });
         }
         foreach (var old in Array("epochs").Where(n => Enumerable.Range(1, 7).Any(i => n?["id"]?.GetValue<string>() == LibrarianUnlocks040.Id(i))).ToArray()) Array("epochs").Remove(old);
@@ -254,8 +259,17 @@ internal static class DevelopmentModResetAudit
         CheckHashes(before, RecordHashes(), "request alone changes no saved data");
         Check(LibrarianDebugReset.IsBusy, "reset awaits explicit confirmation");
         var panel = ((Node)NModalContainer.Instance!.OpenModal!).GetNode<NVerticalPopup>("VerticalPopup");
+        ulong countdownObserved = Time.GetTicksMsec();
+        Check(!panel.YesButton.IsEnabled && panel.NoButton.IsVisibleInTree() && panel.NoButton.IsEnabled, "countdown disables confirmation and keeps cancel visible");
+        Check(panel.GetNode<RichTextLabel>("Description").Text.Contains("[color=#ff6565]"), "confirmation renders red warning BBCode");
         await Capture("reset-confirm-" + shotSuffix);
-        await Until(() => panel.YesButton.IsEnabled, "confirm enables after trigger release", 5);
+        await Click(panel.YesButton);
+        Check(LibrarianDebugReset.IsBusy && !LibrarianDebugReset.LastSucceeded, "early confirm click cannot submit");
+        if (confirm)
+        {
+            await Until(() => panel.YesButton.IsEnabled, "confirm enables after countdown and trigger release", 8);
+            Check(Time.GetTicksMsec() - countdownObserved >= 4500, "confirmation remains disabled for full five-second window");
+        }
         await Click(confirm ? panel.YesButton : panel.NoButton);
         await Until(() => !LibrarianDebugReset.IsBusy, "reset choice completes", 30);
         if (confirm)
@@ -273,6 +287,54 @@ internal static class DevelopmentModResetAudit
             SuspendNotices(); NModalContainer.Instance!.Clear(); await Wait(.4);
         }
         else CheckHashes(before, RecordHashes(), "cancel preserves all data bytes");
+    }
+    private static async Task CheckBeta12Settings()
+    {
+        foreach (string language in new[] { "zhs", "eng" })
+        foreach (var mode in new[] { LibrarianTutorialMode.Consent, LibrarianTutorialMode.CompactOffer })
+        {
+            LibrarianLanguage.Select(language); SuspendNotices();
+            var before = RecordHashes(); var runs = RunHashes();
+            var button = await OpenEntry("debug", mode == LibrarianTutorialMode.Consent ? "preview_tutorial" : "preview_compact");
+            await Click(button);
+            await Until(() => NModalContainer.Instance?.OpenModal is LibrarianTutorialModal { IsPreview: true }, "settings opens preview");
+            var modal = (LibrarianTutorialModal)NModalContainer.Instance!.OpenModal!;
+            Check(modal.Mode == mode && !LibrarianPracticeSession.Active, "preview matches requested mode without starting lesson");
+            await Capture("preview-" + mode + "-" + language);
+            if (mode == LibrarianTutorialMode.Consent && language == "eng")
+                await Until(() => modal.SkipReady, "preview consent skip countdown");
+            await Click(language == "zhs" ? modal.Panel.YesButton : modal.Panel.NoButton);
+            await Until(() => !GodotObject.IsInstanceValid(modal) || !modal.IsInsideTree(), "preview closes after choice");
+            CheckHashes(before, RecordHashes(), "preview choice writes no progress or preferences");
+            CheckHashes(runs, RunHashes(), "preview leaves ordinary run files unchanged");
+            Check(!LibrarianPracticeSession.Active && !RunManager.Instance.IsInProgress, "preview never creates a run");
+        }
+        string id = ModelDb.Character<LibrarianCharacter>().Id.ToString();
+        string WithoutAscension(string json)
+        {
+            var node = JsonNode.Parse(json)!;
+            foreach (var row in (JsonArray)node["character_stats"]!)
+                if (row?["id"]?.GetValue<string>() == id)
+                { row["max_ascension"] = 0; row["preferred_ascension"] = 0; }
+            return node.ToJsonString();
+        }
+        var original = await Snapshot();
+        string preserved = WithoutAscension(original.RawJson);
+        var initialStats = SaveManager.Instance.Progress.GetStatsForCharacter(ModelDb.Character<LibrarianCharacter>().Id)!;
+        int initialMax = initialStats.MaxAscension, initialSelected = initialStats.PreferredAscension;
+        foreach (var (entry, maximum, selected) in new[] { ("unlock_a10", Math.Max(10, initialMax), initialSelected), ("reset_a0", 0, 0), ("unlock_a10", 10, 0) })
+        {
+            var runs = RunHashes();
+            var button = await OpenEntry("progression", entry);
+            await Click(button); await Wait(.6);
+            var stats = SaveManager.Instance.Progress.GetStatsForCharacter(ModelDb.Character<LibrarianCharacter>().Id)!;
+            Check(stats.MaxAscension == maximum && stats.PreferredAscension == selected, "ascension changes only requested limits " + entry);
+            var saved = await Snapshot();
+            Check(JsonNode.DeepEquals(JsonNode.Parse(preserved), JsonNode.Parse(WithoutAscension(saved.RawJson))), "ascension keeps all other JSON records");
+            CheckHashes(runs, RunHashes(), "ascension preserves existing run files");
+            await Capture("ascension-" + entry + "-" + maximum);
+        }
+        CloseRitsuSettings(); await Wait();
     }
     private static async Task<LibrarianPracticeSession> PracticeThroughUi(string suffix, Dictionary<string, string> saved)
     {
@@ -336,7 +398,10 @@ internal static class DevelopmentModResetAudit
     }
     internal static async Task<Control> OpenEntry(string section, string entry)
     {
-        var opened = await ModSettingsNavigator.OpenByIdsAsync("Librarian", LibrarianSettings041.PageId,
+        if (section == "diagnostics") section = "debug";
+        if (entry == "character_tutorial") section = "quick";
+        string page = section == "quick" ? LibrarianSettings041.PageId : LibrarianSettings041.ToolsPageId;
+        var opened = await ModSettingsNavigator.OpenByIdsAsync("Librarian", page,
             sectionId: section, entryId: entry, options: new ModSettingsOpenOptions { Highlight = false, Focus = true });
         if (!opened.Success) throw new InvalidOperationException("Could not open Ritsu entry: " + entry);
         await Wait(.6);
@@ -348,6 +413,10 @@ internal static class DevelopmentModResetAudit
             throw new InvalidOperationException("Ritsu entry anchor unavailable: " + entry);
         var button = Descendants(anchor).OfType<Control>().Single(n => n.GetType().Name == "ModSettingsTextButton");
         if (!button.IsVisibleInTree()) throw new InvalidOperationException("Ritsu button is hidden");
+        for (Node? parent = button.GetParent(); parent is not null; parent = parent.GetParent())
+            if (parent is ScrollContainer scroll) scroll.EnsureControlVisible(button);
+        await Wait(.4);
+        if (_output.Length > 0) await Capture("settings-target-" + entry);
         MainFile.Logger.Info("MOD_UI_REAL_BUTTON entry=" + entry + " type=" + button.GetType().FullName);
         return button;
     }
@@ -387,6 +456,31 @@ internal static class DevelopmentModResetAudit
                 Check(JsonNode.Parse((await Snapshot()).RawJson)?["foreign_reset_fixture_extension"]?["keep"]?.GetValue<string>() == "unchanged", "foreign JSON survives independent process restart");
                 await Capture("reset-persistent-menu");
                 MainFile.Logger.Info($"MOD_RESET_RESTART_AUDIT_PASS checks={_checks} firstUse=True initialProgressiveBaseline=True");
+                var unlock = await OpenEntry("progression", "unlock_a10");
+                await Click(unlock);
+                var stats = SaveManager.Instance.Progress.GetStatsForCharacter(ModelDb.Character<LibrarianCharacter>().Id)!;
+                Check(stats.MaxAscension == 10 && stats.PreferredAscension == 0, "A10 write prepared for independent restart");
+                CloseRitsuSettings(); SaveManager.Instance.SaveProgressFile();
+                MainFile.Logger.Info("BETA12_A10_RESTART_WRITE_PASS max=10 selected=0");
+                return;
+            }
+            if (mode == "a10read")
+            {
+                var stats = SaveManager.Instance.Progress.GetStatsForCharacter(ModelDb.Character<LibrarianCharacter>().Id)!;
+                Check(stats.MaxAscension == 10 && stats.PreferredAscension == 0, "A10 survives independent process restart");
+                var reset = await OpenEntry("progression", "reset_a0");
+                await Click(reset);
+                Check(stats.MaxAscension == 0 && stats.PreferredAscension == 0, "A0 resets independently loaded A10");
+                await Capture("ascension-restart-a0"); CloseRitsuSettings();
+                MainFile.Logger.Info("BETA12_ASCENSION_RESTART_PASS loadedMax=10 resetMax=0 selected=0");
+                return;
+            }
+            if (mode == "confirm")
+            {
+                await SeedRecords();
+                await ResetThroughUi(true, "zhs");
+                await CheckResetState(true);
+                MainFile.Logger.Info("BETA12_CONFIRM_PROBE_PASS");
                 return;
             }
             if (mode != "baseline")
@@ -397,6 +491,7 @@ internal static class DevelopmentModResetAudit
                 await PracticeThroughUi("cold", originalRuns);
                 await SeedRecords();
                 await CheckPreservationPreflight();
+                await CheckBeta12Settings();
                 var history = SeedHistories();
                 await ResetThroughUi(false, "zhs");
                 await ResetThroughUi(false, "eng", keyboard: true);
@@ -428,6 +523,7 @@ internal static class DevelopmentModResetAudit
                 MainFile.Logger.Info($"MOD_UI_ENTRY_AUDIT_PASS checks={_checks} realButtons=2 nativeGold=True normalSaveReload=True");
                 MainFile.Logger.Info("MOD_RESET_AUDIT_PASS cancelBytes=True recordsReset=True fourProgressFiles=True foreignJson=True normalRunPreserved=True");
                 MainFile.Logger.Info("MOD_RESET_RESTART_WRITE_PASS firstUse=True isolatedProfile=True");
+                MainFile.Logger.Info($"BETA12_SETTINGS_AUDIT_PASS checks={_checks} previews=4 ascension=True countdown=True foreignJson=True");
                 return;
             }
             var button = await OpenEntry("display", "character_tutorial");

@@ -105,7 +105,7 @@ internal static class LibrarianCardHoverTips
 {
     [HarmonyPostfix] private static void Postfix(CardModel __instance, ref IEnumerable<IHoverTip> __result)
     {
-        if (__instance is not LibrarianCard) return;
+        if (__instance is not ILibrarianCard) return;
         string text = __instance.GetDescriptionForPile(PileType.None);
         var tips = __result.Concat(LibrarianHoverTips.ForText(text));
         if (__instance.DynamicVars.Any(pair => pair.Key == "Energy")) tips = tips.Append(HoverTipFactory.ForEnergy(__instance));

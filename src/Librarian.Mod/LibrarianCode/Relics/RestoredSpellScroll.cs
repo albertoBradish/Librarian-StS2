@@ -1,4 +1,3 @@
-using BaseLib.Utils;
 using Librarian.Core;
 using Librarian.Mechanics;
 using MegaCrit.Sts2.Core.Combat;
@@ -11,7 +10,6 @@ using MegaCrit.Sts2.Core.Models.RelicPools;
 namespace Librarian.LibrarianCode.Relics;
 
 /// <summary>Temporary upgraded starter, acquired through native Touch of Orobas replacement.</summary>
-[Pool(typeof(EventRelicPool))]
 public sealed class RestoredSpellScroll : LibrarianPlaceholderRelic
 {
     public override RelicRarity Rarity => RelicRarity.Starter;

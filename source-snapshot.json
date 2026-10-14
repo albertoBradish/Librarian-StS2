@@ -1,11 +1,10 @@
 {
   "schema_version": 1,
-  "channel": "stable",
+  "channel": "unified",
   "branch": "main",
-  "local_date": "2026-10-07",
-  "manifest_version": "1.1.1",
+  "local_date": "2026-10-13",
+  "manifest_version": "1.3.5",
   "kind": "authored_development_source",
-  "sha256": "b987eed3e4ac9042d6cf7e79236ac7c2dcf4b4b2e57c5e3616a09bf7e7afbf56",
   "files": [
     {
       "path": "global.json",
@@ -14,18 +13,58 @@
     },
     {
       "path": "scripts/build_librarian.py",
-      "bytes": 4166,
-      "sha256": "9236d58eeab277aee7f86d77037cdcda10d44ebf5d81462a05c194ae768d160a"
+      "bytes": 166,
+      "sha256": "7a93505f01b11f220a9b3c72a54e0fd997c5cac785409880b53cef12fbd85d18"
     },
     {
       "path": "scripts/build_provenance.py",
-      "bytes": 2373,
-      "sha256": "d7eb5b5f4f49511c4d856a117c279221c6221c671717f1350e9d82087cd96007"
+      "bytes": 2895,
+      "sha256": "2d031262f85cf2cde1d0f1814b62eaf05dd2fcdca64478b7144a892bd025f0b0"
+    },
+    {
+      "path": "scripts/build_unified_librarian.py",
+      "bytes": 12901,
+      "sha256": "3a14bddd39b85b9e390ab15fec075301f7b8094e0cbc148956dd65784b6a11f7"
+    },
+    {
+      "path": "scripts/check_update_notes.py",
+      "bytes": 3302,
+      "sha256": "92c146d1582dfd5eb2c350d4d66b1e6c59c48e1e1410b5dc7a6bc8a14b81c330"
+    },
+    {
+      "path": "scripts/inspect_owned_pck.py",
+      "bytes": 3720,
+      "sha256": "0b98ee0f43abc325d2c803afa6e365471ed9102a98361f49bd8faf02d125b067"
+    },
+    {
+      "path": "scripts/librarian_bundle.py",
+      "bytes": 3105,
+      "sha256": "8660901f3d0720128e18debc6db750c61a58d161be03503d086cf7d8219b12bf"
+    },
+    {
+      "path": "scripts/pack_exact_payloads.gd.in",
+      "bytes": 872,
+      "sha256": "f2b6c9a2439b4ede98f9d368f4fff4106ce140de1851600cdbdd097ca585e88a"
+    },
+    {
+      "path": "scripts/prepare_github_release.py",
+      "bytes": 11831,
+      "sha256": "752620197a6b7452b513f5f82d3a7bdb7063648b49c42a15db2f1522bb40f332"
+    },
+    {
+      "path": "scripts/repack_owned_png.py",
+      "bytes": 2789,
+      "sha256": "4e04a75a38c88d400d595512f4476d16b1ffa3e6b68a54db90e6c32d46be1afb"
     },
     {
       "path": "scripts/run_research_game.py",
       "bytes": 7521,
-      "sha256": "a9f275fd9f8ec80035b0b136041f1dc71d4557b8966c78ac5592b3997e842d7b"
+      "sha256": "a6bf702442df39135e4a777d3cf3af6e6742bec656ad976b7b100f2538745252"
+    },
+    {
+      "path": "scripts/test_github_release.py",
+      "bytes": 17637,
+      "sha256": "6638bac291e1b0d79057aa0d48503ed8b68cf3206249bcf5f8b5b6504875bdde"
     },
     {
       "path": "src/Librarian.Core/DamagePartition.cs",
@@ -49,8 +88,8 @@
     },
     {
       "path": "src/Librarian.Core/OrbCombatState.cs",
-      "bytes": 26494,
-      "sha256": "6863d9a962ff8189498ea0b56cd247f09f93858a95d6a96007e9b3779e8ef74f"
+      "bytes": 26460,
+      "sha256": "8faf48ac921812bbe548ae78ec3628a992386ccc16e04df953cab467f313e963"
     },
     {
       "path": "src/Librarian.Core/OrbContracts.cs",
@@ -69,13 +108,48 @@
     },
     {
       "path": "src/Librarian.Core/WaveState.cs",
-      "bytes": 5301,
-      "sha256": "2f2e4d9d64bc0d3eac702ff72c155a58a0737d93356877a1becc8215ff7defae"
+      "bytes": 5932,
+      "sha256": "b86e2d610b08f566240cbb3cfb1f5c9f89e7505cf92c5c37a16a59d13709eea9"
+    },
+    {
+      "path": "src/Librarian.Loader/Bootstrap.cs",
+      "bytes": 6196,
+      "sha256": "ac6dfb647f4a7caabd5040736d73261868d34de6c1639505a260996c1c3a9601"
+    },
+    {
+      "path": "src/Librarian.Loader/BundleManifest.cs",
+      "bytes": 8817,
+      "sha256": "4ac0c26c5a507a6fd11b9dd71d08c63733ea0c0db5c0bd45543b7b27d378e286"
+    },
+    {
+      "path": "src/Librarian.Loader/GameAssemblyRegistration.cs",
+      "bytes": 4671,
+      "sha256": "adc90be2f0fdcbcb6919ed57c1f5c905a897eebedfaa8d782588f9154d617a11"
+    },
+    {
+      "path": "src/Librarian.Loader/InitializationGate.cs",
+      "bytes": 703,
+      "sha256": "fc5f480a07feecdee6d444f32d155d29855d2db916416d776798d0fa5f49d92f"
+    },
+    {
+      "path": "src/Librarian.Loader/Librarian.Loader.csproj",
+      "bytes": 1631,
+      "sha256": "1a8f15d6a983791d1d7d278769cb7e57676fae626224512afd2b4bb8f4719e1b"
+    },
+    {
+      "path": "src/Librarian.Loader/README.md",
+      "bytes": 2754,
+      "sha256": "8640b59e6580e395d1fb58b27506c2ede946f7cb8bedd938ee9e077536cb0a71"
     },
     {
       "path": "src/Librarian.Mod/.gitignore",
       "bytes": 114,
       "sha256": "4f917c4666245d728ae99adeb5ee6c6f1e9c0182ae280e58d7c13419e25db194"
+    },
+    {
+      "path": "src/Librarian.Mod/Compatibility/LibrarianGameApi.cs",
+      "bytes": 6251,
+      "sha256": "85230946de80899329e898a54d6ec3eee5991fe643f27044306465bc2573a37a"
     },
     {
       "path": "src/Librarian.Mod/Directory.Build.props.example",
@@ -84,13 +158,13 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian.csproj",
-      "bytes": 7855,
-      "sha256": "9e1264555ca3dc0b08fa4792449070dc37d2840fdfb153614706f82eb395c717"
+      "bytes": 4943,
+      "sha256": "2c5d63bf4479f251664d104a2cef8e03347c9bf557f6fe498fc0f5eadf16ee2c"
     },
     {
       "path": "src/Librarian.Mod/Librarian.json",
-      "bytes": 487,
-      "sha256": "20a805ea86ac231a6d4b268747dc91a431139fb0a407bf82dbefaf778cf722bf"
+      "bytes": 418,
+      "sha256": "88dd110391b476cda8156a6c434b3da6f65c08f823286c0a075233cc4cf16f94"
     },
     {
       "path": "src/Librarian.Mod/Librarian.sln",
@@ -104,8 +178,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/afforestation.png",
-      "bytes": 98133,
-      "sha256": "61e5df78460e32bd0eee70f525c9b35a15b1ccd037cb05e355f0eec658918d7a"
+      "bytes": 97359,
+      "sha256": "d7a4e1252fd689edf3e02c164d3fb0c35a22c2455ed1790224b8db28088c8a1b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/afforestation.png.import",
@@ -114,8 +188,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ancient_catalog.png",
-      "bytes": 68982,
-      "sha256": "7d4ac6a20d59653207500d904550c46c2dbcd04f6930b39de4a8ef7791e9854b"
+      "bytes": 96368,
+      "sha256": "d9138d8e3019f8c12d931352a9b6bc8defab1d00369ee4f6e30acdea0f535d1f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ancient_catalog.png.import",
@@ -124,8 +198,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ancient_spark.png",
-      "bytes": 200337,
-      "sha256": "0eefc56f894d0300094c76125d7aac9086db464dce5d6cea815a8bf0f388e925"
+      "bytes": 212428,
+      "sha256": "b776fc8918f84beea0bf691a5c4a8e6c34d7046bceb25fba14e99ed7457f18ae"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ancient_spark.png.import",
@@ -134,8 +208,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/archive_bulwark.png",
-      "bytes": 86552,
-      "sha256": "6171d16e88d0d9752d215061c0de984e15a800d4cb1f0000ae5b0877f772c5e8"
+      "bytes": 91455,
+      "sha256": "68d4fd225cef268a1583518cf4e08b6736766fc853eeba5663b9113d0d47e86f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/archive_bulwark.png.import",
@@ -144,8 +218,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ashen_blow.png",
-      "bytes": 76204,
-      "sha256": "6d2f1d12a2a827309d0609fd8f06a657f05301ceec9a71490ec7d299f57ae585"
+      "bytes": 99012,
+      "sha256": "b2e292315c56cf379d92714952e000750213f68b71da918b900306c7f7e491f0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ashen_blow.png.import",
@@ -154,8 +228,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/afforestation.png",
-      "bytes": 1079317,
-      "sha256": "8a2a40823bc23f1711f0ee2fed5284fd2caacfc755d45c9b06a6f8af539be3b4"
+      "bytes": 1078730,
+      "sha256": "69148d3e29b5284a358a6bc5d9dfb36023818150df7a5c9f4a5268fc6562d96d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/afforestation.png.import",
@@ -164,8 +238,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ancient_catalog.png",
-      "bytes": 774038,
-      "sha256": "aebc630186f214b1d4c93bce5984a4861cc799dd2df3a33d6f897615e08dab71"
+      "bytes": 1071428,
+      "sha256": "4728d23cec33af12836a42be774e7b201928ac3b759cc351c4dc31072d01c8fa"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ancient_catalog.png.import",
@@ -174,8 +248,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ancient_spark.png",
-      "bytes": 685015,
-      "sha256": "ccf4dd62a3d2438ceb3267f9b9b943b39082e07874eed94d70af0536494e7524"
+      "bytes": 722706,
+      "sha256": "9c844b70bdfa2c4fb802f98e61e8f40efc27f8bf1ad982524ea38933e648c41b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ancient_spark.png.import",
@@ -184,8 +258,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/archive_bulwark.png",
-      "bytes": 935003,
-      "sha256": "dcf6ddc26db0061feee96a90cdd89dca8dbaccd71dd28ada1a839be6b27ccaf2"
+      "bytes": 986613,
+      "sha256": "a4b7ce1d0a8d7810a22c5109d625c9bc0fcfe30b7a588d21036170c94514aac7"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/archive_bulwark.png.import",
@@ -194,8 +268,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ashen_blow.png",
-      "bytes": 819789,
-      "sha256": "aa1b2b985beadac621fa25071fec6be55df63a78e58cbf4e737b6214e136a69f"
+      "bytes": 1142929,
+      "sha256": "51b17bbbef4199ac765a26f45bde73abec25872ab639d0994f9f5498b47b1eac"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ashen_blow.png.import",
@@ -204,8 +278,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/binding.png",
-      "bytes": 1029895,
-      "sha256": "8042babc158b1809548f00f6df609d8e7b4b47ee5f6a5aec98ad6568de74bf62"
+      "bytes": 973847,
+      "sha256": "9dc18e691e68e86ec5a09ebe9a2c30cfb3c56fac7705767ca29fda3453726fee"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/binding.png.import",
@@ -214,8 +288,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/blazing_chapter.png",
-      "bytes": 836579,
-      "sha256": "38c51a6dad16d0bddc384e8223772392ed6919c15e2718445d4eab14287afd25"
+      "bytes": 1011600,
+      "sha256": "bf7eb8a00ef2cd4dfd18c7cefed1783199438556ffe032c9d4ab502f6129f2c4"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/blazing_chapter.png.import",
@@ -224,8 +298,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/book_burning.png",
-      "bytes": 861337,
-      "sha256": "5db0d521b3471d7b422b149f673ff7e3f7b547d526949548b2ca3974f41f080d"
+      "bytes": 1000082,
+      "sha256": "deddbaab7cf841907e5fbb4ce2a06b2521568387cc3f6e23af759997d166678e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/book_burning.png.import",
@@ -234,8 +308,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/bookworm.png",
-      "bytes": 843639,
-      "sha256": "6b2665ae442b822928794cd9acb0663f2da2632b8cad6d9172ceba409d59893b"
+      "bytes": 912294,
+      "sha256": "7b4df3b58a13ecbd22859e1a9ab1a50a65c36a5a887b967f4d23f415ecbb7b5d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/bookworm.png.import",
@@ -244,8 +318,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/build_canal.png",
-      "bytes": 1258927,
-      "sha256": "ee199dfbc0a69989b2f7e8ca6a5f3f978ce4fa38ba6f6b4b2d170691bbccdccf"
+      "bytes": 1130287,
+      "sha256": "454c6f351a13dd1389202d03e2697bd71a9443bf9fa4e998d58e4f57c72100e9"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/build_canal.png.import",
@@ -254,8 +328,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/burn_roots.png",
-      "bytes": 935989,
-      "sha256": "340c0a72f8ed47e9e5fb575a202fbb2a72a636e8cc11edfa9a4d9969e1ab340e"
+      "bytes": 948042,
+      "sha256": "863ef2a2ea1c76015eb93a51892f8563d6704ed3d911d906cfb98ff15505286e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/burn_roots.png.import",
@@ -264,8 +338,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/burn_the_river.png",
-      "bytes": 975387,
-      "sha256": "a62ec05c6d351a70d8952e72385ad4c19c38a22221f22e3ba8d078090ae92277"
+      "bytes": 1089121,
+      "sha256": "fa096aa162397908065b6d22f2e6fe919054ea3549e04a3940e51dfc5ef1f09a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/burn_the_river.png.import",
@@ -274,8 +348,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/burning_pages.png",
-      "bytes": 767135,
-      "sha256": "91b97e227a4c2992a8b826dc431b16f1a374ccfd96a428b5b058ce7702abcd5e"
+      "bytes": 928392,
+      "sha256": "cc04ffdbdba933de705e3116968fb0d37345e1bbea50c06844af46db7e3e4c1a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/burning_pages.png.import",
@@ -284,8 +358,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/calibrate.png",
-      "bytes": 877459,
-      "sha256": "11578ce152ac6d090596f4ab70d35aaeb1db9d5f67198215ed42dab99ae740c2"
+      "bytes": 1051743,
+      "sha256": "da46be9dbcf71e04d4fc34dd896dfaba7c76006f6d3e067c3b4b7749c24f3529"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/calibrate.png.import",
@@ -304,8 +378,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/channel_flow.png",
-      "bytes": 850638,
-      "sha256": "40cdc8f648178d585c5848f406078f6758361ffb080634ade5ec004120fe08a9"
+      "bytes": 1007425,
+      "sha256": "4795440b405a3af39a1b097f3cb36516101fd6191fb742c571d62a37d56f9a50"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/channel_flow.png.import",
@@ -314,8 +388,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/circulation_notes.png",
-      "bytes": 1015980,
-      "sha256": "9c15dadb81fc431e923b1693217b854bbf333ba93bf69c0deb974d4b514d8fa5"
+      "bytes": 978941,
+      "sha256": "fe67b35dc6cefb9fd71874e3b0678e5fce903adf21864c258aa61b0a7de023a0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/circulation_notes.png.import",
@@ -334,8 +408,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/combat_notes.png",
-      "bytes": 800972,
-      "sha256": "8140a7281c3dfb5ad344339b5a89d61b5ed56e59075677eacd1715e700c4ddab"
+      "bytes": 1027204,
+      "sha256": "a4506d764395a90ad8c091bee7f9bc4fc3791eb0a9f06cf1057f053e96fc2900"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/combat_notes.png.import",
@@ -344,8 +418,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/cooldown.png",
-      "bytes": 1020096,
-      "sha256": "cddc3a6d193af4e1ff52dad761c3a015164f941e4f877ee5a5c950a04de99bfd"
+      "bytes": 960473,
+      "sha256": "bd3317634ec23880b93a638a182ddf4f9920dcf292d29e3af805b1dd1e4e5d41"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/cooldown.png.import",
@@ -354,8 +428,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/crop_rotation.png",
-      "bytes": 908461,
-      "sha256": "46f05c236ca837b269aa4f76f6606b6bb55c5d4ed6edf05e0f4f5b14d8d5257d"
+      "bytes": 950964,
+      "sha256": "e3c488533ee49c70879aceb2a3334e42d7f6da856fe8500becf336cf731dea8b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/crop_rotation.png.import",
@@ -364,8 +438,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/crowd_kindling.png",
-      "bytes": 1047761,
-      "sha256": "09b88b2e8afb4721ceddf3219a6cfba0fed8b9b1a87ce6c5f5e5c9c2e5444b32"
+      "bytes": 1074461,
+      "sha256": "e5313a461e8efae400df679c9f11e232e718a1be443d1b77064d0ab0e18949ab"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/crowd_kindling.png.import",
@@ -374,8 +448,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/dam_break.png",
-      "bytes": 1032810,
-      "sha256": "e89ea056b08059c12c1a9f54056ae6e2b580df1ba629f9d7198b6016f5c8fcd7"
+      "bytes": 1107559,
+      "sha256": "846741113a0fba10f26321c7de6fd7bb16b2d56a11a39c192bd885e2997b4318"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/dam_break.png.import",
@@ -384,8 +458,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/deep_sea_barrier.png",
-      "bytes": 823624,
-      "sha256": "4f7385f5ca35cb8112ec642c582c1c5b15f35b7ec4bc8cea05d014b0c5a2ed3a"
+      "bytes": 1141543,
+      "sha256": "af93618ac372e3338c1bbaa39ddff23907c4c76a867b33dc19cd4269565f4925"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/deep_sea_barrier.png.import",
@@ -394,8 +468,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/draw_branch.png",
-      "bytes": 980628,
-      "sha256": "97dd18fdf84b54f9bf9ae4184568e7aac050170d8ad0e3774b5928bb26bfba31"
+      "bytes": 1072545,
+      "sha256": "650e44ab151f87c338170c65fcfc7eb4b85c78dee720b21d1ecea7c19f1f91dc"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/draw_branch.png.import",
@@ -414,8 +488,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/dry_branch_search.png",
-      "bytes": 842536,
-      "sha256": "f42ceca57264c68fa137fd4272de062bb49b1c9b818a928026cfa1ea0db7c91c"
+      "bytes": 977472,
+      "sha256": "022ff8a68bef9e15047c634f39f1fe670bab46f06f038a15273bece206c5a628"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/dry_branch_search.png.import",
@@ -424,8 +498,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/earth_collapse.png",
-      "bytes": 967612,
-      "sha256": "155a7e4b1cd4b29c6933f3c68e9c0b30396bbec07b3e05c29e79868af34fe60c"
+      "bytes": 1097011,
+      "sha256": "d482e4be022c62aaa88357b741009fe263419ef562472afb3e2c4fd366dd9d26"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/earth_collapse.png.import",
@@ -434,8 +508,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ember_bookmark.png",
-      "bytes": 791306,
-      "sha256": "f0f3fab409c842e0e9a07d8bce69e41de05b293003254e1385b19a1f118f396b"
+      "bytes": 993984,
+      "sha256": "4ca311179d884de92ac12e70e23eb3cefc4ef66491e5d7ec64f548f3e922e0f0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ember_bookmark.png.import",
@@ -444,8 +518,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ember_pierce.png",
-      "bytes": 799829,
-      "sha256": "6aea749e26c8d78e86f1818ef742e22bc645772a082b3b086c4a56728dc6db4a"
+      "bytes": 1002428,
+      "sha256": "31bb4d14aeee5aae6274bc90de1a0828b191bde6dc2348755e24c261afdf1ba6"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ember_pierce.png.import",
@@ -454,8 +528,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ember_reckoning.png",
-      "bytes": 1023146,
-      "sha256": "a08eb5b287a7210a100a675aad5dfc365c58e8305cae4589ae0b1355fe5ab815"
+      "bytes": 1043134,
+      "sha256": "e20f2442db4d8cac924d80352da82ec63992511a707eb6452cfd5fdc3a0f397e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ember_reckoning.png.import",
@@ -464,8 +538,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/endless_tide.png",
-      "bytes": 1679517,
-      "sha256": "949e7ba3464eccb019570583f6229711ec3922a520c232f617b34cbc0a44222c"
+      "bytes": 1066242,
+      "sha256": "b48cc30d385973f80ef5459e78a266acdca61354089e6b82fad56b59d932260e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/endless_tide.png.import",
@@ -474,8 +548,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/eternal_grimoire.png",
-      "bytes": 833314,
-      "sha256": "a64107f3d1998773fbeaef50e5ac6d9d4c4b62cef1680fe2a1d41d23b822d318"
+      "bytes": 1171943,
+      "sha256": "9237425a2b889d9d312c147ea03c16bef6b06b63f68e40b2df48a98b3c46f6d5"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/eternal_grimoire.png.import",
@@ -484,8 +558,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/evaporation.png",
-      "bytes": 1001524,
-      "sha256": "7771f3aacf16dfdff426ef3d59c311954ff3163bfedb8138a20f595e3054e9a4"
+      "bytes": 979906,
+      "sha256": "17c48fdaf817c5582177c6f9e5b9cfb046405ef6f16f5f003eb3b84b27b0b5a2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/evaporation.png.import",
@@ -494,8 +568,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/fire_inscription.png",
-      "bytes": 803932,
-      "sha256": "e1c63a58575c529677cec73a961dfac8900a4daea68134e12ead8b3a782e7b9e"
+      "bytes": 991576,
+      "sha256": "345b992ce17bfdb842aa7955238649c99f2592ae453e00ed028f9e9ed1cf17d0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/fire_inscription.png.import",
@@ -514,8 +588,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/flame_strike.png",
-      "bytes": 770853,
-      "sha256": "c69a87f743de76be95d4be4cfcd6b4f0e042b920d5490a393e809a6862852644"
+      "bytes": 765449,
+      "sha256": "2c573c198eb634e9d92782e86b3ec81abe623c58f3ee4b88f26d3764fcd62afb"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/flame_strike.png.import",
@@ -524,8 +598,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/flying_pages.png",
-      "bytes": 833551,
-      "sha256": "e4f424bdffbeba5816b817bf20bfd61ca92ef62ee739d9cad345dc8f13fb6925"
+      "bytes": 994977,
+      "sha256": "e0215d2a90ef168fc74df2dab4b4acd0d359e3c659f98c880f6e4d3441c46419"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/flying_pages.png.import",
@@ -544,8 +618,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/fuel_the_fire.png",
-      "bytes": 1558465,
-      "sha256": "f7d26dc813542c870b1eade301072eb15cebda7b1b6c76f198b9b44d5a690a6a"
+      "bytes": 1050404,
+      "sha256": "11dbed7b4c66d58e8bf1547f30367898de1eff062bc60b20d4f634c9f265ff1c"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/fuel_the_fire.png.import",
@@ -554,8 +628,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/gap_needle.png",
-      "bytes": 814122,
-      "sha256": "1aa7802416ddef1965ce6a74d59b5c1e33433e66beed920fda16d0dbf11d7695"
+      "bytes": 918808,
+      "sha256": "3fb725fe40f52566b53822640e81274191b6e7939c1b3cd14456fa3df594ee91"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/gap_needle.png.import",
@@ -564,8 +638,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ignite.png",
-      "bytes": 1035247,
-      "sha256": "aa031995efa9d2433ad4dbdd0b838d764e5f3beac1afc4df1b82a38772585fdb"
+      "bytes": 934449,
+      "sha256": "778a50ad05c88402fd5b92aa3948a34a85a5d7dd7d8efcc85d4f57857031eb83"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ignite.png.import",
@@ -574,8 +648,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/immortal_spark.png",
-      "bytes": 661058,
-      "sha256": "ce9d60fe280785f86e40f984832c784545699e4ca61b80a49ff6bfe19d81ac38"
+      "bytes": 928158,
+      "sha256": "1408d3e2ce2196b4dc4035d07ede7075b253b8cd89e278d9dbf31b4364a2c9db"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/immortal_spark.png.import",
@@ -584,8 +658,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/librarian_defend.png",
-      "bytes": 757555,
-      "sha256": "c6d67fdd7a9fa866e100a6bd52cf4a730407f7f09441ac193f53e01b026c2a38"
+      "bytes": 831292,
+      "sha256": "dae1684490967e5baf5ea27fcbfcfdf2caacc6ef8b083c6752c6ba9741bc7f53"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/librarian_defend.png.import",
@@ -594,8 +668,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/librarian_strike.png",
-      "bytes": 713807,
-      "sha256": "692ed59d63e672d5e0ff943751aac781e421f341414cc3353232e9cc44a9a03a"
+      "bytes": 614194,
+      "sha256": "6e942de59b212ac945c969df3ec2d5365c0cac0fac6ff7026438759f25712cca"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/librarian_strike.png.import",
@@ -604,8 +678,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/life_symphony.png",
-      "bytes": 876440,
-      "sha256": "6ee139a9377c8112c5d7c6d452553735075953619c80ac14c4a13f22c48f4c24"
+      "bytes": 1038660,
+      "sha256": "3d43151f2d4ab2909816b76523030b4f1d66b4ca1cd881605193d1e6eecc4243"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/life_symphony.png.import",
@@ -614,8 +688,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/lifeline.png",
-      "bytes": 762392,
-      "sha256": "a6a038ca024f114f4439ed51b6ef1a2f24f29e26a44e879420e97070372df4e0"
+      "bytes": 954431,
+      "sha256": "73c376b7cd686c85ef6613460bdf9663e7c63c7ff2cd51881eab76c9cbf86b0c"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/lifeline.png.import",
@@ -634,8 +708,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/multiple_eruption.png",
-      "bytes": 705836,
-      "sha256": "1f8534b57e068e6349e7590eff57d1838692993ce24dba07faadd2e53acbaf42"
+      "bytes": 1063267,
+      "sha256": "28f926e4e6fee4e1a69b051b177df561b7d114481b45f732bbaf43c64bc9fdf6"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/multiple_eruption.png.import",
@@ -644,8 +718,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/needle_flurry.png",
-      "bytes": 791920,
-      "sha256": "b3a936bb225d92c207b0fb3f70ae7f92840fad13d53d73f1af776f506eaf7e16"
+      "bytes": 1022073,
+      "sha256": "25d965d66e5f898e19c42588bc912e3d74e9268e993ef0edeaced10789656ad2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/needle_flurry.png.import",
@@ -654,8 +728,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/nourish.png",
-      "bytes": 795302,
-      "sha256": "3a2780225d994601d991437d43868664788b895116f57f36d811df655b3999cc"
+      "bytes": 1079505,
+      "sha256": "aeeca21968c4f6d8462cec31090a60a31bcc49eef8bc389cb01e0b8fffc118d3"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/nourish.png.import",
@@ -664,8 +738,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/nourishing_life.png",
-      "bytes": 781825,
-      "sha256": "061f6fed143c41fe73b71798568b8abe111eb3616d0075347ce0a4b7619acfd4"
+      "bytes": 976445,
+      "sha256": "8fd0c172d265645e28b387142b4273e097a4666499185b54455022c66577351b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/nourishing_life.png.import",
@@ -674,8 +748,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/opening_tide.png",
-      "bytes": 973512,
-      "sha256": "e3a1981c717b4ae459dcf298f802526d232141ba72fccf08fc793e3cfd6bd406"
+      "bytes": 1040976,
+      "sha256": "00f87046d560912c9947f5829d2008014dd80f04ff8db5e77eacf08b6755ec00"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/opening_tide.png.import",
@@ -684,8 +758,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/out_of_context.png",
-      "bytes": 947603,
-      "sha256": "f8eedd59637dfab3b76758afda4bef297a4bbdf6f915de19187842eb27965ab7"
+      "bytes": 1035373,
+      "sha256": "8b198d19cd231a1af5d0ce1d3754c9bfa5373cb399248ff7300d7a49eac8de49"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/out_of_context.png.import",
@@ -694,8 +768,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/overfishing.png",
-      "bytes": 892781,
-      "sha256": "2ee7d061000c199dac5e6d1d56071d682f7363048351f282cd9018a8bc1af6e7"
+      "bytes": 1037045,
+      "sha256": "07ffcd88038c6d62d8133fdc77a61b2ba5d5f150d26fc51705d5cd05fe05df21"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/overfishing.png.import",
@@ -704,8 +778,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/overlimit_form.png",
-      "bytes": 1032972,
-      "sha256": "40b59c84ee4f7c270dc9c88b81a885e6f7bc5d61beb42e7330566b9e437dbc97"
+      "bytes": 1253895,
+      "sha256": "c0803b4d3a08b0141cb1c017f1d3bc233f86d17155186b0f87f45af20f82d201"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/overlimit_form.png.import",
@@ -714,8 +788,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/overload_burn.png",
-      "bytes": 844189,
-      "sha256": "1013472ef38afdfc3eacb7883adf49f803256a671b1d3f25dba324a43f4baf2d"
+      "bytes": 977078,
+      "sha256": "23d77f359ebd093b507d7c266d1ac42020f8b100a45d84722a6d5fa4deb11d1f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/overload_burn.png.import",
@@ -724,8 +798,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/practice_makes_perfect.png",
-      "bytes": 1751250,
-      "sha256": "73d86ba22e48433429a49b46588bc049fa7d8cf53e4c30fa510e4f82addebb5d"
+      "bytes": 1091399,
+      "sha256": "8fb8b55070a82464fcecd9b04516f1702bb820a36b0c960fbf92cca057de28dd"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/practice_makes_perfect.png.import",
@@ -734,8 +808,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/quiet_embers.png",
-      "bytes": 755261,
-      "sha256": "778b83d739a1465357c865a0eb1f0164abef691680a335e8b6eadc36a0bbdbef"
+      "bytes": 946173,
+      "sha256": "77e9e73941f12ba0a4d3b75df1cfcce5f2757f37ac38e0bea06285fcddce0424"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/quiet_embers.png.import",
@@ -744,8 +818,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/re_read.png",
-      "bytes": 1672737,
-      "sha256": "bf8376e60c3ece6bed1eb7dcdaf8e7f0df5b6a19df5883a585e6e971d15ed8f3"
+      "bytes": 1074277,
+      "sha256": "81bb75e30bbb3caacb6d088c8ed1a41d9442895633f5868fd235f75417584521"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/re_read.png.import",
@@ -754,8 +828,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/read_backward.png",
-      "bytes": 1531275,
-      "sha256": "2c4c1697179f6b247eb9494596d243d595fc1e80d8689d9830e6f0364ac4c830"
+      "bytes": 1009634,
+      "sha256": "a289ada57b4b1a52411620834803b35cfb9e952c18c7884857a66b4bb3e07ce8"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/read_backward.png.import",
@@ -764,8 +838,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/read_widely.png",
-      "bytes": 810003,
-      "sha256": "b64c1746a4a8bdf00ebb7eae2b5db4c44c8067a641900c51143dc058c25160a9"
+      "bytes": 1090611,
+      "sha256": "6ecd68d8805f74ad755162d8db6d2b2aeba0fe143ea6fd3af54b5336d990623a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/read_widely.png.import",
@@ -774,8 +848,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/reignite.png",
-      "bytes": 705307,
-      "sha256": "878efaa707e661b103e8c5375b1b5a731bffcc879fdb06e9896c52f9678afb62"
+      "bytes": 1043100,
+      "sha256": "cf264fb9b2dd909a344ca152dc2bbae58012876c39c3e5e24b54486a0be95b87"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/reignite.png.import",
@@ -784,8 +858,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/rekindle.png",
-      "bytes": 881817,
-      "sha256": "3fe3e1266b1c055b5c8e5fa91caf05bf71bfd1bb39c88122c2e1994625c12dec"
+      "bytes": 962147,
+      "sha256": "5a339ea1d97e6f24594e4ed414087f042f6864c57cd9cbcc52faa58cbbb912bb"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/rekindle.png.import",
@@ -794,8 +868,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/renewal.png",
-      "bytes": 828186,
-      "sha256": "24ece289ee45fed8f559b73db548fb76d3ba0243fefd1405399d6441419fc69e"
+      "bytes": 1009029,
+      "sha256": "ab04faf14a7fee69fe1650ad9f9080e094ce2a68576775a2c3546f53ed848f61"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/renewal.png.import",
@@ -804,8 +878,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/residual_warmth.png",
-      "bytes": 919248,
-      "sha256": "286c7d393f879c2aa09675f871809e815641e08e1caeb4a17a78d749460e176c"
+      "bytes": 970660,
+      "sha256": "d8fd9661f6e75cc294d958617a5dd2edfb2df09cb2b48a33866fe590936ed531"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/residual_warmth.png.import",
@@ -814,8 +888,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ridge_ward.png",
-      "bytes": 787560,
-      "sha256": "4018a472fd59e9db7c2abe0724921d2bfe65682ef859fd30b01b041700ac81ae"
+      "bytes": 670795,
+      "sha256": "375ab8331203bb01794eea7cbdd5824f6c7b5287c3768fec8e4b3134fcbc8e1d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ridge_ward.png.import",
@@ -824,8 +898,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ring_curriculum.png",
-      "bytes": 824473,
-      "sha256": "ae7179697b07b55f4e3f1760b233ba74f1c13e4e4897a4437fee617ac7404220"
+      "bytes": 1019440,
+      "sha256": "8cfbf5e454af1ed4d080919df07b35e534b97867d63d5191711521574b2857d5"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/ring_curriculum.png.import",
@@ -834,8 +908,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/rootbind.png",
-      "bytes": 913688,
-      "sha256": "c46ce8e8f9a2465e32d457e93fbd2fd99d0176023a5c46043cb474ac3a29cc53"
+      "bytes": 1061349,
+      "sha256": "fee33b6a386a50c26d07f76f8d8e62c73b5ddf234c624913fded762ff714515f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/rootbind.png.import",
@@ -844,8 +918,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/scattered_flames.png",
-      "bytes": 925082,
-      "sha256": "efad42c0a8488f792c170af4577061768fabea870bf04b4d6a54e815873aa13a"
+      "bytes": 882702,
+      "sha256": "9a6d86d65690d2f9a63cfe523d2ad013e31b91ee2427b0830fc4992ded72662a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/scattered_flames.png.import",
@@ -874,8 +948,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/sedimentation.png",
-      "bytes": 825725,
-      "sha256": "4c6950663f65efde703ca350bfc8275db73a0d7b280c56b190bcbd413fd88e18"
+      "bytes": 948720,
+      "sha256": "59dda8bcabbd862c19bd11ee01d19397dd71c01f87fac4f7c6a1433ff1fa60ae"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/sedimentation.png.import",
@@ -884,8 +958,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/seedburial_strike.png",
-      "bytes": 1020528,
-      "sha256": "af1e3d3b176992921ce1ec6d116970e99088842625d1d11e266feb34f3a7b888"
+      "bytes": 1054516,
+      "sha256": "8c1686dcc75ccf92f0e69be04d3dc468967bdfa724a7715ba4164d4e0d92260f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/seedburial_strike.png.import",
@@ -904,8 +978,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/shared_shelter.png",
-      "bytes": 1041542,
-      "sha256": "fd78da34914955ff332f3aff09832021fc53f239f2614f7187302d15309f1887"
+      "bytes": 958166,
+      "sha256": "65238f72aa52377432ed6e586d33539799ed9314f20a19fbae28a74b40d044eb"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/shared_shelter.png.import",
@@ -914,8 +988,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/shifting_pages.png",
-      "bytes": 1048414,
-      "sha256": "432481bce2bdf6469cc9c5ed108fb2dad3c507b03c6bf2e653d0278f0e58f9cd"
+      "bytes": 1023191,
+      "sha256": "fb0a578aa4c48b484361012ba2e9f5bdfca3ee72349009e9bb13c93ff7b90778"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/shifting_pages.png.import",
@@ -924,8 +998,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/song_of_ice_and_fire.png",
-      "bytes": 808330,
-      "sha256": "8f89e0f06622c240763db234a0e271e1953c318f72b06b16ad457328ac09d5af"
+      "bytes": 1086642,
+      "sha256": "fd5c41fcd600de4365e12f611febf33edaf22b65882d742a4e0ae26fbe7b1cc7"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/song_of_ice_and_fire.png.import",
@@ -934,8 +1008,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/spacetime_twist.png",
-      "bytes": 1033216,
-      "sha256": "c077951200711ead4054fb5d4da48122476054fb8a6ba3749cba0ea34adc2ceb"
+      "bytes": 1165008,
+      "sha256": "43d9a2e171b7c1df1296161e982e9df513629c040135d34026d5ffe4c6535b7a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/spacetime_twist.png.import",
@@ -944,8 +1018,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/spark.png",
-      "bytes": 717944,
-      "sha256": "91994a8b26b474f0d3f9b9d3ad53ba75ef0ead0fead636ed0b78d291e49e2e08"
+      "bytes": 928213,
+      "sha256": "2e4109af4c11a64a43fae2bb059b74e36ef74f0a46e7b671b59281aa8a4e0338"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/spark.png.import",
@@ -954,8 +1028,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/springwater.png",
-      "bytes": 774840,
-      "sha256": "7edb9cdc400266c000f79eba34d06ecaad7a9dd52f4b0f70f2f1cfd7c6ead9a9"
+      "bytes": 983653,
+      "sha256": "ab1fe58939b7f08b65e1c6e6aa521ef0df52bdd8a0148602de9896511e51ecf7"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/springwater.png.import",
@@ -964,8 +1038,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/sprouting_bulwark.png",
-      "bytes": 1082859,
-      "sha256": "e84a84d28c171c195edda6839755e0b5894a81a17312317733f68104001517dd"
+      "bytes": 1024486,
+      "sha256": "ae7cb6c1d1610f4670cf326977ef25a5cf9c0cbea19c4b91f3f2248550fe0a8b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/sprouting_bulwark.png.import",
@@ -974,8 +1048,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/sprouting_seed.png",
-      "bytes": 858874,
-      "sha256": "83dc449da41bb3abd1f436d93a27ee955f283de4353385cc89ccadcf585fc03a"
+      "bytes": 950455,
+      "sha256": "85a397428641cc2237f299be2dfec61226f1487b8e8457dc9e7d6be4a8060e5f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/sprouting_seed.png.import",
@@ -984,8 +1058,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/steam_blast.png",
-      "bytes": 917570,
-      "sha256": "14c16bbe189f16fe82eee78eac0a0083ee7b40d3635e2690ae66b0215e607cc0"
+      "bytes": 1148291,
+      "sha256": "0c87712e6040d8df4e79e47e472674360077efc4cd13255fdbf7fb297bf5ff4a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/steam_blast.png.import",
@@ -994,8 +1068,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/thorn_burst.png",
-      "bytes": 1673245,
-      "sha256": "854f2e84e915ff7597beaa612b7c515bb75502ada7cef461bab66d91e5c33ad3"
+      "bytes": 963223,
+      "sha256": "52afe207c6b70e97fea7a13aa6ce8f621b2ad6344d6e528523d99d5d88aa1b7b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/thorn_burst.png.import",
@@ -1004,8 +1078,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/threefold_unity.png",
-      "bytes": 947475,
-      "sha256": "c58c5c61550bac2fc28fb564991fa7c96e3ecfdc9d9608b0ba4973176d68ecab"
+      "bytes": 1094202,
+      "sha256": "1c29dfbd9394dc822aab4ba7b01202254a8309ae0615c689ddcf128ea6d2ede1"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/threefold_unity.png.import",
@@ -1014,8 +1088,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tidal_erosion.png",
-      "bytes": 996230,
-      "sha256": "a293600582b11b56955ca1f12b9418dc30ffaf02da01d4d94415784211e32b6b"
+      "bytes": 1005405,
+      "sha256": "a1263a99c310ec9d678a680fb4d70c66ebdbca16c04f857abd8a76484acb0852"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tidal_erosion.png.import",
@@ -1024,8 +1098,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tidal_gravity.png",
-      "bytes": 1030089,
-      "sha256": "f1511ac2671faac9ff743bf605cf729f5d4a55e14903ed9f448d1d8a31dc95ec"
+      "bytes": 1017432,
+      "sha256": "3d0ae4125d7563388e4af774baf2aa9893a09807e871dbde8e1abd5746b31064"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tidal_gravity.png.import",
@@ -1034,8 +1108,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tidal_mark.png",
-      "bytes": 747569,
-      "sha256": "43680968068e256b9aaad901eb8f648873bfdcd2c480eb2768f1825b78472187"
+      "bytes": 1053576,
+      "sha256": "d8f18ce76af4e2a2bc6894d411e08aee30890afbaa48970e7dbf946e64d5e9a3"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tidal_mark.png.import",
@@ -1054,8 +1128,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/to_be_continued.png",
-      "bytes": 1638300,
-      "sha256": "763dcef5a75f8258ed9c90676fe1eaf14afc73a25faec2b44bada64215052b3d"
+      "bytes": 1045142,
+      "sha256": "9ae1438bda7a5c4c2561c0f4b404fc8eb7d394565fdad19333d8ee8e2804fb7e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/to_be_continued.png.import",
@@ -1064,8 +1138,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/transcribe.png",
-      "bytes": 854912,
-      "sha256": "476f403c9f4f4db3afd9d2ddfec4420d77f1a3e717e86ad1228d2842f4ec9ae2"
+      "bytes": 1010876,
+      "sha256": "be619a8c0ffb042b526f6da0ee3b1cd09a3cad584e2d63e56beb998c70eb9598"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/transcribe.png.import",
@@ -1074,8 +1148,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tree_ring_burst.png",
-      "bytes": 741277,
-      "sha256": "99e38b905cc429a33599d0348106722e212f82da81d0fc5a493329e6074e748f"
+      "bytes": 1081205,
+      "sha256": "ebb6b9b88eed5477d7c1150dbb12f4ee0e7edf8d982dbf4a2b5a61b90194bc9f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/tree_ring_burst.png.import",
@@ -1084,8 +1158,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/trickle.png",
-      "bytes": 702685,
-      "sha256": "5f70cd87afd9f0fbffaeae99af5634d8ff5539e9b12ff54b50aaab3564526ed8"
+      "bytes": 1039818,
+      "sha256": "8969ee8b7e6bccbb1d2a83e301746fe4dad1b38628fcc5552e99c08cbdffece5"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/trickle.png.import",
@@ -1094,8 +1168,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/unretreating_tide.png",
-      "bytes": 798871,
-      "sha256": "ff0b7ed1e5ca54d87100b85b102f594838d82879177be586e9a649708f241cc2"
+      "bytes": 1099669,
+      "sha256": "facbe63a8b35f79ce487a33ccb7c1153683c63612ad37dbf9e6a152ad95c1043"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/unretreating_tide.png.import",
@@ -1104,8 +1178,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/vine_shield.png",
-      "bytes": 890290,
-      "sha256": "9f1983a468c4ef88327a2af09a0fa640f5770f66c8ee2943a4231d7bbf67b3d1"
+      "bytes": 985917,
+      "sha256": "d1cd73237bb492841d83a354380ea70f0995782702cd68e643c40317792c83e7"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/vine_shield.png.import",
@@ -1114,8 +1188,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/water_spirit.png",
-      "bytes": 770575,
-      "sha256": "c3dae140c8851aa359418b6a4fe3bc55ea00cc9997dd3cf674cf8d55c7cdf4d9"
+      "bytes": 991702,
+      "sha256": "9de0bda845b692411189cd0d154a4ed9190432b27aea0e39f5640aabf5e5dad8"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/water_spirit.png.import",
@@ -1124,8 +1198,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/wave_curtain.png",
-      "bytes": 965115,
-      "sha256": "3b4f8e1d0698a665e0c1d1e153029c1703c63f0ed9d391db6d64bec275cf878c"
+      "bytes": 1157773,
+      "sha256": "e6ef401d301b74f713729153f81b7aa0a688108bdb48c0e2be9081f4058c2369"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/wave_curtain.png.import",
@@ -1134,8 +1208,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/wave_strike.png",
-      "bytes": 772106,
-      "sha256": "ee0edc92fde42124d709ffc48c1bd44b626d7ffa69e22f93bfa5d735cef34cf9"
+      "bytes": 1104772,
+      "sha256": "181f1a2044974dae937d9c69b1b4a843b2ece7375a65078b8790586e03825280"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/wave_strike.png.import",
@@ -1144,8 +1218,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/weary_incantation.png",
-      "bytes": 751838,
-      "sha256": "ab91fd5e86b4ebc2f48c242e7dc2ae9b65aca605f2d82652e9667f5ad4fb21c1"
+      "bytes": 1029699,
+      "sha256": "fc218c60e784dff364fad3af92cca4cfa8c3ac06a88623d019d03a8def01a3da"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/weary_incantation.png.import",
@@ -1154,8 +1228,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/zero_search.png",
-      "bytes": 839479,
-      "sha256": "c1cc1289568aba22ef022247104838ee4e0bf1e62b0b301f275a5a150d57ab53"
+      "bytes": 962966,
+      "sha256": "f84d87e9feb33b3229a55054f743de28790c9ecc4bc20755c1ce0ea27a0cb1bf"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/big/zero_search.png.import",
@@ -1164,8 +1238,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/binding.png",
-      "bytes": 93508,
-      "sha256": "5a597682d5d22bc199df097702c987ae5b1a1b55f0421277c775ed643e89f9ed"
+      "bytes": 87674,
+      "sha256": "5a33856c2f2c4f8406c47f57298d7d40bd522c8da686abf59935311719382c1f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/binding.png.import",
@@ -1174,8 +1248,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/blazing_chapter.png",
-      "bytes": 77213,
-      "sha256": "57a776e1f233f01c7f2627ba63badb291ebc47207a122e225da9ba2602a055d3"
+      "bytes": 90284,
+      "sha256": "2f07b5a361352860da4cfc4cbc01f339e3856c43070af8bce4c8b3dabe1ae2d0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/blazing_chapter.png.import",
@@ -1184,8 +1258,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/book_burning.png",
-      "bytes": 76795,
-      "sha256": "65168c2ad5596ea916136e94a7bcb4de5c998da2db852fbdf75bd8aaeb8282e0"
+      "bytes": 90348,
+      "sha256": "e3aab22ab4308777c82c2a59847caecf164b6417b9cafca680f26f97a4e1eab2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/book_burning.png.import",
@@ -1194,8 +1268,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/bookworm.png",
-      "bytes": 78422,
-      "sha256": "c9dcf826236cf5a720032a19ea4fb3d8bd9838b884579f4a342bf1ca090b7290"
+      "bytes": 82139,
+      "sha256": "c4eb568efb03274e8da07fd8ebf78a6fc19ca9de7254ccfcdae2578926157872"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/bookworm.png.import",
@@ -1204,8 +1278,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/build_canal.png",
-      "bytes": 98715,
-      "sha256": "b61ad6989438471d8b9321f91c66de6cc2e69eb1db6fdcae750dbce68e2fe78a"
+      "bytes": 96892,
+      "sha256": "ea4fda30c7bbb3e6301d3c019cbbc2f4215603a981fe84b563bd3dd67a2ce74a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/build_canal.png.import",
@@ -1214,8 +1288,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/burn_roots.png",
-      "bytes": 87007,
-      "sha256": "386651227799839744ed5eb05a3d68d2a00597fe8c8b033abd9cded19321a351"
+      "bytes": 86779,
+      "sha256": "af51e73efbc3d5d0a314ccccbf4fcef607d51a2e06d7612e4a2f05fecf7ed757"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/burn_roots.png.import",
@@ -1224,8 +1298,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/burn_the_river.png",
-      "bytes": 89057,
-      "sha256": "2b8aa463617ba4fa89016bf27d226a4cbc803f200dbc92fe7efb8499c78e186c"
+      "bytes": 95127,
+      "sha256": "504a2585c6b055cd18c3bb6d5e0d01546a15bd4fc27ba58154493a9ff80976f0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/burn_the_river.png.import",
@@ -1234,8 +1308,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/burning_pages.png",
-      "bytes": 69461,
-      "sha256": "681b0b8e0949a3d8ae28fd22987b342542d66cab62f157203796728ca4f4d5a8"
+      "bytes": 85798,
+      "sha256": "5159409b92ca35659e16c2a1bf2fef868b71c313b0bd7dcfdf03adeff3a2d241"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/burning_pages.png.import",
@@ -1244,8 +1318,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/calibrate.png",
-      "bytes": 80096,
-      "sha256": "7385f862f608a1daa98171694940c0c3fd71ba32bc50448800dc3f45000c94b7"
+      "bytes": 95254,
+      "sha256": "48fe2dcca56b7f2e9645cd87019fc1c3d0414d1321f217295ac98cc5b6d1cfa2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/calibrate.png.import",
@@ -1264,8 +1338,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/channel_flow.png",
-      "bytes": 81424,
-      "sha256": "6ad091f7fa3fb6e3d350e08cf5ff85b5d96d474875ba09acf45cc4a4500a1f27"
+      "bytes": 92545,
+      "sha256": "5d783f54250eb5daf80b8609ef02529ddf081f8128b271f5aeb137858f3e0d43"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/channel_flow.png.import",
@@ -1274,8 +1348,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/circulation_notes.png",
-      "bytes": 93559,
-      "sha256": "cd9bf7ebf9f753c98812ccf8e816e1d879ccf2b7c43e8e03a8fcb943d0da5c68"
+      "bytes": 88680,
+      "sha256": "cea9a448eae00ec3b4492ebd72de3eb39561807f1edcd29566ae1596c6e71e71"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/circulation_notes.png.import",
@@ -1294,8 +1368,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/combat_notes.png",
-      "bytes": 74820,
-      "sha256": "ea46d960834d42e9579051aabc6de0edffc04896c824b961a0175b77b6ed3cdd"
+      "bytes": 92557,
+      "sha256": "dfcf94f85e6a34df1ecf78ecf52090efa7361e71c68d56b5ce5dd07881c54f98"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/combat_notes.png.import",
@@ -1304,8 +1378,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/cooldown.png",
-      "bytes": 92603,
-      "sha256": "e5ab115d87e56920da4456d1ffe1c4ee69bccccbdad681b1313b8ea07c4dd81d"
+      "bytes": 85589,
+      "sha256": "ca296d7ac702292c563593eabdb10b7a6d89efea4c4b381cf18a9faf68db80ec"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/cooldown.png.import",
@@ -1314,8 +1388,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/crop_rotation.png",
-      "bytes": 84617,
-      "sha256": "e4133a7f2caad3c5783a8fd57227a4e6e046cb1700e9ff24156f1b07276fdeb3"
+      "bytes": 88205,
+      "sha256": "58c5ea2c241b31246db8cfd087aab1579cfea31ef26e74cda885411dd6c303ed"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/crop_rotation.png.import",
@@ -1324,8 +1398,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/crowd_kindling.png",
-      "bytes": 91961,
-      "sha256": "13e1aa145efdfaff81d798e05416205e19c0b8920995785f29723169f203bb90"
+      "bytes": 96707,
+      "sha256": "591b74c01b3490390ed5e9332aaa09dc2dedea0d24c087396f380c5c03ed70ea"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/crowd_kindling.png.import",
@@ -1334,8 +1408,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/dam_break.png",
-      "bytes": 97560,
-      "sha256": "b50b32595b12941e0d0ae4a62dc6cfd0927ee0c705e8d75ea75efc7bccdd2a86"
+      "bytes": 100730,
+      "sha256": "c83a505a2dd493a92f88e3713f0bee79798c3476729640e0f655d9afc09a8927"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/dam_break.png.import",
@@ -1344,8 +1418,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/deep_sea_barrier.png",
-      "bytes": 77394,
-      "sha256": "4a87fa71c1bfc256f0eecb54f46e6d129475b673a6501c47187ed633d7cb6590"
+      "bytes": 97734,
+      "sha256": "742b0ec41507866ef1929d7aea009db3ca3afbeae575e91769574303800688cd"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/deep_sea_barrier.png.import",
@@ -1354,8 +1428,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/draw_branch.png",
-      "bytes": 91325,
-      "sha256": "d6538e8334cadf5dea664eb8c00f3a5b74523c94c15b62a76a41207c8653b42a"
+      "bytes": 97097,
+      "sha256": "f03af23375c470bea1d2f56d2dfe8ac684108603a571a249663c17ea96109253"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/draw_branch.png.import",
@@ -1374,8 +1448,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/dry_branch_search.png",
-      "bytes": 78288,
-      "sha256": "240c03d3e695dae3218b301b91ccd306ef7665a94bf4b0cbe5cc851ad0455eb9"
+      "bytes": 89033,
+      "sha256": "08768d7a52a6b822a0c02827ab59ba0ca56585d2ae1c67680466e9d6ac023d50"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/dry_branch_search.png.import",
@@ -1384,8 +1458,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/earth_collapse.png",
-      "bytes": 89611,
-      "sha256": "058151a9aa4652d2d50eee8923f11f8536baa861b3c70a3ef12079e1e17ab787"
+      "bytes": 97637,
+      "sha256": "aa1b652667032e455de069a0c007eb349df6ca7b76489278e772830467b90be0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/earth_collapse.png.import",
@@ -1394,8 +1468,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ember_bookmark.png",
-      "bytes": 71570,
-      "sha256": "219a7ec7369c039bda3e8b3aebc9ad41da63a92a4a9b21766b26a24650cbbff2"
+      "bytes": 87395,
+      "sha256": "02e0cfd34b341d03fa92b056a1cc749d66f2be98075e8c56246d5c7457b2ce15"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ember_bookmark.png.import",
@@ -1404,8 +1478,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ember_pierce.png",
-      "bytes": 72930,
-      "sha256": "4fa60c7c371d1e582dabf90ffb151c07feaf99f9f04234ebd9ffdecd7f494f9f"
+      "bytes": 90008,
+      "sha256": "5662017ae8f8a5f42b47d115aaad5596c2634a616fdd6980e226d974d5afdfc3"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ember_pierce.png.import",
@@ -1414,8 +1488,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ember_reckoning.png",
-      "bytes": 92236,
-      "sha256": "d2b085f82aad7379d067d39329383ccfae3a0789296ab77e8683f030e4f803a2"
+      "bytes": 94034,
+      "sha256": "ec08e14202774a5a8a4befa83276b8f65be28979d80bda82bb92a5f19f85c267"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ember_reckoning.png.import",
@@ -1424,8 +1498,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/endless_tide.png",
-      "bytes": 1679517,
-      "sha256": "949e7ba3464eccb019570583f6229711ec3922a520c232f617b34cbc0a44222c"
+      "bytes": 97006,
+      "sha256": "6ea65b517322894cc267692c452e583b47ad0f90253ca744a7b4d3966c7b874c"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/endless_tide.png.import",
@@ -1434,8 +1508,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/eternal_grimoire.png",
-      "bytes": 78713,
-      "sha256": "c82eda708b86b459b8214289e00c48010d819a3149934f69cf89445dbece23fe"
+      "bytes": 101541,
+      "sha256": "3ab120a0cd33b441019f2825ace4ad7827b599b5c06b14246c493f112264d31d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/eternal_grimoire.png.import",
@@ -1444,8 +1518,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/evaporation.png",
-      "bytes": 92664,
-      "sha256": "289ad5e64983266a68d43c9da45c4e65055169db85560920adc305785a7fd1d2"
+      "bytes": 87649,
+      "sha256": "b8086132aca23f9d8e7b7bcb3ac70b0a2e9b3b9aa8c9ddb6612eab3fbcc945bf"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/evaporation.png.import",
@@ -1454,8 +1528,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/fire_inscription.png",
-      "bytes": 70835,
-      "sha256": "1a99442834fa0e511fb1e740b07ff4adecbe81ec8ddb6aafb9ead964f4db1f25"
+      "bytes": 88475,
+      "sha256": "eda6f70bafe2d54a46ae4303f25cf6f017b1e1ce8496639abf532a76d7bafc9c"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/fire_inscription.png.import",
@@ -1474,8 +1548,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/flame_strike.png",
-      "bytes": 68806,
-      "sha256": "713612c6e997d5e09630b5296b683459d491d6358cc6c3c448511d01b7aa2fe8"
+      "bytes": 63050,
+      "sha256": "a2d21c7bcf909aa77b9b4064ee112d5d3022598cf655ee4c899dd0b1fa86eb3e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/flame_strike.png.import",
@@ -1484,8 +1558,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/flying_pages.png",
-      "bytes": 74808,
-      "sha256": "348a6c136a0434d5a82d6b35b03670986e97bde3d6a0a86f61cd37621eb651c3"
+      "bytes": 92469,
+      "sha256": "d4f8a0bda420aaa34bf9f348e57755ae4eb522c1effc477036a794125dbde76b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/flying_pages.png.import",
@@ -1504,8 +1578,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/fuel_the_fire.png",
-      "bytes": 1558465,
-      "sha256": "f7d26dc813542c870b1eade301072eb15cebda7b1b6c76f198b9b44d5a690a6a"
+      "bytes": 93222,
+      "sha256": "bcbbaca5a70d1a4f73a683fe44579bdcc13cc5b969a3e5cf2ba4174c1de3e764"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/fuel_the_fire.png.import",
@@ -1514,8 +1588,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/gap_needle.png",
-      "bytes": 74602,
-      "sha256": "da3d08ec7e46812e9783d760aa9c0b90327e3b6dc90c8a238f2717ebbedd83b9"
+      "bytes": 81276,
+      "sha256": "97b07e92b57106e88f08489436c87082897cf61d78ba50d78ed0e7b27aac6107"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/gap_needle.png.import",
@@ -1524,8 +1598,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ignite.png",
-      "bytes": 93423,
-      "sha256": "0abed6551a17bcc7e3af235474c0b502261d17ae0059158608d2c15185ba4975"
+      "bytes": 87191,
+      "sha256": "c98f985bcaa59ef9e8f9f32b4202ae9092790354707b1f52a1e887644b8e66b8"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ignite.png.import",
@@ -1534,8 +1608,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/immortal_spark.png",
-      "bytes": 56729,
-      "sha256": "dcf1441335bd9bc3ecd955d5f4cefd0d7d40f00cb6db2d1db820927af2740583"
+      "bytes": 81862,
+      "sha256": "b3b9e60c9b7d744ade1f68e0adb70d27edb35f9a5cb974510b51625649f7d1dc"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/immortal_spark.png.import",
@@ -1544,8 +1618,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/librarian_defend.png",
-      "bytes": 66608,
-      "sha256": "ec41c963e51506cfe32898bdad9520df78c772c7ae75e82840147cca547a6d2f"
+      "bytes": 73393,
+      "sha256": "c69063b63b2133208fccaee8044a8f8090c418c95d7258284fd150f538db2d19"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/librarian_defend.png.import",
@@ -1554,8 +1628,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/librarian_strike.png",
-      "bytes": 63220,
-      "sha256": "1d55d90565ebfc26fcf5e9edda9844b96857752d879d3962421c9f8e0e4d11b1"
+      "bytes": 49058,
+      "sha256": "9829e93dc217131d72e26634d516befe2ddd5ef62dbb34ac81c0c593fc177150"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/librarian_strike.png.import",
@@ -1564,8 +1638,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/life_symphony.png",
-      "bytes": 79075,
-      "sha256": "edce69fb31193943ef0a8185533175b1716ff3e68788f559e5415298df9333b5"
+      "bytes": 96027,
+      "sha256": "55d24486e54fe37b77996534b1e15bdf2b14eeb5672ea1ce9602de39011bd8c4"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/life_symphony.png.import",
@@ -1574,8 +1648,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/lifeline.png",
-      "bytes": 68191,
-      "sha256": "79c329191bf8d1569b6bcccf078de6e343daa40f992d6f851b36aa7bb7cb9244"
+      "bytes": 86796,
+      "sha256": "4a2680d775e9d10a523a17bd5b87ee75001f89c6f7c4e2a1c37f78ff5ab835ba"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/lifeline.png.import",
@@ -1594,8 +1668,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/multiple_eruption.png",
-      "bytes": 62574,
-      "sha256": "c83a5bd9f82a5db442190d4e199548e18f6615188262e327105c704133935957"
+      "bytes": 94442,
+      "sha256": "743116aef166ea6ae85b9fd86322d707731217ea448e03acba28d06e395a09aa"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/multiple_eruption.png.import",
@@ -1604,8 +1678,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/needle_flurry.png",
-      "bytes": 70656,
-      "sha256": "148110dc622c64f1951c4ff70f4a5558a2093b17e9b38ab30a0d5ad9f099979a"
+      "bytes": 88967,
+      "sha256": "3161fdf413ec3f4705cbfc7e524e48bbfee9b895c118a66eb6ae1100f10fe3cc"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/needle_flurry.png.import",
@@ -1614,8 +1688,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/nourish.png",
-      "bytes": 72759,
-      "sha256": "e5e8a7118ea470cbcb8425d3049510932207581d8994d2fd65fa28155d90b45d"
+      "bytes": 94443,
+      "sha256": "03a784f969c4aea6a06d05c9d2f56cd6653219cc9525779e120208a2a010dd97"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/nourish.png.import",
@@ -1624,8 +1698,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/nourishing_life.png",
-      "bytes": 72476,
-      "sha256": "df01e8633d8a4c40bce2eb792e2140998ed590bc3f827542a26c5c395396674c"
+      "bytes": 87142,
+      "sha256": "41a974ea3f90c988ece207d6796ac5eeb5dc3a26fe784728691d3853fab7e8c0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/nourishing_life.png.import",
@@ -1634,8 +1708,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/opening_tide.png",
-      "bytes": 89989,
-      "sha256": "831cbe83d14b5fefaf353b023fe1245418b1d4468a90547b6306e190b2488340"
+      "bytes": 93800,
+      "sha256": "4a32f9ebe05735af4577401baf84303b422f324a87444e63ca6845e580a7ffc2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/opening_tide.png.import",
@@ -1644,8 +1718,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/out_of_context.png",
-      "bytes": 88684,
-      "sha256": "0d9c449abfd9276e32c042d005130cf9ffb5a9b806aa62c854548ce141efb5f8"
+      "bytes": 91648,
+      "sha256": "e5aede36cdd50171ea4b0d04d94a43466fb3afe20b90095c7ef837d708cbb9d8"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/out_of_context.png.import",
@@ -1654,8 +1728,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/overfishing.png",
-      "bytes": 80664,
-      "sha256": "28d0d5c23f910a9a34561a145cdd02d8ae572c81ffc8eed5ad2d58c0c595fea8"
+      "bytes": 97821,
+      "sha256": "1db232901b0df1be3354c3fd9e25526901579bec653f9a7502f7b93a092a4edf"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/overfishing.png.import",
@@ -1664,8 +1738,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/overlimit_form.png",
-      "bytes": 97587,
-      "sha256": "43a87e2b985c3ed3d42d1ffc47873f04e55c867aa9039551dac2a218fc853416"
+      "bytes": 108101,
+      "sha256": "0d5ecf20cea6d609c22b16d65fc571d42fcb3effc081a30f8ed1396e5cb21764"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/overlimit_form.png.import",
@@ -1674,8 +1748,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/overload_burn.png",
-      "bytes": 75028,
-      "sha256": "e5a353921b96494c6b5962f6902c9fdb22cf3d0700a9ccd7139990fc6f13db23"
+      "bytes": 88663,
+      "sha256": "2cd4f590c98a4a82572d19f659d63cd6f11b05abf4538d856b349fc1e977f00b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/overload_burn.png.import",
@@ -1684,8 +1758,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/practice_makes_perfect.png",
-      "bytes": 1751250,
-      "sha256": "73d86ba22e48433429a49b46588bc049fa7d8cf53e4c30fa510e4f82addebb5d"
+      "bytes": 97998,
+      "sha256": "a251abae1102eeb2c0a10d3299f42194d7a7248ff1bda29e51e31bf4f378c8ec"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/practice_makes_perfect.png.import",
@@ -1694,8 +1768,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/quiet_embers.png",
-      "bytes": 68159,
-      "sha256": "90eae086234243ccd02c4f58e353e28797f8a039e1318853b059bbd90eb829de"
+      "bytes": 86236,
+      "sha256": "2daaa19612a6dc6554404e43234a9c78ece6d027a4b2ad58ff4c9b0c9023c44b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/quiet_embers.png.import",
@@ -1704,8 +1778,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/re_read.png",
-      "bytes": 1672737,
-      "sha256": "bf8376e60c3ece6bed1eb7dcdaf8e7f0df5b6a19df5883a585e6e971d15ed8f3"
+      "bytes": 97553,
+      "sha256": "9e8a0f228758913d90bdb0ee75c60ea060676a7c11ee84c014b161b63708e076"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/re_read.png.import",
@@ -1714,8 +1788,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/read_backward.png",
-      "bytes": 1531275,
-      "sha256": "2c4c1697179f6b247eb9494596d243d595fc1e80d8689d9830e6f0364ac4c830"
+      "bytes": 92038,
+      "sha256": "823c320c7215a3511329040c1cdbfc27e697d88313b9b4d606bd76de63313caf"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/read_backward.png.import",
@@ -1724,8 +1798,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/read_widely.png",
-      "bytes": 73434,
-      "sha256": "5a067dc73dc50507b05b973446741e65f7ed5bea0a61ae279d4a38b39a410692"
+      "bytes": 99053,
+      "sha256": "9fbd3f3611a61245faa6ea842af20fc40fd5b098100e3d7309d980178be3764b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/read_widely.png.import",
@@ -1734,8 +1808,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/reignite.png",
-      "bytes": 60573,
-      "sha256": "a23c1c04a150cda8c90b28ef13b60ff0831e331f9af049eb483bb8779802c577"
+      "bytes": 91678,
+      "sha256": "103050c0d2c16f880d8832c30b612a1c1cbabcd16152dbfaacdc624e6b53028b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/reignite.png.import",
@@ -1744,8 +1818,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/rekindle.png",
-      "bytes": 80563,
-      "sha256": "b498eba1bb5c218866672e848976dcc75e14f345f0b0baa9e465c7148fab366c"
+      "bytes": 84784,
+      "sha256": "b952f56f69393461981ead097b8b12402db125d40bfb1aee5b1b83efeb132eb1"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/rekindle.png.import",
@@ -1754,8 +1828,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/renewal.png",
-      "bytes": 75204,
-      "sha256": "5fd2f41cb4a594033f0dcb098718464bec49845c062eb770d70fe27b42cd542c"
+      "bytes": 91267,
+      "sha256": "62d39635f6efe74427946de876498b361aaa06701a8f6b3c2db2569b8627a87e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/renewal.png.import",
@@ -1764,8 +1838,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/residual_warmth.png",
-      "bytes": 82404,
-      "sha256": "af4a3848e1f545b24489be6a0938c4e40611f5cdf133c4a3e3faa8a708b7db5a"
+      "bytes": 86834,
+      "sha256": "ffc604fffe12b6f55bae5c7ab98b208460f8717efe66637eae3bef0278fbcdbb"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/residual_warmth.png.import",
@@ -1774,8 +1848,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ridge_ward.png",
-      "bytes": 71649,
-      "sha256": "305b03962b0743b34cc002ee546ff003125e8dc45a267838a4530a1fc6ffc80e"
+      "bytes": 194387,
+      "sha256": "d896268174a659dbf624aebbfaf45c0958310c2ea7f40d69b1618d97addf71ac"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ridge_ward.png.import",
@@ -1784,8 +1858,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ring_curriculum.png",
-      "bytes": 76231,
-      "sha256": "490b765ddd1a25a3e35a2a13a2a7b69ae05463f23a28443c12766962c2fd3f80"
+      "bytes": 92528,
+      "sha256": "9274f2eedc2b29da8363c6f393ae7b28e600647959680dfb823c621595de4409"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/ring_curriculum.png.import",
@@ -1794,8 +1868,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/rootbind.png",
-      "bytes": 84718,
-      "sha256": "988dec88b96f1f263b156ad088dc9380f7d1dfd031715672a495d7b514143656"
+      "bytes": 94368,
+      "sha256": "c8f366cbf8b4379c4f9a058e9ca50162dd8150bb51e3143afb07ca2743d1c138"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/rootbind.png.import",
@@ -1804,8 +1878,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/scattered_flames.png",
-      "bytes": 85117,
-      "sha256": "22635b81876aed956b6ae9190de84b10381937f2833d54cfd3ca3b944c02ceef"
+      "bytes": 80991,
+      "sha256": "b1f748a37c1d31df763dd2e79ca63885664acce96f85ade6c14e785b8782a891"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/scattered_flames.png.import",
@@ -1834,8 +1908,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/sedimentation.png",
-      "bytes": 70872,
-      "sha256": "655fb35796d8e61232c3e733d75fe1d939691f278585f629085a1eff46641e82"
+      "bytes": 86320,
+      "sha256": "25ffc4aa6081a2f6bed861797f0504d1fb1907f601706d03a60974fa5b9b16df"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/sedimentation.png.import",
@@ -1844,8 +1918,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/seedburial_strike.png",
-      "bytes": 95557,
-      "sha256": "119623df9c3ce1efb3b172d05c83b3160cf31b4c902e400ee453d39be7855325"
+      "bytes": 93101,
+      "sha256": "30c91c3a6c28187521ae7c0146fcd2097262bab4b52e07f5dbf3a22dd691cdff"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/seedburial_strike.png.import",
@@ -1864,8 +1938,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/shared_shelter.png",
-      "bytes": 92084,
-      "sha256": "613f27cb3f4415eafead3e809ea9eedd3bc831bd661351edb5f04f1cee9319f3"
+      "bytes": 88291,
+      "sha256": "de9798895a3cf0ab754fd8704588f6ea90faa2cee2b2f92a0338988e0d864167"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/shared_shelter.png.import",
@@ -1874,8 +1948,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/shifting_pages.png",
-      "bytes": 96117,
-      "sha256": "2dab3578ee811aff065bdf2d6523c99617cb0d3386160ab09b0283077926f4b7"
+      "bytes": 96049,
+      "sha256": "b9e3573560d52f694aeaf9bd07ae8d654a384e164a44abc7c07da07ce777b82c"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/shifting_pages.png.import",
@@ -1884,8 +1958,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/song_of_ice_and_fire.png",
-      "bytes": 76894,
-      "sha256": "16100833f2b3065555438a66478e04e55918aeb4f6640fdcd2843aaeacdbed1a"
+      "bytes": 98526,
+      "sha256": "554581fb4f213d4de29789608d5e92c2d86423c315b59ee29c8852fc48ecad5a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/song_of_ice_and_fire.png.import",
@@ -1894,8 +1968,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/spacetime_twist.png",
-      "bytes": 94893,
-      "sha256": "348c2ae26fb7839bd335c80f10715297b1fb99596b246509cb9b63492a0df679"
+      "bytes": 106200,
+      "sha256": "04fa9faf567330ed1e67f59ee2921272bfec4ee6f5a3e52fa55b1d2b67acfe61"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/spacetime_twist.png.import",
@@ -1904,8 +1978,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/spark.png",
-      "bytes": 63933,
-      "sha256": "10f60d5950ffe756cd2f57f7033487b2a98c5b61f12ab58e4ea0f9382e6bacf9"
+      "bytes": 81651,
+      "sha256": "f5870bfbefe147e43a49a906d5e02f4c628d63d3f32c436157563baed20c9ba9"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/spark.png.import",
@@ -1914,8 +1988,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/springwater.png",
-      "bytes": 71496,
-      "sha256": "0cfaabbb239fc0d7c331a7f040a807d6f2584edb75711f745636ecd4985625ac"
+      "bytes": 91774,
+      "sha256": "dafa2eff26990eed4732d43d0b5bfc15ccd7a7f879d15232ad87acb3c223d510"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/springwater.png.import",
@@ -1924,8 +1998,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/sprouting_bulwark.png",
-      "bytes": 102225,
-      "sha256": "de357ca971e39eaaeb2b37bb48cac24556ab4c7211a03dc4c1fcc8420ee80745"
+      "bytes": 91548,
+      "sha256": "9645049011196d52f51a98c7c7b698098e94db4261043957426db8c87892de5f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/sprouting_bulwark.png.import",
@@ -1934,8 +2008,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/sprouting_seed.png",
-      "bytes": 79305,
-      "sha256": "c44a0fb65bb441e88b7be740b1005b22053be0d1e2c047aef5bf1abfc845789b"
+      "bytes": 86070,
+      "sha256": "9953824d7a5abd1c86447d6e20e377347e72c558110ad72ffdf1708af5666d4f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/sprouting_seed.png.import",
@@ -1944,8 +2018,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/steam_blast.png",
-      "bytes": 88155,
-      "sha256": "baa81a62d913ff73db72a6f9045c41f081e1b3ed15fa8a970250a8ada9383df8"
+      "bytes": 99083,
+      "sha256": "5fde84abb2a0c582eb3a856124e409fecce2afee8d62674c2988811fe294f617"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/steam_blast.png.import",
@@ -1954,8 +2028,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/thorn_burst.png",
-      "bytes": 1673245,
-      "sha256": "854f2e84e915ff7597beaa612b7c515bb75502ada7cef461bab66d91e5c33ad3"
+      "bytes": 87845,
+      "sha256": "cf791f77227ceb59d5d34912b2ea7748512286dd9084c88a16be713c1a767946"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/thorn_burst.png.import",
@@ -1964,8 +2038,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/threefold_unity.png",
-      "bytes": 87692,
-      "sha256": "d80efca53c912f14a05f9de20f9f31abe646b1de0a463f88d34b4f1a0214cff4"
+      "bytes": 98312,
+      "sha256": "dd32a34d900216aaadd01169fc5e2b7f563dca2ba6502e0ca734505f393aacf7"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/threefold_unity.png.import",
@@ -1974,8 +2048,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tidal_erosion.png",
-      "bytes": 90648,
-      "sha256": "2ae32a748bb108095fc920fe711c131dbc02b97aac9e25037de5fb3c5828deea"
+      "bytes": 91183,
+      "sha256": "5b923878ed6a1d06ce07035a1d0ad0f35bdd9d1d3c77dda668d825dfdd5fd190"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tidal_erosion.png.import",
@@ -1984,8 +2058,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tidal_gravity.png",
-      "bytes": 93418,
-      "sha256": "da4f08ebb2d8bcb59ebb531dea5d13bfa2e74a4a829b5a606ab1f219a1a42f36"
+      "bytes": 93139,
+      "sha256": "d116081f2a99d42a38509fe2c0fe7c5453395ff54f7eef83745db09bad8ab636"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tidal_gravity.png.import",
@@ -1994,8 +2068,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tidal_mark.png",
-      "bytes": 67463,
-      "sha256": "fd671bfb9682a23bc3e45dcd5491a788994fd70f617c3c06a5c971dfaeeed3c4"
+      "bytes": 95812,
+      "sha256": "4f9d62e6d061906f8934f1351a23b3218a3eba181a9a6216d6d1765bad3176d6"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tidal_mark.png.import",
@@ -2014,8 +2088,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/to_be_continued.png",
-      "bytes": 1638300,
-      "sha256": "763dcef5a75f8258ed9c90676fe1eaf14afc73a25faec2b44bada64215052b3d"
+      "bytes": 95538,
+      "sha256": "d62c1901deb8a9c9ecaf2864ba01aee6880bb35f07a6329cd20e70239337edde"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/to_be_continued.png.import",
@@ -2024,8 +2098,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/transcribe.png",
-      "bytes": 76102,
-      "sha256": "55c1929b18becbaffddacdf69cea1271b63e32ad1db796e7797f3cf99efee8db"
+      "bytes": 91183,
+      "sha256": "4cc5e98b90c011cade95c3c98e18d8b1d04d4f7f17e3232faeda987d88b0ffd0"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/transcribe.png.import",
@@ -2034,8 +2108,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tree_ring_burst.png",
-      "bytes": 67506,
-      "sha256": "4013f07d54b1fca38c978eaeeced4faadb71f812892f556187d0cd4c90d96b37"
+      "bytes": 100010,
+      "sha256": "7d6ba3413680bb738273e7b3accf6a9d9738865eac3a9bf4d3471e67df6a8177"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/tree_ring_burst.png.import",
@@ -2044,8 +2118,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/trickle.png",
-      "bytes": 61874,
-      "sha256": "bedc718d38b00e922dc4b852e0a0bd7210c6de3a5aa6f21457d008e086910695"
+      "bytes": 93177,
+      "sha256": "4c6be6cf0e7635264ee74800c2e0af82b450e2f01c68491a33316a2ba60b53f5"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/trickle.png.import",
@@ -2054,8 +2128,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/unretreating_tide.png",
-      "bytes": 69885,
-      "sha256": "857d77d4f23fa0fe9749d32d4e86eff4d71f1b10a648e0c39e76a321931039b3"
+      "bytes": 94599,
+      "sha256": "48f6951ded1004790b3a2abff8400091c1f5cfb5fbfed95e1e2f205e3f44859d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/unretreating_tide.png.import",
@@ -2064,8 +2138,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/vine_shield.png",
-      "bytes": 82026,
-      "sha256": "9f817d44d0934dd66a155da855cd832a82490cdd1c6a45e0d7db21dac356c3d6"
+      "bytes": 89957,
+      "sha256": "1b1c6053093fa1ba85792c6652ee45ed52497b14d2fe1d73d8ba1e105a23974a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/vine_shield.png.import",
@@ -2074,8 +2148,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/water_spirit.png",
-      "bytes": 71252,
-      "sha256": "abd18f11e9e6b0ae43cea6aacbfde8336e691b101eff665f9f0cd68c084fde9f"
+      "bytes": 94248,
+      "sha256": "86f8ce5da9a829227ec6de63e43bfe2bdcab0713bc9ec9beb5bfa95cd39cbc1c"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/water_spirit.png.import",
@@ -2084,8 +2158,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/wave_curtain.png",
-      "bytes": 88474,
-      "sha256": "21e82e7a09ee07f6fcd4e60076ee8ab728a9e1ece37f416dce6ba4997642a32e"
+      "bytes": 102548,
+      "sha256": "167df0c1d65f01c52c662758c321e7ab205c4aa1929ffc42990e16d24c678755"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/wave_curtain.png.import",
@@ -2094,8 +2168,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/wave_strike.png",
-      "bytes": 72067,
-      "sha256": "d0d201678039cbb6e7c1a54bd8b3c70ea28089a449f2a66977ade0282a1bd083"
+      "bytes": 97871,
+      "sha256": "d9a7db3657ccb02e49df78d3e4a2061609cb06b2ce98a162c1f1c19f5653de3a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/wave_strike.png.import",
@@ -2104,8 +2178,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/weary_incantation.png",
-      "bytes": 63017,
-      "sha256": "a86b9f665ae7f283fe582796485164135a5863cf0e4f417e04972f70fc99156e"
+      "bytes": 89798,
+      "sha256": "69b0c803e14f2665002c4f19b284092a2a7dd1a0bebe82e4cdd589c1fc2124fd"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/weary_incantation.png.import",
@@ -2114,8 +2188,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/zero_search.png",
-      "bytes": 77035,
-      "sha256": "a91033c0ad816570a22cfca44b74dbbb1f1cd936cd51ad0616e4753c477cca95"
+      "bytes": 88002,
+      "sha256": "489f2ad2862b6fd1a4a60357c796924090db9bad42404b86d37a10bb66e0412e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/card_portraits/zero_search.png.import",
@@ -4494,203 +4568,203 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/card_effects-atlas.webp",
-      "bytes": 336102,
-      "sha256": "5e1bc880f9a5d4f3f13a6d4fd40337b4d73b65d1c13ddd20104ccfb81c37103d"
+      "bytes": 327780,
+      "sha256": "0e874d1b797a3265c8bf5badf5813b423a73de4b3af7a54d5ef1cb9f41979f0f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/card_effects-atlas.webp.import",
       "bytes": 987,
-      "sha256": "856ecbcca1a9aacfbe3b887f00c2b313525ff00d3a8e9dacaae4953fad418f8b"
+      "sha256": "7070c5ea78220eb22368f43d4464e74c41ae8f0a6655498f4f78561a5d957e18"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/card_effects-compare.png",
-      "bytes": 115575,
-      "sha256": "fa665edd4fef026d2576139d73666c44cedfca48523174285f50a49e3efeabb9"
+      "bytes": 112827,
+      "sha256": "07c9f223e8f26e9425dfdae5bebccc5af2aac770636d9cb010e77b0e52eeb459"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/card_effects-compare.png.import",
       "bytes": 990,
-      "sha256": "0bf2dd88c34fefe8e5ca23b70578b154c5da5047c476eedacb67e979524c2aec"
+      "sha256": "f944108942c17dd39e45845b6b179f2642a670f6c09df3e2b62fdf0e43634cad"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/circle-compare.png",
-      "bytes": 124647,
-      "sha256": "2c98642218602efca522fbd5336a72cb130443dc4bc47ba1dfd03343cd11d6a1"
+      "bytes": 127248,
+      "sha256": "a1fbc8f748f5dd1665cd4f72845bc4dcc32470ce8d918029393d919e464529a2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/circle-compare.png.import",
       "bytes": 972,
-      "sha256": "0dcd4572373a90593a23e9f9b0d9adf924875dbc50aa1015325316f3d026eac6"
+      "sha256": "c77851f2fbf5ae27ef4d594af273a4d734646c552c21a3b0532a79d4d3e52bc8"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/compact_hover_tips-compare.png",
-      "bytes": 85837,
-      "sha256": "a2aa1f5e5c1672a1f4678f209d89b74cb8f01e7b8126dbd895c863d0df15f2a8"
+      "bytes": 82657,
+      "sha256": "2e5a8cb0b2118e6cc8a9afc0645ab818acc9e82f1336e2354d24112eaa066fce"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/compact_hover_tips-compare.png.import",
-      "bytes": 1007,
-      "sha256": "f95b97a82a81fc6a0f06968fe52daeecf61a18616b130375692e958459398cc6"
+      "bytes": 1008,
+      "sha256": "c32e9f33ee3f637afbec17d3745b9f564cb46a0c07a32114ecccf7b9449db8bb"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/idle-atlas.webp",
-      "bytes": 332470,
-      "sha256": "d93b9fa5591a328cd85cccd10b6f3d25b44d12d1ba405087661d36dd51953d08"
+      "bytes": 321096,
+      "sha256": "765fc83e4397481cc48abbbef52ff9308bd4ff0290b109e2f784b01481f84f13"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/idle-atlas.webp.import",
-      "bytes": 963,
-      "sha256": "16fe0961eb40822ac13160b72e10b4827dd8cb432dabad396e8258183c79b038"
+      "bytes": 962,
+      "sha256": "369641aef635732b407d71b5001387b21869b27a2ff12de64e8e77a72d22288b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/idle-compare.png",
-      "bytes": 118982,
-      "sha256": "8df260b79ca01feaf2cb07ea3b08e585013997983d18d3bcb549a77cc85d4747"
+      "bytes": 120609,
+      "sha256": "dd30708017453539f47dc38ddf85fddae4e7c81fe4ba306c16655dac221dca2d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/idle-compare.png.import",
-      "bytes": 966,
-      "sha256": "f593c54bf7fe8876a7083944502cae850c79608e684499876af9c33b98027771"
+      "bytes": 965,
+      "sha256": "2d50b6a2db7e4a746a38b472726fdc70510f69a5dcbb37e97f762300fee6a7a2"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/limit-atlas.webp",
-      "bytes": 338052,
-      "sha256": "ec0b9dc407cafa1b3aeae252b925a109d7e280964ba0ed9b5347c4729725cc5c"
+      "bytes": 330270,
+      "sha256": "f2ef329af0d59014d416cfd63f357da7bdc70ad3144f972f0d2b208d14fbb877"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/limit-atlas.webp.import",
-      "bytes": 966,
-      "sha256": "d2231948fde8091d69f3d7343d4e40c219a508da5d4c3327d7d444e281b8e5a7"
+      "bytes": 965,
+      "sha256": "708e99ceb79a2a493f1a2065be87dc84af69779289d5647478be697b4d42eeec"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/limit-compare.png",
-      "bytes": 115031,
-      "sha256": "d1064eb8db5462b8ed45c4a6c87a430fff16c4b78b7c34b5aa49827f8b09a421"
+      "bytes": 115241,
+      "sha256": "3eda0c4fcf99b1714610f8150e7d8282f00dc7de090a83cf7a43a5f837ff1961"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/limit-compare.png.import",
-      "bytes": 968,
-      "sha256": "0dcca1ce9f5a0ab431c29f583304e0e8873608239fd4baafa2d43291822653cc"
+      "bytes": 969,
+      "sha256": "7db7df1e303e7a79d62b8823d816525205a5c6e4f75ad656060612fff2ac31b1"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/locked_orb_display-compare.png",
-      "bytes": 112774,
-      "sha256": "3ff92d0d094201e1a0c668b4092551b526267483d170fb3f2ed47363726988bd"
+      "bytes": 108702,
+      "sha256": "19a4a228fd4d9b83054851e0f09ebe94c14bc7d40db0f6857c04ac73607d6b21"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/locked_orb_display-compare.png.import",
-      "bytes": 1008,
-      "sha256": "ea5a9da39aa9a0d75391b11c8c0744be44f1d622fee2e44e1e25232ea42abcb6"
+      "bytes": 1007,
+      "sha256": "60a04265eeb12e3a896ecf92a715628a7a588578d9990b2a7f144fb72a7458c9"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/opacity-atlas.webp",
-      "bytes": 336240,
-      "sha256": "08a12ef7e5a68c362b9ae3ecaa10fd9da3b499cb3d647a51465e8e7157bbf855"
+      "bytes": 329322,
+      "sha256": "6be626ca4c144a7ac9c7fd45c54d487255919ea064351a3ab76d491f00327d5e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/opacity-atlas.webp.import",
       "bytes": 972,
-      "sha256": "33d733fb7b057444e3345f0ba6ac9dc4640a13b8cdd165a01760b2cd74361905"
+      "sha256": "feefa23f288d90f461b6eb5b33d3979575bb0254dad514c3bc3b25c24a992131"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/opacity-compare.png",
-      "bytes": 115011,
-      "sha256": "ecaa0d895088cdbfe74f3586e2c38294da78279421d9a403afa57cb1ffa10491"
+      "bytes": 115043,
+      "sha256": "5135d6e3bf3ed0350b21516316b92a195133a2ba7aa7ab894396a2339023060d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/opacity-compare.png.import",
-      "bytes": 975,
-      "sha256": "f68f63a95bad045014a954087a0de4ca978411fd38efb581d9c38778481c206f"
+      "bytes": 974,
+      "sha256": "3bec55b620126597008d4a51f9d8da59acff6416e3f48112240ee7a2ba673957"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/orb_effects-atlas.webp",
-      "bytes": 336324,
-      "sha256": "88754540b27871935ddb4beca710aff7683041cc1196bcb5d168f1ef20d2afa0"
+      "bytes": 328722,
+      "sha256": "5b800053c380a6b0f9237099e9e34d73c2e4db8423841da9e83128c144f13155"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/orb_effects-atlas.webp.import",
       "bytes": 984,
-      "sha256": "bfd8677d3554335cc1e305218587810e1ce8f0a6762bd28a81245c3c721e5ae0"
+      "sha256": "011692b31fea9f22225b9372733d2d9fb394d9a433f41aa7091abe8673f49c9e"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/orb_effects-compare.png",
-      "bytes": 113262,
-      "sha256": "5e52484690c9c113866cbfceda4a9928dfb8e56eadf0efca7d6e5a4b1ed20181"
+      "bytes": 116870,
+      "sha256": "73d3c682e84742a4498f9add32bb4b9fe59a80451ff72199d85602bd83c455c3"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/orb_effects-compare.png.import",
       "bytes": 987,
-      "sha256": "a8e8e07e9385824f66b672043e37b591211c410a694bd8903d6516c9b9f8226d"
+      "sha256": "2e6abba2e47588f39090f24aa93ce25de15aaed549f61c726e70426c40b92749"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/particles-atlas.webp",
-      "bytes": 335124,
-      "sha256": "00a9204e76fd1973c4e9e0f849955a6c61d6cbcce13178ac5be849e62cc4d569"
+      "bytes": 327348,
+      "sha256": "41ab98c7764603f57752c5a37fb882acebfa74c5aa24e2bc7bca54296fc0d61d"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/particles-atlas.webp.import",
       "bytes": 977,
-      "sha256": "b908e05d2fdc52578120f2902bca1f7f0070289eda689db20b2a86ee7ac58692"
+      "sha256": "2217650fb9cb3c1d415e6b4b4f62a32f37ebaafb993f7230271aecbe56af0e05"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/particles-compare.png",
-      "bytes": 113870,
-      "sha256": "2e89e17489af0dbbc39d0f5dea73d3ac0526e9081b67fb5f7eac2dd87d4deead"
+      "bytes": 113050,
+      "sha256": "0cd1fde5016467815062e30a9f79066bf13ed442c6556767c20038d31b7636f5"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/particles-compare.png.import",
       "bytes": 980,
-      "sha256": "ecf98e92151456767f5cde530e85c7735f4f3f4460c3e068d0d2e1d737c6fb4e"
+      "sha256": "967c8d664b83ee32c17833efb5728e3fba31a13ced40f0549ac6de8349a2ac63"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/reduced_motion-atlas.webp",
-      "bytes": 331930,
-      "sha256": "d45bd63e8ce519c63e1f77b011598fc441a2bdf3b75a91a68b2fd425f6ec5fd7"
+      "bytes": 329188,
+      "sha256": "8d81f8412d166b8b7f8a6f6033177dc1d881c9ff3b658d4eae673c3d7856b339"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/reduced_motion-atlas.webp.import",
       "bytes": 993,
-      "sha256": "41c9d0d08c1e4e8e2955a4c97287296e97eaf8ed5409b6df451e54f1c50c0c09"
+      "sha256": "ef92e405451b3d4fb0bbd51f2863fc41f48df843909ab72a1a304e58bde61437"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/reduced_motion-compare.png",
-      "bytes": 114940,
-      "sha256": "6af275e8e20607cc4b89034954c73c6acaafa8b6de1c09785200048a784ed86d"
+      "bytes": 115567,
+      "sha256": "a54275cf9fb084318e517615c5cc1e6d2d972afeb90322c13fe304450909c6f7"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/reduced_motion-compare.png.import",
       "bytes": 996,
-      "sha256": "3f217505b0cdefaff4d180dd202a1870c9ef88ae73684bd0e179cd0e817eec39"
+      "sha256": "e546a573d99be19ced4d897713f172b8434882db552b800f08021b99a500732a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/tide_block_feedback-atlas.webp",
-      "bytes": 337238,
-      "sha256": "5f7ac687a97d0108e72d383b98bc81498ec611b1813ab9d667d8d9c51b4e901f"
+      "bytes": 331400,
+      "sha256": "64d6a5432be9d581b3f89b1e42fd4e3c958b657ea0bccd02f0a4eba552aa004f"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/tide_block_feedback-atlas.webp.import",
       "bytes": 1008,
-      "sha256": "bc2b960b3829cb1842d8455e254bc63da9a4f0704c987a725afeb996cbfb8305"
+      "sha256": "7ac33a1d96f7a86088a4f7ec29489b3923e950bb7c5e9db77e3bbb1803845e85"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/tide_block_feedback-compare.png",
-      "bytes": 114600,
-      "sha256": "1012099eff14598a80532022c5ca8ca576cfa3fdeef255969f6696f330be09c3"
+      "bytes": 115721,
+      "sha256": "22a51d6b1ae77f5f6955a942c7e0a381f8c9b45b3d78fc6d0425493f01285481"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/tide_block_feedback-compare.png.import",
       "bytes": 1011,
-      "sha256": "b86db95e2887e130394f88fa1176e24e3abcfd399ef3cfa6c2492c13d597ac97"
+      "sha256": "a6cd35ee2d27c079aeeb4623aebc408d1d42b0491e96a0864180c41f863a5ea9"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/wave-compare.png",
-      "bytes": 38974,
-      "sha256": "2095dd5d604fbda8b4fd71baff61cece3a22d01694a04e947111b7150a847d7f"
+      "bytes": 39738,
+      "sha256": "30859112c78bed5cbb6f5bb9faec9d035df39ae097d8490a7d265bd0ecd9b211"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/settings/wave-compare.png.import",
       "bytes": 966,
-      "sha256": "cbc9c33b4c3789ada902c13f76ee479e29ee456f4df767604b652cb828d3f375"
+      "sha256": "c17f6f70403b52540e24d40b4da10060c4302501d976bf756ad81c0048b7cda9"
     },
     {
       "path": "src/Librarian.Mod/Librarian/images/timeline/v1.0-beta2/notice-eng.png",
@@ -4809,8 +4883,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/cards.json",
-      "bytes": 22182,
-      "sha256": "b83b05da478954f14e8981ea3c8c709160150a8bd80af893108b0455f0de0054"
+      "bytes": 22273,
+      "sha256": "7fbf5c892b6ed1f5565f06471feac207d01643f4569cee926b602bd96de18f65"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/characters.json",
@@ -4829,13 +4903,13 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/librarian_runtime.json",
-      "bytes": 2960,
-      "sha256": "a80046034d82f58b4c60923fc7e611f0335b81d972eb4b3793c2789d7e569a99"
+      "bytes": 3044,
+      "sha256": "07a634d19e8b544ec9d1b0367429f2b46ee96d8ca07344a9e38e2802ecfcfe66"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/main_menu_ui.json",
-      "bytes": 26545,
-      "sha256": "ae408b9aaea5374e89649bd536e8954157995706059bf3a71d011b84c7394c51"
+      "bytes": 29346,
+      "sha256": "de2361fd107698f8b25b3779c544fb4c5e63126421787df81c22c0b3b966cc8b"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/potions.json",
@@ -4844,18 +4918,18 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/powers.json",
-      "bytes": 11790,
-      "sha256": "4c0d017bc8d9e8cb556fede67b6b2b0ea01c2a518e4e3c2041ff5152830eac90"
+      "bytes": 11220,
+      "sha256": "bd9cb54a2efc777b98e7a12e433f8d78b16efcef18730229018b3a34097c0990"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/relics.json",
-      "bytes": 2670,
-      "sha256": "5af473603f89534ba3497035c0f6801d59ef0e52366bdcc003afec926a311e5f"
+      "bytes": 2636,
+      "sha256": "a4d55f3dcb04271185b4182cc7c64e7c3b6d92b47656f74cedf60595ae757766"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/eng/static_hover_tips.json",
-      "bytes": 2428,
-      "sha256": "2a79299f0752b6534f908b346005f7e41b1057af09b391274697c946769bb124"
+      "bytes": 2697,
+      "sha256": "a51d173fc40e810e96a355dcaa62dceb1c60089a2382399fd9a13ce4db8d5355"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/ancients.json",
@@ -4869,8 +4943,8 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/cards.json",
-      "bytes": 21432,
-      "sha256": "51e9c599d8c2c6b4777897cea6545f803840d2f1dc51116ed3a8bef0b983d7da"
+      "bytes": 21590,
+      "sha256": "62e1a0948f85fbba07ce0e59a20ecd434fb0a4751b39d83f7350c8a1047edd18"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/characters.json",
@@ -4889,13 +4963,13 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/librarian_runtime.json",
-      "bytes": 2665,
-      "sha256": "de70c4c074893a7e1785a14083af58e1e8983b7172e33e0f54cf346fc2676aed"
+      "bytes": 2751,
+      "sha256": "0e502a03e6f533ecddd66e22c7a726e568d37868ec907e8bfe0b826914589759"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/main_menu_ui.json",
-      "bytes": 26146,
-      "sha256": "9737adfed794084e2e2baaca80fefded4b94b2aaece82ac8a22e6f6e47550673"
+      "bytes": 28785,
+      "sha256": "d949c71fcd94d819decbefb1aed41162908fc18ea6cfb9902906430bcc081a81"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/potions.json",
@@ -4904,18 +4978,18 @@
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/powers.json",
-      "bytes": 11109,
-      "sha256": "24de23adf0d4ff939a2f4f0ac4d03da38dfe8da0e40cb8255e1648bbc84751bd"
+      "bytes": 10705,
+      "sha256": "266dd49397e8b6853d29854e5f3b1a8c3ebae69b9e5085c8e760aff311a4dd2a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/relics.json",
-      "bytes": 2601,
-      "sha256": "d18637b0e6047b63bfd42118eabeff5c08ea08e92128d01c8d83929e9067ae9c"
+      "bytes": 2571,
+      "sha256": "f88cb8e18a6a917c7548dc585ddfda395c1a2b3d1c5226ae5f27427c9b333d7a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/localization/zhs/static_hover_tips.json",
-      "bytes": 2329,
-      "sha256": "86714efbe3b771f50ad64fa6d39a5b7bf4ead13f074808589b72b03d57ad05ae"
+      "bytes": 2561,
+      "sha256": "b200a0864b1a70bffac39a286332c83f6e3422fe16255b233ad55285d5a8fdb4"
     },
     {
       "path": "src/Librarian.Mod/Librarian/mod_image.png",
@@ -4926,6 +5000,36 @@
       "path": "src/Librarian.Mod/Librarian/mod_image.png.import",
       "bytes": 941,
       "sha256": "a0a0e7ffd69dd8f4c1ff7b0bee26d05c924f4a27f3253f435e7a7e0b74b19779"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/feedback-20261013/combat.tscn",
+      "bytes": 1552,
+      "sha256": "30aac3c10033de096844f953a28ed0bc2db59feb9ae633e45b6a6e7ffd81bac4"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/feedback-20261013/rest.tscn",
+      "bytes": 1494,
+      "sha256": "d5e0c22bf04b1c07545092a65cfb22e2616dc65512d13b200ee0b80b549ce03c"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/feedback-20261013/shop.tscn",
+      "bytes": 854,
+      "sha256": "8aad402ed80f61d144ff25b2bdb3d1fe95f0560688943ab91763562c551db458"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/refined-20261012/combat.tscn",
+      "bytes": 1551,
+      "sha256": "184fc9001a7f26aa390386de3f494c8a3f67631fee31d744248684f86b164948"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/refined-20261012/rest.tscn",
+      "bytes": 1493,
+      "sha256": "35aa32ecda975d9182f017e33c71ac899030dc25e9be2456c602f590fa8d8d80"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/refined-20261012/shop.tscn",
+      "bytes": 853,
+      "sha256": "9a99807ae30d68ea33efdb39f4ba0d230dabeed11a5f7bc404cee4cd7df6216a"
     },
     {
       "path": "src/Librarian.Mod/Librarian/scenes/character/v0.3.7/card_trail.tscn",
@@ -4956,6 +5060,21 @@
       "path": "src/Librarian.Mod/Librarian/scenes/character/v0.4.0/rest.tscn",
       "bytes": 1162,
       "sha256": "4cf686f8430b52dc14fe994f417f25af33b960470f7aced8b9f8114f8535b82b"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/voted-full-20261012/combat.tscn",
+      "bytes": 1315,
+      "sha256": "082f71ed0dee8c94adf4ee47e58e1450ef77af36f5b105ab0b7e0213a6a69a8c"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/voted-full-20261012/rest.tscn",
+      "bytes": 1247,
+      "sha256": "28bc47666bbdb3c900b856eef71a433929bfd0c4b3d679a65465020574a07098"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/scenes/character/voted-full-20261012/shop.tscn",
+      "bytes": 606,
+      "sha256": "7476877b397310868995a05638e69e09b1891bac5da451746bb19c4b5eef59c9"
     },
     {
       "path": "src/Librarian.Mod/Librarian/scenes/character_select/floating_archive.tscn",
@@ -4998,19 +5117,139 @@
       "sha256": "43172733313b49b56695da6c188d2fb365d9d720446e610a717c23c54772b721"
     },
     {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/atlas.spatlas",
+      "bytes": 8307,
+      "sha256": "dab5d9892b48f0ffc119a4f516ceffc8c97b725700e96c35dd9e7bc4b392a422"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/bank.res",
+      "bytes": 593,
+      "sha256": "3a09b5019d6ddba1fb52c8dbe3d87c06eb3c544ba8aff1148042f2077ae98334"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/pilot.png",
+      "bytes": 2954786,
+      "sha256": "0f01871f6c723d1e7e7dac286e6dc943c19f9187e8527abf618d27a098b4b15b"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/pilot.png.import",
+      "bytes": 952,
+      "sha256": "952e48e0e9918e1a8221dabed3f2adecdcbe36f2fad947bd855187f7a5d6eecc"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/pilot2.png",
+      "bytes": 233075,
+      "sha256": "13c673cb08d6cec52c526961ced26451d7d70bd36055fd7be9525e9f3f155f03"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/pilot2.png.import",
+      "bytes": 956,
+      "sha256": "fb6b47e7e01d0953909f19110b8639128671110f8d76202bf9158bfa6fa750f9"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/runtime-receipt.json",
+      "bytes": 37003,
+      "sha256": "d7e6896b69904a37a58ce07560d3f2251abe83df462d49a9d7e3a354f592247a"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v0.4.1-voted-full/skeleton-file.spskel",
+      "bytes": 279903,
+      "sha256": "3e09b78dd2ef1ca716ebbddd86652692b28f72a776d48f526e08cde4e7785ecb"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/atlas.spatlas",
+      "bytes": 8304,
+      "sha256": "375c4f6898c99f49af06b424ea1978cd112b0bdc865f9339dcc5217650ec81d0"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/bank.res",
+      "bytes": 587,
+      "sha256": "b2997aaccbd4e6f2cdab03b4fdcf3de34e23f8d2b4fc9eb9fc9a56d8cc74f612"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/pilot.png",
+      "bytes": 2954786,
+      "sha256": "0f01871f6c723d1e7e7dac286e6dc943c19f9187e8527abf618d27a098b4b15b"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/pilot.png.import",
+      "bytes": 949,
+      "sha256": "67e53ac0138cb6b2d580fc92387a28cf5336b2c143c795bd21d5752096da415d"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/pilot2.png",
+      "bytes": 233075,
+      "sha256": "13c673cb08d6cec52c526961ced26451d7d70bd36055fd7be9525e9f3f155f03"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/pilot2.png.import",
+      "bytes": 953,
+      "sha256": "a7fc4ccc2dc64f1d4cb37bfaa754e2d1483ed2528cb2ff91fd42cba196228441"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/runtime-receipt.json",
+      "bytes": 37001,
+      "sha256": "11299dea72b2480027f3552974b348771b3c33956ae272573f57a7d5251ac729"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.4-refined/skeleton-file.spskel",
+      "bytes": 257672,
+      "sha256": "4512210da1a261517d9b6c1ee01cc6871860895f977c8d4ef00042da3d9d00c2"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/atlas.spatlas",
+      "bytes": 8305,
+      "sha256": "1c982d71291edc423d85dbe78b60e7bdcf5f2660d03701c6c70b809befb1446a"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/bank.res",
+      "bytes": 589,
+      "sha256": "9a05864c3fa14f007ffaf1943b1dba238df21d4f360fa7a455238fce37b70f12"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/pilot.png",
+      "bytes": 2954786,
+      "sha256": "0f01871f6c723d1e7e7dac286e6dc943c19f9187e8527abf618d27a098b4b15b"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/pilot.png.import",
+      "bytes": 950,
+      "sha256": "f1ec281e6334fc7a0c866b23d569a798f127b6850c01edc282687f142bba5902"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/pilot2.png",
+      "bytes": 233075,
+      "sha256": "13c673cb08d6cec52c526961ced26451d7d70bd36055fd7be9525e9f3f155f03"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/pilot2.png.import",
+      "bytes": 954,
+      "sha256": "6e2e58dbc96c85acf671895b289fbbddcc3cd2a38cf8332ef6240cd570dbb7dc"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/runtime-receipt.json",
+      "bytes": 34175,
+      "sha256": "d94a83647c9e75d24fa6415fd8e12cc8f1e45d1d243241535dea225603782d24"
+    },
+    {
+      "path": "src/Librarian.Mod/Librarian/spine/v1.3.5-feedback/skeleton-file.spskel",
+      "bytes": 337400,
+      "sha256": "ab2aec0d7381e5b4e96b328d8b9012288a2beace8f5fa6f0662cb4beb77d3dbe"
+    },
+    {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/AncientSpark.cs",
-      "bytes": 1627,
-      "sha256": "2bab23d7cf7274f836c7cfe33eca2c37455a2e08724d3f3718f8cb79f5498c77"
+      "bytes": 1628,
+      "sha256": "1b62c3186ff9d42c9b1fc24881b7f4e019bcbe1563bd66accf836a6e796a98a8"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/BuildCanal.cs",
-      "bytes": 999,
-      "sha256": "b2c2adadafdddd0dd54f3ade8840ce977ef2e10c34bd5008e00f97e018cf0f89"
+      "bytes": 1073,
+      "sha256": "b26aaf97f29cc3351daacea2de7d0caa982f880eb6855c8ce3d81445ed92ace6"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/CirculationNotes.cs",
-      "bytes": 1402,
-      "sha256": "a83078cdfa6999daed710ac90a3a2ea8f2c6242e713bf459836d27ed3af6f960"
+      "bytes": 1399,
+      "sha256": "1f8bdbdc5f8a335dcdefbea06ce76dc71303621471b274670ec118c223d0863d"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/CrowdKindling.cs",
@@ -5018,29 +5257,39 @@
       "sha256": "8536563b84b2c2b11dda168479a472fd50797448bc27aee92ea8f5c75f4fee24"
     },
     {
+      "path": "src/Librarian.Mod/LibrarianCode/Cards/ILibrarianCard.cs",
+      "bytes": 171,
+      "sha256": "55fd1c645aece64f948bbfa39c8006ada5ab2f199f6b585cc2351399a30ed689"
+    },
+    {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianCard.cs",
-      "bytes": 1791,
-      "sha256": "a2031af0628f260ce5cfa7f306ec40f0df0dd85916714f854c179cd517827dc1"
+      "bytes": 345,
+      "sha256": "47f14e2116f86209b7164807431f79b10cacdcf6b1ef9b6ca60f3ecc77b40b04"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianDefend.cs",
-      "bytes": 823,
-      "sha256": "1571f263e6cab8b6eb574891d26050c41f2d9e97bdf9a9516d496fbf8e71ea11"
+      "bytes": 828,
+      "sha256": "8768e8bef03e04f83aa8499ea520614787dbda38711add7914efe1e457ba7164"
+    },
+    {
+      "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianRitsuCard.cs",
+      "bytes": 1470,
+      "sha256": "2382902d25c77c11ae4c8adb9dcc466b7a2b8562e87d8850c22cd74055afa1de"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/LibrarianStrike.cs",
-      "bytes": 1004,
-      "sha256": "46631b0391f0d7c2eee4383b73adacacab684a89169a8c0e7f38e67c8bf7db72"
+      "bytes": 1009,
+      "sha256": "435aae77fd053cdd847ec08d0372ce0b4caceb2d563b5af762d5fa5179e7dd70"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/MultiplayerPlaceholders.cs",
-      "bytes": 903,
-      "sha256": "0bf8b21bd478f0bd16958aa7cef0d814ca81faf368f3a0877b2ff3140d809358"
+      "bytes": 904,
+      "sha256": "aa13201b0c4868fc6fd7ac42753c5a0f6cd5f603d2349cc43d1f58ccf38b9ffc"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/CombatNotes.cs",
       "bytes": 1336,
-      "sha256": "c5935d42ce6961727fe17c287d8ba3c24e237a47396d16627b959f432d54377f"
+      "sha256": "cf9c8bd20cef833ec7e6a0812aa904de1df1644acc7b839dfadb8b66f3d5172c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/FlyingPages.cs",
@@ -5054,8 +5303,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/NativeBatch/WearyIncantation.cs",
-      "bytes": 1508,
-      "sha256": "5f54e8334337758111944dc124f1dadd0227204152403ad876a44342e5ae1b6b"
+      "bytes": 1513,
+      "sha256": "d009b4ed25fab3ecfe67ac2549f071238311f8f60367644736f5b28bc985ec79"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/BurnRoots.cs",
@@ -5064,13 +5313,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/CropRotation.cs",
-      "bytes": 1144,
-      "sha256": "b95525e9197a1087eb3098c9bd0e5d8d03600ac7a3f1a20193ce94d0c991c10e"
+      "bytes": 1145,
+      "sha256": "6edf2794d0a172c5a5b6374e4c551c6b8573e2cad6b327eca1814eaa409c76d0"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/DamBreak.cs",
-      "bytes": 1043,
-      "sha256": "43775822563c93b939105d09be3c9e97a0e3a26e783538b1c0d9252ef7b33278"
+      "bytes": 1066,
+      "sha256": "110562488ff53efce6d6074bebabe40b3dfbc2988eb8860c91abd19010b4cd33"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/EarthCollapse.cs",
@@ -5094,13 +5343,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/Ignite.cs",
-      "bytes": 1349,
-      "sha256": "b153819470a47c6f7affe9f348146830b96695f2b812b908e876f6dc52b93608"
+      "bytes": 1351,
+      "sha256": "3901ae453f4c667c456c2e6c168c8961360eeadb3d855ac487605be4d058e88f"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/OpeningTide.cs",
-      "bytes": 1076,
-      "sha256": "9e1b7c56b44a5631ba34c3bb3060dd3df720fadf0c51c92d297bb9a421f5952b"
+      "bytes": 1149,
+      "sha256": "37d5bd1ced89ce13d6826ef2b25e7a146c5b7dd48f758bca19c2e91a143f1508"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/OrbAdvancedCard.cs",
@@ -5109,13 +5358,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/Rootbind.cs",
-      "bytes": 1535,
-      "sha256": "01ce292ecb4ab40e3fc219b1f4b459ab004dcb0244c8456bb099d60e18b82151"
+      "bytes": 1541,
+      "sha256": "13025935db09e7e54c7565077fe66cc09ce92fd06bc66171a824683dac8f02a4"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/SeaBurial.cs",
-      "bytes": 1836,
-      "sha256": "ea43473a2d2f38ed7dc00d74d5ae327d1a54bfea7efcb25c3b90ca5cb0e5db79"
+      "bytes": 1859,
+      "sha256": "916710113a1f9f91ea07a388061e1040e6833c2884919bf16e4a6f6e41b308fc"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/SeverCurrent.cs",
@@ -5125,22 +5374,22 @@
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/SteamBlast.cs",
       "bytes": 1129,
-      "sha256": "ec26e6a4a4d96707514168636483e0ea88b1cb6b8f167eacda19cfd2431d21b1"
+      "sha256": "1ad6e7dbe82d9449bd4518430aa9233953c51c29d4e3e4377e66054ba2fd4d4a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/ThornBurst.cs",
-      "bytes": 1360,
-      "sha256": "a744f456498bb52772d2570e6f9fd6500e1a3996d9a83c74caa6902ca9a928f9"
+      "bytes": 1379,
+      "sha256": "0c5108e6b5ccccd0634444b5577c9d4021ec639cc32a76c783ce89a8e44d577e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/TidalErosion.cs",
-      "bytes": 1701,
-      "sha256": "4e4af292ab213256cc828151cd1a492e726328dfa3a5280edc6a67562d8dae59"
+      "bytes": 1706,
+      "sha256": "1fc03dbc021b5dc1240fce89162b95ff61cd0b1d7cce9153bdfa71b2b2278f23"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/TidalGravity.cs",
-      "bytes": 1247,
-      "sha256": "6efb4de77a9c82f755f4be555fbc57caf1cf50efb2a47b90dcbd9049717dd8c6"
+      "bytes": 1192,
+      "sha256": "93dec496c5ebfbd0752322525f0be9b8fce75b41bff8e3c7882f8c1b746b3758"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbAdvancedBasics/TidalStrike.cs",
@@ -5155,7 +5404,7 @@
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbBasics/OrbBasicCards.cs",
       "bytes": 12149,
-      "sha256": "7e3367c11982c5efdf6b76ccac525028590953c4115ba9d4e6dc843d7cacc857"
+      "sha256": "1d269bae8c6973b8ea213e1697b10861df8ca8ba4f63a388501b2f9121ea1be5"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbBasics/OrbBasicsCard.cs",
@@ -5169,13 +5418,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbUtility/RareUtilityCards.cs",
-      "bytes": 13587,
-      "sha256": "279cf59687ebc7b70d3d6cfd5ce51f550934354657a99be3e439b5ce96c55974"
+      "bytes": 13591,
+      "sha256": "7bed97576e497a5da04b64527e50778e739c733423a57384d00c4d90eab06a1c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/OrbUtility/UncommonUtilityCards.cs",
-      "bytes": 11577,
-      "sha256": "18a6e55dbbb42f97ce6dfdffa004f293a14f6d916175d221c5890ea0229987fa"
+      "bytes": 11534,
+      "sha256": "b16ad0506fe7dbb151de401806acfef7c2f90c55ee31ba69a32ecc312e45e7d8"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/AncientCatalog.cs",
@@ -5184,8 +5433,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/BlazingChapter.cs",
-      "bytes": 1023,
-      "sha256": "193a68a201b95d93235854cd119ccd3d0fd5ca330105916491d5daa41bebc634"
+      "bytes": 1168,
+      "sha256": "976a0ed431e1a4be25e3d2d8796e0ab9a2171ea8675f95f7d6130f72089301de"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/EmberBookmark.cs",
@@ -5209,8 +5458,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/Overfishing.cs",
-      "bytes": 1052,
-      "sha256": "d18f143f5a32ca8af030e2b818937e3cea153a0a774921862b7c190cd1e2e987"
+      "bytes": 1378,
+      "sha256": "2b84815a24312ba15597fc42604f83d6e961c0fb92a2d7ad8303150819dc92e5"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/OverlimitForm.cs",
@@ -5219,38 +5468,38 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/RidgeWard.cs",
-      "bytes": 1442,
-      "sha256": "d133f79b2fc1126e3ff6bfe5bc185d1d630198325a24160f59304875c5536d3a"
+      "bytes": 1528,
+      "sha256": "ab3cb476bcde1441b3c4a77f5db4db43a3b1cd293b3f6b1adaa8966db99ea57f"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/RingCurriculum.cs",
       "bytes": 970,
-      "sha256": "d2891198cab020bf93d338be8007f3233ad3f3efc8fed23ec3892d1c0ca10164"
+      "sha256": "d1bc6960138761aec1979129e3d8d04a595151aa78f779feef0393494f85e7b6"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/Sedimentation.cs",
       "bytes": 968,
-      "sha256": "7f424a5970c77754d117000ec24b11ec3924c9ce297a4a1d134f397c7f2844bc"
+      "sha256": "2f9bbdf4c0e9811468fd5c973dd87bb8d1b06229808760af6b70ecad8978dc7e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/ShiftingPages.cs",
-      "bytes": 981,
-      "sha256": "49ffa5318a97a7f60005382050ba6032858ce83df30bc0255b6538f0ada260ba"
+      "bytes": 1059,
+      "sha256": "0c9edc97a6639c62dea93e6ed07d444292392a7b1117b1019d0b4ed59b93393c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/SpacetimeTwist.cs",
-      "bytes": 969,
-      "sha256": "1542a88d622426ac27172f0bae0b858b21609075d8d2cdd3d7bb25120afa9ee5"
+      "bytes": 1036,
+      "sha256": "3cac34c8a10d10befb60a1aaebf76058c5379b5386abf24f0c89a96e80390995"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/TidalMark.cs",
-      "bytes": 976,
-      "sha256": "944501b3616d093cb52d9950a5bc43b3e68a4895ec51d705bf4f46b2876dc143"
+      "bytes": 981,
+      "sha256": "63d860be6bf50719b27b1a59f63aab503d3da0e9777c93be8b50c9f46957c10e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/UnretreatingTide.cs",
       "bytes": 1133,
-      "sha256": "b61edc0b1c8fab8b8aa8a235df3fd7ac0f47b7d213f76b963bf1796e62443694"
+      "sha256": "f0495fcb7f77a0da7b6d327c4220dd7f6f64750a24e1bc6a4ba0d3a34095f2b2"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/PowerCards/WaterSpirit.cs",
@@ -5259,8 +5508,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Revision043Cards.cs",
-      "bytes": 2804,
-      "sha256": "3e1d9f6526b9add7efa0d7961eefa127190cfe147066fe1ea544600d85af8a0d"
+      "bytes": 2805,
+      "sha256": "e4c82d7f1592bcb4120e3552b8b1e329ce35ed2c70464dc7b9522b3949b0f532"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/SharedShelter.cs",
@@ -5269,13 +5518,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Spark.cs",
-      "bytes": 741,
-      "sha256": "1756027eee2b863f0fe68d4902b28a72431ee0ea79010dfb2950164cc0e848f0"
+      "bytes": 761,
+      "sha256": "ef3fd8f7f836f5f88a3aac53da2d0338c18f20a08ab19a61936204e8beebd881"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Stateful/StatefulCards.cs",
-      "bytes": 11030,
-      "sha256": "b29f6800f59d28605de6ee94e25b7eb00939f7ce22d79bf54413a483aad97046"
+      "bytes": 11333,
+      "sha256": "b36135eb6a71006e65dd1ac0a7171768dbc0693448b68b86688ddfc516d1e506"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Cards/Trickle.cs",
@@ -5284,23 +5533,23 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianCardPool.cs",
-      "bytes": 1745,
-      "sha256": "ac5689303c07a306ca20413f4f0cb6482332ec16e387ffa4662ce2630b685236"
+      "bytes": 1834,
+      "sha256": "f27a56d770f85b13fb0d858a2eb7a8c0c0e5606378bcd89cd5afc7c70d40d05f"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianCharacter.cs",
-      "bytes": 4080,
-      "sha256": "754b631589c1b0fa0d9890b950f80dd0f42c8b55a500cd75745715874868a13b"
+      "bytes": 3790,
+      "sha256": "0cb1d273c0c67d11030db8384816bb1034dcb4a2c43f0a241a496763173f5321"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianPotionPool.cs",
-      "bytes": 486,
-      "sha256": "60e26fc7cbdc8f92b34ca66758116b196821295c42465078188acaf41cba149a"
+      "bytes": 591,
+      "sha256": "49b4a4d46a68fc7e7b13a15745cbe9814558b002d684dd683dcf37e4f9717c9a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianRelicPool.cs",
-      "bytes": 424,
-      "sha256": "c3c9be8ab94db34a2a176bcfd8a05f9a7b474781f25b52e0bf9d2a163241a993"
+      "bytes": 532,
+      "sha256": "f5b35a50a0bf7d97b65d4838f11fc6f58e595bbff20abbc2dfca6a4bff4ae37a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Extensions/StringExtensions.cs",
@@ -5314,18 +5563,18 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/MainFile.cs",
-      "bytes": 1335,
-      "sha256": "0bcf49de17840884a9ebbb7c44cddf4ac8e08866b85291e865135da42a8eb343"
+      "bytes": 1691,
+      "sha256": "c65ba4fec979d4de9f35e6e44d55ec86a8cc75d686feaf58769e3f24d5150b4d"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Potions/CharacterPotions.cs",
-      "bytes": 3000,
-      "sha256": "932d420d3d1f62eff6057c993e8e9585c555b9fd4393555ede7921a8a9589585"
+      "bytes": 3085,
+      "sha256": "d31b881666619f340d31ee769fd64780677f5ddbd90b70d0eaefce149a033894"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Potions/LibrarianPotion.cs",
-      "bytes": 954,
-      "sha256": "55154792c1ea7c50430a836a487c509a7914fa0d5079846cec8f8497f6680b8a"
+      "bytes": 883,
+      "sha256": "a5e7fa3803c38ce646eb145ddabd02fbde3703541a989094900fb323cf9f5d8b"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/AncientCatalogPower.cs",
@@ -5334,13 +5583,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/BlazingChapterPower.cs",
-      "bytes": 1535,
-      "sha256": "d9df41aff7b93a95509bfc8899a68e37d6949af1f426700d991c8c42a2215a4f"
+      "bytes": 4176,
+      "sha256": "03c8c9d918a02a3cbdde759e92675d7155669a7c689c696702af9153f5ca27e3"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/CooldownPower.cs",
-      "bytes": 529,
-      "sha256": "9104d540728a1134a269a5196484f948d6d740fc9caa3e8f1fc4b64012ba171a"
+      "bytes": 534,
+      "sha256": "d4d4e249fc3bc0b51584466bdc28fe29d0ce82bc9b1debba8cd03792c241c9f0"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/CropRotationPower.cs",
@@ -5349,8 +5598,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/CrowdKindlingPower.cs",
-      "bytes": 1274,
-      "sha256": "ae82ff1f71dd19cddd6cd80dc894295e693f036e25a9eb3067640c71a8ec110d"
+      "bytes": 1257,
+      "sha256": "27fa2159360020a99d304f6cccf5ec536d164b9bd7928bb24c9b2f39aba3de3c"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/EmberBookmarkPower.cs",
@@ -5374,13 +5623,13 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/LifelinePower.cs",
-      "bytes": 2078,
-      "sha256": "59ad76f0f49591473b9e61763156bf35968511399f2835a5107ab7683b3320b5"
+      "bytes": 2141,
+      "sha256": "5bb43450672e2d0918d637223c283409151aa80c6f84f7e387f94f4f46a6803d"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/OverfishingPower.cs",
-      "bytes": 2476,
-      "sha256": "35b8f7cc04eedfe7a2eac8a42099a87ce4e4f85d963cdb70ab0d8d95c085726b"
+      "bytes": 2071,
+      "sha256": "d349e211e0062f986332b7189035054a09392e34bbf1879b2a791ca736e91385"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/OverlimitFormPower.cs",
@@ -5389,8 +5638,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/Revision043Powers.cs",
-      "bytes": 5175,
-      "sha256": "3dfecbb6a4d2d8d8d27bbf2a023f2fdaf70b32b12bbe4a1aa35b040cdba21f22"
+      "bytes": 5186,
+      "sha256": "a830cefe3a7c935165563b51eb978bf228e0b3f52324bd6063fae9ba6a442940"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/RidgeWardPower.cs",
@@ -5419,8 +5668,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/SpacetimeTwistPower.cs",
-      "bytes": 1485,
-      "sha256": "98f6ec91cafdf4dd6f63a0db43d15f3a2a9c16ada72a1d3d11de5d01e64ad909"
+      "bytes": 1602,
+      "sha256": "4050b15725e98b4482871ab3ed61964f9af828f6b5aacdb3ae3aa83850f62638"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/SproutingBulwarkPower.cs",
@@ -5429,8 +5678,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/TemporaryStrength052.cs",
-      "bytes": 1016,
-      "sha256": "d372e364a308ecc352c282dc710540a42b9bce977699a296f72c5e5a35a77228"
+      "bytes": 1158,
+      "sha256": "adfaf79d2e63f16f83470ba0c2dcbd3068a5f153ceb193143ba0bbed69f4a06a"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/ThornBurstPower.cs",
@@ -5444,8 +5693,8 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/TidalMarkPower.cs",
-      "bytes": 1221,
-      "sha256": "9ad3e9d7dd553fe96dfb3ec352ba9ac1b8d2d397d1b409e5bca4c8f98f5425b4"
+      "bytes": 1065,
+      "sha256": "e277391d39e9d81af6a3bb05ccb611492e4e884f9ea342ac13256ca3c65c344e"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/Implemented/UnretreatingTidePower.cs",
@@ -5459,33 +5708,38 @@
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Powers/LibrarianPower.cs",
-      "bytes": 5251,
-      "sha256": "e9726c5b7572f93101607121af62611467216dca6ed206a1e418a542a25e7b20"
+      "bytes": 5235,
+      "sha256": "8dff5f1933d2b03c40366f83c1b72bc2e87d2f4856f0d47d12daa668cb9e7579"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/LibrarianPlaceholderRelic.cs",
-      "bytes": 9207,
-      "sha256": "f5afe788a150f6a8bca5ae28057e6f8c7f1b81ef7fb9e0f5792145a2263f7743"
+      "bytes": 9993,
+      "sha256": "b2e348f69da8cdb5679fea6c0915fade24d6e00904c8ace6c7364fb23db72baa"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/LibrarianRelic.cs",
-      "bytes": 1344,
-      "sha256": "84aeeb8ed269327be7d998c8dccc4c96d531845233cc70ccceb769661de18633"
+      "bytes": 1306,
+      "sha256": "91d75ae196e11a6109f115c0b90f6dab5b6f9c39eb4e999978e260b0dd4c0db1"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/RestoredSpellScroll.cs",
-      "bytes": 1480,
-      "sha256": "13b9a9d791ea53891ef527a9fbfc044c65c0d65b670fdd9e34751997926244ab"
+      "bytes": 1460,
+      "sha256": "c0332bc381a69878f266238aab11807f8338cf02bf737a2f393f67249d1f7ad2"
     },
     {
       "path": "src/Librarian.Mod/LibrarianCode/Relics/TatteredSpellScroll.cs",
-      "bytes": 1744,
-      "sha256": "0075ae03a403a4bd259496c1186f79d7e66e37f30b6fda5311e4f3160d9daa3c"
+      "bytes": 1734,
+      "sha256": "79d975ff796b43d9736b9dfa27778035ce6badf6f677d10bac2a117d8b4ed360"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentAncientArt120Beta4Audit.cs",
+      "bytes": 14018,
+      "sha256": "b3f2868695b153a87598058ea007c10ba3bd0dff765c6630c03c8d9b5db47389"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentAncientAudit042.cs",
-      "bytes": 8053,
-      "sha256": "0f0c9e51d9ea0955ac6557297fe54b4f7acd0d620e346d5e37ae6c5cc90c6156"
+      "bytes": 8005,
+      "sha256": "b2508d315119f303eb872b0d65d3ae94725f182d683fd160af41d904f01087a2"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentAutoplayChoiceAudit.cs",
@@ -5494,18 +5748,28 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentBeta2Audit.cs",
-      "bytes": 13238,
-      "sha256": "cb96ae16afc59e79aa4ae26998df62426e0e8eaad75aa0843b7613290f0f21e5"
+      "bytes": 13001,
+      "sha256": "42de9612f9cd57f431a2acd7ea4409826cde63002e451cfa20e71db0fcccb4d6"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentBeta3Audit.cs",
-      "bytes": 10780,
-      "sha256": "631a42f83960501f648e8d941ca53e3ed27afdb2a54437b10aef1b6ace88b6ff"
+      "bytes": 10645,
+      "sha256": "1f33afb91cadfd22ebdc01403ebd9079c8d072b1d5d1d6cec2aa61e3a2fcbc79"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentBeta8TextAudit.cs",
+      "bytes": 4736,
+      "sha256": "aacf21f3a2087d3b69f4aadcdccb0de51ac2cfd07f87215885296cebdda66e70"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentCardArtR5Audit.cs",
+      "bytes": 14638,
+      "sha256": "e5d8f380c23635760ca5aad756111c99f1c070eeb0fc889e38379ae7205e39ef"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentCharacter050Audit.cs",
-      "bytes": 6024,
-      "sha256": "0fd0025401fa75e952e20b8419e18359a10fabcd3581432f2e65190f022994fd"
+      "bytes": 6087,
+      "sha256": "dc275df82543b09d558d933e35b18c79179820ab2b35fc6662a6dd114ff24bfc"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentContinuedOrderAudit.cs",
@@ -5514,13 +5778,18 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentEndTurnBlockAudit.cs",
-      "bytes": 17269,
-      "sha256": "fe6a5235d73ba7091093a193a4ed71b8ed1758551a0c0dfd405a8eebd16ad8da"
+      "bytes": 17418,
+      "sha256": "adfe88872f33be0b75ebb069beb8301b2845a1380fa4ca3cb961c1d348642c67"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentFuelFreezeAudit.cs",
       "bytes": 16109,
       "sha256": "dd08911dff93612eea0cfb3910286288712ad81ad90ec1d28202b6dd18e692fa"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentGameApi.cs",
+      "bytes": 1746,
+      "sha256": "a6c42e7b04efbb35e4f20e977aed1dc33242472fc85186fa2f1356a3e50aaf18"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentHoverBeta6Audit.cs",
@@ -5529,53 +5798,58 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentLanguageAudit.cs",
-      "bytes": 19229,
-      "sha256": "735264c18c5c841a9786c6f39bad4879b8a7ae494e535fe8d45d8563ae12bef5"
+      "bytes": 19190,
+      "sha256": "ab3ef96414d68bce657abd6e75b3ee5f57d3ea8fcc3d854bc3f66dbdca1374b3"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentMerchant051Audit.cs",
-      "bytes": 16535,
-      "sha256": "13726786f7da52cd2b7c680ff9dba77bce856b7a395e68559edc7745905e0fbd"
+      "bytes": 16728,
+      "sha256": "0a399adf624fc7c15581d98f4f2ef11b47580a697d139a7ce3ce29262b700a4d"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentModResetAudit.cs",
-      "bytes": 39778,
-      "sha256": "78cb55385017973cfe02fe5741f76c4b3767ac1c107b967dc95684f0597aae46"
+      "bytes": 46665,
+      "sha256": "5fb7fb5dc42f3a3e969778ecbbc7ce72c668709d0406db3f77d02d179feb3cc6"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentModelAudit.cs",
-      "bytes": 15685,
-      "sha256": "0a815dc115b9a3dfd99eb13a32f8ea8cac9d7ac296b0497a90c964d325e5c7fc"
+      "bytes": 15675,
+      "sha256": "e112ef9ceea23dc7a72259eddaa93040eddb83f9c6342472df74577894c7c00a"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentNotice051Audit.cs",
-      "bytes": 8998,
-      "sha256": "e336238493b58fcf0d3ca41cbc1bca303dcebeb8a2c4c595f6ad6b1b46591fe2"
+      "bytes": 8961,
+      "sha256": "fec1849545a7f37ff9b49633ef6b81ddda77290943e3c36cfe098cc94d485cf8"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentNoticeBeta6Audit.cs",
-      "bytes": 15504,
-      "sha256": "3e60de151b24b016df1855fb6d8f12c1c4f5bca04e1ebcca9d0fb9cb50924742"
+      "bytes": 15312,
+      "sha256": "4b19d79618075dd3038e7974e577e902c8bc11c0d54805b5c6354e4d2e5da766"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentOnboardingAudit.cs",
-      "bytes": 76261,
-      "sha256": "621dcb17c7004ff9de646af86a28005ba69df3eddbbd462cbc1d1bddfd75b0f2"
+      "bytes": 76824,
+      "sha256": "81107b684793416bf9a5a4d7645c52533d89decaf89cf5a5c64b47e31c0e3a37"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentPending120Audit.cs",
+      "bytes": 22880,
+      "sha256": "11be0c162206123e78a035f37f58dac6c1e67945e8b3853cd13483214ded1e68"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRelicAudit.cs",
-      "bytes": 9598,
-      "sha256": "2621ebc3f9821d0f9535b0ffcc5fc74fd11631555e305517d51308a44c32d0e3"
+      "bytes": 9740,
+      "sha256": "3a14135c3e1cbdccd85415ea1cbeb628782f8fe5bff4daaa0228c72cd17923b0"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision0310AudioAudit.cs",
-      "bytes": 5431,
-      "sha256": "36e73bafafbd8de6c5c3ecb13c2fd07a537e3ec20e37c50f5e495ff035dc09a2"
+      "bytes": 5518,
+      "sha256": "f6a3a7d3f043e05edd83099152c07bec3de9d1d0da51a4e703fa6a12d59af0e0"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision0310CardsAudit.cs",
-      "bytes": 10983,
-      "sha256": "4685482e0ca5ca12ffd6c7a0cc5207ec05459486f4d979c764342e1e21178961"
+      "bytes": 11004,
+      "sha256": "9e0f44cbb7bf419bbcd7a676cc07a2cfe2df68c73be0784101861a823aab7723"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision0310OrbVisualAudit.cs",
@@ -5604,13 +5878,13 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision036Audit.cs",
-      "bytes": 15227,
-      "sha256": "9050df32b0affc7fd100f68d0e46d579a9fd3014dad52d906a29881cde88c435"
+      "bytes": 15074,
+      "sha256": "c24759e50fe5c88422ba7a17925f6ae0272565f3c3ab8b63cf43ab306c15dc97"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision037CardsAudit.cs",
-      "bytes": 9504,
-      "sha256": "b805b07d524c4c85a7f323786f704c97543e5a3b2502f680040c29db22ee8905"
+      "bytes": 9362,
+      "sha256": "5587a622a6ad436beff05c9f27aeb9405557c8a4c95970943e32b7391bda8f3c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision037MultiplayerAudit.cs",
@@ -5619,8 +5893,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision037VisualAudit.cs",
-      "bytes": 13914,
-      "sha256": "530cb2524dd32957a857939b087b149a3cfacae213544b7554112e2c3132798d"
+      "bytes": 14122,
+      "sha256": "0f5d7aa17ecbd66f310eb6928c6f05bcce35ecd854e1782fa3bfec6b6982848c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision038OrbVisualAudit.cs",
@@ -5639,8 +5913,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision039SelectionAudit.cs",
-      "bytes": 6196,
-      "sha256": "dc0c6e21d06ac64d090901e70c79dda7ba8bb8511824821be7685dff5e2e9f51"
+      "bytes": 6053,
+      "sha256": "ca1bf9a99a2adb8031e6cf11b2af812ceff24b929f2e4cf509922ccf7a5221a8"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision039TextAudit.cs",
@@ -5649,8 +5923,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision040CardsAudit.cs",
-      "bytes": 22645,
-      "sha256": "0fd0d8eea8bfc42729b9c1a300405a3b86c77463d3e6b0696513af421cb2bbf9"
+      "bytes": 22483,
+      "sha256": "57e8afc347c01dfdb0da5ee0412a8eae69a458b67a6bc192ca3bf645c9dbd32d"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision040CombatVisualAudit.cs",
@@ -5684,8 +5958,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision040UnlockAudit.cs",
-      "bytes": 6365,
-      "sha256": "2f6794c43998078292356fbc306be29c88c27fe94f1755f858c1bd9096e10671"
+      "bytes": 6345,
+      "sha256": "cafb6085f0429a76232e7851f5031b9db87d2023b75244f219a4f8a1d892834c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision040UnlockUiAudit.cs",
@@ -5709,8 +5983,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision041InteractionsAudit.cs",
-      "bytes": 16313,
-      "sha256": "b51ac0134500db4a2e7a6f64130c652acf53f09a403cdbcdf6dc7eea787af927"
+      "bytes": 16442,
+      "sha256": "901e1adc97762eb245e4a7d59a5095550552fa288ec7da5ecaf20f14891634a2"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision041MechanicsAudit.cs",
@@ -5724,33 +5998,33 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision041VisualAudit.cs",
-      "bytes": 10535,
-      "sha256": "a28367b4093162550eee0e452fffc3ee703231abbe0861cec9ef19c7eaa621a6"
+      "bytes": 10498,
+      "sha256": "2b2628cf16efa1bc758e193420a5370e9ebd0ba8547127f8a199f193c57fa7b4"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision042Audit.cs",
-      "bytes": 13427,
-      "sha256": "ef661ec2d1b0c0b4f9fad0957dfa3963e69f4c807b605097839c72d07adc5583"
+      "bytes": 13384,
+      "sha256": "f6e1cc712e842d048ba10da4ad061afcc64331b1584149dc3154c87119050b1c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision043Audit.cs",
-      "bytes": 17869,
-      "sha256": "e7d4cc81d55d727fb42d335e0e76ec6fb31ab2a1b724b3ff4884a06a4e149a37"
+      "bytes": 17638,
+      "sha256": "20c7cba2d78cc0f98a18590e9f1a0272573cb194b292dac0689ee58a1cfcbe24"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision044Audit.cs",
-      "bytes": 6043,
-      "sha256": "27367194dd23c466e5bfbafa3138ff2360c8ba4cc7e85b01c94209c27cdda04d"
+      "bytes": 5947,
+      "sha256": "a6549f4f6e410ce786c55edd40400f01ecfe430a6cca84c56fbd956a932becb3"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision050Audit.cs",
-      "bytes": 12268,
-      "sha256": "880adcbde742aa16b6f6c9c11378a050a2ad68e927342d2a6b6e3e373df12883"
+      "bytes": 12267,
+      "sha256": "461dc0dc7521646421921909e77e50682c334421275cede7ad902e0f913b30e1"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision052Audit.cs",
-      "bytes": 10018,
-      "sha256": "0546aa553e5189309675d5313df08375e1ed600f7c4164a45079e96ee54d6710"
+      "bytes": 9981,
+      "sha256": "6f996f4b871bfb16e2aa153b4aae967484f46ef85eb0647e6617f88e9f2255b5"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision054Audit.cs",
@@ -5759,8 +6033,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision060Audit.cs",
-      "bytes": 17797,
-      "sha256": "70568bf29d183eaaf67fc9611212b91a44b24917f741e4d08f3602bb850ebd7c"
+      "bytes": 17742,
+      "sha256": "464c39c8df557366a968fea41d9f6bac9b7f2bf729f0a59c7788625fdd5cccf2"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision061Audit.cs",
@@ -5769,38 +6043,78 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision101Audit.cs",
-      "bytes": 10910,
-      "sha256": "ad2082e56b97a6bc230329a766a709e9693bc1ae59c5eb57e5a90accefeaaf05"
+      "bytes": 10984,
+      "sha256": "e5a3ff36680ff60e79493742b3cb3406de83ac12a132eb45c8c3b0df27765859"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102Audit.cs",
-      "bytes": 15630,
-      "sha256": "19732592f27ef66316ab4263760792c2bc32b1eb92e08ca9c9ba76348656541d"
+      "bytes": 15241,
+      "sha256": "742103d3a7cfd313933f73f6208a3d64d161c2dbd0fdd03b1accfc89b5b19d39"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102Beta2OrbAudit.cs",
-      "bytes": 18951,
-      "sha256": "adbdc122705f8d3550437ab4f42b760a26055c06eb84ca1aa2474e893e8d75ea"
+      "bytes": 18599,
+      "sha256": "8094248acac4ccf2099d066f03dfcb1eda3c76dd04e6813524191390a516771a"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102Beta2PopupAudit.cs",
-      "bytes": 12881,
-      "sha256": "384fa83b0b7517ec73648a0400e0183c02ef572da88d4477e334d826eed931b6"
+      "bytes": 12856,
+      "sha256": "fabe3f8f598b265da2b41da4d0e9d25842da568670543d1606e63b41b3577257"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102Beta2TimelineAudit.cs",
-      "bytes": 16403,
-      "sha256": "a47d4f6de1d49be5f0d16e2fcec97d623ee17c812511a9bed0b7aadf5a4bb2a4"
+      "bytes": 16057,
+      "sha256": "8c8dad013ca14255ed6fd0175dfc5e0d94e89b01cb446491d9604c7c29ce2da2"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision102VisualAudit.cs",
-      "bytes": 16303,
-      "sha256": "94cd66a412780b6bae617229be9b2f51eb6b30444d147397984be484351797ce"
+      "bytes": 16266,
+      "sha256": "8634251da2b4f941d15a06e80f11a409571687fee45ade6518a69afd2c0740f9"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision110Beta2Audit.cs",
+      "bytes": 5224,
+      "sha256": "ce561a65c02148fa092ea1cdf98944e5b5c7ca3442d0c3fbe4d3a7317c7e3811"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision110Beta3Audit.cs",
+      "bytes": 8731,
+      "sha256": "9d62bef2de7d56921d88a13331a22e0560086a24ac5977f3ff291da220979ba2"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision110Beta4Audit.cs",
+      "bytes": 8698,
+      "sha256": "bf61707225c4c53fac9e729d6a113b101ddea9934835ee6479bfb2fd52daf9e3"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision120Beta2Audit.cs",
+      "bytes": 28540,
+      "sha256": "745fc2962b8433229f05262f4b600a880604c1d587d09a03cab6bd82f5863093"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRevision120CardsAudit.cs",
+      "bytes": 15843,
+      "sha256": "fa9805586955fe69d50c91c45706140a8fec198c33e4ad0b65f3ef3f46456998"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRitsuCardSweepAudit.cs",
+      "bytes": 24854,
+      "sha256": "c02bd6b4d14a0607e9cafd17be0a860e44107fd3e99417157baa7396e7aa0b47"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRitsuCoexistAudit.cs",
+      "bytes": 19761,
+      "sha256": "5aab6332f26d3be90bf61a4eae6c52061ab6f8221e02e19f5ece1f68bed2b17f"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentRitsuFullMigrationAudit.cs",
+      "bytes": 18916,
+      "sha256": "c50c7e2ed7f759a87ea42613cd7c73190f62d261c430d42e120cdf6d2b8980d1"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRuntimeAudit.cs",
-      "bytes": 31623,
-      "sha256": "8b22aab5e0b986765749d8f3ac14a212445e6007acc96b98e9db556d10eb1a0d"
+      "bytes": 31696,
+      "sha256": "83b740e27af681833644eacd3099015966831ee092c58308f2587119a4ab9628"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRuntimeAudit040.cs",
@@ -5809,58 +6123,63 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentRuntimeAudit041.cs",
-      "bytes": 13936,
-      "sha256": "89a9db586f751b78b05f624d7cfa19d55a35605aa29d4759f35da54a7907bacd"
+      "bytes": 17132,
+      "sha256": "7cf719f387e26cc4d598bd74bab81fc5d291c5b98d2a1eac1b421557c2441b69"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentSelection050Audit.cs",
-      "bytes": 3970,
-      "sha256": "b13424ba13e35e495bc84a968cbc6f434833514b5af21b5004d71988099211bd"
+      "bytes": 3871,
+      "sha256": "63e9ba0701e7318bc81f7e979a8103e58235ae99a89bfecc9df8659da1c96a04"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentSettingsPageAudit.cs",
-      "bytes": 34664,
-      "sha256": "7a1ff654b242dc032bdf6be9d85d859610388eeba78a7b65043a1ff7670940a2"
-    },
-    {
-      "path": "src/Librarian.Mod/Mechanics/DevelopmentStableApiAudit.cs",
-      "bytes": 4234,
-      "sha256": "17dde5ddfa28db6bf5aa715a930af4748ee3458404dd7f0c285d695866bf06bf"
-    },
-    {
-      "path": "src/Librarian.Mod/Mechanics/DevelopmentStableRng.cs",
-      "bytes": 739,
-      "sha256": "815937117edf755c579168cf9caddcfb86ea9b68a72b05b9343216f0688bde38"
+      "bytes": 34672,
+      "sha256": "8ae67c2b4209a37fa837393b98fab58627626824c4cb6ba91440550c8de78a0a"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentStatus051Audit.cs",
-      "bytes": 10010,
-      "sha256": "9d9a50be8607f1096de43619b8bcd7ac0474de47be6601a2a10b46dc9d5a5ef0"
+      "bytes": 9955,
+      "sha256": "f3a76fd9351f9d0a45cb34cc48517944017bcb5a32b6eba7daf4e77fdadaada0"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentTextRevision111Audit.cs",
-      "bytes": 24237,
-      "sha256": "5b6bb1993fb2f7cdf5b2d97a324d227139eea0a0987656664db2efbe999a3705"
+      "bytes": 24738,
+      "sha256": "90226289919008e6bf913161c2e2482e1472eb4c6ea1868d2a92e891eb8e9da9"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentTranscribeHover120Beta3Audit.cs",
+      "bytes": 9994,
+      "sha256": "3927154b11510d4e94d5b2c5aae79d10177fc771ef8164e100ecf05534f12cb0"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/DevelopmentUnified130Audit.cs",
+      "bytes": 15600,
+      "sha256": "763e685521b6a5314ddb76576d60933f1338fe494a3d4f349d1ed752fe4fe1c5"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentUpdateToastAudit.cs",
-      "bytes": 12764,
-      "sha256": "e6bc02595751b549b976fcd72e5d37ddf1e3900dd6fd081ba2ab59f272c295f6"
+      "bytes": 12768,
+      "sha256": "a658fc5867848a7815038a01a2ac90ce16b54e42a65f66b0044adf2bbb6533c9"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/DevelopmentVisualAudit.cs",
-      "bytes": 22007,
-      "sha256": "bbf1e4ae20b20cb8471490e0c757990986799caf49216d6adaf54b038415cad3"
+      "bytes": 22271,
+      "sha256": "97a4bf88dce3b526b156866f30145aa3c6b6b0db3da1fae8afbbcd8300939289"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianArchitectReview102.cs",
-      "bytes": 17156,
-      "sha256": "8f39f856099be910cc0e6679638f6dc35e11c63a05fd590ae3e976cdacbef2ff"
+      "bytes": 16797,
+      "sha256": "f39084e19188fd46838180f5b9b39b1b7f5e5d1ba14bb1f6c048f46aa501d129"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianAscensionTools.cs",
+      "bytes": 3111,
+      "sha256": "4ad3ab5dec2bbe79fd662ba941d578385d70fafee57bab42620d3cb77afa2076"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianBottomPlay041.cs",
-      "bytes": 9681,
-      "sha256": "7d2a6a8b80ae5503cfa22eb989d431591c09508801f7db4abf3f96460f24e88c"
+      "bytes": 8541,
+      "sha256": "5250dc87a089173a228b45dae7cce7a35fb6db7df6b291c3a95205543eac0e8d"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianCardTrailLine.cs",
@@ -5874,8 +6193,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianCardVfx050.cs",
-      "bytes": 19198,
-      "sha256": "83624b4339c46ed0b358a0162b594329c4d711ee0292aff1e3eb12c6a80b592a"
+      "bytes": 19999,
+      "sha256": "5cdab8f46273d887441552ec610a491312bae921a4afaeb92f56ae8ba8a0eedf"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianChannelEvents.cs",
@@ -5904,8 +6223,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianCharacterText.cs",
-      "bytes": 4364,
-      "sha256": "548399187b73739e398ba3dd9733a359632f0ba6f3eb0f01e145d4e0e366b7a6"
+      "bytes": 5772,
+      "sha256": "0d8b1edf646273ebb06fea2970bec6736f19bf114749fcd95dd5c907cb6b8095"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianCrossCharacter040.cs",
@@ -5914,13 +6233,13 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianDebugReset.cs",
-      "bytes": 25969,
-      "sha256": "5c39639eb2eea9bf4284b2d02e7121b26fb76ff1617a939001bd4931d9fc2c37"
+      "bytes": 27547,
+      "sha256": "82c6212efeb4f047d37d9bc964b3e63a527f501d50b9d7c146c047bddca46c3b"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianEndTurnPreview.cs",
-      "bytes": 9924,
-      "sha256": "b58b974814d95fb91764a84f8cd2cd892b5dd23be4cc2d7b1c3d325d53fca832"
+      "bytes": 9390,
+      "sha256": "ffa2224560e163f7ccfe845a98862b4c084b5de1f50254c099638c68d40a3326"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianExportDestination.cs",
@@ -5928,14 +6247,24 @@
       "sha256": "7ffb156235b3fcdcd1e661e5b2f24372b352f292e597a28d0d6f242a0d1a4502"
     },
     {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianFireKillVfx.cs",
+      "bytes": 6435,
+      "sha256": "0c2823f33b23f41885cb26224be2c82cd08f1e44a3b59d131a863450c6ec3692"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianFireballVfx.cs",
+      "bytes": 11386,
+      "sha256": "6ffd4f8ed3cd89538fd597afc6fb2a4814b4cb44d72a90ffedad6ad2acf187ee"
+    },
+    {
       "path": "src/Librarian.Mod/Mechanics/LibrarianForeignCardEffects040.cs",
-      "bytes": 9805,
-      "sha256": "a61cf1847299c41328cff7a4de98640eeba31542c2511e73df37a87d45fb1ecf"
+      "bytes": 9808,
+      "sha256": "bae01d8ea5cc96efbf66095ce3b18071a1e5b9866eeb7aacf954b61ff8dcaee8"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianGroundShadow.cs",
       "bytes": 508,
-      "sha256": "40c26b326c15fa42e97dfd4c801f69fc6ae628b8e6c413086e0604ba87b0bfb8"
+      "sha256": "f25e2df8336e2156b2bd6c7431df1f1b9a164c4cfec50f354208f2aacb884ce9"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianHandGlow.cs",
@@ -5944,18 +6273,28 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianHoverTips.cs",
-      "bytes": 6813,
-      "sha256": "d0388ea4c10f01d2460542a86086e26a268445f36b2d00ac7c9aa3b513eb8768"
+      "bytes": 6866,
+      "sha256": "edef075a5e9f62e320ba58679f91915986f66ffafe42bc2da9f7ea76ff387550"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianLanguage.cs",
-      "bytes": 21050,
-      "sha256": "d989b049a56c162683e008610620918df9f16525224a423e5a7507d81fb90780"
+      "bytes": 21052,
+      "sha256": "fab3e23c05e51a374762c878e673dc26b4d9e2296fb710947a1a97460536ccee"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianMerchantFactoryCompatibility.cs",
-      "bytes": 2740,
-      "sha256": "bcfe5efcbbf704deee833d1a7f786a0c692da77a664939112c2688f0d07cebf0"
+      "bytes": 2767,
+      "sha256": "25258c474d5c2ffb2d094ca4e2d4d490360c6fbe96d595ac05f74708bc2f7859"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianNativeAnimation.cs",
+      "bytes": 591,
+      "sha256": "c5aade808f5a97507d64a7c4365fa068d0650aaa5a41a0890805738a535e0555"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianNativeAudioQuery.cs",
+      "bytes": 1351,
+      "sha256": "31dec05301f66ddbeba24ddbb524f745ff5ab59869036c0a561e622386b26325"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianNativeBlockPreview.cs",
@@ -5964,13 +6303,13 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOnboarding.cs",
-      "bytes": 14848,
-      "sha256": "c114d5f3c23a41ecda4dd915a35d7a098c64cf0a71339308756909211ecc32a6"
+      "bytes": 17278,
+      "sha256": "d5f79c616b9912f805ae4b93cc0af05738aa31e6d2e979041d4cc3106bd7a559"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbAudio.cs",
-      "bytes": 6522,
-      "sha256": "a8a81ccb758c51b4e507bc6a3c51735680a776a039e537941ecc019931b5b7a2"
+      "bytes": 6570,
+      "sha256": "d28b2e1d8e15422d79aad6b153c0175ac2bc556be8beb32cb7166d8e5ea5a4a8"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbChoice.cs",
@@ -5979,8 +6318,8 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbDisplay.cs",
-      "bytes": 20612,
-      "sha256": "703295a4e4ad94b363c8f7daef781e1e8ef1659a18a3d3ce07933ff75c2523c6"
+      "bytes": 21548,
+      "sha256": "7d6c7e265193abd9149a4ed85c671fa9f8e41f9a69c052b1dca3bf242dcb885e"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbIdleAura.cs",
@@ -5995,7 +6334,7 @@
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbMagicCircle.cs",
       "bytes": 8903,
-      "sha256": "dfa5e0adaa6095088f4c78a60963f4fadbb1411238e4f10c5050542172d3e98f"
+      "sha256": "57904bd431b5b0f5e8639e4da3f19dcbc20de6eb267f590dfc5ec8f4b47a7fce"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbPacket060.cs",
@@ -6009,13 +6348,18 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianOrbVfx.cs",
-      "bytes": 4887,
-      "sha256": "6a379f756c7b7636633d61c7fe48799bda6823a2458d8d1744536abf474e0706"
+      "bytes": 7474,
+      "sha256": "987c2a034f960f298a8f2448bfd7873c42accece7b86ec268ffa74d26eadd6c5"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianPotionLargeImage.cs",
+      "bytes": 663,
+      "sha256": "ec48e1bb2713fffc22addf5c2503b382cdc1c47c1dd5a8f913a9ab00ad17d982"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianPracticeOverlay.cs",
-      "bytes": 23177,
-      "sha256": "e39587baa321caff07af924cf2deb388d6e1f1caeaceda718347d51331068df0"
+      "bytes": 23204,
+      "sha256": "17d064fce4240ed75af3222904a7b42063c507aa791365f0a601130e19f2ddd7"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianPracticeSession.cs",
@@ -6024,8 +6368,18 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianPreferences050.cs",
-      "bytes": 4977,
-      "sha256": "b21b7bf32d321239fb4be067245f5e7052c0ec2163508fc2489fa0e1d39a0744"
+      "bytes": 5079,
+      "sha256": "f7630ea022637a483a2884681bf7b94232db9747904bbedabc0ebdfd1c5852e7"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianProgressDocument.cs",
+      "bytes": 7246,
+      "sha256": "86bd7bf16ff36e9eb7aef5495e83cfd993f508e196a1fb385198b73943798868"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianProgressPreservation.cs",
+      "bytes": 7592,
+      "sha256": "823bb73ae0e2992d51e76238c9aa9aa4b17bff5da06a6357982dbc012483a6f3"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianRelicDetail101.cs",
@@ -6038,14 +6392,19 @@
       "sha256": "e544f90448cb461a220421ab53dd2b4e1191c2797ba6df402abee20767452a7d"
     },
     {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianRitsuCardRegistration.cs",
+      "bytes": 33184,
+      "sha256": "23a134e23ef67ffbf2a771b5e75e4fda935f3207493998684c3610c38c467ce9"
+    },
+    {
       "path": "src/Librarian.Mod/Mechanics/LibrarianRuntime.cs",
-      "bytes": 28075,
-      "sha256": "7c12a61996859c8be03da8a255f2a86e85245ac30d75a14f5b8cb14b376afd8b"
+      "bytes": 28148,
+      "sha256": "0cedae011de7bc6d9fa81bb733c72c35a852b22023cadec18190f4b3c8c6e21d"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSettings041.cs",
-      "bytes": 21668,
-      "sha256": "e994bc3ce6afe58febe5852b8a005daba9afe86edaf4a2942f034dec68de0d12"
+      "bytes": 24727,
+      "sha256": "e863c9bcd10bb766c36cb60df3d9e3bb4c08734ba90029b2a11c0d785dd5ce5f"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSettingsPreview.cs",
@@ -6054,28 +6413,103 @@
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSpellVisualHooks040.cs",
-      "bytes": 3032,
-      "sha256": "266f7c4bcb6145978a7f4afb5265becf9ed219a0abd53b486d104c19248a21be"
+      "bytes": 3791,
+      "sha256": "b78c32888eb97536afea77468c79b21b4b87bb3a98a5a7f56882b93039d646b9"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianSpellVisuals.cs",
-      "bytes": 8348,
-      "sha256": "22c28e742d6d8a77ebd154a35502709e27fd1d6233c15d4985ed83b76dd6a1af"
+      "bytes": 8680,
+      "sha256": "078842f981ca0ff42c1e1fe59a1332c6879f3d66ce7f469a0b294b040f11b599"
     },
     {
-      "path": "src/Librarian.Mod/Mechanics/LibrarianStableApi.cs",
-      "bytes": 6752,
-      "sha256": "d397260a1361c401c53041f5e10dc4ae7d84e1af777a0382520e368e516849f6"
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineAssetPins.cs",
+      "bytes": 1357,
+      "sha256": "4ab1df476f08cf588982f19491722886c99fd6dff4ffbd68a5a30bb3947e1dd6"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineBank.cs",
+      "bytes": 11825,
+      "sha256": "bf36e562d7287e2a2aa76152d934717d7ebae0ac8692d10f3e7c001a8cbacf34"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineCardExecution.cs",
+      "bytes": 14658,
+      "sha256": "a1af500c20307e103f2ddec7dbe2181332f7a591481e552de7c99e529b1cd889"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineCardPresentationAdapter.cs",
+      "bytes": 709,
+      "sha256": "efe1d6761762f09b2851dbc26bb969180c9334c8c74353d817a4fdfeae3094d6"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineCastVfx.cs",
+      "bytes": 7835,
+      "sha256": "ddf7797395882afbc60b9a6425e848f32e9ae05e62ff3557b2c0af6da7ac04b3"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineCharacterAdapter.cs",
+      "bytes": 458,
+      "sha256": "101215c511a781bd32fcb344fb48eb12867924d6f5f541ade3df45e8bcfccd5b"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineCombatVisuals.cs",
+      "bytes": 238,
+      "sha256": "12f3b30a996de8a008de7e8d7a8d4dc7c47527c4a24eb8ab81dddb2b119dd051"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineIntegration.cs",
+      "bytes": 9017,
+      "sha256": "9ffb599b2ec761e67440cdf97c834939f123cc0847f3e8d07b14b03897de185e"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineMerchantCharacter.cs",
+      "bytes": 1916,
+      "sha256": "da692252e3e5e12e99720c667fe8888b2bfb60f4a04f2d44214fb7022e47bbe1"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineMotionProfiles.cs",
+      "bytes": 3018,
+      "sha256": "a0bd70c70529f6d0a755cd54bb8905d21427a0c3fb3b1dc4b58657fb924b6ac8"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineNativeBinding.cs",
+      "bytes": 20934,
+      "sha256": "8c1bdcedccc427a90f1b495a37ebf3c6e2171162e73aeffbf1a6bb8d8d91de84"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpinePoseDriver.cs",
+      "bytes": 27547,
+      "sha256": "98eb8cf37ec25e3262ca950d4b711b4fdf82d0e6cc8458e044b3a64e94ad6f7c"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineRestSiteCharacter.cs",
+      "bytes": 5161,
+      "sha256": "54c33fff9be87b8551950195b4f80b30021f121d018efcfad7a354f519ce3227"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineRoomBindings.cs",
+      "bytes": 10921,
+      "sha256": "98ffd5be2078039663a9637e8ac7aa1f59328c4297be5188efbad295d8c0a136"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineRuntime.cs",
+      "bytes": 13734,
+      "sha256": "4d9ee97c5eab18b4e8b7749e789b7c9ed4190f74ac809bdb137b42af10fec820"
+    },
+    {
+      "path": "src/Librarian.Mod/Mechanics/LibrarianSpineSpellPulse.cs",
+      "bytes": 13567,
+      "sha256": "7f9491e4055d95e7ebdbd9724296bc0c1623f062d977b86108fe04d654ad1e4e"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianUnlocks040.cs",
-      "bytes": 18121,
-      "sha256": "d8442f0061df464ce43ecdb3b498ef15b9adb54dbeef474fadcf89907fa77163"
+      "bytes": 18431,
+      "sha256": "d4b1453e9af55b9f7bda53e36956e1922c577f50800a43665b2502d224dac84c"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianUpdateNotice051.cs",
-      "bytes": 15284,
-      "sha256": "944e4dc15bcd18ebe51f2e3d6c07e8cf84c393a77a41634088db8d1f651b85d4"
+      "bytes": 14629,
+      "sha256": "b765122a6abd98184da19e889a831616ba5a598d723eba0fe96079f38a3b0266"
     },
     {
       "path": "src/Librarian.Mod/Mechanics/LibrarianVisualTheme.cs",
@@ -6094,8 +6528,8 @@
     },
     {
       "path": "src/Librarian.Mod/Sts2PathDiscovery.props",
-      "bytes": 448,
-      "sha256": "8498c58489449cdbb84dc9a1cec7752fb9fcb1178a5044bb9b74c0d164bb8e01"
+      "bytes": 1055,
+      "sha256": "7d1a297df93bb550b4f9f0d810c2c0a89e920dd01fde46661fde021819f9c74b"
     },
     {
       "path": "src/Librarian.Mod/THIRD-PARTY-NOTICES.md",
@@ -6104,13 +6538,13 @@
     },
     {
       "path": "src/Librarian.Mod/export_presets.cfg",
-      "bytes": 2611,
-      "sha256": "bc1f9e4a809f1b2d6be8c7e9c99c624ac493121b5d2c5dbbc58f0af7ee8358c2"
+      "bytes": 2709,
+      "sha256": "6a2b9ff5d6a67d14f9b77ae7c9f1138dd90fe9573a1aed2058b8e54088b8544c"
     },
     {
       "path": "src/Librarian.Mod/project.godot",
-      "bytes": 754,
-      "sha256": "24c9f4027648a78aaf3953c95a4389883eac519bd0273ea533d19de3f2bb93a3"
+      "bytes": 803,
+      "sha256": "5d4ce6284cdc2772ebf5094810cd565fa42d0bec454637625f23b28fd7cf7127"
     },
     {
       "path": "tests/Librarian.Core.Tests/Librarian.Core.Tests.csproj",
@@ -6119,9 +6553,58 @@
     },
     {
       "path": "tests/Librarian.Core.Tests/Program.cs",
-      "bytes": 50844,
-      "sha256": "28cf174591664c0323b7f8b178a312018c441b8dad654d5afed9b074079c7fe3"
+      "bytes": 57217,
+      "sha256": "8adf642f5653715ae8e77afc37bc315e459844de88b854826a9c81cc63a37eb9"
+    },
+    {
+      "path": "tests/Librarian.Loader.Tests/Librarian.Loader.Tests.csproj",
+      "bytes": 657,
+      "sha256": "e097e5b522dd058f474920accf1bd3153f26f2badeb46fda40c944bcde6975ec"
+    },
+    {
+      "path": "tests/Librarian.Loader.Tests/Program.cs",
+      "bytes": 9186,
+      "sha256": "75a4d80c0c15886d2e73ef53a8a2af1914db371f4703ff8ef3de94b8628fcc84"
+    },
+    {
+      "path": "tests/Librarian.Progress.Tests/Librarian.Progress.Tests.csproj",
+      "bytes": 391,
+      "sha256": "4c971ec754ddc5d5575328aaad1dc638a658ddf3c17d1e7761a27eb34ebecc55"
+    },
+    {
+      "path": "tests/Librarian.Progress.Tests/Program.cs",
+      "bytes": 5414,
+      "sha256": "3486a4a9be8859fe1cbdad8c3fc4356a03ea2f0cc387274093e71da20d58dfec"
+    },
+    {
+      "path": "tests/test_librarian_bundle.py",
+      "bytes": 3794,
+      "sha256": "945442c7793f302699b5cfc385212de0f18e53f91d9f85d8e4e6c9b4184ca460"
+    },
+    {
+      "path": "tests/test_update_note_style.py",
+      "bytes": 1627,
+      "sha256": "0107da2c1c044a9a1301e0e87ceaf3f22793c594f25ffe94ca951c5a4345ce26"
     }
   ],
-  "note": "Exact authored inputs only; this is not runtime build provenance. Published Steam files are separately identified in release-metadata.json."
+  "sha256": "e95063ea7d9f5c3a935c4e9797531a8e21a56ddbfdf87622dc893a93d6737812",
+  "note": "Frozen authored inputs. Not runtime build provenance or a new runtime release. Two whitespace-only exported lines cleaned with user authorization; original production build inputs retained.",
+  "export_transformations": [
+    {
+      "path": "src/Librarian.Mod/Librarian.csproj",
+      "line": 78,
+      "original_sha256": "5f62b8a37fbf7e62a62b5c2417252504baa1265a6a8db41720cf77f809f543b4",
+      "exported_sha256": "2c5d63bf4479f251664d104a2cef8e03347c9bf557f6fe498fc0f5eadf16ee2c",
+      "removed_bytes": 4,
+      "root_source_preserved": true
+    },
+    {
+      "path": "src/Librarian.Mod/LibrarianCode/Character/LibrarianPotionPool.cs",
+      "line": 12,
+      "original_sha256": "10c2b60ac6d3a04b31da7889e51c5e05b07dbe33c2e43a60205572a56d114494",
+      "exported_sha256": "49b4a4d46a68fc7e7b13a15745cbe9814558b002d684dd683dcf37e4f9717c9a",
+      "removed_bytes": 4,
+      "root_source_preserved": true
+    }
+  ]
 }

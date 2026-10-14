@@ -25,6 +25,19 @@ internal static class LibrarianCharacterText
         internal readonly Dictionary<string, (Font Original, Font Raster, bool HadOverride)> Values = new();
     }
     private static readonly ConditionalWeakTable<Control, LabelFonts> Originals = new();
+    private static readonly ConditionalWeakTable<Font, Font> RasterCopies = new();
+    private static readonly ConditionalWeakTable<Font, FontVariation> TrackedFonts = new();
+    // FontFile's stored face/data settings, excluding dynamic cache/* atlas properties
+    // and the raster options set explicitly below. GetPropertyList also enumerates
+    // every cached glyph, so do not use it to clone an imported CJK font.
+    private static readonly StringName[] FontFileSettings =
+    [
+        "data", "generate_mipmaps", "disable_embedded_bitmaps",
+        "font_name", "style_name", "font_style", "font_weight", "font_stretch",
+        "msdf_pixel_range", "msdf_size", "allow_system_fallback", "force_autohinter",
+        "modulate_color_glyphs", "fixed_size", "fixed_size_scale_mode",
+        "opentype_feature_overrides"
+    ];
     internal static IEnumerable<string> FontSlots(Control label) => label is RichTextLabel
         ? new[] { "normal_font", "bold_font", "italics_font" }
         : new[] { "font" };
@@ -61,7 +74,8 @@ internal static class LibrarianCharacterText
                 {
                     // Preserve locale-selected Noto/Source Han faces, 0.95 transform and baseline.
                     // One pixel of tracking is removed, without scaling the glyphs or the control.
-                    var raster = new FontVariation { BaseFont = CopyForRaster(original), SpacingGlyph = -1 };
+                    var raster = TrackedFonts.GetValue(original, source =>
+                        new FontVariation { BaseFont = CopyForRaster(source), SpacingGlyph = -1 });
                     entry = (original, raster, label.HasThemeFontOverride(slot));
                     saved.Values[slot] = entry;
                     MainFile.Logger.Info($"CHARACTER_TEXT_039_FONT label={path} slot={slot} source={original.ResourcePath} face={original.GetFontName()} spacing=-1 oversampling=3");
@@ -72,7 +86,9 @@ internal static class LibrarianCharacterText
         MainFile.Logger.Info("CHARACTER_TEXT_039_APPLIED scope=LibrarianInfoPanel locale=zhs privateRaster=true tracking=-1");
     }
 
-    private static Font CopyForRaster(Font source)
+    private static Font CopyForRaster(Font source) => RasterCopies.GetValue(source, CreateRasterCopy);
+
+    private static Font CreateRasterCopy(Font source)
     {
         if (source is FontVariation variation)
         {
@@ -82,7 +98,14 @@ internal static class LibrarianCharacterText
             return local;
         }
         if (source is not FontFile file) return source;
-        var font = (FontFile)file.Duplicate();
+        var font = new FontFile { ResourceName = file.ResourceName, ResourceLocalToScene = file.ResourceLocalToScene };
+        foreach (var property in FontFileSettings)
+        {
+            // Keep PackedByteArray data in Godot's native copy-on-write storage;
+            // FontFile.Data would first copy the complete font into a managed byte[].
+            using var value = file.Get(property);
+            font.Set(property, value);
+        }
         font.Fallbacks = new Godot.Collections.Array<Font>(file.Fallbacks.Select(CopyForRaster));
         font.MultichannelSignedDistanceField = false;
         font.Antialiasing = TextServer.FontAntialiasing.Gray;

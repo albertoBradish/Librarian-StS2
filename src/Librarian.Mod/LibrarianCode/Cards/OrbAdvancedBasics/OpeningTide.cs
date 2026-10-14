@@ -14,8 +14,12 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 public sealed class OpeningTide() : OrbAdvancedCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Innate];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Tide", 5m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 6m)];
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        => Gain(choiceContext, Session, OrbKind.Tide, Amount("Tide"));
-    protected override void OnUpgrade() => DynamicVars["Tide"].UpgradeValueBy(3m);
+    {
+        Session.Waves.Add(Amount("Waves"));
+        LibrarianRuntime.VerifyBlock(Session);
+        return Task.CompletedTask;
+    }
+    protected override void OnUpgrade() => DynamicVars["Waves"].UpgradeValueBy(3m);
 }

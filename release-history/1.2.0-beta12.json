@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "version": "1.2.0-beta12",
+  "tag": "v1.2.0-beta12",
+  "kind": "complete_matching_authored_source",
+  "channel": "beta",
+  "game": {
+    "version": "0.111.0",
+    "branch": "public-beta",
+    "commit": "41cef1ea"
+  },
+  "dependencies": {
+    "STS2-RitsuLib": "0.6.4"
+  },
+  "source_commit": "b3960a6120738f95c77d0f2d85692dc61805b3f3",
+  "runtime_source_sha256": "7a8650fff48aa943b88ee16ba459a9b283721821fc21fa017b083500decc1ab4",
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 2699264,
+      "sha256": "8b88406048ee6b4bca0fc3100b2b11b904f7bdc02ff056431406d974ff2ad1f9"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 425,
+      "sha256": "108cde1e7e48fff457c57e5c30138b699d4f0df5b4417c0697caeac22fb36732"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124957428,
+      "sha256": "ab8f250d88e81b40068306c0233cb43a341606ebf338aed072825363fd76a67a"
+    }
+  ],
+  "release_assets": [
+    {
+      "name": "ASSET-LICENSE.md",
+      "bytes": 2061,
+      "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7"
+    },
+    {
+      "name": "Librarian.dll",
+      "bytes": 2699264,
+      "sha256": "8b88406048ee6b4bca0fc3100b2b11b904f7bdc02ff056431406d974ff2ad1f9"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 425,
+      "sha256": "108cde1e7e48fff457c57e5c30138b699d4f0df5b4417c0697caeac22fb36732"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 124957428,
+      "sha256": "ab8f250d88e81b40068306c0233cb43a341606ebf338aed072825363fd76a67a"
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 5467,
+      "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9"
+    },
+    {
+      "name": "licenses-Alchyr-Template-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "licenses-BaseLib-MIT.txt",
+      "bytes": 1035,
+      "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+    },
+    {
+      "name": "licenses-Godot-MIT.txt",
+      "bytes": 1149,
+      "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+    },
+    {
+      "name": "licenses-Harmony-MIT.txt",
+      "bytes": 1073,
+      "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d"
+    },
+    {
+      "name": "licenses-RitsuLib-MIT.txt",
+      "bytes": 1060,
+      "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01"
+    },
+    {
+      "name": "licenses-sources.json",
+      "bytes": 1360,
+      "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566"
+    },
+    {
+      "name": "licenses-template-assets.json",
+      "bytes": 196,
+      "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 1146,
+      "sha256": "7ee024ab5d42ba3974661889894941a154b169c2666f64772e6dfce9e5c06724"
+    },
+    {
+      "name": "THIRD-PARTY-NOTICES.md",
+      "bytes": 2922,
+      "sha256": "3fb108abef977afef4bca1b599a9ec223a883b728ffd120b4fa72709961392d3"
+    }
+  ],
+  "native_validation": {
+    "core": "75/75",
+    "progress_json": "22/22",
+    "native_checks": 574,
+    "runtime_dependency_versions_tested": [
+      "0.6.4",
+      "0.6.7"
+    ],
+    "final_complete_logs": 6,
+    "final_complete_logs_passed": true,
+    "multiclient_verified": false,
+    "normal_speed_visual_audio_acceptance": false
+  },
+  "status": "published",
+  "release_id": 408118766,
+  "published_at": "2026-10-09T16:37:28Z",
+  "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12",
+  "downloaded_sha256_verified": true,
+  "source_ci": 37959952521,
+  "steam": {
+    "version": "1.2.0-beta12",
+    "item_id": "3801958367",
+    "manifest": "1472846957872811088",
+    "single_prerequisite": "RitsuLib",
+    "subscriber_verified": false
+  },
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "open_source": false
+}

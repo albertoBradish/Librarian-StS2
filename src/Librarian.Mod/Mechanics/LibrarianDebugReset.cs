@@ -28,6 +28,7 @@ internal static class LibrarianDebugReset
     private static bool _requestOpen, _applying;
     private static string _statusKey = "";
     internal static bool IsBusy => _requestOpen || _applying;
+    internal static bool Applying => _applying;
     internal static bool CanReset => NGame.Instance?.MainMenu is { } menu && menu.IsVisibleInTree()
         && !RunManager.Instance.IsInProgress && !LibrarianPracticeSession.Active;
     internal static int LastDeletedHistories { get; private set; }
@@ -98,7 +99,7 @@ internal static class LibrarianDebugReset
             foreach (var descendant in Descendants(child)) yield return descendant;
         }
     }
-    private static bool CloseSettings(Node root)
+    internal static bool CloseSettings(Node root)
     {
         bool closed = false;
         foreach (var screen in Descendants(root).OfType<RitsuModSettingsSubmenu>().Where(screen => screen.IsVisibleInTree()).ToArray())
@@ -177,6 +178,9 @@ internal static class LibrarianDebugReset
         panel.SetText(Text("reset_all_confirm_title"), Text("reset_all_confirm_body"));
         panel.YesButton.SetText(Text("reset_all_confirm"));
         panel.NoButton.SetText(Text("reset_all_cancel"));
+        panel.YesButton.IsYes = true; panel.NoButton.IsYes = false;
+        panel.YesButton.Show(); panel.NoButton.Show();
+        panel.NoButton.Enable();
         panel.YesButton.Disable();
         ConfirmationArmed = false;
         var hotkeys = NHotkeyManager.Instance;
@@ -187,6 +191,8 @@ internal static class LibrarianDebugReset
             closed.TrySetResult(false);
             if (ReferenceEquals(modals.OpenModal, popup)) modals.Clear();
         }
+        void CancelButton(NButton _) => Cancel();
+        panel.NoButton.Connect(NClickableControl.SignalName.Released, Callable.From<NButton>(CancelButton));
         foreach (string key in cancelKeys)
         {
             hotkeys?.PushHotkeyPressedBinding(key, IgnorePress);
@@ -198,18 +204,30 @@ internal static class LibrarianDebugReset
             // callback until that press is released and a subsequent frame has passed.
             // This also covers a settings entry opened by keyboard/controller input.
             var tree = popup.GetTree();
+            ulong started = Time.GetTicksMsec();
             while (!closed.Task.IsCompleted)
             {
+                int seconds = Math.Max(0, (int)Math.Ceiling(5 - (Time.GetTicksMsec() - started) / 1000d));
+                panel.YesButton.SetText(Text("reset_all_confirm") + (seconds > 0 ? " (" + seconds + ")" : ""));
+                if (panel.GetNodeOrNull<MegaCrit.Sts2.addons.mega_text.MegaRichTextLabel>("Description") is { } body)
+                {
+                    body.Text = Text("reset_all_confirm_body") + "\n\n[color=#ff6565]"
+                        + LibrarianSettings041.PlainText(Text("reset_all_warning")) + "[/color]";
+                }
                 await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
                 if (closed.Task.IsCompleted) return false;
-                if (TriggerHeld()) continue;
+                if (seconds > 0 || TriggerHeld()) continue;
                 await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
                 if (closed.Task.IsCompleted) return false;
                 if (!TriggerHeld()) break;
             }
             if (closed.Task.IsCompleted) return false;
+            panel.NoButton.Disconnect(NClickableControl.SignalName.Released, Callable.From<NButton>(CancelButton));
             var choice = popup.WaitForConfirmation(Loc("reset_all_confirm_body"), Loc("reset_all_confirm_title"),
                 Loc("reset_all_cancel"), Loc("reset_all_confirm"));
+            if (panel.GetNodeOrNull<MegaCrit.Sts2.addons.mega_text.MegaRichTextLabel>("Description") is { } warningBody)
+                warningBody.Text = Text("reset_all_confirm_body") + "\n\n[color=#ff6565]"
+                    + LibrarianSettings041.PlainText(Text("reset_all_warning")) + "[/color]";
             panel.YesButton.Enable();
             ConfirmationArmed = true;
             var finished = await Task.WhenAny(choice, closed.Task);
@@ -321,7 +339,9 @@ internal static class LibrarianDebugReset
         var attach = preservation.GetMethod("TryAttach", BindingFlags.NonPublic | BindingFlags.Static,
             null, [typeof(ProgressState), typeof(string), typeof(string)], null)
             ?? throw new MissingMethodException("Ritsu unknown-property verification is unavailable.");
-        if (attach.Invoke(null, [temporary, request.ProposedRawJson, known]) is not true)
+        bool accepted = attach.Invoke(null, [temporary, request.ProposedRawJson, known]) is true;
+        if (!accepted) LibrarianProgressPreservation.Attach(temporary, request.ProposedRawJson, known, ref accepted, resetPreflight: true);
+        if (!accepted)
         {
             MainFile.Logger.Warn("Librarian reset preflight rejected unsupported unknown progress fields; nothing was committed.");
             throw new InvalidDataException("Other progress fields cannot be safely preserved by the current Ritsu version.");

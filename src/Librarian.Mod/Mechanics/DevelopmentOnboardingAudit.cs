@@ -6,6 +6,7 @@ using Godot;
 using HarmonyLib;
 using Librarian.Core;
 using Librarian.LibrarianCode;
+using Librarian.LibrarianCode.Cards;
 using Librarian.LibrarianCode.Cards.PowerCards;
 using Librarian.LibrarianCode.Character;
 using MegaCrit.Sts2.Core.Combat;
@@ -194,7 +195,14 @@ internal static class DevelopmentOnboardingAudit
             foreach (string key in new[] { "SETTLE", "FOREGROUND", "ACTIVATE", "EXTINGUISH" })
                 Check(Has(full, key) && !Has(compact, key), "Ridge Ward nested-only tip omitted " + language + " " + key);
             var block = LibrarianLanguage.NativeTip(() => HoverTipFactory.Static(StaticHoverTip.Block));
-            Check(full.Any(t => t.Id == block.Id) && compact.Any(t => t.Id == block.Id), "native Block survives nested filtering " + language);
+            // The current beta Still Tide description has no Block requirement.
+            // Verify the native tip with the real Defend card, which does require it.
+            var nativeCard = ModelDb.Card<LibrarianDefend>().ToMutable();
+            LibrarianPreferences050.Current.CompactHoverTips = false;
+            var fullNative = nativeCard.HoverTips.ToArray();
+            LibrarianPreferences050.Current.CompactHoverTips = true;
+            var compactNative = nativeCard.HoverTips.ToArray();
+            Check(fullNative.Any(t => t.Id == block.Id) && compactNative.Any(t => t.Id == block.Id), "native Block survives nested filtering " + language);
             foreach (var keyword in card.Keywords)
                 Check(compact.Any(t => t.Id == HoverTipFactory.FromKeyword(keyword).Id), "native card keyword retained " + language + " " + keyword);
             Check(IHoverTip.RemoveDupes(compact).SequenceEqual(compact), "compact native dedupe " + language);

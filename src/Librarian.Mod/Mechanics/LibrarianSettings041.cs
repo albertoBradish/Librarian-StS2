@@ -73,6 +73,7 @@ public static class LibrarianSettings041
             .AsChildOf(PageId).WithTitle(Text("effects_audio", "特效与声音")).WithDescriptionHidden(true)
             .AddSection("effects", section => section.WithTitle(Text("effects", "卡牌与法球特效"))
                 .AddToggle("card_effects", Text("card_effects", "卡牌特效"), LibrarianPreferences050.Bind("card_effects", p => p.CardEffects, (p,v) => p.CardEffects=v))
+                .AddToggle("legacy_draw_effects", Text("legacy_draw_effects", "旧版抽牌特效"), LibrarianPreferences050.Bind("legacy_draw_effects", p => p.LegacyDrawEffects, (p,v) => p.LegacyDrawEffects=v), Text("legacy_draw_effects_hint", "在翻页动作外额外显示纸页特效，默认关闭。"))
                 .AddCustom("card_effects_preview", Text("preview", "效果示例"), _ => LibrarianSettingsPreview.Create("card_effects"))
                 .AddToggle("orb_effects", Text("orb_effects", "法球特效"), LibrarianPreferences050.Bind("orb_effects", p => p.OrbEffects, (p,v) => p.OrbEffects=v), Text("orb_effects_hint", "关闭后仍显示法球数值、锁定标记和悬浮说明。"))
                 .AddCustom("orb_effects_preview", Text("preview", "效果示例"), _ => LibrarianSettingsPreview.Create("orb_effects"))
@@ -108,16 +109,27 @@ public static class LibrarianSettings041
             .AddSection("progression", section => section.WithTitle(Text("progression", "内容解锁")).Collapsible(true)
                 .AddParagraph("current", ModSettingsText.Dynamic(ProgressText))
                 .AddButton("progressive", Text("progressive", "逐步解锁"), Text("apply", "应用"), host => { ApplyProgress(false); host.RequestRefresh(); }, description: Text("progressive_hint", "新局按游戏进度解锁，保留已解锁内容。"))
-                .AddButton("all", Text("all", "全部解锁"), Text("apply", "应用"), host => { ApplyProgress(true); host.RequestRefresh(); }, description: Text("all_hint", "解锁当前档案的全部图书管理员内容，之后不会重新锁定。")))
+                .AddButton("all", Text("all", "全部解锁"), Text("apply", "应用"), host => { ApplyProgress(true); host.RequestRefresh(); }, description: Text("all_hint", "解锁当前档案的全部图书管理员内容，之后不会重新锁定。"))
+                .AddParagraph("ascension_current", ModSettingsText.Dynamic(() => LibrarianAscensionTools.Current))
+                .AddButton("unlock_a10", Text("unlock_a10", "解锁 A10"), Text("apply", "应用"), host => LibrarianAscensionTools.Apply(false, host), description: Text("unlock_a10_hint", "解锁当前档案图书管理员的 A10，不改变通关记录或当前选择。"))
+                .AddButton("reset_a0", Text("reset_a0", "重置回 A0"), Text("apply", "应用"), host => LibrarianAscensionTools.Apply(true, host), description: Text("reset_a0_hint", "将图书管理员的进阶上限和当前选择重置为 A0，保留其他解锁与游玩记录。"))
+                .AddParagraph("ascension_result", ModSettingsText.Dynamic(() => LibrarianAscensionTools.Status)))
             .AddSection("defaults", section => section.WithTitle(Text("defaults", "恢复默认设置")).Collapsible(true)
                 .AddButton("reset_settings", Text("reset_settings", "恢复默认设置"), Text("reset", "恢复"), host => { RestoreDefaults(); host.RequestRefresh(); }, description: Text("reset_hint", "恢复语言、显示和声音的默认值。语言重新跟随游戏，保留解锁、游玩进度和提示记录。")))
             .AddSection("debug", section => section.WithTitle(Text("debug", "调试工具")).Collapsible(true)
+                .AddButton("preview_tutorial", Text("preview_tutorial", "预览首次教学邀请"), Text("preview", "预览"), host => PreviewOnboarding(LibrarianTutorialMode.Consent, host), description: Text("preview_tutorial_hint", "仅限主菜单。查看首次教学窗口，不记录选择，也不开始教学局。"))
+                .AddButton("preview_compact", Text("preview_compact", "预览精简提示窗口"), Text("preview", "预览"), host => PreviewOnboarding(LibrarianTutorialMode.CompactOffer, host), description: Text("preview_compact_hint", "仅限主菜单。查看通关后的精简提示窗口，不改变设置或提示记录。"))
                 .AddButton("replay_welcome", Text("replay_welcome", "查看当前版本介绍"), Text("show", "查看"), host => { _debugStatusKey = LibrarianUpdateNotice051.RequestRedisplay() ? "notice_queued" : "notice_menu_required"; host.RequestRefresh(); }, description: Text("replay_welcome_hint", "清除当前版本的“不再显示”选择，返回主菜单后打开介绍。"))
                 .AddButton("preview_review", Text("preview_review", "预览通关好评提示"), Text("preview", "预览"), host => { _debugStatusKey = LibrarianArchitectReview102.RequestPreview() ? "review_queued" : "notice_menu_required"; host.RequestRefresh(); }, description: Text("preview_review_hint", "返回主菜单后预览，不记录通关，也不消耗首次提示。"))
                 .AddButton("reload_presentation", Text("reload_presentation", "重新读取显示与声音设置"), Text("reload", "重新加载"), host => { LibrarianPreferences050.Load(); _debugStatusKey = "presentation_reloaded"; host.RequestRefresh(); }, description: Text("reload_presentation_hint", "读取本机保存的选项，不改变解锁进度。"))
                 .AddParagraph("debug_status", ModSettingsText.DynamicFullRefreshOnly(() => _debugStatusKey.Length == 0 ? "" : Text(_debugStatusKey, "").Resolve()))
                 .AddButton("reset_mod", Text("reset_all", "初始化模组（调试）"), Text("reset_all_button", "初始化"), host => TaskHelper.RunSafely(LibrarianDebugReset.RequestAsync(host)), description: Text("reset_all_hint", "重置当前档案的图书管理员记录和本机设置。仅限主菜单，操作前需要再次确认。"))
-                .AddParagraph("reset_mod_status", ModSettingsText.Dynamic(() => LibrarianDebugReset.Status))), ToolsPageId);
+                .AddParagraph("reset_mod_status", ModSettingsText.Dynamic(() => LibrarianDebugReset.Status)))
+            .AddSection("debug_notes", section => section.WithTitle(Text("debug_notes", "调试说明")).Collapsible(true)
+                .AddParagraph("reset_note", Text("debug_reset_note", "初始化失败时先导出日志。若提示无法保留其他进度，请保留原档；不要通过卸载模组或删除记录强行初始化。"))
+                .AddParagraph("countdown_note", Text("debug_countdown_note", "确认窗每次打开都会等待5秒。等待期间可取消；按住确认键或连续点击都不能跳过倒计时。"))
+                .AddParagraph("preview_note", Text("debug_preview_note", "两个预览窗口里的选项只用于查看，不会开始教学、切换精简设置或记录首次选择。"))
+                .AddParagraph("ascension_note", Text("debug_ascension_note", "A10和A0只修改图书管理员的进阶。操作后重新进入角色选择，再重启游戏确认；不会改变进行中的对局。"))), ToolsPageId);
         _registered = true;
     }
 
@@ -130,6 +142,16 @@ public static class LibrarianSettings041
     }
 
     internal static string DefaultLanguage => LibrarianLanguage.Detect(LocManager.Instance.Language);
+    private static void PreviewOnboarding(LibrarianTutorialMode mode, IModSettingsUiActionHost host)
+    {
+        if (!LibrarianDebugReset.CanReset || LibrarianDebugReset.IsBusy)
+        {
+            _debugStatusKey = "notice_menu_required";
+            host.RequestRefresh();
+            return;
+        }
+        TaskHelper.RunSafely(LibrarianOnboarding.PreviewAsync(mode, host));
+    }
     internal static void RestoreDefaults()
     {
         LibrarianPreferences050.Reset();
@@ -168,7 +190,7 @@ public static class LibrarianSettings041
             string metadata = JsonSerializer.Serialize(new {
                 librarian = LibrarianUpdateNotice051.CurrentVersion ?? "unknown", presentation = LibrarianPreferences050.Current, recorded_utc = DateTime.UtcNow,
                 engine = Engine.GetVersionInfo()["string"].AsString(),
-                game_version = MegaCrit.Sts2.Core.Debug.ReleaseInfoManager.Instance.ReleaseInfo?.Version,
+                game_version = LibrarianGameApi.GameVersion,
                 game_assembly = typeof(SaveManager).Assembly.GetName().Version?.ToString(),
                 mods = ModManager.Mods.Select(m => new { id = m.manifest?.id, version = m.manifest?.version, state = m.state.ToString() }).ToArray()
             }, new JsonSerializerOptions { WriteIndented = true });
