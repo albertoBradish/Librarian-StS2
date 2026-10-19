@@ -54,7 +54,7 @@
     }
   ],
   "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0",
-  "runtime_release_status": "planned",
+  "runtime_release_status": "published",
   "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
   "channel": "unified",
   "workshop_item_id": "3801958367",

@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "version": "1.4.0",
+  "tag": "v1.4.0",
+  "channel": "unified",
+  "mod_id": "Librarian",
+  "source_kind": "matching_current_public_source",
+  "source_commit": "10e3b0376a37f7199236bdd2158949a8f9f5b24e",
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "open_source": false,
+  "active_cards": 91,
+  "game_targets": [
+    {
+      "version": "0.107.1",
+      "commit": "59260271",
+      "branch": "public"
+    },
+    {
+      "version": "0.111.0",
+      "commit": "41cef1ea",
+      "branch": "public-beta"
+    }
+  ],
+  "dependencies": {
+    "RitsuLib": "0.6.4"
+  },
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 23552,
+      "sha256": "dedfd3ef65bb4ab6680739e7024f523b0193cc44c10077770a862460765173bc"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 418,
+      "sha256": "37c004416d9512a10f9b628ac9a888bbd891ca884a2a144a037ebece3d1f04b7"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 170119348,
+      "sha256": "b0ffe3bd3de7f0545a631b27d6449daf3ef7ec691084f349e1bd0b25c6919935"
+    },
+    {
+      "name": "librarian-variants.manifest",
+      "bytes": 528,
+      "sha256": "71439c863918ed6dfb40b2b5d5af29c954f2ad0ba09cb025085f3e891d57b72e"
+    },
+    {
+      "name": "compat/0.107.1/Librarian.dll",
+      "bytes": 3106304,
+      "sha256": "c0bfb24fa5ce14cb50531c6303915e9b2eed632264f4e95f24aae6057104f17d"
+    },
+    {
+      "name": "compat/0.111.0/Librarian.dll",
+      "bytes": 3103232,
+      "sha256": "d6377628c4c6696154a2046717c4b729adbf9a2fba013dc225fb00e7d570ab46"
+    }
+  ],
+  "steam": {
+    "item_id": "3801958367",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367",
+    "content_manifest": "1601972879121412647",
+    "server_verified": true,
+    "actual_branch_download_verified": false
+  },
+  "github": {
+    "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0",
+    "release_id": 417203527,
+    "published_at": "2026-10-19T11:18:52Z",
+    "downloaded_sha256_verified": true,
+    "assets": [
+      {
+        "name": "ASSET-LICENSE.md",
+        "bytes": 2061,
+        "sha256": "70a2def92e5431dba56071c722cfb89ac61624d7a908744a43d58f383c1fc2b7"
+      },
+      {
+        "name": "compat-0.107.1-Librarian.dll",
+        "bytes": 3106304,
+        "sha256": "c0bfb24fa5ce14cb50531c6303915e9b2eed632264f4e95f24aae6057104f17d"
+      },
+      {
+        "name": "compat-0.111.0-Librarian.dll",
+        "bytes": 3103232,
+        "sha256": "d6377628c4c6696154a2046717c4b729adbf9a2fba013dc225fb00e7d570ab46"
+      },
+      {
+        "name": "INSTALL-MAP.json",
+        "bytes": 407,
+        "sha256": "5ad2c60d28ba195edba775f931e7e593d9e75a562c0eeb0069a0c0ee2ba5d26a"
+      },
+      {
+        "name": "INSTALL.txt",
+        "bytes": 625,
+        "sha256": "0938d59a70d831e48f4d3c398fa7a7febb42d57e0bbb50d66032a5de3f2e8482"
+      },
+      {
+        "name": "librarian-variants.manifest",
+        "bytes": 528,
+        "sha256": "71439c863918ed6dfb40b2b5d5af29c954f2ad0ba09cb025085f3e891d57b72e"
+      },
+      {
+        "name": "Librarian.dll",
+        "bytes": 23552,
+        "sha256": "dedfd3ef65bb4ab6680739e7024f523b0193cc44c10077770a862460765173bc"
+      },
+      {
+        "name": "Librarian.json",
+        "bytes": 418,
+        "sha256": "37c004416d9512a10f9b628ac9a888bbd891ca884a2a144a037ebece3d1f04b7"
+      },
+      {
+        "name": "Librarian.pck",
+        "bytes": 170119348,
+        "sha256": "b0ffe3bd3de7f0545a631b27d6449daf3ef7ec691084f349e1bd0b25c6919935"
+      },
+      {
+        "name": "LICENSE",
+        "bytes": 5467,
+        "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9"
+      },
+      {
+        "name": "licenses-Alchyr-Template-MIT.txt",
+        "bytes": 1035,
+        "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+      },
+      {
+        "name": "licenses-BaseLib-MIT.txt",
+        "bytes": 1035,
+        "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+      },
+      {
+        "name": "licenses-Godot-MIT.txt",
+        "bytes": 1149,
+        "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+      },
+      {
+        "name": "licenses-Harmony-MIT.txt",
+        "bytes": 1073,
+        "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d"
+      },
+      {
+        "name": "licenses-RitsuLib-MIT.txt",
+        "bytes": 1060,
+        "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01"
+      },
+      {
+        "name": "licenses-sources.json",
+        "bytes": 1360,
+        "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566"
+      },
+      {
+        "name": "licenses-template-assets.json",
+        "bytes": 196,
+        "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62"
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "bytes": 1596,
+        "sha256": "1ff20622dbd60a3bb9daea916c39f48d08a3dafd15dfbcfae28e87e8f9cbd2d7"
+      },
+      {
+        "name": "THIRD-PARTY-NOTICES.md",
+        "bytes": 3053,
+        "sha256": "a0e8abe5483d22a7f4dad87f7d5e25fe1985eb69e189664d6fd63843736c6dbd"
+      }
+    ]
+  },
+  "validation": {
+    "complete_automated_singleplayer_coverage": true,
+    "current_candidate_processes": 9,
+    "inherited_unchanged_same_version_processes": 3,
+    "inheritance_scope": "0.107.1 normal full/reload/card sweep; only practice integration and two lesson-text resources changed, all other normal card and presentation inputs retained.",
+    "combinations": [
+      "0.107.1 / RitsuLib0.6.4",
+      "0.111.0 / RitsuLib0.6.4",
+      "0.111.0 / RitsuLib0.6.7"
+    ],
+    "real_multiplayer_reconnect_verified": false,
+    "long_term_balance_accepted": false,
+    "overall_user_visual_audio_accepted": false,
+    "independent_performance_verified": false
+  }
+}
