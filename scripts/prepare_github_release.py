@@ -52,8 +52,13 @@ def validate_source_provenance(provenance):
 def validate_unified_delivery(record, candidate, version):
     """Require both fixed native targets and bind the complete six-file candidate."""
     from librarian_bundle import validate_bundle
-    if record.get('channel') != 'unified' or record.get('version') != version or version != '1.3.0':
-        raise ValueError('Unified Delivery must identify unified 1.3.0')
+    if (record.get('channel') != 'unified' or record.get('version') != version
+            or not re.fullmatch(r'\d+\.\d+\.\d+', version)
+            or tuple(map(int, version.split('.'))) < (1, 3, 0)):
+        raise ValueError('Unified Delivery must identify the exact unified release version (1.3.0 or later)')
+    manifest = json.loads((Path(candidate) / 'Librarian.json').read_text(encoding='utf-8-sig'))
+    if manifest.get('id') != 'Librarian' or manifest.get('version') != version:
+        raise ValueError('Unified manifest identity mismatch with the exact Delivery version')
     targets = record.get('game_targets')
     if not isinstance(targets, list) or sorted(targets, key=lambda x: x.get('version', '')) != UNIFIED_TARGETS:
         raise ValueError('Unified Delivery requires the two exact game version/commit/branch targets')
@@ -154,7 +159,7 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
         install_map = {asset: 'mods/Librarian/' + relative for relative, asset in asset_map.items()}
         (output / 'INSTALL-MAP.json').write_text(json.dumps(install_map, indent=2) + '\n', encoding='utf-8')
         (output / 'INSTALL.txt').write_text(
-            'Librarian V1.3.0 / game 0.107.1 and 0.111.0\n\n'
+            f'Librarian V{version} / game 0.107.1 and 0.111.0\n\n'
             'Install RitsuLib >=0.6.4 separately. Quit the game before installation.\n'
             'Copy each downloaded asset to the path listed in INSTALL-MAP.json, relative to the game directory.\n'
             'Create both compat subdirectories and rename their downloaded DLLs to Librarian.dll.\n'

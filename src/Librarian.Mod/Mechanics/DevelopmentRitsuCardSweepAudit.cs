@@ -225,14 +225,14 @@ internal static partial class DevelopmentRitsuCardSweepAudit
             Check(ModelDb.GetEntry(type) == entry, "explicit legacy ID " + type.Name);
             Check(ModelDb.GetById<AbstractModel>(ModelDb.GetId(type)).GetType() == type, "all owned models registered " + type.Name);
         }
-        MainFile.Logger.Info("RITSU_INDEPENDENCE_PASS models=149 baseLibReference=False baseLibLoaded=False");
+        MainFile.Logger.Info($"RITSU_INDEPENDENCE_PASS models={LibrarianRitsuCardRegistration.LegacyEntries.Count} baseLibReference=False baseLibLoaded=False");
         var cards = ModelDb.CardPool<LibrarianCardPool>().AllCards.OrderBy(c => c.Id.Entry).ToArray();
         Check(cards.Length == 91 && cards.Select(c => c.Id).Distinct().Count() == 91, "91 unique active models");
         Check(cards.Count(c => LibrarianNativeAnimation.HasBaseLibAncestor(c.GetType())) == (Phase == "control" ? 91 : 0), "backend card ancestry");
         var retired = new List<object>();
         var cardMethod = typeof(ModelDb).GetMethods().Single(m => m.Name == "Card" && m.IsGenericMethodDefinition && m.GetParameters().Length == 0);
         foreach (var type in typeof(LibrarianCard).Assembly.GetTypes().Where(t => t.IsSealed && typeof(CardModel).IsAssignableFrom(t)
-            && t.Namespace?.StartsWith("Librarian.LibrarianCode.Cards") == true && !cards.Any(c => c.GetType() == t)).OrderBy(t => t.Name))
+            && t.Namespace?.StartsWith("Librarian.LibrarianCode.Cards") == true && t != typeof(global::Librarian.LibrarianCode.Cards.StudyNotes) && !cards.Any(c => c.GetType() == t)).OrderBy(t => t.Name))
         {
             var model = (CardModel)cardMethod.MakeGenericMethod(type).Invoke(null, null)!;
             foreach (bool upgrade in new[] { false, true })
@@ -244,6 +244,16 @@ internal static partial class DevelopmentRitsuCardSweepAudit
             }
         }
         Check(retired.Count == 18, "nine retired models stay outside active pool");
+        var notes = ModelDb.Card<global::Librarian.LibrarianCode.Cards.StudyNotes>();
+        Check(!cards.Any(c => c.GetType() == notes.GetType()), "generated Study Notes stays outside normal pool");
+        foreach (bool upgrade in new[] { false, true })
+        {
+            var generated = notes.ToMutable(); if (upgrade) { generated.UpgradeInternal(); generated.FinalizeUpgradeInternal(); }
+            var restored = CardModel.FromSerializable(generated.ToSerializable());
+            Check(restored.Id == generated.Id && restored.IsUpgraded == upgrade, "generated Study Notes native serialization");
+            Check(ResourceLoader.Exists(generated.PortraitPath), "generated Study Notes native portrait");
+        }
+
         File.WriteAllText(Path.Combine(Output, "retired-models.json"), JsonSerializer.Serialize(retired, Json));
         var records = new List<object>();
         foreach (string language in new[] { "zhs", "eng" })

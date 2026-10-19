@@ -30,40 +30,37 @@ public sealed class SeedburialStrike() : OrbUtilityCard(2, CardType.Attack, Card
 /// <summary>V0.4.1: one attack whose amount is the printed base plus current Fire.</summary>
 public sealed class EmberReckoning() : OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new CalculationBaseVar(9m), new ExtraDamageVar(1m),
-            new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewForeground(card, OrbKind.Fire))];
-    protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
-        => Hit(context, play, DynamicVars.CalculationBase.BaseValue + Session.Orbs.Value(OrbKind.Fire));
-    protected override void OnUpgrade() => DynamicVars.CalculationBase.UpgradeValueBy(4m);
-    protected override void AfterDowngraded()
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new DynamicVar("Strength", 2m)];
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips => [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>()];
+    protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        DynamicVars.RecalculateForUpgradeOrEnchant();
-        DynamicVars.FinalizeUpgrade();
+        await Lock(context, OrbKind.Fire, 1);
+        await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(context, Owner.Creature, Amount("Strength"), Owner.Creature, this);
+        await Hit(context, play, DynamicVars.Damage.BaseValue);
     }
+    protected override void OnUpgrade() { DynamicVars.Damage.UpgradeValueBy(3m); DynamicVars["Strength"].UpgradeValueBy(1m); }
 }
 
 /// <summary>v0.3.0 approved revision, catalog 45. Stable model ID retained.</summary>
-public sealed class Evaporation() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public sealed class Evaporation() : OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 8m), new CardsVar(1)];
+    public override bool GainsBlock => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move), new DynamicVar("Vigor", 5m)];
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips => [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<MegaCrit.Sts2.Core.Models.Powers.VigorPower>()];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        await Gain(context, Session, OrbKind.Fire, Amount("Fire"));
-        await Draw(context, Amount("Cards"));
-        await Lock(context, OrbKind.Tide, 1);
+        bool bottom = LibrarianBottomPlay041.IsPlayingFromBottom(this);
+        await Block(play, DynamicVars.Block.BaseValue);
+        if (bottom) await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.VigorPower>(context, Owner.Creature, Amount("Vigor"), Owner.Creature, this);
     }
-    protected override void OnUpgrade()
-    {
-        DynamicVars["Fire"].UpgradeValueBy(3m);
-    }
+    protected override void OnUpgrade() { DynamicVars.Block.UpgradeValueBy(3m); DynamicVars["Vigor"].UpgradeValueBy(2m); }
 }
 
 /// <summary>v0.3.0 approved revision, catalog 46. Stable model ID retained.</summary>
 public sealed class Cooldown() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override bool GainsBlock => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Block(play, Amount("Block"));
@@ -152,14 +149,12 @@ public sealed class ArchiveBulwark() : OrbUtilityCard(0, CardType.Skill, CardRar
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public override bool GainsBlock => true;
-    private static decimal BackgroundTotal(LibrarianSession session) => session.Orbs.Select(OrbScope.Background).Sum(kind => (decimal)session.Orbs.Value(kind));
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new CalculationBaseVar(0m), new CalculationExtraVar(1m),
-            new CalculatedBlockVar(ValueProp.Move).WithMultiplier((card, _) => PreviewSession(card) is { } session
-                ? BackgroundTotal(session) : 0)];
-    protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
-        => Block(play, BackgroundTotal(Session) * DynamicVars.CalculationExtra.BaseValue);
-    protected override void OnUpgrade() => DynamicVars.CalculationExtra.UpgradeValueBy(1m);
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4m, ValueProp.Move), new RepeatVar(3)];
+    protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
+    {
+        for (int i = 0; i < Amount("Repeat"); i++) await Block(play, DynamicVars.Block.BaseValue);
+    }
+    protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1m);
 }
 
 /// <summary>Source 54/r55. The active candidate set is resolved after drawing, and consumes RNG only for an actual tie.</summary>

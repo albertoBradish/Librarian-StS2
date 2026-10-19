@@ -1,14 +1,14 @@
 # Source and release status / 源码与发布状态
 
-## 2026-10-13 当前统一源码 / Current unified source
+## 2026-10-19 当前统一源码 / Current unified source
 
-`main` 分批同步本次冻结的 V1.3.5 自有开发输入：当前卡图与生产资源、统一双目标引导与构建、烈焰表现、选角字体缓存、Spine 控制器及动画修订。完整批次结束后 `source-snapshot.json` 记录逐文件 SHA256。研究根仓库历史、原始设计、私有依赖、提取资源、存档及研究日志排除。
+`main` 维护 V1.4.0 的白名单自有源码与生产资源，统一支持固定游戏 0.107.1／0.111.0，RitsuLib 0.6.4 单前置。本次合并 V1.3.11／V1.3.12 未发布内容，采用 V1.4.0 最终卡牌规则、双语文案与已批准卡图。对应 GitHub Release 为 `v1.4.0`，六文件及安装映射、校验值见发行附件和 `release-metadata.json`。
 
-`main` receives a frozen V1.3.5 authored development snapshot in batches: current production art, dual-target loader/build, fire effects, font caching, Spine controllers and animation revisions. The final batch records exact input SHA256 values in `source-snapshot.json`. Private dependencies, extracted resources, original designs, saves and research history remain excluded.
+`main` maintains the allowlisted V1.4.0 source and authored production assets for the two fixed game versions, with RitsuLib 0.6.4 only. It combines the unreleased V1.3.11/V1.3.12 work using the final V1.4.0 rules, bilingual wording and approved artwork. The matching GitHub Release is `v1.4.0`; its six runtime files, installation map and checksums identify the distributed package.
 
-Steam 当前为已发布 V1.3.0（服务器核验；订阅端下载仍待），V1.3.5 仅为未发布开发源码。下方为保留的历史发行记录，不表示当前 `main` 仍为 stable。旧分支、标签与 GitHub 运行附件保持；本次不创建 Release。真实多人、长期平衡、用户视觉／听感及独立性能验收不因此新增通过。
+研究历史、原始设计、私有依赖、提取内容和存档不进入公开树。既有分支、标签和历史发行附件保留。真实多客户端／重连、长期平衡、用户整体视觉／听感和独立性能验收仍另计；Steam 服务端核验不等于实际双分支订阅下载验收。
 
-Steam currently publishes V1.3.0, server-verified with subscriber delivery pending. V1.3.5 remains unpublished development source. The records below are historical; `main` now maintains unified content. Existing branches, tags and runtime attachments remain intact. No new Release or additional multiplayer, balance, user visual/audio or independent performance acceptance is implied.
+Research history, original designs, private dependencies, extracted content and saves are excluded. Existing branches, tags and historical release assets remain intact. True multiplayer/reconnect, long-term balance, overall user visual/audio acceptance and independent performance are tracked separately. Steam server verification does not establish actual subscriber delivery on both branches.
 
 ## 历史记录 / Historical records
 

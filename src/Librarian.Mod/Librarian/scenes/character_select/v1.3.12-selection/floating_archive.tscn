@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://Mechanics/LibrarianCharacterSelect138.cs" id="1_controller"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Librarian/spine/v1.3.12-selection/bank.res" id="2_bank"]
+
+[ext_resource type="Texture2D" path="res://Librarian/images/character_select/v1.3.8-selection/background.png" id="3_background"]
+
+[node name="LibrarianSelection138" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_controller")
+
+[node name="CleanBackground" type="Sprite2D" parent="."]
+centered = false
+texture = ExtResource("3_background")
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_bank")
+preview_skin = "default"
+preview_animation = "selection_loop"
+preview_frame = false
+time_scale = 1.0
+

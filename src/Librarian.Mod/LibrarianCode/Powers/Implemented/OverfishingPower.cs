@@ -16,9 +16,9 @@ namespace Librarian.LibrarianCode.Powers.Implemented;
 /// <summary>Each remaining owner turn doubles the orb that is foreground at that turn's start.</summary>
 public sealed class OverfishingPower : ImplementedLibrarianPower
 {
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Remaining", 0m)];
-    public override int DisplayAmount => DynamicVars["Remaining"].IntValue;
+    public override int DisplayAmount => NormalNotes + UpgradedNotes;
     public void RegisterTurns(int turns)
     {
         AssertMutable();
@@ -34,12 +34,17 @@ public sealed class OverfishingPower : ImplementedLibrarianPower
         InvokeDisplayAmountChanged();
         return true;
     }
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext, ICombatState combatState)
+    [MegaCrit.Sts2.Core.Saves.Runs.SavedProperty] public int NormalNotes { get; set; }
+    [MegaCrit.Sts2.Core.Saves.Runs.SavedProperty] public int UpgradedNotes { get; set; }
+    public void RegisterNotes(bool upgraded) { AssertMutable(); if (upgraded) UpgradedNotes++; else NormalNotes++; }
+    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext context, ICombatState combatState)
     {
-        if (player != Owner.Player || Owner.IsDead || !Owner.Powers.Contains(this)) return;
-        var session = LibrarianRuntime.Get(player);
-        if (!session.Orbs.TryMarkFirstThisTurn(Id.ToString()) || !TryConsumeTurn()) return;
-        var kind = session.Orbs.Foreground;
-        await LibrarianRuntime.Dispatch(session, choiceContext, session.Orbs.Strengthen(kind, session.Orbs.Value(kind), OrbScope.All, Origin));
+        if (player != Owner.Player || Owner.IsDead) return;
+        for (int i = 0; i < NormalNotes + UpgradedNotes; i++)
+        {
+            var note = combatState.CreateCard<Librarian.LibrarianCode.Cards.StudyNotes>(player);
+            if (i >= NormalNotes) { note.UpgradeInternal(); note.FinalizeUpgradeInternal(); }
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(note, PileType.Hand, player), 1.2f);
+        }
     }
 }

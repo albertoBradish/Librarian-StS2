@@ -4,20 +4,25 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 
-/// <summary>V0.4.1: attack once, then remove the target's remaining Block when Fire is imbued.</summary>
-public sealed class EmberPierce() : OrbAdvancedCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+/// <summary>V1.3.11 approved 20-card revision. Published model identity is retained.</summary>
+public sealed class EmberPierce() : OrbAdvancedCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12m, ValueProp.Move)];
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override bool GainsBlock => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6m, ValueProp.Move)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<BufferPower>()];
+    protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
-        await Hit(choiceContext, cardPlay, DynamicVars.Damage.BaseValue);
-        if (session.Orbs.IsActivated(OrbKind.Fire) && cardPlay.Target is { IsAlive: true } target && target.Block > 0)
-            target.LoseBlockInternal(target.Block);
+        bool eligible = session.Orbs.OwnerTurn > 1 && !session.TideSettledPreviousOwnTurn;
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block.BaseValue, ValueProp.Move, play);
+        if (eligible) await PowerCmd.Apply<BufferPower>(context, Owner.Creature, 1, Owner.Creature, this);
     }
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4m);
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3m);
 }

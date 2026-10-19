@@ -101,6 +101,8 @@ internal static class DevelopmentOnboardingAudit
         using var image = Game.GetViewport().GetTexture().GetImage();
         if (expectedSize is { } requested)
             Check(image.GetWidth() == requested.X && image.GetHeight() == requested.Y, "actual rendered dimensions " + name);
+        Check(!image.IsEmpty(), "native rendered image " + name);
+        if (!DevelopmentVisualAudit.SaveScreenshots) return;
         Check(!image.IsEmpty() && image.SavePng(Path.Combine(_output, name + ".png")) == Error.Ok, "capture " + name);
         _screenshots++;
         _captureEvidence.Add(new { file = name + ".png", actualWidth = image.GetWidth(), actualHeight = image.GetHeight(),
@@ -718,8 +720,10 @@ internal static class DevelopmentOnboardingAudit
             else
             {
                 var card = practice.CurrentCard ?? throw new InvalidOperationException("Practice expected card missing at step " + step);
-                string expectedType = step switch { 0 or 5 => "Spark", 1 or 3 or 8 => "Trickle", 4 => "Springwater", 7 => "TidalGravity", 9 => "Renewal", _ => "" };
+                string expectedType = step switch { 0 or 5 => "Spark", 1 or 3 or 8 => "Trickle", 4 => "TreeRingBurst", 7 => "TidalGravity", 9 => "Renewal", _ => "" };
                 Check(card.GetType().Name == expectedType, "lesson uses specified real card " + expectedType + " step" + step);
+                if (step is 0 or 5) Check(card.IsUpgraded && card.EnergyCost.GetWithModifiers(CostModifiers.None) == 0, "legal zero-cost Spark upgrade keeps teaching energy budget");
+                if (step == 4) Check(card.EnergyCost.GetWithModifiers(CostModifiers.None) == 2, "Rotation keeps its actual two-energy cost in the lesson");
                 Check(!practice.AllowEndTurn && card.Pile?.Type == PileType.Hand && NCard.FindOnTable(card) is not null,
                     "expected card exists in actual native hand step" + step);
                 if (step == 0) await NativeMouseSpark(practice, card);
@@ -737,7 +741,7 @@ internal static class DevelopmentOnboardingAudit
                     && after.Foreground == OrbKind.Tide, "actual Trickle increases and activates foreground Tide step" + step);
             if (step == 4)
                 Check(after[OrbKind.Tide].IsActivated && session.Orbs.SettlementsThisCombat > settlements,
-                    "actual Springwater settles Tide without extinguishing it");
+                    "actual Rotation settles Tide without extinguishing it");
             if (step == 7)
                 Check(after[OrbKind.Tide].IsLocked && !after[OrbKind.Tide].IsActivated, "actual TidalGravity locks and extinguishes Tide");
             if (step == 8)

@@ -62,7 +62,7 @@ internal static partial class DevelopmentRitsuCardSweepAudit
         }
         File.WriteAllText(Path.Combine(Output, "owned-models.json"), JsonSerializer.Serialize(records, Json));
         Check(ModelDb.PotionPool<LibrarianPotionPool>().AllPotions.Count() == 3, "three own potions registered in character pool");
-        MainFile.Logger.Info("RITSU_FULL_ASSETS_PASS ownedModels=149 nativeResolvedPaths=True");
+        MainFile.Logger.Info($"RITSU_FULL_ASSETS_PASS ownedModels={records.Count} nativeResolvedPaths=True");
     }
     private static string FullInventory() => JsonSerializer.Serialize(new
     {
@@ -87,10 +87,11 @@ internal static partial class DevelopmentRitsuCardSweepAudit
         }
         var allCards = LibrarianRitsuCardRegistration.LegacyEntries.Keys.Where(t => typeof(CardModel).IsAssignableFrom(t))
             .Select(t => (CardModel)ModelDb.GetById<AbstractModel>(ModelDb.GetId(t))).OrderBy(c => c.Id.Entry).ToArray();
+        Check(allCards.Length == 101, "91 normal, nine retired and one generated card registered");
         await SaveReload(allCards);
         // The sweep helper also rebuilds the full base/upgrade deck before native reload.
         string before = FullInventory();
-        Check(_player.Relics.Count() == 9 && _player.Potions.Count() == 3 && _player.Deck.Cards.Count == 200, "complete own inventory after native reload");
+        Check(_player.Relics.Count() == 9 && _player.Potions.Count() == 3 && _player.Deck.Cards.Count == 202, "complete own inventory after native reload");
         File.WriteAllText(Path.Combine(Output, "full-inventory.json"), before);
         await SaveManager.Instance.SaveRun(null);
         var saved = SaveManager.Instance.LoadRunSave();
@@ -100,14 +101,14 @@ internal static partial class DevelopmentRitsuCardSweepAudit
         await RunManager.Instance.SetUpSavedSingleplayer(restored, saved.SaveData!);
         await NGame.Instance.LoadRun(restored, saved.SaveData!.PreFinishedRoom); await NGame.Instance.Transition.FadeIn();
         _player = restored.Players.Single();
-        Check(before == FullInventory(), "character, nine relics, three potions, 200 active and retired cards survive second native reload");
+        Check(before == FullInventory(), "character, nine relics, three potions, 202 normal, retired and generated card stages survive second native reload");
         await FullFreshFight();
         await Play(Create(ModelDb.Card<global::Librarian.LibrarianCode.Cards.Spark>()));
         await Play(Create(ModelDb.Card<global::Librarian.LibrarianCode.Cards.LibrarianDefend>()));
         await Turn();
         await SaveManager.Instance.SaveRun(null);
-        Check(_player.Relics.Count() == 9 && _player.Potions.Count() == 3 && _player.Deck.Cards.Count == 200, "post-reload combat retains full inventory");
-        MainFile.Logger.Info("RITSU_FULL_SAVE_PASS cards=200 relics=9 potions=3 permanent=7 reloads=2 continuedActions=2 continuedTurns=1");
+        Check(_player.Relics.Count() == 9 && _player.Potions.Count() == 3 && _player.Deck.Cards.Count == 202, "post-reload combat retains full inventory");
+        MainFile.Logger.Info("RITSU_FULL_SAVE_PASS cards=202 relics=9 potions=3 permanent=7 reloads=2 continuedActions=2 continuedTurns=1");
     }
     private static async Task FullRooms()
     {
@@ -139,7 +140,7 @@ internal static partial class DevelopmentRitsuCardSweepAudit
     private static async Task FullRetiredHand()
     {
         var active = ModelDb.CardPool<LibrarianCardPool>().AllCards.Select(c => c.GetType()).ToHashSet();
-        var retired = LibrarianRitsuCardRegistration.LegacyEntries.Keys.Where(t => typeof(CardModel).IsAssignableFrom(t) && !active.Contains(t)).ToArray();
+        var retired = LibrarianRitsuCardRegistration.LegacyEntries.Keys.Where(t => typeof(CardModel).IsAssignableFrom(t) && t != typeof(global::Librarian.LibrarianCode.Cards.StudyNotes) && !active.Contains(t)).ToArray();
         Check(retired.Length == 9 && active.Count == 91, "retired models keep pool ownership without active catalog inclusion");
         foreach (var existing in PileType.Hand.GetPile(_player).Cards.ToArray()) await CardPileCmd.Add(existing, PileType.Discard);
         foreach (var type in retired) foreach (bool upgraded in new[] { false, true })

@@ -207,7 +207,7 @@ public partial class LibrarianPracticeOverlay : NFtue
     {
         0 or 1 or 6 => ModelDb.Card<Spark>(),
         2 or 3 => ModelDb.Card<Trickle>(),
-        4 or 5 => ModelDb.Card<Springwater>(),
+        4 or 5 => ModelDb.Card<global::Librarian.LibrarianCode.Cards.OrbUtility.TreeRingBurst>(),
         7 or 8 or 9 => ModelDb.Card<TidalGravity>(),
         _ => ModelDb.Card<Renewal>()
     };

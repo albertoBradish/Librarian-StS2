@@ -15,7 +15,7 @@
   "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_ONE.description": "At the end of your turn, [gold]Activate[/gold] a random [gold]unlocked[/gold], [gold]extinguished[/gold] Orb.",
   "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_ONE.flavor": "",
   "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_TWO.title": "Tangled Vines",
-  "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_TWO.description": "After the [gold]Growth[/gold] Orb [gold]Settles[/gold], deal 7 [gold]Orb damage[/gold] to a random enemy.",
+  "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_TWO.description": "After your [gold]Growth[/gold] Orb [gold]Settles[/gold], deal 7 damage to a random enemy.",
   "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_TWO.flavor": "",
   "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_THREE.title": "Memory Scroll",
   "LIBRARIAN-LIBRARIAN_RARE_PLACEHOLDER_THREE.description": "At the start of your turn, [gold]Activate[/gold] the last Orb that [gold]Settled[/gold] on a previous turn.",

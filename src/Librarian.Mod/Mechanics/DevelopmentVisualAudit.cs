@@ -54,11 +54,14 @@ internal static class DevelopmentVisualAudit
     private static async Task Wait(double seconds)
         => await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(seconds), SceneTreeTimer.SignalName.Timeout);
 
+    internal static bool SaveScreenshots => System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_NO_SCREENSHOTS") != "1";
+
     private static async Task Capture(string output, string name)
     {
         await NGame.Instance!.ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
         using var image = NGame.Instance.GetViewport().GetTexture().GetImage();
         Require(image is not null && !image.IsEmpty() && image.GetWidth() > 0, "viewport contains image " + name);
+        if (!SaveScreenshots) return;
         string path = Path.Combine(output, name + ".png");
         Require(image!.SavePng(path) == Error.Ok, "screenshot saved " + name);
         MainFile.Logger.Info($"VISUAL_SCREENSHOT path={path} dimensions={image.GetWidth()}x{image.GetHeight()}");
@@ -116,9 +119,11 @@ internal static class DevelopmentVisualAudit
             }
             Require(screen.GetNode<TextureRect>("InfoPanel/VBoxContainer/Relic/Icon").Texture.ResourcePath
                 == "res://Librarian/images/relics/v0.4.0/tattered_scroll.png", "selection uses generated starter icon");
-            Require(Descendants(screen.GetNode("AnimatedBg")).OfType<LibrarianCharacterSelect040>().Any(), "native selection displays approved continuous painting");
+            Require(Descendants(screen.GetNode("AnimatedBg")).OfType<LibrarianCharacterSelect138>().Any(), "native selection displays owned selection-only Spine illustration");
             await Capture(output, "02-librarian-character-select");
-            if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_ONLY") == "1")
+            if (Descendants(screen.GetNode("AnimatedBg")).OfType<LibrarianCharacterSelect138>().Any())
+                await DevelopmentSelection138Audit.Run(screen);
+            else if (System.Environment.GetEnvironmentVariable("LIBRARIAN_041_ONLY") == "1")
                 await DevelopmentRevision041VisualAudit.RunSelection(screen);
             ironclad.Select();
             await Wait(0.8);
@@ -267,7 +272,7 @@ internal static class DevelopmentVisualAudit
 
     private static async Task CaptureMapAndHud(LibrarianSession session, string output)
     {
-        const string iconPath = "res://Librarian/images/charui/v0.3.9/character_icon.png";
+        const string iconPath = "res://Librarian/images/charui/v1.3.11/character_icon.png";
         const string markerPath = "res://Librarian/images/charui/map_marker_librarian.png";
         var hudIcon = Descendants(NRun.Instance!.GlobalUi.TopBar).OfType<TextureRect>()
             .Single(t => t.Texture?.ResourcePath == iconPath);

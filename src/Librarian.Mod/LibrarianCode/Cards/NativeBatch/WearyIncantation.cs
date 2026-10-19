@@ -12,7 +12,7 @@ namespace Librarian.LibrarianCode.Cards.NativeBatch;
 public sealed class WearyIncantation() : LibrarianCard(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(13m, ValueProp.Move), new PowerVar<WeakPower>(2m)];
+        [new DamageVar(14m, ValueProp.Move), new PowerVar<WeakPower>(2m)];
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -29,7 +29,7 @@ public sealed class WearyIncantation() : LibrarianCard(2, CardType.Attack, CardR
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
         DynamicVars.Weak.UpgradeValueBy(1m);
     }
 }

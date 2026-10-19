@@ -1,0 +1,47 @@
+; V1.3.12 refined owned Spine. Ground shadow is independent; native Visuals stays child zero.
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://Mechanics/LibrarianSpineCombatVisuals.cs" id="own_root"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Librarian/spine/v1.3.12-ribbons/bank.res" id="bank"]
+
+[ext_resource type="Script" path="res://Mechanics/LibrarianGroundShadow.cs" id="ground_shadow"]
+
+[node name="LibrarianCombat" type="Node2D"]
+script = ExtResource("own_root")
+
+[node name="Visuals" type="SpineSprite" parent="."]
+unique_name_in_owner = true
+skeleton_data_res = ExtResource("bank")
+scale = Vector2(0.27, 0.27)
+time_scale = 1.0
+
+[node name="FormVfx" type="Control" parent="."]
+unique_name_in_owner = true
+mouse_filter = 2
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = -110.0
+offset_top = -270.0
+offset_right = 110.0
+mouse_filter = 2
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -150)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -300)
+
+[node name="OrbPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -160)
+
+[node name="TalkPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(80, -250)
+
+[node name="LibrarianGroundShadow" type="Node2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -4)
+script = ExtResource("ground_shadow")

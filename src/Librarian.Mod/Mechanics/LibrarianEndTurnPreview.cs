@@ -36,11 +36,11 @@ internal static class LibrarianEndTurnPreview
         if (LibrarianBottomPlay041.PeekBottom(player) is { } bottom && LibrarianBottomPlay041.IsMainstem(bottom)
             || creature.GetPower<FuelTheFirePower>() is { Amount: > 0 })
             return LibrarianBlockPreview.Unknown("bottom");
-        if (session.EndTasks.Count != session.EndTaskPreviews.Count || session.EndTaskPreviews.Any(p => p is null))
+        if (session.Bindings.Count > 0 || session.EndTasks.Count != session.EndTaskPreviews.Count || session.EndTaskPreviews.Any(p => p is null))
             return LibrarianBlockPreview.Unknown("effects");
         var powers = creature.Powers.ToArray();
         var relics = player.Relics.Where(r => !r.IsMelted).ToArray();
-        if (powers.OfType<IOrbEndTurnListener>().Any(p => p is not SedimentationPower and not LifeSymphonyPendingPower and not BlazingChapterPower)
+        if (powers.OfType<IOrbEndTurnListener>().Any(p => p is not SedimentationPower and not LifeSymphonyPendingPower)
             || relics.OfType<IOrbEndTurnListener>().Any(r => r is not LibrarianRarePlaceholderOne and not LibrarianShopPlaceholder)
             || powers.OfType<IOrbAfterEndTurnListener>().Any()
             || relics.OfType<IOrbSettlementListener>().Any(r => r is not LibrarianUncommonPlaceholderOne and not LibrarianRarePlaceholderTwo)
@@ -92,8 +92,6 @@ internal static class LibrarianEndTurnPreview
                                 copy.Dispatch(copy.Orbs.Strengthen(kind, sedimentation.Amount, OrbScope.All));
                         if (listener is LifeSymphonyPendingPower symphony)
                             copy.Orbs.QueueExtraSettlement(OrbSelector.Named(OrbKind.Growth, OrbScope.All), symphony.Amount, "preview-symphony");
-                        if (listener is BlazingChapterPower blazing)
-                            copy.Orbs.QueueExtraSettlement(OrbSelector.Named(OrbKind.Fire, OrbScope.All), blazing.Amount, "preview-blazing");
                     }
                     foreach (var listener in relics.OfType<IOrbEndTurnListener>())
                     {

@@ -1,8 +1,8 @@
 # 图书管理员 · Librarian
 
-**当前开发版 V1.3.0：RitsuLib 0.6.4 单前置，单包适配游戏 0.107.1 / 0.111.0。发布与两版验收状态分别记录，尚不能据此称新版已上线。历史发行按各自原清单安装。**
+**V1.4.0：RitsuLib 0.6.4 单前置，单包适配游戏 0.107.1 / 0.111.0。当前源码在 main 维护，独立下载与安装映射见对应 Release。**
 
-**V1.3.0 development uses RitsuLib 0.6.4 only and targets game 0.107.1 / 0.111.0 in one bundle. This source update does not announce a published release or completed native acceptance. Historical releases retain their original dependencies.**
+**V1.4.0 uses RitsuLib 0.6.4 only and one bundle for game 0.107.1 / 0.111.0. The current source is maintained on main; use the matching Release and installation map for runtime downloads.**
 
 <p align="center">
   <img src="assets/librarian-avatar.png" alt="图书管理员 Q版头像" width="240" height="240">
@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-当前统一开发源码为 **V1.3.5**，在 `main` 维护，由引导层自动选择两个固定游戏目标的内容 DLL。包含后续烈焰表现、首次选角字体缓存及 Spine 动画修订。Steam 当前已发布包为 **V1.3.0**；V1.3.5 尚未发布运行包。本次分批同步仅更新自有源码与生产资源，旧 `codex/beta` 分支、标签及独立发行附件保留。完整同步身份见 `source-snapshot.json`。
+当前统一源码为 **V1.4.0**，由引导层按游戏版本选择一份内容 DLL。本版合并未单独发布的 V1.3.11／V1.3.12 内容，包含 26 张卡的规则与平衡调整、衍生牌《修行笔记》、中英文卡牌文案定稿、丝带与选角修正及更新卡图。Steam 与 GitHub 独立发行的包身份见 `release-metadata.json`；既有分支、标签与历史附件保留。
 
-The current **V1.3.5 development source** uses `main` and one loader selecting content for two fixed game APIs. It includes fire effects, first-selection font caching and Spine animation revisions. **V1.3.0 is published on Steam**; V1.3.5 has no published runtime package. This batched source sync preserves `codex/beta`, existing tags and runtime attachments. `source-snapshot.json` identifies the complete synchronized inputs.
+The current **V1.4.0 unified source** selects one content DLL for the running game version. It combines the unreleased V1.3.11/V1.3.12 work with 26 card changes, generated Study Notes, approved bilingual wording, ribbon and selection fixes, and updated illustrations. `release-metadata.json` identifies the matching runtime package. Existing branches, tags and historical assets remain available.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -22,8 +22,9 @@ custom translation packs.
 图书管理员通过烈焰、波涛、翠叶三种法球的注魔、结算与锁定组织战斗。
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
+- [V1.4.0 / 当前版本下载](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0) · [更新公告 / Change notes](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0)
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
-- [Published historical beta package / 已发布历史 beta 包 1.2.0-beta12](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12)。此历史版下载同一发行的三份运行文件与许可；V1.3.0 采用六文件结构。This historical release has three runtime files; V1.3.0 uses six.
+- [Published historical beta package / 已发布历史 beta 包 1.2.0-beta12](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12)。此历史版下载同一发行的三份运行文件与许可；V1.4.0 采用六文件结构。This historical release has three runtime files; V1.4.0 uses six.
 - [Source and release history / 源码与发布历史](RELEASE-BATCHES.md)。历史发行状态保留；当前统一包身份另见[构建元数据](release-metadata.json)。Historical publication records remain separate from this unified source snapshot.
 - [Historical release index / 历史版本与校验来源](release-history.json)
 - [Migration verification / 22 个版本、352 个附件下载核验](release-history/verification.json)
@@ -44,7 +45,7 @@ Seven original chapters in Simplified Chinese and English unfold through the exi
 
 烈焰、波涛、翠叶通过注魔、结算与锁定相互配合。锁定显示可选默认的红色负数回合、旧回合显示，或球心原值加下方回合；显示方式不改变法球规则。
 
-Channel, evoke and lock Fire, Tide and Growth orbs. Choose red negative lock turns, the old turn counter, or the original value with turns below. These display choices leave orb rules unchanged.
+Activate, Settle and Lock Fire, Tide and Growth Orbs. Choose red negative lock turns, the old turn counter, or the original value with turns below. These display choices leave orb rules unchanged.
 
 <p align="center"><img src="src/Librarian.Mod/Librarian/images/timeline/v1.0.2-beta2/epoch-03.png" alt="随身藏品：散落书卷中的元素魔法 / Carried Collection: elemental magic from scattered scrolls" width="760"></p>
 
@@ -58,16 +59,12 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current development source: **1.3.5**, with exact game-version selection.
-[Release metadata](release-metadata.json) distinguishes current development source
-from the published V1.3.0 Steam package and its artifact hashes. Steam server
-verification does not establish subscriber download delivery. This source update
-does not create a GitHub runtime release.
+Current source and matching runtime package: **1.4.0**, with exact game-version selection. [Release metadata](release-metadata.json) records all six runtime file hashes. Both fixed game APIs are checked with the minimum RitsuLib 0.6.4; the release notes separately identify additional tested dependency combinations and remaining limits. Steam server publication and actual subscriber downloads are recorded separately.
 
 | Component | Verified baseline |
 | --- | --- |
 | Slay the Spire 2 | **0.107.1 public / 59260271** and **0.111.0 public-beta / 41cef1ea**; other versions stop at the loader |
-| BaseLib | Not required by unified V1.3.0; historical releases retain their own manifests |
+| BaseLib | Not required by unified V1.4.0; historical releases retain their own manifests |
 | [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.4) | 0.6.4 compile baseline; complete bundle with both target `compat/` directories and `shared/` |
 
 Manifest minimum versions are not a promise of compatibility with newer game
@@ -77,8 +74,8 @@ validation remain incomplete. Visual/audio feedback is welcome.
 
 ## Install / 安装
 
-1. Use a game branch/version supported by the chosen release. Unified V1.3.0 supports only the two exact versions above.
-2. V1.3.0 requires **the complete RitsuLib bundle with baseline 0.6.4**, installed separately. Historical packages retain their original dependencies.
+1. Use a game branch/version supported by the chosen release. Unified V1.4.0 supports only the two exact versions above.
+2. V1.4.0 requires **the complete RitsuLib bundle with baseline 0.6.4**, installed separately. Historical packages retain their original dependencies.
 3. For an available unified GitHub release, download all six runtime assets and follow `INSTALL-MAP.json`. Place root `Librarian.dll`, `Librarian.json`, `Librarian.pck` and `librarian-variants.manifest` in `mods/Librarian/`. Rename `compat-0.107.1-Librarian.dll` and `compat-0.111.0-Librarian.dll` to `Librarian.dll` in their respective `compat/<version>/` subdirectories. Keep notices and verify `SHA256SUMS.txt`. Historical three-file releases use their own instructions.
 4. For Workshop migration, subscribe to [3801958367](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367), quit the game, unsubscribe from old 3811677053, wait for the download, and restart with Librarian enabled. Keep saves. The old item remains public with a final migration notice after the new release succeeds; duplicate ModIds cannot guarantee that the new copy wins.
 5. Avoid loading both Workshop and manual copies of Librarian. Exit the game

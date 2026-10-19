@@ -82,6 +82,7 @@ internal static class LibrarianRitsuCardRegistration
         [typeof(global::Librarian.LibrarianCode.Cards.PowerCards.ShiftingPages)] = "LIBRARIAN-SHIFTING_PAGES",
         [typeof(global::Librarian.LibrarianCode.Cards.OrbUtility.SongOfIceAndFire)] = "LIBRARIAN-SONG_OF_ICE_AND_FIRE",
         [typeof(global::Librarian.LibrarianCode.Cards.PowerCards.SpacetimeTwist)] = "LIBRARIAN-SPACETIME_TWIST",
+        [typeof(global::Librarian.LibrarianCode.Cards.StudyNotes)] = "LIBRARIAN-STUDY_NOTES",
         [typeof(global::Librarian.LibrarianCode.Cards.Spark)] = "LIBRARIAN-SPARK",
         [typeof(global::Librarian.LibrarianCode.Cards.OrbBasics.Springwater)] = "LIBRARIAN-SPRINGWATER",
         [typeof(global::Librarian.LibrarianCode.Cards.OrbUtility.SproutingBulwark)] = "LIBRARIAN-SPROUTING_BULWARK",
@@ -121,6 +122,7 @@ internal static class LibrarianRitsuCardRegistration
         [typeof(global::Librarian.LibrarianCode.Potions.KindlingPotion)] = "LIBRARIAN-KINDLING_POTION",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.AncientCatalogPower)] = "LIBRARIAN-ANCIENT_CATALOG_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.BlazingChapterPower)] = "LIBRARIAN-BLAZING_CHAPTER_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.AfterRainPower)] = "LIBRARIAN-AFTER_RAIN_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.BookwormPower)] = "LIBRARIAN-BOOKWORM_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CooldownPower)] = "LIBRARIAN-COOLDOWN_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CropRotationPower)] = "LIBRARIAN-CROP_ROTATION_POWER",
@@ -236,6 +238,7 @@ internal static class LibrarianRitsuCardRegistration
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.PowerCards.ShiftingPages>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.OrbUtility.SongOfIceAndFire>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.PowerCards.SpacetimeTwist>()
+            .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.StudyNotes>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.Spark>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.OrbBasics.Springwater>()
             .Card<LibrarianCardPool, global::Librarian.LibrarianCode.Cards.OrbUtility.SproutingBulwark>()
@@ -299,6 +302,7 @@ internal static class LibrarianRitsuCardRegistration
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.TidalBlockStatusPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.TidalMarkPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.ToBeContinuedPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.AfterRainPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.UnretreatingTidePower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.WaterSpiritPower>()
             .Relic<LibrarianRelicPool, global::Librarian.LibrarianCode.Relics.LibrarianCommonPlaceholder>()
@@ -314,7 +318,7 @@ internal static class LibrarianRitsuCardRegistration
             .Singleton<global::Librarian.Mechanics.LibrarianSpellVisualHooks040>()
             .TouchOfOrobasRefinement<global::Librarian.LibrarianCode.Relics.TatteredSpellScroll, global::Librarian.LibrarianCode.Relics.RestoredSpellScroll>()
             .Apply();
-        MainFile.Logger.Info("RITSU_CARD_REGISTRATION registeredModels=100 expectedActive=91 compatibilityModels=9 legacyEntries=True");
+        MainFile.Logger.Info("RITSU_CARD_REGISTRATION registeredModels=101 expectedActive=91 compatibilityModels=9 tokenModels=1 legacyEntries=True");
     }
 }
 

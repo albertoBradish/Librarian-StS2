@@ -16,13 +16,11 @@ The console test runner exits nonzero on failure. CI runs Core and Progress JSON
 tests, plus the offline Loader and bundle tests when their files are present.
 It does not build the proprietary game integration or certify native gameplay.
 
-## Unified V1.3.5 development build (Windows)
+## Unified V1.4.0 development build (Windows)
 
 The current development line compiles the same content source for two exact API
 targets and a small `Librarian.Loader` entry assembly. The shared PCK contains
-authored production resources, including the Spine banks. Steam V1.3.0 is already
-published; this V1.3.5 source update creates no runtime release and does not claim
-native validation of a fresh public clone.
+authored production resources, including the Spine banks and current card art. The matching release records validation of the distributed package. Rebuilding a public clone produces a new local build and does not inherit the maintainer's native validation automatically.
 
 Supply legally obtained, matching private dependencies locally:
 
@@ -61,15 +59,15 @@ builder expects an existing `.research/nuget-packages/` directory or a populated
 user NuGet cache; create the workspace directory for an online fresh restore.
 The builder runs the two content compiles and loader compile serially, exports
 one PCK, checks every artifact, and deploys only into new
-`.research/unified-v1.3.0/runtimes/<game-version>/mods/Librarian/` copies. It does
+`.research/unified-v1.4.0/runtimes/<game-version>/mods/Librarian/` copies. It does
 not replace the two private input games. Logs, target-specific caches and source/
-dependency fingerprints remain under `.research/unified-v1.3.0/`.
+dependency fingerprints remain under `.research/unified-v1.4.0/`.
 
-The candidate at `outputs/revision-v1.3.0/candidate/Librarian/` has exactly six
+The candidate at `outputs/revision-v1.4.0/candidate/Librarian/` has exactly six
 files: root `Librarian.dll` (internal identity `Librarian.Loader`), `Librarian.json`,
 `Librarian.pck`, `librarian-variants.manifest`, and
 `compat/0.107.1/Librarian.dll` / `compat/0.111.0/Librarian.dll`. Both content DLLs
-retain identity `Librarian, Version=1.3.0.0`. Keep the directory structure intact;
+retain identity `Librarian, Version=1.4.0.0`. Keep the directory structure intact;
 the loader validates SHA-256 and loads only the matching target. Private game,
 Godot, Harmony and RitsuLib binaries are neither copied into this mod nor
 redistributed.

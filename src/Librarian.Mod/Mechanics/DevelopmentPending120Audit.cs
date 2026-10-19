@@ -152,7 +152,7 @@ internal static class DevelopmentPending120Audit
             foreach (var mode in new[] { "energy", "stars", "mixed", "energy-x", "star-x", "free" })
             {
                 await Reset(); var dust = await RelicCmd.Obtain<LibrarianUncommonPlaceholderTwo>(player); await dust.BeforeCombatStart();
-                CardModel card = mode switch { "energy-x" => Card<EarthCollapse>(), "star-x" => Card<Stardust>(), _ => Card<Comet>() };
+                CardModel card = mode switch { "energy-x" => Card<global::Librarian.LibrarianCode.Cards.Stateful.Calibrate>(), "star-x" => Card<Stardust>(), _ => Card<Comet>() };
                 card.AddKeyword(CardKeyword.Exhaust);
                 if (mode is not "energy-x" and not "star-x")
                 {
@@ -165,6 +165,7 @@ internal static class DevelopmentPending120Audit
                 var canceled = new PlayCardAction(card,card.TargetType == TargetType.AnyEnemy ? Enemy() : null); canceled.Cancel();
                 Check(dust.Qualifies(card), "cancel does not consume " + mode);
                 int hp = Enemy().CurrentHp;
+                int handBefore = player.PlayerCombatState!.Hand.Cards.Count;
                 await Manual(card);
                 var resource = Last(card);
                 Check(player.PlayerCombatState!.Energy == (mode == "energy-x" ? 3 : 0)
@@ -173,7 +174,7 @@ internal static class DevelopmentPending120Audit
                     && resource.EnergyValue == (mode == "energy-x" ? 3 : 0)
                     && resource.StarValue == (mode == "star-x" ? 4 : 0), "native resource history " + mode);
                 Check(!dust.Qualifies(card), "one use " + mode);
-                if(mode == "energy-x") Check(Enemy().CurrentHp == hp-24, "energy X effects preserved");
+                if(mode == "energy-x") Check(player.PlayerCombatState!.Hand.Cards.Count == handBefore+2, "energy X draw effects preserved");
                 if(mode == "star-x") Check(Enemy().CurrentHp == hp-20, "star X effects preserved");
                 if(mode == "mixed") Check(card.GetStarCostWithModifiers()==5 && card.EnergyCost.GetWithModifiers(CostModifiers.All)==2, "fixed costs restored");
                 evidence.Add(new { mode, resource });

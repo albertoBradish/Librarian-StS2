@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Mechanics/LibrarianCharacterSelect137.cs" id="1_controller"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Librarian/spine/v1.3.7-selection/bank.res" id="2_bank"]
+
+[node name="LibrarianSelection137" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_controller")
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_bank")
+preview_skin = "default"
+preview_animation = "selection_loop"
+preview_frame = false
+time_scale = 1.0
+

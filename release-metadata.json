@@ -1,9 +1,6 @@
 {
   "mod_id": "Librarian",
-  "version": "1.3.0",
-  "current_source_version": "1.3.5",
-  "baseline_runtime_version": "1.3.0",
-  "channel": "unified",
+  "version": "1.4.0",
   "active_cards": 91,
   "game": {
     "targets": [
@@ -28,41 +25,38 @@
     {
       "name": "Librarian.dll",
       "bytes": 23552,
-      "sha256": "a69f792135dc668aa5fd2e2ad66b8de4ca381d6289f4bcc59c6f739abe29a54b"
+      "sha256": "dedfd3ef65bb4ab6680739e7024f523b0193cc44c10077770a862460765173bc"
     },
     {
       "name": "Librarian.json",
-      "bytes": 416,
-      "sha256": "a00c186155c9dfff8d917a7e9547482e7df814bbb815c97f094196f0931c5817"
+      "bytes": 418,
+      "sha256": "37c004416d9512a10f9b628ac9a888bbd891ca884a2a144a037ebece3d1f04b7"
     },
     {
       "name": "Librarian.pck",
-      "bytes": 125378036,
-      "sha256": "3e89da1f32fac1e04db118ded64af933af0d00f3ea98eba159388aa6f638ffdd"
+      "bytes": 170119348,
+      "sha256": "b0ffe3bd3de7f0545a631b27d6449daf3ef7ec691084f349e1bd0b25c6919935"
     },
     {
       "name": "librarian-variants.manifest",
       "bytes": 528,
-      "sha256": "3e34a1eb706ba1ced93b1f74298bd6c04ea9fad121618210cd2d04a9aff6e374"
+      "sha256": "71439c863918ed6dfb40b2b5d5af29c954f2ad0ba09cb025085f3e891d57b72e"
     },
     {
       "name": "compat/0.107.1/Librarian.dll",
-      "bytes": 2778112,
-      "sha256": "1defe1579dc76f0ec12198c466a94d35064e0de730aa5323e0daabcc69b3ba42"
+      "bytes": 3106304,
+      "sha256": "c0bfb24fa5ce14cb50531c6303915e9b2eed632264f4e95f24aae6057104f17d"
     },
     {
       "name": "compat/0.111.0/Librarian.dll",
-      "bytes": 2774016,
-      "sha256": "29316a070d3ecc212cb0b06493324e73a34451b901d7e364eb2610995ccaf577"
+      "bytes": 3103232,
+      "sha256": "d6377628c4c6696154a2046717c4b729adbf9a2fba013dc225fb00e7d570ab46"
     }
   ],
-  "source_matches_baseline_runtime": false,
-  "source_status": "development_snapshot_with_unreleased_maintenance",
-  "source_snapshot": "source-snapshot.json",
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0",
+  "runtime_release_status": "planned",
+  "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
+  "channel": "unified",
   "workshop_item_id": "3801958367",
-  "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367",
-  "steam_status": "published_server_verified_subscriber_download_pending",
-  "runtime_release_url": null,
-  "runtime_release_status": "not_published",
-  "note": "Artifacts identify the published V1.3.0 Steam package, not V1.3.5 source. No new GitHub runtime release. Native multi-client, user visual acceptance and independent performance validation remain incomplete."
+  "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367"
 }

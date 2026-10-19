@@ -28,6 +28,11 @@ public sealed class LibrarianSession(Player player)
         player.Creature.GetPower<Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>() is null);
     public EndTurnRules EndTurnRules { get; set; } = new();
     public bool ResolvingEndTurn { get; internal set; }
+    public int RevisionDamageBonus { get; internal set; }
+    public bool TideSettledThisOwnTurn { get; internal set; }
+    public bool TideSettledPreviousOwnTurn { get; internal set; }
+    public bool OwnTurnOpen { get; internal set; } = true;
+    internal List<(Player Owner, Player Target)> Bindings { get; } = [];
     public long FireLostThisCombat { get; internal set; }
     public OrbKind? LastSettledOrb { get; internal set; }
     public long LastSettledTurn { get; internal set; } = -1;
@@ -57,6 +62,9 @@ public sealed class LibrarianSession(Player player)
         while (Orbs.OwnerTurn < (Player.PlayerCombatState?.TurnNumber ?? 1))
         {
             PreviousTurnsLastSettledOrb = LastSettledOrb;
+            TideSettledPreviousOwnTurn = TideSettledThisOwnTurn;
+            TideSettledThisOwnTurn = false;
+            OwnTurnOpen = true;
             Orbs.BeginOwnerTurn();
         }
     }
@@ -233,6 +241,8 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
                     await CreatureCmd.Damage(context, enemy, request.EffectAmount(), ValueProp.Unpowered, player.Creature);
                 break;
             case OrbKind.Tide:
+                if (session.OwnTurnOpen)
+                    session.TideSettledThisOwnTurn = true;
                 LibrarianOrbAudio.OnSettlement(session, request);
                 await LibrarianOrbVfx.Travel(session, OrbKind.Tide, player.Creature);
                 if (CombatManager.Instance.IsOverOrEnding || player.Creature.IsDead || player.Creature.CombatState is null) return;
@@ -459,12 +469,28 @@ public sealed class LibrarianCombatHooks : SingletonModel
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        foreach (var creature in participants.ToArray())
+        var participantsNow = participants.ToArray();
+        foreach (var creature in participantsNow)
             if (LibrarianRuntime.For(creature) is { } session)
             {
                 while (session.AfterHandCleanup.TryDequeue(out var action))
                     if (!CombatManager.Instance.IsOverOrEnding && !creature.IsDead) await action(choiceContext);
                 session.EndTurnHandCards.Clear();
+            }
+    }
+
+    public override async Task AfterSideTurnEndLate(PlayerChoiceContext context, CombatSide side, IEnumerable<Creature> participants)
+    {
+        foreach (var creature in participants.ToArray())
+            if (LibrarianRuntime.For(creature) is { } session)
+            {
+                var bindings = session.Bindings.ToArray();
+                session.Bindings.Clear();
+                foreach (var (owner, target) in bindings)
+                    if (!CombatManager.Instance.IsOverOrEnding && owner.Creature.IsAlive && target.Creature.IsAlive
+                        && target.Creature.CombatState == owner.Creature.CombatState)
+                        await CreatureCmd.GainBlock(owner.Creature, target.Creature.Block, ValueProp.Unpowered, null);
+                session.OwnTurnOpen = false;
             }
     }
 }

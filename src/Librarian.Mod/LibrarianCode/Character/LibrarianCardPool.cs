@@ -16,7 +16,7 @@ public class LibrarianCardPool : TypeListCardPoolModel
             and not "LIBRARIAN-SEVER_CURRENT" and not "LIBRARIAN-COLD_FLAME"
             and not "LIBRARIAN-FOREST_WALL"
             and not "LIBRARIAN-LONELY_SCROLL" and not "LIBRARIAN-SEA_BURIAL"
-            and not "LIBRARIAN-DROUGHT_EDICT" and not "LIBRARIAN-TIDAL_STRIKE");
+            and not "LIBRARIAN-DROUGHT_EDICT" and not "LIBRARIAN-TIDAL_STRIKE" and not "LIBRARIAN-STUDY_NOTES");
     protected override IEnumerable<CardModel> FilterThroughEpochs(UnlockState unlockState, IEnumerable<CardModel> cards)
         => LibrarianUnlocks040.FilterCards(unlockState, cards);
     public override string Title => LibrarianCharacter.CharacterId; //This is not a display name.

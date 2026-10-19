@@ -4,14 +4,13 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
-Current development: **Librarian 1.3.0 unified**, with one loader, two content DLLs
+Current development: **Librarian 1.4.0 unified**, with one loader, two content DLLs
 and one shared PCK targeting **0.107.1 / 59260271** and **0.111.0 / 41cef1ea**.
 Its compile baseline is RitsuLib 0.6.4 only. Future formal source maintenance uses
 `main`; historical `codex/beta`, stable snapshots, tags and release assets remain
-intact. The last published beta is `v1.2.0-beta12`; this page does not declare
-V1.3.0 published or its native validation complete.
+intact. Historical beta releases retain their own manifests and dependencies. Current release status and exact runtime hashes are recorded in `release-metadata.json` and the corresponding Release.
 
-## Unified V1.3.0 preparation
+## Unified V1.4.0 preparation
 
 Prepare only after both native targets have passed the release's own menu/new-run/
 combat/save/reload and complete runtime-log gates. The versioned Delivery must
@@ -24,8 +23,8 @@ release preparation checks the recorded digest without treating a public copy
 that omits private configuration as an identical research workspace.
 
 ```powershell
-python scripts/export_github_source.py --channel unified --source-workspace . --delivery docs/Revision-v1.3.0-Delivery.json
-python scripts/prepare_github_release.py --channel unified --candidate outputs/revision-v1.3.0/candidate/Librarian --version 1.3.0 --delivery docs/Revision-v1.3.0-Delivery.json --output outputs/revision-v1.3.0/github-assets-r1
+python scripts/export_github_source.py --channel unified --source-workspace . --delivery docs/Revision-v1.4.0-Delivery.json
+python scripts/prepare_github_release.py --channel unified --candidate outputs/revision-v1.4.0/candidate/Librarian --version 1.4.0 --delivery docs/Revision-v1.4.0-Delivery.json --output outputs/revision-v1.4.0/github-assets-r1
 ```
 
 The exporter writes only the allowlisted snapshot to ignored `.research/github-unified`;
@@ -38,7 +37,7 @@ GitHub has a flat attachment namespace. Root `Librarian.dll` is the loader;
 `compat-0.107.1-Librarian.dll` and `compat-0.111.0-Librarian.dll` map to
 `mods/Librarian/compat/<version>/Librarian.dll` through `INSTALL-MAP.json`.
 Attach all six runtime assets, installation map/instructions, notices and
-`SHA256SUMS.txt` to a reviewed draft for the exact public-source tag `v1.3.0`.
+`SHA256SUMS.txt` to a reviewed draft for the exact public-source tag `v1.4.0`.
 The unified release is a formal release, not a beta prerelease. Do not create the
 tag or publish until explicitly authorized, and do not rewrite historical tags.
 Download and verify every published attachment before claiming delivery.
@@ -101,7 +100,7 @@ release does not prove that Steam subscribers received the same build.
 
 ## Historical archives / 历史二进制归档
 
-Small beta revisions retain the base version and increment `betaX` by default: `1.1.0-beta1` → `1.1.0-beta2`. A larger version change or an explicit author instruction may select a new base version. Git source synchronization and a new GitHub Release are separate actions.
+Since V1.3.1, small updates increment the patch number: V1.3.0 → V1.3.1 → V1.3.2. Game public/public-beta branch selection is maintained separately from the mod version. Historical beta labels remain unchanged. Git source synchronization and a new GitHub Release are separate actions.
 
 The author authorized migration of verifiable local historical versions on
 2026-09-27. For older binaries without a complete matching source snapshot, an

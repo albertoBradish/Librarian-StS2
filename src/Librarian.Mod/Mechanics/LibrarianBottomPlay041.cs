@@ -14,6 +14,8 @@ namespace Librarian.Mechanics;
 /// </summary>
 public static class LibrarianBottomPlay041
 {
+    private static readonly Dictionary<CardModel, int> BottomPlays = new();
+    internal static bool IsPlayingFromBottom(CardModel card) => BottomPlays.ContainsKey(card);
     /// <summary>v043 ReadBackward alone follows Havoc's empty-pile shuffle, then reads the bottom once.</summary>
     public static async Task<BottomPlayResult> ReadBackwardAsync(PlayerChoiceContext context, Player player)
     {
@@ -82,7 +84,9 @@ public static class LibrarianBottomPlay041
         if (forceExhaust)
             card.ExhaustOnNextPlay = true;
 
-        await LibrarianGameApi.AutoPlay(choiceContext, player, card);
+        BottomPlays[card] = BottomPlays.GetValueOrDefault(card) + 1;
+        try { await LibrarianGameApi.AutoPlay(choiceContext, player, card); }
+        finally { if (--BottomPlays[card] == 0) BottomPlays.Remove(card); }
         return new(card, true);
     }
 

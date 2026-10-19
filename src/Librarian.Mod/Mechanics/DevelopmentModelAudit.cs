@@ -89,9 +89,9 @@ internal static class DevelopmentModelAudit
             }
             MainFile.Logger.Info("CARD_ART_AUDIT_PASS cards=91 revision043NewOrReplacedCards=5 placeholderCards=0 legacyAssetsPreserved=True");
             var character = ModelDb.Character<LibrarianCharacter>();
-            Require(character.CharacterSelectBg == LibrarianCharacterSelect040.ScenePath, "Character still uses placeholder selection background");
+            Require(character.CharacterSelectBg == LibrarianCharacterSelect137.ScenePath, "Character uses the authored selection Spine background");
             var selectionScene = ResourceLoader.Load<PackedScene>(character.CharacterSelectBg).Instantiate<Control>();
-            Require(selectionScene is LibrarianCharacterSelect040, "Missing animated selection controller");
+            Require(selectionScene is LibrarianCharacterSelect137, "Missing animated selection controller");
             Require(selectionScene.FindChild("Illustration", true, false) is TextureRect hero && hero.Texture is not null, "Missing continuous hero illustration");
             selectionScene.Free();
             Require(ResourceLoader.Exists(character.CustomCharacterSelectIconPath), "Missing character portrait");

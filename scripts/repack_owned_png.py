@@ -5,7 +5,7 @@ from inspect_owned_pck import catalog
 ROOT=Path(__file__).resolve().parents[1]
 ENGINE=ROOT/'.research/tools/megadot/MegaDot_v4.5.1-stable_mono_win64_console.exe'
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
-def add_raw_pages(pack,asset_dir,asset_root,work):
+def add_raw_pages(pack,asset_dir,asset_root,work,expected_pages=None):
     work.mkdir(exist_ok=False)
     previous=work/'export-original.pck'
     shutil.copy2(pack,previous)
@@ -23,7 +23,7 @@ def add_raw_pages(pack,asset_dir,asset_root,work):
         assert name not in {x['resource_path'] for x in files}
         row={'source':page.as_posix(),'resource_path':name,'sha256':sha(page)}
         raw_pages.append(row);files.append(row)
-    assert len(raw_pages)==2
+    assert raw_pages and (expected_pages is None or len(raw_pages)==expected_pages)
     host=work/'host';host.mkdir()
     (host/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Own exact payload packer"\n','utf-8')
     shutil.copy2(Path(__file__).parent/'pack_exact_payloads.gd.in',host/'pack.gd')

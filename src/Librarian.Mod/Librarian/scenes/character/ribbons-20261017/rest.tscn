@@ -1,0 +1,46 @@
+; V1.3.12 refined owned Spine. Ground shadow is independent; native Visuals stays child zero.
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://Mechanics/LibrarianSpineRestSiteCharacter.cs" id="root_script"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Librarian/spine/v1.3.12-ribbons/bank.res" id="bank"]
+
+[ext_resource type="Script" path="res://Mechanics/LibrarianGroundShadow.cs" id="ground_shadow"]
+
+[node name="LibrarianRest" type="Node2D"]
+script = ExtResource("root_script")
+
+[node name="Visuals" type="SpineSprite" parent="."]
+unique_name_in_owner = true
+skeleton_data_res = ExtResource("bank")
+scale = Vector2(0.46, 0.46)
+time_scale = 1.0
+
+[node name="ControlRoot" type="Control" parent="."]
+mouse_filter = 2
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+offset_left = -190.0
+offset_top = -470.0
+offset_right = 190.0
+focus_mode = 2
+
+[node name="ThoughtBubbleRight" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = 150.0
+offset_top = -470.0
+offset_right = 150.0
+offset_bottom = -470.0
+mouse_filter = 2
+
+[node name="ThoughtBubbleLeft" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = -150.0
+offset_top = -470.0
+offset_right = -150.0
+offset_bottom = -470.0
+mouse_filter = 2
+
+[node name="LibrarianGroundShadow" type="Node2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -4)
+script = ExtResource("ground_shadow")

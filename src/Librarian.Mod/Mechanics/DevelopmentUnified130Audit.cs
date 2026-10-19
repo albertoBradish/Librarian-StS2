@@ -44,7 +44,7 @@ internal static class DevelopmentUnified130Audit
         string profile = Path.GetFullPath(OS.GetUserDataDir()).Replace('\\', '/');
         return Environment.GetEnvironmentVariable("LIBRARIAN_RUNTIME_AUDIT") == "1"
             && Environment.GetEnvironmentVariable("LIBRARIAN_V130_AUDIT") == "1"
-            && profile.Contains("/.research/unified-v1.3.3/", StringComparison.OrdinalIgnoreCase)
+            && profile.Contains("/.research/unified-v1.3.7/", StringComparison.OrdinalIgnoreCase)
             && profile.Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase);
     }
 
@@ -94,7 +94,7 @@ internal static class DevelopmentUnified130Audit
             string gameVersion = nativeGameVersion.StartsWith('v') || nativeGameVersion.StartsWith('V')
                 ? nativeGameVersion[1..] : nativeGameVersion;
             Check(gameVersion == expectedGame, "fixed native game version: " + nativeGameVersion);
-            Check(content.GetName().Name == "Librarian" && content.GetName().Version == new Version(1, 3, 3, 0), "stable content identity and unified assembly version");
+            Check(content.GetName().Name == "Librarian" && content.GetName().Version == new Version(1, 3, 7, 0), "stable content identity and unified assembly version");
             string contentPath = Path.GetFullPath(content.Location).Replace('\\', '/');
             Check(contentPath.EndsWith("/compat/" + expectedGame + "/Librarian.dll", StringComparison.OrdinalIgnoreCase), "correct game-specific content path");
             var contentAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => a.GetName().Name == "Librarian").ToArray();
@@ -110,7 +110,7 @@ internal static class DevelopmentUnified130Audit
             Check(mods[0].assemblies.Contains(content), "native mod owns selected content assembly");
             var nativeModAssemblies = mods[0].assemblies.Select(a => a.GetName().Name).ToArray();
 #endif
-            Check(LibrarianUpdateNotice051.CurrentVersion == "1.3.3" && mods[0].manifest?.version == "1.3.3", "uniform version is read from ModId manifest");
+            Check(LibrarianUpdateNotice051.CurrentVersion == "1.3.7" && mods[0].manifest?.version == "1.3.7", "uniform version is read from ModId manifest");
             Check(!content.GetReferencedAssemblies().Any(a => a.Name == "BaseLib")
                 && !AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "BaseLib"), "Ritsu-only reference and loaded process");
 
@@ -184,11 +184,11 @@ internal static class DevelopmentUnified130Audit
 
             fixture = new Control { Name = "LibrarianV130ScriptFixture", Visible = false, ProcessMode = Node.ProcessModeEnum.Disabled };
             NGame.Instance!.AddChild(fixture);
-            var select = ResourceLoader.Load<PackedScene>(LibrarianCharacterSelect040.ScenePath).Instantiate<Node>();
+            var select = ResourceLoader.Load<PackedScene>(character.CharacterSelectBg).Instantiate<Node>();
             fixture.AddChild(select);
-            Check(select is LibrarianCharacterSelect040 && ReferenceEquals(select.GetType().Assembly, content), "selection scene uses selected content script");
-            var ownSelect = (LibrarianCharacterSelect040)select;
-            Check(ownSelect.Illustration.Texture is not null && Desc(select).OfType<LibrarianSelectionMotes101>().Count() == 1, "selection script Ready loads illustration and custom child");
+            Check(select is LibrarianCharacterSelect137 && ReferenceEquals(select.GetType().Assembly, content), "selection scene uses selected content script");
+            var ownSelect = (LibrarianCharacterSelect137)select;
+            Check(ownSelect.Spine.GetClass() == "SpineSprite" && ownSelect.Spine.GetChildCount() > 0, "selection script Ready loads actual native selection Spine");
             var scenes = new List<object>();
             foreach (string path in new[] { character.CustomVisualsPath, character.CustomRestSiteAnimPath, character.CustomMerchantAnimPath })
             {
@@ -208,7 +208,7 @@ internal static class DevelopmentUnified130Audit
                 MainFile.Logger.Info("V130_NATIVE_PRELOAD_PASS common=True realSessionCompletion=True");
             }
             File.WriteAllText(Path.Combine(output, "v130-prototype.json"), JsonSerializer.Serialize(new {
-                mode, checks = _checks, game_version = expectedGame, native_game_version = nativeGameVersion, mod_version = "1.3.3", user_data = OS.GetUserDataDir(),
+                mode, checks = _checks, game_version = expectedGame, native_game_version = nativeGameVersion, mod_version = "1.3.7", user_data = OS.GetUserDataDir(),
                 content_path = contentPath, content_sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(content.Location))),
                 native_mod_assemblies = nativeModAssemblies, models, artwork, scenes,
                 nativeCommonPreloadAwaited = quit, nativeRunTested = false, realMultiplayerTested = false

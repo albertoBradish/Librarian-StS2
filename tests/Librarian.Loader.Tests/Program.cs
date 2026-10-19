@@ -28,13 +28,13 @@ Run("reject hash length", () => Reject<InvalidDataException>(() => BundleManifes
 Run("reject nonhex hash", () => Reject<InvalidDataException>(() => BundleManifest.Parse(Manifest(hash: new string('g', 64)))));
 Run("reject unknown manifest property", () => Reject<JsonException>(() => BundleManifest.Parse(json.Replace("\"schema_version\":1", "\"unexpected\":true,\"schema_version\":1", StringComparison.Ordinal))));
 Run("reject duplicate JSON property", () => Reject<InvalidDataException>(() => BundleManifest.Parse(json.Replace("\"schema_version\":1", "\"schema_version\":1,\"schema_version\":1", StringComparison.Ordinal))));
-Run("reject null variants", () => Reject<InvalidDataException>(() => BundleManifest.Parse("{\"schema_version\":1,\"mod_id\":\"Librarian\",\"mod_version\":\"1.3.5\",\"variants\":null}")));
+Run("reject null variants", () => Reject<InvalidDataException>(() => BundleManifest.Parse("{\"schema_version\":1,\"mod_id\":\"Librarian\",\"mod_version\":\"1.4.0\",\"variants\":null}")));
 Run("reject missing required fields", () => Reject<JsonException>(() => BundleManifest.Parse("{}")));
 Run("reject malformed JSON", () => Reject<JsonException>(() => BundleManifest.Parse("{")));
 Run("accept content assembly identity", () => BundleManifest.ValidateAssemblyIdentity(Assembly.GetExecutingAssembly().GetName(), "Librarian"));
-Run("reject loader identity as content", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian.Loader, Version=1.3.5.0"), "Librarian")));
+Run("reject loader identity as content", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian.Loader, Version=1.4.0.0"), "Librarian")));
 Run("reject stale content assembly version", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian, Version=1.2.0.0"), "Librarian")));
-Run("reject assembly culture", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian, Version=1.3.5.0, Culture=en-US"), "Librarian")));
+Run("reject assembly culture", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian, Version=1.4.0.0, Culture=en-US"), "Librarian")));
 
 foreach (var unsafePath in new[] { "../Librarian.dll", "/Librarian.dll", "C:/Librarian.dll", "compat\\0.107.1\\Librarian.dll", "compat//Librarian.dll", "compat/./Librarian.dll" })
     Run($"reject contained-path escape {unsafePath}", () => Reject<InvalidDataException>(() => BundleManifest.ResolveContainedPath(Path.GetTempPath(), unsafePath)));
@@ -87,7 +87,7 @@ try
         File.Copy(testAssembly, Path.Combine(temp, "compat", version, "Librarian.dll"));
     }
     File.WriteAllText(Path.Combine(temp, BundleManifest.FileName), json);
-    File.WriteAllText(Path.Combine(temp, "Librarian.json"), "{\"id\":\"Librarian\",\"version\":\"1.3.5\"}");
+    File.WriteAllText(Path.Combine(temp, "Librarian.json"), "{\"id\":\"Librarian\",\"version\":\"1.4.0\"}");
     Run("read full manifest and matching native version", () => BundleManifest.Read(temp).ValidateNativeManifest(temp));
     Run("verify both variant bytes and assembly identity", () =>
     {
@@ -131,7 +131,7 @@ foreach (var error in failed)
     Console.Error.WriteLine(error);
 return failed.Count == 0 ? 0 : 1;
 
-string Manifest(int schema = 1, string id = "Librarian", string version = "1.3.5", string? betaVersion = "0.111.0",
+string Manifest(int schema = 1, string id = "Librarian", string version = "1.4.0", string? betaVersion = "0.111.0",
     string assembly = "Librarian", string stablePath = "compat/0.107.1/Librarian.dll", string? hash = null)
 {
     var variants = new List<object>

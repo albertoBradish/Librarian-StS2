@@ -40,15 +40,15 @@ public sealed partial class LibrarianCharacter : ModCharacterTemplate<LibrarianC
     protected override IEnumerable<RelicModel> LocalStartingRelics => [ModelDb.Relic<TatteredSpellScroll>()];
 
     // Existing owned scenes and runtime references are registered through RitsuLib.
-    public override string CustomCharacterSelectBgPath => LibrarianCharacterSelect040.ScenePath;
-    public override string CustomIconTexturePath => "res://Librarian/images/charui/v0.3.9/character_icon.png";
+    public override string CustomCharacterSelectBgPath => LibrarianCharacterSelect138.ScenePath;
+    public override string CustomIconTexturePath => "res://Librarian/images/charui/v1.3.11/character_icon.png";
     public override string CustomCharacterSelectIconPath => "res://Librarian/images/character_select/floating_archive/portrait.png";
     public override string CustomCharacterSelectLockedIconPath => "res://Librarian/images/character_select/floating_archive/portrait_locked.png";
     public override string CustomMapMarkerPath => "res://Librarian/images/charui/map_marker_librarian.png";
     public override string CustomVisualsPath => LibrarianSpineAssetPins.CombatScene;
     public override string CustomRestSiteAnimPath => LibrarianSpineAssetPins.RestScene;
     public override string CustomMerchantAnimPath => LibrarianSpineAssetPins.MerchantScene;
-    public override string CustomIconOutlineTexturePath => "res://Librarian/images/charui/v0.3.9/character_icon_outline.png";
+    public override string CustomIconOutlineTexturePath => "res://Librarian/images/charui/v1.3.11/character_icon_outline.png";
     public override string CustomArmPointingTexturePath => "res://Librarian/images/character/v0.3.7/hand_point.png";
     public override string CustomArmRockTexturePath => "res://Librarian/images/character/v0.3.7/hand_rock.png";
     public override string CustomArmPaperTexturePath => "res://Librarian/images/character/v0.3.7/hand_paper.png";

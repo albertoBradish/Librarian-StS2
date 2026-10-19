@@ -67,16 +67,17 @@ public sealed class ReadWidely() : OrbUtilityCard(0, CardType.Skill, CardRarity.
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new EnergyVar(1), new DynamicVar("Growth", 2m), new DynamicVar("Tide", 3m), new DynamicVar("Fire", 4m)];
+        [new EnergyVar(1), new DynamicVar("Growth", 4m), new DynamicVar("Tide", 3m), new DynamicVar("Fire", 2m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
         await PlayerCmd.GainEnergy(Amount("Energy"), Owner);
-        await Gain(context, session, OrbKind.Growth, Amount("Growth"));
-        await Gain(context, session, OrbKind.Tide, Amount("Tide"));
         await Gain(context, session, OrbKind.Fire, Amount("Fire"));
+        await Gain(context, session, OrbKind.Tide, Amount("Tide"));
+        await Gain(context, session, OrbKind.Growth, Amount("Growth"));
+        if (IsUpgraded) await Draw(context, 1);
     }
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Innate);
+    protected override void OnUpgrade() { }
 }
 
 /// <summary>Source 71/r72. D11 freezes orb identities, not mutable values, before any loss callbacks.</summary>

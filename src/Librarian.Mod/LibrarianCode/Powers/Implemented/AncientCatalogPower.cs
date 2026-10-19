@@ -16,13 +16,18 @@ namespace Librarian.LibrarianCode.Powers.Implemented;
 /// <summary>v0.4.0: each explicit channel or positive Growth gain strengthens one random other orb exactly once.</summary>
 public sealed class AncientCatalogPower : ImplementedLibrarianPower, IOrbEventListener
 {
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Vigor", 0m)];
+    [MegaCrit.Sts2.Core.Saves.Runs.SavedProperty]
+    public int VigorAmount { get => DynamicVars["Vigor"].IntValue; set => DynamicVars["Vigor"].BaseValue = value; }
     public async Task OnOrbEvent(LibrarianSession session, PlayerChoiceContext context, OrbEvent change)
     {
-        if (!OwnEvent(session, change) || change.Orb != OrbKind.Growth) return;
-        if (change.Kind != OrbEventKind.Channelled && !(change.Kind == OrbEventKind.Gained && change.ActualAmount > 0)) return;
+        bool triggers = (change.Kind == OrbEventKind.Lost && change.ActualAmount > 0)
+            || change.Kind == OrbEventKind.Locked;
+        if (!OwnEvent(session, change) || !triggers
+            || !session.OwnTurnOpen
+            || !session.Orbs.TryMarkFirstThisTurn(Id.ToString())) return;
         Flash();
-        var others = session.Orbs.Positions.Where(k => k != OrbKind.Growth).ToArray();
-        var kind = others[new LibrarianRuntime.GameOrbRandom(session.Player).NextInt(others.Length)];
-        await LibrarianRuntime.Dispatch(session, context, session.Orbs.Strengthen(kind, checked((int)Amount), OrbScope.All, Origin));
+        await PassiveBlock(Amount);
+        await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.VigorPower>(context, Owner, VigorAmount, Owner, null);
     }
 }

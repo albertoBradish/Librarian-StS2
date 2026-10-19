@@ -17,6 +17,7 @@ PROJECT = ROOT / 'src/Librarian.Mod'
 SDK = ROOT / '.research/tools/dotnet'
 MOD_VERSION = json.loads((PROJECT / 'Librarian.json').read_text(encoding='utf-8-sig'))['version']
 WORK = ROOT / f'.research/unified-v{MOD_VERSION}'
+CACHE = Path(os.environ.get('LIBRARIAN_BUILD_CACHE_ROOT', str(WORK))).resolve()
 LOGS = WORK / 'logs'
 CANDIDATE = ROOT / f'outputs/revision-v{MOD_VERSION}/candidate/Librarian'
 GAME_INPUTS = {
@@ -87,15 +88,15 @@ def main():
                             capture_output=True, text=True)
     if active.stdout.strip():
         raise SystemExit('A shared game/editor process is active; finish it before build/deployment')
-    env = isolated_environment(WORK / 'build-userdata')
+    env = isolated_environment(CACHE / 'build-userdata')
     env.update(DOTNET_ROOT=str(SDK), PATH=str(SDK) + os.pathsep + env.get('PATH', ''),
                MSBUILDDISABLENODEREUSE='1', NUGET_PACKAGES=str(ROOT / '.research/nuget-packages'),
-               DOTNET_CLI_HOME=str(WORK / 'build-userdata'))
+               DOTNET_CLI_HOME=str(CACHE / 'build-userdata'))
     before = source_manifest()
     commands = []
     targets = GAME_TARGETS if args.target == 'all' else [args.target]
     for version in targets:
-        target = WORK / 'build' / version
+        target = CACHE / 'build' / version
         command = [str(SDK / 'dotnet.exe'), 'build', str(PROJECT / 'Librarian.csproj'), '-c', 'Debug',
                    '--nologo', '-v', 'minimal', f'-p:LibrarianGameVersion={version}',
                    f'-p:OutputPath={target / "bin"}/', f'-p:BaseIntermediateOutputPath={target / "obj"}/']
@@ -103,7 +104,7 @@ def main():
     if args.target != 'all':
         print(f'PASS compile-only API target {args.target}; no complete package or deployment')
         return
-    loader = WORK / 'build/loader'
+    loader = CACHE / 'build/loader'
     commands.append(run([str(SDK / 'dotnet.exe'), 'build', str(ROOT / 'src/Librarian.Loader/Librarian.Loader.csproj'),
                          '-c', 'Debug', '--nologo', '-v', 'minimal',
                          f'-p:LibrarianLoaderSdk={GAME_INPUTS["0.107.1"] / "data_sts2_windows_x86_64"}',
@@ -112,7 +113,7 @@ def main():
     if not args.pack:
         print('PASS all DLLs compiled; --pack is required for a complete deployable bundle')
         return
-    stage = WORK / 'package/Librarian'
+    stage = CACHE / 'package/Librarian'
     stage.mkdir(parents=True, exist_ok=True)
     export_cache = PROJECT / '.godot/mono/temp/bin/Debug'
     export_cache.mkdir(parents=True, exist_ok=True)
@@ -125,13 +126,13 @@ def main():
     ]
     for file in [*[GAME_INPUTS['0.111.0'] / 'data_sts2_windows_x86_64' / n for n in editor_dependencies],
                  *(RITSU / 'compat/0.111.0').glob('*.dll'), *(RITSU / 'shared').glob('*.dll'),
-                 WORK / 'build/0.111.0/bin/Librarian.dll']:
+                 CACHE / 'build/0.111.0/bin/Librarian.dll']:
         shutil.copy2(file, export_cache / file.name)
     # Register the game's immutable native extension only in the ignored editor cache.
     native = GAME_INPUTS['0.111.0'] / 'libspine_godot.windows.template_release.x86_64.dll'
     if hashlib.sha256(native.read_bytes()).hexdigest() != '854d827b8926b00ba6459093033bf0c0898efa2b6e1c85eb0abc78ca153ea58c':
         raise ValueError('Fixed private Spine extension changed.')
-    extension = WORK / 'export-native/Spine.gdextension'
+    extension = CACHE / 'export-native/Spine.gdextension'
     extension.parent.mkdir(parents=True, exist_ok=True)
     extension.write_text('[configuration]\nentry_symbol="spine_godot_library_init"\n'
                          'compatibility_minimum="4.1"\n[libraries]\n' +
@@ -150,17 +151,24 @@ def main():
                          str(stage / 'Librarian.pck')], export_env, 'shared-pck', PROJECT))
     from repack_owned_png import add_raw_pages
     from inspect_owned_pck import catalog
-    asset_root = 'res://Librarian/spine/v1.3.5-feedback'
-    asset_dir = PROJECT / asset_root.removeprefix('res://')
-    identity_pack = add_raw_pages(stage / 'Librarian.pck', asset_dir, asset_root,
-                                  WORK / ('raw-pack-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')))
+    asset_roots = [('res://Librarian/spine/v1.3.12-ribbons', 2),
+                   ('res://Librarian/spine/v1.3.7-selection', 2),
+                   ('res://Librarian/spine/v1.3.8-selection', 1),
+                   ('res://Librarian/spine/v1.3.12-selection', 1)]
+    identity_pack = []
+    for asset_root, page_count in asset_roots:
+        asset_dir = PROJECT / asset_root.removeprefix('res://')
+        identity_pack.append(add_raw_pages(stage / 'Librarian.pck', asset_dir, asset_root,
+                            CACHE / ('raw-pack-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')),
+                            expected_pages=page_count))
     packed = catalog(stage / 'Librarian.pck')
     entries = {r['path'].removeprefix('res://'): r for r in packed['files']}
-    for file in asset_dir.iterdir():
-        if file.is_file() and file.suffix in ('.res', '.spskel', '.spatlas', '.json', '.png'):
-            resource = file.relative_to(PROJECT).as_posix()
-            if resource not in entries or entries[resource]['sha256'] != hashlib.sha256(file.read_bytes()).hexdigest():
-                raise ValueError('Native owned asset PCK bytes changed: ' + resource)
+    for asset_root, _ in asset_roots:
+        for file in (PROJECT / asset_root.removeprefix('res://')).iterdir():
+            if file.is_file() and file.suffix in ('.res', '.spskel', '.spatlas', '.json', '.png'):
+                resource = file.relative_to(PROJECT).as_posix()
+                if resource not in entries or entries[resource]['sha256'] != hashlib.sha256(file.read_bytes()).hexdigest():
+                    raise ValueError('Native owned asset PCK bytes changed: ' + resource)
     forbidden = [name for name in entries if name.lower().endswith(('.dll', '.exe', '.gdextension', '.csproj', '.log'))
                  or name == '.godot/extension_list.cfg' or name == 'override.cfg' or '.research' in name]
     if forbidden:
@@ -176,7 +184,7 @@ def main():
         relative = f'compat/{version}/Librarian.dll'
         destination = stage / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(WORK / f'build/{version}/bin/Librarian.dll', destination)
+        shutil.copy2(CACHE / f'build/{version}/bin/Librarian.dll', destination)
         variants.append({'game_version': version, 'assembly': 'Librarian', 'path': relative,
                          'sha256': hashlib.sha256(destination.read_bytes()).hexdigest()})
     (stage / 'librarian-variants.manifest').write_text(json.dumps({

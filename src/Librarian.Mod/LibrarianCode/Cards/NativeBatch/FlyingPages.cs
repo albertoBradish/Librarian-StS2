@@ -10,7 +10,7 @@ namespace Librarian.LibrarianCode.Cards.NativeBatch;
 public sealed class FlyingPages() : LibrarianCard(2, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(5m, ValueProp.Move), new RepeatVar(3)];
+        [new DamageVar(4m, ValueProp.Move), new RepeatVar(4)];
 
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         => DamageCmd.Attack(DynamicVars.Damage.BaseValue)

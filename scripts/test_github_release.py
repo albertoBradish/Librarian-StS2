@@ -211,6 +211,22 @@ class UnifiedReleaseTests(unittest.TestCase):
             self.assertEqual(value, sha256(self.output / name))
         self.assertFalse(list(self.output.glob('*.zip')))
 
+    def test_later_minor_version_keeps_exact_manifest_delivery_and_install_version(self):
+        self.native['version'] = '1.4.0'
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.native), encoding='utf-8')
+        path = self.candidate / 'librarian-variants.manifest'
+        variants = json.loads(path.read_text())
+        variants['mod_version'] = '1.4.0'
+        path.write_text(json.dumps(variants), encoding='utf-8')
+        self.record['version'] = '1.4.0'
+        self.record['build']['artifacts'] = validate_bundle(self.candidate)
+        self.write_delivery()
+        result = prepare(self.candidate, '1.4.0', self.output, self.delivery, root=self.root, channel='unified')
+        self.assertEqual(result['version'], '1.4.0')
+        self.assertTrue((self.output / 'INSTALL.txt').read_text().startswith('Librarian V1.4.0 /'))
+        with self.assertRaisesRegex(ValueError, 'exact unified'):
+            prepare(self.candidate, '1.3.0', self.root / 'mismatched', self.delivery, root=self.root, channel='unified')
+
     def test_requires_delivery_and_both_native_proofs(self):
         with self.assertRaisesRegex(ValueError, 'requires current'):
             prepare(self.candidate, '1.3.0', self.output, root=self.root, channel='unified')
@@ -286,6 +302,7 @@ class UnifiedReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'exactly'):
             prepare(self.candidate, '1.3.0', self.output, self.delivery, root=self.root, channel='beta')
 
+    @unittest.skipUnless((Path(__file__).parent / 'export_github_source.py').is_file(), 'Private source exporter is not part of the public build checkout')
     def test_unified_export_binds_source_and_complete_candidate(self):
         import export_github_source as exporter
         from unittest.mock import patch

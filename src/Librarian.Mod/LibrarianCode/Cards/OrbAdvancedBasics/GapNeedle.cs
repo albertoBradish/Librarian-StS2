@@ -19,7 +19,7 @@ public sealed class GapNeedle() : OrbAdvancedCard(1, CardType.Attack, CardRarity
         return Math.Abs(session.Orbs.Value(background[0]) - session.Orbs.Value(background[1]));
     }
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new CalculationBaseVar(9m), new ExtraDamageVar(1m),
+        [new CalculationBaseVar(11m), new ExtraDamageVar(1m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewSession(card) is { } session ? Difference(session) : 0)];
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         => Hit(choiceContext, cardPlay, DynamicVars.CalculationBase.BaseValue + Difference(Session));

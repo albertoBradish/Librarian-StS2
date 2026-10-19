@@ -139,37 +139,20 @@ public partial class LibrarianTutorialModal : NFtue
                 if (Panel.GetNodeOrNull<CanvasItem>(name + "/" + path)?.Material is { } material)
                     Panel.GetNode<CanvasItem>(name + "/" + path).Material = (Material)material.Duplicate();
         AddChild(Panel);
-        float width = 840;
-        Panel.SetAnchorsAndOffsetsPreset(LayoutPreset.Center);
-        Panel.OffsetLeft = -width / 2; Panel.OffsetRight = width / 2;
-        Panel.OffsetTop = -360; Panel.OffsetBottom = 360;
-        Panel.Set("stretch_mode", (int)TextureRect.StretchModeEnum.Scale);
+        // Keep the native tutorial scene's portrait frame, centered text, font
+        // sizes and edge-mounted buttons. Stretching it to a wider rectangle
+        // distorts the artwork and changes the native tutorial's visual hierarchy.
         var body = Panel.GetNode<MegaCrit.Sts2.addons.mega_text.MegaRichTextLabel>("Description");
         body.AutowrapMode = TextServer.AutowrapMode.WordSmart;
         body.IsHorizontallyBound = true;
         body.IsVerticallyBound = true;
-        body.HorizontalAlignment = HorizontalAlignment.Left;
-        body.VerticalAlignment = VerticalAlignment.Top;
-        body.MinFontSize = 28; body.MaxFontSize = 34;
-        body.AddThemeConstantOverride("line_separation", 4);
         body.ClipContents = true;
-        body.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        body.OffsetLeft = 56; body.OffsetRight = -56;
-        body.OffsetTop = 142; body.OffsetBottom = -150;
-        var header = Panel.GetNode<Control>("Header");
-        header.AnchorLeft = 0; header.AnchorRight = 1;
-        header.OffsetLeft = 30; header.OffsetRight = -30;
         Panel.YesButton.IsYes = true; Panel.NoButton.IsYes = false;
         Panel.YesButton.Show(); Panel.NoButton.Show();
         NPopupYesNoButton[] buttons = [Panel.NoButton, Panel.YesButton];
         for (int i = 0; i < buttons.Length; i++)
         {
             var button = buttons[i];
-            button.AnchorLeft = button.AnchorRight = i;
-            button.AnchorTop = button.AnchorBottom = 1;
-            button.OffsetLeft = i == 0 ? 56 : -296;
-            button.OffsetRight = button.OffsetLeft + 240;
-            button.OffsetTop = -138; button.OffsetBottom = -62;
             button.FocusMode = FocusModeEnum.All;
             button.FocusNeighborLeft = button.FocusNeighborRight = button.GetPathTo(buttons[1 - i]);
             button.FocusPrevious = button.FocusNext = button.FocusNeighborLeft;
@@ -286,6 +269,8 @@ public partial class LibrarianOnboardingScheduler : Node
     private double _wait = .35;
     internal static void Schedule(NCharacterSelectScreen screen)
     {
+        if (System.Environment.GetEnvironmentVariable("LIBRARIAN_SELECTION_REVIEW") == "1"
+            || System.Environment.GetEnvironmentVariable("LIBRARIAN_SPINE_NATIVE_PROBE") == "1") return;
         if (screen.GetNodeOrNull<LibrarianOnboardingScheduler>("LibrarianOnboardingScheduler") is null)
             screen.AddChild(new LibrarianOnboardingScheduler { Name = "LibrarianOnboardingScheduler" });
     }

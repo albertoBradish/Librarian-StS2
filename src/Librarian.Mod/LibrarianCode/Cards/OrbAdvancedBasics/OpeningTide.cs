@@ -14,12 +14,12 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 public sealed class OpeningTide() : OrbAdvancedCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Innate];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 6m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 8m)];
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         Session.Waves.Add(Amount("Waves"));
         LibrarianRuntime.VerifyBlock(Session);
         return Task.CompletedTask;
     }
-    protected override void OnUpgrade() => DynamicVars["Waves"].UpgradeValueBy(3m);
+    protected override void OnUpgrade() => DynamicVars["Waves"].UpgradeValueBy(2m);
 }

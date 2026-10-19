@@ -11,6 +11,11 @@ internal static class DevelopmentSelection050Audit
     internal static async Task Run(NCharacterSelectScreen screen)
     {
         if (!DevelopmentVisualAudit.Enabled) return;
+        if (screen.GetNode("AnimatedBg").GetChild(0) is LibrarianCharacterSelect138)
+        {
+            await DevelopmentSelection138Audit.Run(screen);
+            return;
+        }
         int checks = 0;
         void Check(bool ok, string label)
         {

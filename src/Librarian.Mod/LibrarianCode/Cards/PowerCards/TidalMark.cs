@@ -13,7 +13,7 @@ namespace Librarian.LibrarianCode.Cards.PowerCards;
 /// <summary>V1.2.0-beta2: one energy at both stages; each applied Orb lock grants three/five Waves.</summary>
 public sealed class TidalMark() : ImplementedPowerCard(1, CardRarity.Rare)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TidalMarkPower>(3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TidalMarkPower>(4m)];
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         => Apply<TidalMarkPower>(choiceContext, DynamicVars["TidalMarkPower"].BaseValue);
     protected override void OnUpgrade() => DynamicVars["TidalMarkPower"].UpgradeValueBy(2m);

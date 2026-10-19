@@ -23,7 +23,7 @@ internal sealed class VariantDescriptor
 internal sealed class BundleManifest
 {
     internal const string ModId = "Librarian";
-    internal const string ModVersion = "1.3.5";
+    internal const string ModVersion = "1.4.0";
     internal const string FileName = "librarian-variants.manifest";
     internal static readonly string[] SupportedGameVersions = ["0.107.1", "0.111.0"];
     private const long MaximumManifestBytes = 128 * 1024;
@@ -88,7 +88,7 @@ internal sealed class BundleManifest
         var native = document.RootElement;
         if (!native.TryGetProperty("id", out var id) || id.GetString() != Id ||
             !native.TryGetProperty("version", out var version) || version.GetString() != Version)
-            throw new InvalidDataException("Librarian.json and the variant manifest must both declare Librarian 1.3.5.");
+            throw new InvalidDataException("Librarian.json and the variant manifest must both declare Librarian 1.4.0.");
     }
 
     /// <summary>The caller keeps the returned read lock alive until LoadFromAssemblyPath has completed.</summary>
@@ -116,7 +116,7 @@ internal sealed class BundleManifest
     {
         if (identity.Name != expectedName || identity.Version != System.Version.Parse(ModVersion + ".0") ||
             !string.IsNullOrEmpty(identity.CultureName) || identity.GetPublicKeyToken() is { Length: > 0 })
-            throw new InvalidDataException($"Invalid Librarian content assembly identity: '{identity.FullName}'; expected Librarian, Version=1.3.5.0, Culture=neutral, PublicKeyToken=null.");
+            throw new InvalidDataException($"Invalid Librarian content assembly identity: '{identity.FullName}'; expected Librarian, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null.");
     }
 
     internal static string ResolveContainedPath(string rootDirectory, string relativePath)
@@ -147,7 +147,7 @@ internal sealed class BundleManifest
     private void Validate()
     {
         if (SchemaVersion != 1 || Id != ModId || Version != ModVersion)
-            throw new InvalidDataException("The variant manifest must use schema 1 and declare Librarian 1.3.5.");
+            throw new InvalidDataException("The variant manifest must use schema 1 and declare Librarian 1.4.0.");
         if (Variants is null || Variants.Length != SupportedGameVersions.Length)
             throw new InvalidDataException("The Librarian bundle must declare exactly two game variants.");
         var seen = new HashSet<string>(StringComparer.Ordinal);

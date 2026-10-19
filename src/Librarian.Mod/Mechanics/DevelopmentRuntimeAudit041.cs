@@ -15,6 +15,16 @@ internal static partial class DevelopmentRuntimeAudit
         if (!OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase))
             throw new InvalidOperationException("041 fixture requires isolated validation profile");
         string? focus = System.Environment.GetEnvironmentVariable("LIBRARIAN_041_FOCUS");
+        if (focus == "140-balance")
+        {
+            await Run140Balance();
+            return;
+        }
+        if (focus == "1311-simple")
+        {
+            await Run1311Simple();
+            return;
+        }
         if (focus == "120-card-art-r5")
         {
             await DevelopmentCardArtR5Audit.Run();

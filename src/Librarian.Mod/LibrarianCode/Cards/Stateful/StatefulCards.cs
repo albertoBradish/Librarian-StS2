@@ -15,18 +15,22 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace Librarian.LibrarianCode.Cards.Stateful;
 
 /// <summary>v0.3.0 approved revision, catalog 48. Stable model ID retained.</summary>
-public sealed class Calibrate() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public sealed class Calibrate() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    protected override bool HasEnergyCostX => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Extra", 0m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        bool retain = Session.ResolvingEndTurn;
-        await LibrarianBottomPlay041.DrawTopThenTakeBottomAsync(context, Owner, Amount("Cards"), retain);
-        // The card is in the Play pile while its effect resolves; moving this instance
-        // to the bottom is the final atomic step of the exchange.
-        await LibrarianBottomPlay041.MoveToBottomAsync(context, this);
+        int x = ResolveEnergyXValue();
+        int count = checked(x + Amount("Extra"));
+        await Session.AfterCleanupOrNow(context, async ctx =>
+        {
+            var drawn = (await CardPileCmd.Draw(ctx, count, Owner)).ToArray();
+            foreach (var card in drawn) card.EnergyCost.AddThisTurn(-x);
+        });
     }
-    protected override void OnUpgrade() => DynamicVars["Cards"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["Extra"].UpgradeValueBy(1m);
 }
 
 // Catalog 44. The existing starter-card visuals serve as the two choice previews only.

@@ -18,7 +18,7 @@ public sealed class Reignite() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUti
     }
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Retain);
+        EnergyCost.UpgradeBy(-1);
     }
 }
 
@@ -40,31 +40,28 @@ public sealed class FlameStrike() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
 /// <summary>v0.3.0 approved revision, catalog 10. Stable model ID retained.</summary>
 public sealed class WaveStrike() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Tide", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(6m), new ExtraDamageVar(1m), new DynamicVar("Increase", 3m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewSession(card)?.RevisionDamageBonus ?? 0)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        await Hit(context, play, Amount("Damage"));
-        await Gain(context, Session, OrbKind.Tide, Amount("Tide"));
+        int hits = LibrarianBottomPlay041.IsPlayingFromBottom(this) ? 2 : 1;
+        decimal damage = DynamicVars.CalculationBase.BaseValue + Session.RevisionDamageBonus;
+        await DamageCmd.Attack(damage).FromCard(this, play).Targeting(play.Target!)
+            .WithHitCount(hits).WithHitFx("vfx/vfx_attack_slash").Execute(context);
+        Session.RevisionDamageBonus = checked(Session.RevisionDamageBonus + Amount("Increase"));
+        foreach (var card in Owner.PlayerCombatState!.AllCards.OfType<WaveStrike>()) card.DynamicVars.RecalculateForUpgradeOrEnchant();
     }
-    protected override void OnUpgrade()
-    {
-        DynamicVars["Damage"].UpgradeValueBy(3m);
-    }
+    protected override void OnUpgrade() { DynamicVars.CalculationBase.UpgradeValueBy(2m); DynamicVars["Increase"].UpgradeValueBy(1m); }
 }
 
 /// <summary>v0.3.0 approved revision, catalog 11. Stable model ID retained.</summary>
 public sealed class ScatteredFlames() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CalculationBaseVar(8m), new ExtraDamageVar(5m), new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => PreviewLockedCount(card))];
-    protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
-    {
-        await Hit(context, play, Amount("CalculationBase") + LockedCount * Amount("ExtraDamage"));
-    }
-    protected override void OnUpgrade()
-    {
-        DynamicVars.ExtraDamage.UpgradeValueBy(2m);
-    }
-    protected override void AfterDowngraded() { DynamicVars.RecalculateForUpgradeOrEnchant(); DynamicVars.FinalizeUpgrade(); }
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];
+    protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
+        => DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play).Targeting(play.Target!)
+            .WithHitCount(2 + LockedCount).WithHitFx("vfx/vfx_attack_slash").Execute(context);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1m);
 }
 
 /// <summary>Catalog 15. The damage is fixed, not conditional on how much Fire was available.</summary>
@@ -80,17 +77,23 @@ public sealed class AshenBlow() : OrbBasicsCard(3, CardType.Attack, TargetType.A
 }
 
 /// <summary>v0.3.0 approved revision, catalog 16. Stable model ID retained.</summary>
-public sealed class Springwater() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+public sealed class Springwater() : Librarian.LibrarianCode.Cards.OrbUtility.OrbUtilityCard(0, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        await Settle(context, Session, OrbKind.Tide);
+        await Session.AfterCleanupOrNow(context, async ctx =>
+        {
+            await CardPileCmd.Draw(ctx, Amount("Cards"), Owner);
+            var selected = (await CardSelectCmd.FromHand(ctx, Owner,
+                new MegaCrit.Sts2.Core.CardSelection.CardSelectorPrefs(
+                    new MegaCrit.Sts2.Core.Localization.LocString("card_selection", "LIBRARIAN-TO_DRAW_BOTTOM"), 1), null, this)).FirstOrDefault();
+            if (selected is not null)
+                CardCmd.PreviewCardPileAdd(await CardPileCmd.Add(selected, PileType.Draw, CardPilePosition.Bottom), 2.2f);
+        });
     }
-    protected override void OnUpgrade()
-    {
-        AddKeyword(CardKeyword.Retain);
-    }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1m);
 }
 
 /// <summary>v0.3.0 approved revision, catalog 17. Stable model ID retained.</summary>
