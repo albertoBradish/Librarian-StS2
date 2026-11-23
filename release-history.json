@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "recommended_version": "1.4.0",
+  "recommended_version": "1.4.10",
   "migration_date": "2026-09-27",
   "versions": [
     {
@@ -335,6 +335,17 @@
       "tag_commit": "10e3b0376a37f7199236bdd2158949a8f9f5b24e",
       "published_at": "2026-10-19T11:18:52Z",
       "downloaded_sha256_verified": true
+    },
+    {
+      "version": "1.4.10",
+      "tag": "v1.4.10",
+      "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.10",
+      "provenance": "release-history/1.4.10.json",
+      "source_kind": "matching_current_public_source",
+      "status": "published",
+      "tag_commit": "9ffd300d45031b0b26306319cf3571f6a5592d39",
+      "published_at": "2026-11-23T13:01:05Z",
+      "downloaded_sha256_verified": true
     }
   ],
   "unavailable": [
@@ -370,8 +381,8 @@
     }
   ],
   "verification": "release-history/verification.json",
-  "published_release_count": 30,
-  "recommended_tag": "v1.4.0",
+  "published_release_count": 31,
+  "recommended_tag": "v1.4.10",
   "recommended_channel": "unified",
   "recommended_beta_version": "1.2.0-beta12",
   "recommended_beta_tag": "v1.2.0-beta12",
@@ -389,9 +400,13 @@
     "unified": {
       "item_id": "3801958367",
       "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367",
-      "content_manifest": "1601972879121412647",
+      "content_manifest": "536928804556262745",
       "server_verified": true,
-      "actual_branch_download_verified": false
+      "actual_branch_download_verified": false,
+      "branches": [
+        "public",
+        "public-beta"
+      ]
     }
   },
   "workshop_note": "Unified is the maintained entry. Legacy stable/beta records are retained for historical package identity."

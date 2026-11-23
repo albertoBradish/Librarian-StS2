@@ -1,6 +1,8 @@
 # Source and release status / 源码与发布状态
 
-V1.4.10 将新版异角色出牌、牌底自动打出和 Issue #8 性能修复同步至统一包。当前安装使用一个引导和五套内容 DLL，文件身份见 [发行元数据](release-metadata.json)。
+V1.4.10 已同步 Steam 和 GitHub。新版修复异角色出牌、牌底自动出牌、恐惧模式的六角色 A10 解锁，并合入 Issue #8 的性能改动。统一包包含一个引导和五套内容 DLL。[本版发行记录](release-history/1.4.10.json)
+
+V1.4.10 is available on Steam and GitHub. This release fixes imported card effects, bottom-card autoplay and the six-character Dread unlock requirement, and includes the performance changes for issue #8. [Release and file verification](release-history/1.4.10.json)
 
 ## V1.4.0 历史记录
 
