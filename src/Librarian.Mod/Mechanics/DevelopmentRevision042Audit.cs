@@ -61,7 +61,7 @@ internal static class DevelopmentRevision042Audit
         async Task Start()
         {
             S().Orbs.BeginOwnerTurn();
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeHandDraw(player, ctx, player.Creature.CombatState!);
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeHandDraw(player, ctx, player.Creature.CombatState!);
         }
         foreach (bool up in new[] { false, true })
         {
@@ -115,7 +115,7 @@ internal static class DevelopmentRevision042Audit
                 "Sediment only unimbued background including locked " + up);
             Check(positions.SequenceEqual(S().Orbs.Positions) && !S().Orbs.IsActivated(background[1]), "Sediment no move or imbue " + up);
             await Reset(); await Play(Create<Sedimentation>(up));
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(ctx, MegaCrit.Sts2.Core.Combat.CombatSide.Player, [player.Creature]);
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(ctx, MegaCrit.Sts2.Core.Combat.CombatSide.Player, [player.Creature]);
             Check(S().Orbs.Select(OrbScope.Background).All(k => S().Orbs.Value(k) == (up ? 8 : 6)), "Sediment shared end-turn integration " + up);
 
             await Reset(); await Play(Create<CropRotation>(up));

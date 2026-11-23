@@ -26,14 +26,13 @@ public partial class LibrarianSpineSpellPulse : Node2D
     internal float Age { get; private set; }
     private float _fadeOutAt = float.PositiveInfinity;
     private bool _counted;
+    private LibrarianNativeCardLayersVfx? _nativeLayers;
     private readonly Vector2[] _ribbon = new Vector2[20];
     private readonly Vector2[] _branch = new Vector2[12];
     // Godot copies point data into each draw command; one node can reuse these between shapes.
     private readonly Vector2[] _quad = new Vector2[4];
     private readonly Vector2[] _closedQuad = new Vector2[5];
     private readonly Vector2[] _openTriplet = new Vector2[3];
-    private readonly Vector2[] _shield = new Vector2[6];
-    private readonly Vector2[] _closedShield = new Vector2[7];
 
     internal void FadeOut() => _fadeOutAt = Math.Min(_fadeOutAt, Age);
 
@@ -48,10 +47,21 @@ public partial class LibrarianSpineSpellPulse : Node2D
     {
         if (_counted) { _counted = false; LibrarianCardVfx050.Exit(); }
     }
+    public override void _Ready()
+    {
+        if (Stage != LibrarianSpineSpellStage.Impact || Profile.Shape != SpellShape050.Stone) return;
+        _nativeLayers = LibrarianNativeCardLayersVfx.Rock();
+        if (_nativeLayers is null) return;
+        _nativeLayers.Scale = Vector2.One * Radius / 45f;
+        AddChild(_nativeLayers);
+    }
     public override void _Process(double delta)
     {
         Age += (float)delta;
-        if (Age >= Duration || Age >= _fadeOutAt + .055f || !LibrarianCardVfx050.Available(EffectOwner))
+        float lifetime = Math.Max(Duration, _nativeLayers?.Lifetime ?? 0);
+        bool enabled = Stage == LibrarianSpineSpellStage.Impact
+            ? LibrarianCardVfx050.Enabled(EffectOwner) : LibrarianCardVfx050.Available(EffectOwner);
+        if (Age >= lifetime || Age >= _fadeOutAt + .055f || !enabled)
         { QueueFree(); return; }
         if (FollowSocket && FollowCreature is { } creature)
         {
@@ -85,47 +95,41 @@ public partial class LibrarianSpineSpellPulse : Node2D
         Color light = color.Lightened(.62f);
         float progress = quiet ? .55f : 1 - Mathf.Pow(1 - t, 3);
         float r = Radius;
-        Glow(Vector2.Zero, r * (Stage == LibrarianSpineSpellStage.Prepare ? .62f : .8f), color, fade * .65f);
+        if (Stage != LibrarianSpineSpellStage.Block)
+            Glow(Vector2.Zero, r * (Stage == LibrarianSpineSpellStage.Prepare ? .62f : .8f), color, fade * .65f);
 
         if (quiet)
         {
-            DrawArc(Vector2.Zero, r * .34f, -.6f, 2.1f, 20, Alpha(color, fade * .45f), 1.6f, true);
-            DrawArc(Vector2.Zero, r * .29f, 2.5f, 5.6f, 20, Alpha(light, fade * .30f), 1, true);
+            // Reduced motion keeps a stable element silhouette, without moving rings.
+            if (Profile.Shape == SpellShape050.Stone && Stage == LibrarianSpineSpellStage.Impact)
+                Impact(r,.25f,color,light,fade*.65f);
+            else ElementMark(Vector2.Zero, r * .19f, color, light, fade * .65f);
             return;
         }
         if (Stage == LibrarianSpineSpellStage.Prepare)
         {
-            float angle = Age * (Major ? 2.8f : 1.8f);
+            float angle = Age * (Major ? 1.4f : .8f);
             float ring = r * (.34f + .07f * Mathf.Sin(t * Mathf.Pi));
-            DrawArc(Vector2.Zero, ring, angle, angle + 4.1f, 30, Alpha(color, fade * .72f), 2, true);
-            DrawArc(Vector2.Zero, ring * .72f, -angle, -angle + 3.2f, 24, Alpha(light, fade * .6f), 1, true);
             for (int i = 0; i < 3; i++)
             {
                 float a = i * Mathf.Tau / 3 + angle;
-                Paper(Vector2.FromAngle(a) * ring, 2.7f, a + .4f, color, fade * .75f);
+                ElementMark(Vector2.FromAngle(a) * ring * (1 - t * .35f), 3.4f, color, light, fade * .75f);
             }
             DrawCircle(Vector2.Zero, 2.1f + 1.1f * t, Alpha(light, fade * .65f));
             return;
         }
         if (Stage == LibrarianSpineSpellStage.Block)
         {
-            DrawSetTransform(Vector2.Zero, 0, new(1, 1.08f));
-            _shield[0] = new(-r * .64f, -r * .35f);
-            _shield[1] = new(0, -r * .57f);
-            _shield[2] = new(r * .64f, -r * .35f);
-            _shield[3] = new(r * .48f, r * .24f);
-            _shield[4] = new(0, r * .7f);
-            _shield[5] = new(-r * .48f, r * .24f);
-            Array.Copy(_shield, _closedShield, _shield.Length);
-            _closedShield[6] = _shield[0];
-            DrawColoredPolygon(_shield, Alpha(color, fade * .09f));
-            DrawPolyline(_closedShield, Alpha(color, fade * .28f), 8, true);
-            DrawPolyline(_closedShield, Alpha(light, fade * .9f), 2, true);
+            // GainBlock already displayed the native shield before this hook. Add only
+            // a compact lower-edge residue; never overlay a second shield or block number.
             for (int i = 0; i < 3; i++)
-                DrawArc(new(0,r*.04f),r*(.27f+i*.16f),-2.7f,-.45f,25,Alpha(color,fade*.45f),1.5f,true);
-            DrawSetTransform(Vector2.Zero);
+                ElementMark(new((i - 1) * r * .42f, r * (.46f + progress * .06f)),
+                    4 + i % 2, color, light, fade * .55f);
+            return;
         }
-        else if (Major || Profile.Element == SpellElement050.Prismatic || Stage == LibrarianSpineSpellStage.Status)
+        else if (Stage == LibrarianSpineSpellStage.Status)
+            Status(r, progress, color, light, fade);
+        else if (Major || Profile.Element == SpellElement050.Prismatic)
             Sigil(r, progress, color, light, fade);
         else if (Stage == LibrarianSpineSpellStage.Impact)
             Impact(r, progress, color, light, fade);
@@ -151,6 +155,41 @@ public partial class LibrarianSpineSpellPulse : Node2D
                     DrawLine(p - axis * (2 + (1 - t) * 5), p, Alpha(color, opacity * .5f), 3, true);
                     DrawCircle(p, 1.1f + i % 3 * .35f, Alpha(light, opacity));
                 }
+            }
+        }
+    }
+    private void Status(float r, float p, Color color, Color light, float alpha)
+    {
+        // Power application/actual Flash are separate calls. A small ascending motif
+        // identifies the element without implying a second application or an attack.
+        for (int i = 0; i < 3; i++)
+        {
+            var point = new Vector2((i - 1) * r * .32f, r * (.15f - p * .38f) + i % 2 * 5);
+            ElementMark(point, 5 + i % 2 * 2, color, light, alpha * .75f);
+        }
+    }
+    private void ElementMark(Vector2 point, float size, Color color, Color light, float alpha)
+    {
+        if (Profile.Element == SpellElement050.Leaf)
+            Leaf(point, size * 1.4f, -.65f, color, alpha);
+        else if (Profile.Element == SpellElement050.Page)
+            Paper(point, size, -.12f, color, alpha);
+        else if (Profile.Element == SpellElement050.Fire)
+        {
+            SetQuad(point + new Vector2(0,-size*1.8f), point + new Vector2(size*.65f,0),
+                point + new Vector2(0,size*.55f), point + new Vector2(-size*.65f,0));
+            DrawColoredPolygon(_quad, Alpha(color,alpha));
+            DrawLine(point,point+new Vector2(0,-size*.8f),Alpha(light,alpha),1.5f,true);
+        }
+        else if (Profile.Element == SpellElement050.Water)
+            DrawArc(point,size,-2.5f,.55f,16,Alpha(color,alpha),2,true);
+        else
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Vector2 p = point + Vector2.FromAngle(i * Mathf.Tau / 3 - Mathf.Pi / 2) * size;
+                Color c = LibrarianCardVfx050.Tint((SpellElement050)(1 + i));
+                DrawCircle(p,size*.40f,Alpha(c,alpha));
             }
         }
     }
@@ -203,6 +242,22 @@ public partial class LibrarianSpineSpellPulse : Node2D
     }
     private void Impact(float r,float p,Color c,Color light,float a)
     {
+        if (LibrarianPreferences050.Current.Particles && !LibrarianPreferences050.Current.ReducedMotion
+            && _nativeLayers is not null && GodotObject.IsInstanceValid(_nativeLayers)
+            && !_nativeLayers.IsQueuedForDeletion() && _nativeLayers.HasCore) return;
+        if (Profile.Shape == SpellShape050.Stone)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Vector2 center = Vector2.FromAngle(i * 2.4f) * r * p * .48f;
+                float size = 4 + i % 3;
+                SetQuad(center+new Vector2(-size,0),center+new Vector2(-size*.4f,-size*1.3f),
+                    center+new Vector2(size,-size*.4f),center+new Vector2(size*.6f,size*.8f));
+                DrawColoredPolygon(_quad,Alpha(c,a*.8f));
+                DrawLine(_quad[0],_quad[1],Alpha(light,a),1.5f,true);
+            }
+            return;
+        }
         // A concise target bloom consumes an already confirmed native result.
         for(int i=0;i<3;i++)
         {

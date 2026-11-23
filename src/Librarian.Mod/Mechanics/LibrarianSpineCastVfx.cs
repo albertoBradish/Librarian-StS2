@@ -68,6 +68,14 @@ internal static class LibrarianSpineCastVfx
         {
             state.Released = true;
             StopPreparation(state);
+            // Targeted attacks now depart from this real socket in the native hit factory.
+            // The pose release remains observable, without a second local pseudo-projectile.
+            if (cue.Play.Card.Type == CardType.Attack)
+            {
+                Observer?.Invoke(new(cue.Stage.ToString(),cue.Generation,cue.OccurrenceId,cue.Profile.Socket,
+                    socket.GlobalPosition,socket.Frame,Engine.GetProcessFrames()));
+                return;
+            }
             // A result already on screen must not be followed by a projectile pretending to hit later.
             // Retain only a local fading glyph as residual energy in that case.
             var stage = state.ResultObserved ? LibrarianSpineSpellStage.Status : LibrarianSpineSpellStage.Release;
@@ -93,7 +101,7 @@ internal static class LibrarianSpineCastVfx
     {
         emitted = false;
         if (owner is null || LibrarianSpineRuntime.Find(owner.Creature) is null
-            || stage is not ("impact" or "block" or "status")) return false;
+            || stage is not ("impact" or "block" or "status" or "trigger")) return false;
         var kind = stage == "impact" ? LibrarianSpineSpellStage.Impact
             : stage == "block" ? LibrarianSpineSpellStage.Block : LibrarianSpineSpellStage.Status;
         bool fast = LibrarianSpineIntegration.ReadSettings().Speed == LibrarianSpineSpeed.Fast;
@@ -107,7 +115,8 @@ internal static class LibrarianSpineCastVfx
         LibrarianSpineSocket socket, long generation, int tag, bool follow, ulong socketFrame)
     {
         var room = NCombatRoom.Instance;
-        if (room is null || !room.IsInsideTree() || !LibrarianCardVfx050.Available(owner)) return null;
+        if (room is null || !room.IsInsideTree()
+            || !(stage == LibrarianSpineSpellStage.Impact ? LibrarianCardVfx050.Enabled(owner) : LibrarianCardVfx050.Available(owner))) return null;
         if (LibrarianCardVfx050.Active >= LibrarianPreferences050.Current.EffectLimit)
         { LibrarianCardVfx050.RecordDropped(); return null; }
         var layer = room.CombatVfxContainer;

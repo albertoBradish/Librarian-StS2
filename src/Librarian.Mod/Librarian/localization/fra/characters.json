@@ -1,0 +1,17 @@
+{
+  "LIBRARIAN-LIBRARIAN_CHARACTER.title": "Le Bibliothécaire",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.titleObject": "du Bibliothécaire",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.description": "Âme ancienne maudite à sommeiller aux côtés de l'Architecte pendant le Fléau. Manie des parchemins épars pour découvrir la vérité de la Tour.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounObject": "lui",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounSubject": "il",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounPossessive": "son/sa/ses",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.possessiveAdjective": "son/sa/ses",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.aromaPrinciple": "Papier, encre et une lueur de lumière.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.alive.endTurnPing": "Passons à la page suivante.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.dead.endTurnPing": "...",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.eventDeathPrevention": "Il reste encore des chapitres à lire.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.goldMonologue": "Assez pour quelques livres de plus.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierTitle": "Cartes du Bibliothécaire",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierDescription": "Les cartes du Bibliothécaire apparaissent désormais dans les récompenses et les boutiques.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.bestiaryQuote": "Une nouvelle rencontre pour les archives."
+}

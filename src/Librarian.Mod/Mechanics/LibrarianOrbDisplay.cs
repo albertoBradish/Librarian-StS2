@@ -18,6 +18,7 @@ public partial class LibrarianOrbDisplay : Control
     internal const float BackgroundScale = 0.88f;
     internal const float RowSeparation = 104;
     internal static readonly Color NegativeLockColor = new("ff6565");
+    private static ShaderMaterial? _lockMaterial;
     // Align the dark core, not the outer flame/wave/leaf bounding rectangle.
     internal static Vector2 ArtworkOffset(OrbKind kind) => kind switch
     {
@@ -40,6 +41,8 @@ public partial class LibrarianOrbDisplay : Control
     }
     private readonly Dictionary<OrbKind, OrbVisual> _visuals = new();
     private LibrarianSession? _session;
+    private IReadOnlyList<OrbKind> _positions = [];
+    private (bool Reduced, LibrarianLockedOrbDisplayMode LockMode, OrbKind? Hovered, string Language)? _presentation;
     private OrbKind? _hovered;
     private string? _lastHoverText;
     private Label? _feedback;
@@ -61,6 +64,7 @@ public partial class LibrarianOrbDisplay : Control
     public void Initialize(LibrarianSession session)
     {
         _session = session;
+        _positions = session.Orbs.Positions;
         _remote = !LocalContext.IsMe(session.Player);
         _waterShield = new LibrarianWaterShield { Name = "LibrarianWaterShield", Session = session };
         AddChild(_waterShield);
@@ -95,7 +99,7 @@ public partial class LibrarianOrbDisplay : Control
                 Texture = GD.Load<Texture2D>(LibrarianOrbLockAura060.TexturePath),
                 Position = Vector2.Zero, Size = new(OrbSize, OrbSize),
                 // Keep the selected thorn arms on the orb rim and soften only the crossing under the numeral.
-                Material = new ShaderMaterial { Shader = new Shader { Code = """
+                Material = _lockMaterial ??= new ShaderMaterial { Shader = new Shader { Code = """
                     shader_type canvas_item;
                     void fragment() {
                         vec4 art = texture(TEXTURE, UV) * COLOR;
@@ -133,7 +137,11 @@ public partial class LibrarianOrbDisplay : Control
         Visible = _session is not null && room is not null && room.IsVisibleInTree()
             && !_session.Player.Creature.IsDead;
         bool interactive = room is not null && ActiveScreenContext.Instance.IsCurrent(room);
-        foreach (var v in _visuals.Values) v.Root.MouseFilter = interactive ? MouseFilterEnum.Pass : MouseFilterEnum.Ignore;
+        foreach (var v in _visuals.Values)
+        {
+            var filter = interactive ? MouseFilterEnum.Pass : MouseFilterEnum.Ignore;
+            if (v.Root.MouseFilter != filter) v.Root.MouseFilter = filter;
+        }
         if (!interactive && _hovered is { } previousHover)
         {
             NHoverTipSet.Remove(_visuals[previousHover].Root);
@@ -177,14 +185,16 @@ public partial class LibrarianOrbDisplay : Control
         foreach (var (kind, v) in _visuals)
         {
             float phase = (float)_idleTime * (1.25f + (int)kind * 0.13f) + (int)kind * 2.1f;
-            // Keep the optical center fixed; only independent elemental layers move.
-            v.Sprite.Position = ArtworkOffset(kind);
-            v.Sprite.Rotation = 0;
-            v.Aura.SetAppearance(phase, v.Active == true, sessionLocked: v.LockIcon.Visible);
-            v.FrontAura.SetAppearance(phase, v.Active == true, sessionLocked: v.LockIcon.Visible);
-            v.Aura.Visible = v.FrontAura.Visible = idle && (!_remote || _hovered == kind);
+            bool animate = idle && (!_remote || _hovered == kind);
+            v.Aura.Visible = v.FrontAura.Visible = animate;
+            if (animate)
+            {
+                v.Aura.SetAppearance(phase, v.Active == true, sessionLocked: v.LockIcon.Visible, delta);
+                v.FrontAura.SetAppearance(phase, v.Active == true, sessionLocked: v.LockIcon.Visible, delta);
+            }
             AdvanceFeedback(v, (float)delta);
-            v.LockAura.Advance(phase, idle && (!_remote || _hovered == kind), Math.Max(0, 1 - v.LockAge / .65f));
+            if (v.LockAura.Visible)
+                v.LockAura.Advance(phase, animate, Math.Max(0, 1 - v.LockAge / .65f), delta);
         }
         _feedbackRemaining = Math.Max(0, _feedbackRemaining - delta);
         if (!LibrarianPreferences050.Current.TideBlockFeedback) _feedbackRemaining = 0;
@@ -194,18 +204,27 @@ public partial class LibrarianOrbDisplay : Control
     public void RefreshState()
     {
         if (_session is null) return;
-        var state = _session.Orbs.Snapshot();
+        var state = _session.Orbs;
+        var prefs = LibrarianPreferences050.Current;
+        var presentation = (prefs.ReducedMotion, prefs.LockedOrbDisplay, _hovered, LibrarianLanguage.Selected);
+        bool presentationChanged = _presentation != presentation;
+        _presentation = presentation;
         int background = 0;
-        foreach (var orb in state.Orbs)
+        for (int i = 0; i < _positions.Count; i++)
         {
-            var v = _visuals[orb.Kind];
-            var destination = orb.IsForeground ? new Vector2(-36, -FormationRadius - _foregroundRise - 36)
+            var kind = _positions[i];
+            var v = _visuals[kind];
+            bool foreground = i == 0;
+            var destination = foreground ? new Vector2(-36, -FormationRadius - _foregroundRise - 36)
                 : new Vector2((background++ == 0 ? -1 : 1) * (FormationRadius + _backgroundSpread) - 36, -_backgroundRise - 36);
-            float size = orb.IsForeground ? ForegroundScale : BackgroundScale;
+            float size = foreground ? ForegroundScale : BackgroundScale;
             if (_remote) size *= 0.75f;
-            if (v.Foreground is null || LibrarianPreferences050.Current.ReducedMotion)
-            { v.LayoutTween?.Kill(); v.Root.Position = destination; v.Root.Scale = Vector2.One * size; }
-            else if (v.Destination != destination || v.Foreground != orb.IsForeground)
+            bool moved = v.Destination != destination || v.Foreground != foreground;
+            if (v.Foreground is null || prefs.ReducedMotion && (moved || presentationChanged))
+            {
+                v.LayoutTween?.Kill(); v.Root.Position = destination; v.Root.Scale = Vector2.One * size;
+            }
+            else if (moved)
             {
                 v.LayoutTween?.Kill();
                 v.LayoutTween = CreateTween().SetParallel();
@@ -219,7 +238,14 @@ public partial class LibrarianOrbDisplay : Control
                     0f, 1f, 0.35).SetTrans(Tween.TransitionType.Sine);
                 v.LayoutTween.TweenProperty(v.Root, "scale", Vector2.One * size, 0.25);
             }
-            v.Destination = destination; v.Foreground = orb.IsForeground;
+            v.Destination = destination; v.Foreground = foreground;
+            int value = state.Value(kind);
+            bool active = state.IsActivated(kind);
+            int locked = state.LockedTurns(kind);
+            if (!moved && !presentationChanged && v.PreviousValue == value && v.Active == active && v.PreviousLockTurns == locked)
+                continue;
+
+            var orb = new OrbView(kind, value, active, foreground, locked);
             // Native SceneContainer is -10 and relic VFX are -9. Raising an orb
             // locally to +2 incorrectly paints it over relic activation ghosts.
             v.Root.ZIndex = 0;
@@ -228,7 +254,7 @@ public partial class LibrarianOrbDisplay : Control
                 v.Sprite.Modulate = orb.IsActivated ? Colors.White : new Color(0.48f, 0.51f, 0.55f, 0.9f);
                 v.Active = orb.IsActivated;
             }
-            var lockMode = LibrarianPreferences050.Current.LockedOrbDisplay;
+            var lockMode = prefs.LockedOrbDisplay;
             bool showLockedValues = lockMode == LibrarianLockedOrbDisplayMode.ValueAndTurns;
             string lockText = OrbPresentation.CenterText(orb);
             if (orb.IsLocked && lockMode == LibrarianLockedOrbDisplayMode.NegativeTurns) lockText = "−" + lockText;
@@ -254,6 +280,9 @@ public partial class LibrarianOrbDisplay : Control
             v.LockCaption.Size = showLockedValues ? new(OrbSize, 24) : new(OrbSize, OrbSize);
             v.LockCaption.PivotOffset = v.LockCaption.Size / 2;
             v.LockCaption.AddThemeFontSizeOverride("font_size", showLockedValues ? 16 : v.Caption.GetThemeFontSize("font_size"));
+            if (orb.IsLocked && v.LockAge >= .65f)
+                v.LockCaption.AddThemeColorOverride("font_color",
+                    lockMode == LibrarianLockedOrbDisplayMode.NegativeTurns ? NegativeLockColor : RestingNumberColor);
             if (v.PreviousValue is { } before && before != orb.Value)
             {
                 long difference = (long)orb.Value - before;
@@ -269,15 +298,14 @@ public partial class LibrarianOrbDisplay : Control
             }
             v.PreviousValue = orb.Value;
             v.PreviousLockTurns = orb.LockedTurns;
-            v.Root.TooltipText = "";
+            if (_hovered == kind) ShowHover(kind, orb);
         }
-        if (_hovered is { } hovered) ShowHover(hovered);
     }
 
-    private void ShowHover(OrbKind kind)
+    private void ShowHover(OrbKind kind, OrbView? orb = null)
     {
         if (_session is null || !Visible) return;
-        var orb = _session.Orbs.Snapshot()[kind];
+        orb ??= _session.Orbs.Snapshot()[kind];
         var tip = BuildHoverTip(orb);
         string text = tip.Title + "\n" + tip.Description;
         if (_lastHoverText == text) return;
@@ -326,15 +354,22 @@ public partial class LibrarianOrbDisplay : Control
     private void AdvanceFeedback(OrbVisual v, float delta)
     {
         const float duration = .65f;
+        bool reduced = LibrarianPreferences050.Current.ReducedMotion;
+        if (v.ValueAge < duration)
+        {
+            v.ValueAge = Math.Min(duration, v.ValueAge + delta);
+            AnimateNumber(v.Caption, v.ValueAge / duration, v.ValueColor, reduced);
+        }
+        if (v.LockAge < duration)
+        {
+            v.LockAge = Math.Min(duration, v.LockAge + delta);
+            bool negativeLock = v.LockIcon.Visible && LibrarianPreferences050.Current.LockedOrbDisplay == LibrarianLockedOrbDisplayMode.NegativeTurns;
+            AnimateNumber(v.LockCaption, v.LockAge / duration, negativeLock ? NegativeLockColor : v.LockColor,
+                reduced, negativeLock ? NegativeLockColor : null);
+        }
+        if (v.FeedbackAge >= duration) return;
         v.FeedbackAge = Math.Min(duration, v.FeedbackAge + delta);
         float t = v.FeedbackAge / duration;
-        bool reduced = LibrarianPreferences050.Current.ReducedMotion;
-        v.ValueAge = Math.Min(duration, v.ValueAge + delta);
-        v.LockAge = Math.Min(duration, v.LockAge + delta);
-        AnimateNumber(v.Caption, v.ValueAge / duration, v.ValueColor, reduced);
-        bool negativeLock = v.LockIcon.Visible && LibrarianPreferences050.Current.LockedOrbDisplay == LibrarianLockedOrbDisplayMode.NegativeTurns;
-        AnimateNumber(v.LockCaption, v.LockAge / duration, negativeLock ? NegativeLockColor : v.LockColor,
-            reduced, negativeLock ? NegativeLockColor : null);
         float feedbackY = v.LockIcon.Visible && LibrarianPreferences050.Current.LockedOrbDisplay == LibrarianLockedOrbDisplayMode.ValueAndTurns ? 96 : 68;
         v.Change.Position = new(-28, feedbackY - (reduced ? 0 : t * 9));
         v.Change.Modulate = new Color(1, 1, 1, 1 - t * t);
@@ -342,11 +377,12 @@ public partial class LibrarianOrbDisplay : Control
     }
 
     // Orb values and lock countdowns share exactly the same curve and restoration.
+    private static readonly Color RestingNumberColor = new("eedfc5");
     private static void AnimateNumber(Label label, float t, Color color, bool reduced, Color? restingColor = null)
     {
-        float pulse = reduced ? 0 : Mathf.Sin(Math.Min(1, t * 2) * Mathf.Pi) * .2f;
+        float pulse = reduced || t >= .5f ? 0 : Mathf.Sin(t * 2 * Mathf.Pi) * .2f;
         label.Scale = Vector2.One * (1 + pulse);
-        label.AddThemeColorOverride("font_color", color.Lerp(restingColor ?? new Color("eedfc5"), t));
+        label.AddThemeColorOverride("font_color", color.Lerp(restingColor ?? RestingNumberColor, t));
     }
 
     public void ShowTideChange(long amount, bool expired)

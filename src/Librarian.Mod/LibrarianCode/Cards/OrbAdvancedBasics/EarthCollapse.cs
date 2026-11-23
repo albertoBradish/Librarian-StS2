@@ -14,8 +14,9 @@ namespace Librarian.LibrarianCode.Cards.OrbAdvancedBasics;
 /// <summary>V1.3.11 approved 20-card revision. Published model identity is retained.</summary>
 public sealed class EarthCollapse() : OrbAdvancedCard(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new DamageVar(24m, ValueProp.Move), new DamageVar("SplashDamage", 12m, ValueProp.Move)];
+        [new DamageVar(28m, ValueProp.Move), new DamageVar("SplashDamage", 14m, ValueProp.Move)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         ArgumentNullException.ThrowIfNull(play.Target);

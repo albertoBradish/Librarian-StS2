@@ -46,7 +46,7 @@ public sealed class WaveStrike() : Librarian.LibrarianCode.Cards.OrbUtility.OrbU
     {
         int hits = LibrarianBottomPlay041.IsPlayingFromBottom(this) ? 2 : 1;
         decimal damage = DynamicVars.CalculationBase.BaseValue + Session.RevisionDamageBonus;
-        await DamageCmd.Attack(damage).FromCard(this, play).Targeting(play.Target!)
+        await DamageCmd.Attack(damage).FromLibrarianCard(this, play).Targeting(play.Target!)
             .WithHitCount(hits).WithHitFx("vfx/vfx_attack_slash").Execute(context);
         Session.RevisionDamageBonus = checked(Session.RevisionDamageBonus + Amount("Increase"));
         foreach (var card in Owner.PlayerCombatState!.AllCards.OfType<WaveStrike>()) card.DynamicVars.RecalculateForUpgradeOrEnchant();
@@ -59,7 +59,7 @@ public sealed class ScatteredFlames() : Librarian.LibrarianCode.Cards.OrbUtility
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];
     protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
-        => DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, play).Targeting(play.Target!)
+        => DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromLibrarianCard(this, play).Targeting(play.Target!)
             .WithHitCount(2 + LockedCount).WithHitFx("vfx/vfx_attack_slash").Execute(context);
     protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1m);
 }
@@ -81,17 +81,19 @@ public sealed class Springwater() : Librarian.LibrarianCode.Cards.OrbUtility.Orb
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-    protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
+    protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        await Session.AfterCleanupOrNow(context, async ctx =>
-        {
-            await CardPileCmd.Draw(ctx, Amount("Cards"), Owner);
-            var selected = (await CardSelectCmd.FromHand(ctx, Owner,
-                new MegaCrit.Sts2.Core.CardSelection.CardSelectorPrefs(
-                    new MegaCrit.Sts2.Core.Localization.LocString("card_selection", "LIBRARIAN-TO_DRAW_BOTTOM"), 1), null, this)).FirstOrDefault();
-            if (selected is not null)
-                CardCmd.PreviewCardPileAdd(await CardPileCmd.Add(selected, PileType.Draw, CardPilePosition.Bottom), 2.2f);
-        });
+        var session = LibrarianRuntime.For(Owner.Creature);
+        return session is null ? DrawAndBottom(context) : session.AfterCleanupOrNow(context, DrawAndBottom);
+    }
+    private async Task DrawAndBottom(PlayerChoiceContext context)
+    {
+        await CardPileCmd.Draw(context, Amount("Cards"), Owner);
+        var selected = (await CardSelectCmd.FromHand(context, Owner,
+            new MegaCrit.Sts2.Core.CardSelection.CardSelectorPrefs(
+                new MegaCrit.Sts2.Core.Localization.LocString("card_selection", "LIBRARIAN-TO_DRAW_BOTTOM"), 1), null, this)).FirstOrDefault();
+        if (selected is not null)
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.Add(selected, PileType.Draw, CardPilePosition.Bottom), 2.2f);
     }
     protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1m);
 }

@@ -1,0 +1,8 @@
+{
+  "LIBRARIAN-KINDLING_POTION.title": "Potion d'Enflammement",
+  "LIBRARIAN-KINDLING_POTION.description": "Gagnez {Fire:diff()} [gold]Feu[/gold].",
+  "LIBRARIAN-CLARITY_POTION.title": "Potion de Clarté",
+  "LIBRARIAN-CLARITY_POTION.description": "Gagnez {Waves:diff()} [gold]Vagues[/gold].",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.title": "Fruit Interdit Liquide",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "[gold]Déverrouillez[/gold] TOUS les Orbes, puis [gold]Déclenchez[/gold] l'effet de chacun une fois supplémentaire."
+}

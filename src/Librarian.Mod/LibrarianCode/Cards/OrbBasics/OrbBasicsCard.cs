@@ -37,7 +37,7 @@ public abstract class OrbBasicsCard(int cost, CardType type, TargetType target)
 
     protected Task HitAsync(PlayerChoiceContext context, CardPlay play, decimal damage, bool allEnemies = false)
     {
-        var attack = DamageCmd.Attack(damage).FromCard(this, play);
+        var attack = DamageCmd.Attack(damage).FromLibrarianCard(this, play);
         if (allEnemies) attack.TargetingAllOpponents(CombatState ?? throw new InvalidOperationException("Attack requires combat."));
         else
         {

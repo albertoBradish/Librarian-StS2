@@ -8,6 +8,8 @@ import ctypes
 import shutil
 from datetime import datetime, timezone
 
+from game_test_audio import audio_arguments, configure_reusable_profile
+
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / '.research/recovered-work'
 ENGINE = ROOT / '.research/tools/megadot/MegaDot_v4.5.1-stable_mono_win64.exe'
@@ -33,6 +35,7 @@ def main():
     parser.add_argument('--choice-audit', action='store_true', help='After runtime checks, open three native choice screens for interactive validation.')
     parser.add_argument('--legacy-save-audit', action='store_true', help='Load a read-only copy of the previous isolated tester run with the new mod.')
     parser.add_argument('--headless-frames', type=int, default=1800, help='Frame budget for a bounded loading check.')
+    parser.add_argument('--audio', action='store_true', help='Enable audio for an explicit audio test.')
     args = parser.parse_args()
     LOGS.mkdir(parents=True, exist_ok=True)
     engine = ENGINE if args.mode != 'compatibility' else ROOT / '.research/ritsu-game/SlayTheSpire2.exe'
@@ -96,7 +99,9 @@ def main():
     elif args.mode == 'import':
         command += ['--headless', '--editor', '--import']
     else:
-        command += ['--force-steam', 'off']
+        user_dir = 'Sts2Compatibility-v0.111.0' if args.mode == 'compatibility' else 'Sts2Research-v0.111.0'
+        configure_reusable_profile(user_root / 'appdata' / user_dir / 'default/1/settings.save', args.audio)
+        command += ['--force-steam', 'off', *audio_arguments(args.audio)]
         if args.headless_check:
             command += ['--headless', '--max-fps', '60', '--quit-after', str(args.headless_frames)]
         else:

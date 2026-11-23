@@ -50,27 +50,66 @@ internal static class LibrarianHoverTips
     {
         "SETTLE", "FOREGROUND", "BACKGROUND", "ACTIVATE", "EXTINGUISH"
     };
-    private const string ExtraSettlementPattern = @"额外\s*\[gold\]结算\[/gold\]|(?:extra|additional)\s+\[gold\]settle\w*\[/gold\]|\[gold\]settle\w*\[/gold\](?:(?!\[gold\]settle\w*\[/gold\])[^.!?;\n])*\b(?:extra|additional)\s+times?\b";
+    private static string ExtraWordPattern => LibrarianLanguage.Selected switch
+    {
+        "zhs" => "额外",
+        "fra" => @"supplémentaire|additionnel|de nouveau|une fois de plus",
+        "spa" => @"extra|adicional|una vez más|de nuevo|\d+\s+vez(?:es)?\s+más",
+        "jpn" => "追加|もう1回|もう一度",
+        "kor" => "추가|한 번 더|한번 더",
+        _ => @"\bextra\b|\badditional\b"
+    };
 
-    // Gold marks emphasis, not a tooltip contract. English orb names share words
-    // with gain actions; exclude ordinary singular/plural orb noun phrases first.
+    private static string WithoutOrbNounPhrases(string text)
+    {
+        string[] names = ["FIRE", "TIDE", "GROWTH"];
+        string titles = string.Join("|", names.Select(key => Regex.Escape(
+            LibrarianLanguage.Text("static_hover_tips", $"LIBRARIAN_ORB_{key}.title"))));
+        string? coordinated = LibrarianLanguage.Selected switch
+        {
+            "fra" => $@"\bOrbes?\s+de\s+\[gold\](?:{titles})\[/gold\](?:\s*(?:et|,)\s*(?:de\s+)?\[gold\](?:{titles})\[/gold\])+",
+            "spa" => $@"\bOrbes?\s+de\s+\[gold\](?:{titles})\[/gold\](?:\s*(?:y|,)\s*(?:de\s+)?\[gold\](?:{titles})\[/gold\])+",
+            "jpn" => $@"\[gold\](?:{titles})\[/gold\](?:\s*(?:と|、|及び)\s*\[gold\](?:{titles})\[/gold\])+\s*(?:の)?\s*オーブ",
+            "kor" => $@"\[gold\](?:{titles})\[/gold\](?:\s*(?:과|와|,)\s*\[gold\](?:{titles})\[/gold\])+\s*구체",
+            _ => null
+        };
+        if (coordinated is not null) text = Regex.Replace(text, coordinated, "", RegexOptions.IgnoreCase);
+        string? pattern = LibrarianLanguage.Selected switch
+        {
+            "eng" => $@"(?:\[gold\](?:{titles})\[/gold\](?:\s*(?:,\s*(?:and|or)?|and|or|/)\s*)?)+\s+Orbs?\b",
+            "fra" or "spa" => $@"\bOrbes?\s+(?:de\s+|de\s+la\s+)?\[gold\](?:{titles})\[/gold\]",
+            "jpn" => $@"\[gold\](?:{titles})\[/gold\]\s*(?:の)?\s*オーブ",
+            "kor" => $@"\[gold\](?:{titles})\[/gold\]\s*구체",
+            _ => null
+        };
+        return pattern is null ? text : Regex.Replace(text, pattern, "", RegexOptions.IgnoreCase);
+    }
+
+    // Gold marks emphasis, not a tooltip contract. Orb names in noun phrases
+    // share words with gain actions; exclude those noun phrases first.
     private static IEnumerable<IHoverTip> DirectForText(string text)
     {
-        text = Regex.Replace(text,
-            @"(?:\[gold\](?:Fire|Tide|Growth)\[/gold\](?:\s*(?:,\s*(?:and|or)?|and|or|/)\s*)?)+\s+Orbs?\b", "",
-            RegexOptions.IgnoreCase);
+        text = WithoutOrbNounPhrases(text);
         var highlighted = Regex.Matches(text, @"\[gold\](.*?)\[/gold\]").ToArray();
-        var extraSettlements = Regex.Matches(text, ExtraSettlementPattern, RegexOptions.IgnoreCase).ToArray();
+        string[] settleAliases = LibrarianLanguage.Format("KEYWORD_SETTLE").Split('|');
+        var extraSettlements = highlighted.Where(mark => settleAliases.Any(alias =>
+                string.Equals(mark.Groups[1].Value, alias, StringComparison.OrdinalIgnoreCase)))
+            .Where(mark =>
+            {
+                int start = text.LastIndexOfAny(['.', '!', '?', '。', '！', '？', ';', '\n'], Math.Max(0, mark.Index - 1)) + 1;
+                int end = text.IndexOfAny(['.', '!', '?', '。', '！', '？', ';', '\n'], mark.Index + mark.Length);
+                if (end < 0) end = text.Length;
+                return Regex.IsMatch(text[start..end], ExtraWordPattern, RegexOptions.IgnoreCase);
+            }).Select(mark => mark.Index).ToHashSet();
         bool Matches(string key) => LibrarianLanguage.Format("KEYWORD_" + key).Split('|')
             .Any(word => highlighted.Any(mark => string.Equals(mark.Groups[1].Value, word, StringComparison.OrdinalIgnoreCase)
                 // An extra settlement is its own concept. Its highlighted verb is
                 // not a second direct requirement for an ordinary settlement tip.
-                && (key != "SETTLE" || !extraSettlements.Any(extra => mark.Index >= extra.Index
-                    && mark.Index + mark.Length <= extra.Index + extra.Length))));
+                && (key != "SETTLE" || !extraSettlements.Contains(mark.Index))));
         if (Matches("BLOCK")) yield return LibrarianLanguage.NativeTip(() => HoverTipFactory.Static(StaticHoverTip.Block));
         foreach (var (key, _) in Terms)
             if (Matches(key)) yield return Tip(key);
-        if (extraSettlements.Length > 0)
+        if (extraSettlements.Count > 0)
             yield return Tip("EXTRA_SETTLE");
     }
 

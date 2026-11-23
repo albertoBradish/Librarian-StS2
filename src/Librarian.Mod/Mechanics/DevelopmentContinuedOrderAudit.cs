@@ -250,13 +250,13 @@ internal static class DevelopmentContinuedOrderAudit
                 await Frame();
             }
             Verify(layers, layers, layers, true, label);
-            Check(controls == beforeControls + 1 && CardSelectCmd.Selector is null, "one real synchronized hand control " + label);
+            Check(controls == beforeControls + 1 && DevelopmentGameApi.Selector(player) is null, "one real synchronized hand control " + label);
             turns++;
         }
         try
         {
             Check(OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "isolated profile");
-            Check(CardSelectCmd.Selector is null, "native selector active for real turns");
+            Check(DevelopmentGameApi.Selector(player) is null, "native selector active for real turns");
             foreach (var scenario in new[] { (1, false, false), (2, false, false), (3, false, true), (1, true, false), (2, true, false) })
             {
                 await Reset(); await Layers(scenario.Item1, scenario.Item2, scenario.Item3); await Fill(25, PileType.Draw);
@@ -272,7 +272,7 @@ internal static class DevelopmentContinuedOrderAudit
                 await Fill(scenario.Item1, PileType.Hand); await Fill(scenario.Item2, PileType.Draw);
                 int returned = Math.Min(scenario.Item3, scenario.Item1 + scenario.Item4);
                 var selector = new TestCardSelector(); selector.PrepareToSelect(Enumerable.Range(0, returned));
-                using (CardSelectCmd.PushSelector(selector))
+                using (DevelopmentGameApi.PushSelector(player, selector))
                     await _watch!.AfterPlayerTurnStart(new ThrowingPlayerChoiceContext(), player);
                 Verify(scenario.Item3, scenario.Item4, returned, false,
                     $"boundary-hand{scenario.Item1}-deck{scenario.Item2}-layers{scenario.Item3}");

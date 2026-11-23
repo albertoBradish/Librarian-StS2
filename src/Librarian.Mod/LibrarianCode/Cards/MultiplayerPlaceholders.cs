@@ -22,7 +22,9 @@ public sealed class MultiplayerPlaceholderB() : LibrarianCard(1, CardType.Skill,
     protected override Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var target = play.Target?.Player ?? Owner;
-        LibrarianRuntime.Get(Owner).Bindings.Add((Owner, target));
+        var session = LibrarianRuntime.Get(Owner);
+        session.Bindings.Add((Owner, target));
+        LibrarianBindingVfx.Register(session, target, this);
         return Task.CompletedTask;
     }
     protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);

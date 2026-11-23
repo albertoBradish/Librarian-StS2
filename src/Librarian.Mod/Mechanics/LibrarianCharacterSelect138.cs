@@ -9,6 +9,7 @@ public partial class LibrarianCharacterSelect138 : Control
     public const string ScenePath = "res://Librarian/scenes/character_select/v1.3.12-selection/floating_archive.tscn";
     public const string BankPath = "res://Librarian/spine/v1.3.12-selection/bank.res";
     public const string LoopName = "selection_loop";
+    private const double GlimmerInterval = 1.0 / 30;
     internal static readonly Vector2 CanvasSize = new(1672, 941);
     private Node2D _spine = null!;
     private Sprite2D _background = null!;
@@ -19,7 +20,9 @@ public partial class LibrarianCharacterSelect138 : Control
     private Transform2D _lastCanvas;
     private Vector2 _lastViewport;
     private bool? _moving;
+    private (bool Motion, bool Particles, int Limit, int Opacity)? _appearance;
     private double _time;
+    private double _glimmerIn;
     private bool _hidden;
     internal Node2D Spine => _spine;
     internal Rect2 VisibleArtworkRect { get; private set; }
@@ -135,9 +138,9 @@ public partial class LibrarianCharacterSelect138 : Control
 
     private void Motion(bool moving)
     {
-        _spine.Set("time_scale", moving ? 1f : 0f);
         if (_moving == moving) return;
         _moving = moving;
+        _spine.Set("time_scale", moving ? 1f : 0f);
         // The one native selection loop is resumed from its setup frame. No second
         // animator or combat action bank is installed on this sprite.
         using var stateValue = _spine.Call("get_animation_state");
@@ -159,16 +162,46 @@ public partial class LibrarianCharacterSelect138 : Control
             _hidden = hidden;
             foreach (var child in GetChildren()) child.ProcessMode = hidden ? ProcessModeEnum.Disabled : ProcessModeEnum.Inherit;
             _moving = null;
+            _appearance = null;
+            if (hidden) SetParticles(false);
         }
-        if (hidden) { _gold.Emitting = _cyan.Emitting = _beamLeft.Emitting = _beamRight.Emitting = false; return; }
+        if (hidden) return;
         if (_lastCanvas != GetGlobalTransformWithCanvas() || _lastViewport != GetViewportRect().Size) Layout();
         var settings = LibrarianPreferences050.Current;
         bool moving = settings.OrbIdle && !settings.ReducedMotion;
-        Motion(moving);
         bool particles = settings.Particles && !settings.ReducedMotion;
-        _gold.Emitting = _cyan.Emitting = particles;
-        _beamLeft.Emitting = _beamRight.Emitting = particles;
         int total = Math.Clamp(settings.EffectLimit, 4, 40);
+        var appearance = (moving, particles, total, settings.EffectOpacity);
+        if (_appearance != appearance)
+        {
+            Motion(moving);
+            if (_appearance?.Limit != total) SetParticleBudget(total);
+            if (_appearance?.Particles != particles) SetParticles(particles);
+            if (_appearance?.Opacity != settings.EffectOpacity)
+                _rear.Modulate = _gold.Modulate = _cyan.Modulate = new Color(1, 1, 1, settings.EffectOpacity / 100f);
+            _appearance = appearance;
+            _glimmer.Visible = moving;
+            _glimmerIn = 0;
+        }
+
+        if (!moving) return;
+        _time += delta;
+        _glimmerIn -= delta;
+        if (_glimmerIn > 0) return;
+        _glimmerIn += GlimmerInterval;
+        if (_glimmerIn <= 0) _glimmerIn = GlimmerInterval;
+        _glimmer.Time = _time;
+        _glimmer.QueueRedraw();
+    }
+
+    private void SetParticles(bool emitting)
+    {
+        _gold.Emitting = _cyan.Emitting = _beamLeft.Emitting = _beamRight.Emitting = emitting;
+        _rear.Visible = _gold.Visible = _cyan.Visible = emitting;
+    }
+
+    private void SetParticleBudget(int total)
+    {
         int beams = Math.Clamp(total * 2 / 3, 2, 28);
         int right = Math.Max(1, beams / 3);
         int cyan = Math.Max(1, (total - beams) / 5);
@@ -176,11 +209,6 @@ public partial class LibrarianCharacterSelect138 : Control
         if (_beamRight.Amount != right) _beamRight.Amount = right;
         if (_gold.Amount != total - beams - cyan) _gold.Amount = total - beams - cyan;
         if (_cyan.Amount != cyan) _cyan.Amount = cyan;
-        _rear.Visible = _gold.Visible = _cyan.Visible = particles;
-        _rear.Modulate = _gold.Modulate = _cyan.Modulate = new Color(1, 1, 1, settings.EffectOpacity / 100f);
-        if (moving) _time += delta;
-        _glimmer.Time = _time;
-        _glimmer.QueueRedraw();
     }
 
     public override void _ExitTree() => Resized -= Layout;

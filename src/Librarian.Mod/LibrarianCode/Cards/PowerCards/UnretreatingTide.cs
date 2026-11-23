@@ -1,5 +1,6 @@
 using Librarian.Core;
 using Librarian.Mechanics;
+using Librarian.LibrarianCode.Character;
 using Librarian.LibrarianCode.Powers.Implemented;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,9 +18,12 @@ public sealed class UnretreatingTide() : ImplementedPowerCard(1, CardRarity.Unco
     protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<AfterRainPower>()];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var session = LibrarianRuntime.Get(Owner);
-        await LibrarianRuntime.Dispatch(session, choiceContext,
-            session.Orbs.Lock(OrbKind.Tide, 2, new(Id.ToString())));
+        if (Owner.Character is LibrarianCharacter)
+        {
+            var session = LibrarianRuntime.Get(Owner);
+            await LibrarianRuntime.Dispatch(session, choiceContext,
+                session.Orbs.Lock(OrbKind.Tide, 2, new(Id.ToString())));
+        }
         await Apply<AfterRainPower>(choiceContext, DynamicVars["AfterRainPower"].BaseValue);
     }
     protected override void OnUpgrade() => DynamicVars["AfterRainPower"].UpgradeValueBy(2m);

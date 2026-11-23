@@ -142,11 +142,8 @@ internal static class DevelopmentMerchant051Audit
             OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "explicit isolated runtime profile");
         Check(DisplayServer.GetName() != "headless", "native rendering enabled");
         Check(player.Character is LibrarianCharacter && player.RunState.Players.Count == 1, "single-player Librarian fixture");
-        Check(CardSelectCmd.Selector is null
-#if LIBRARIAN_API_0111
-            && CardSelectCmd.LocalSelector is null
-#endif
-            , "native card selection without test selector");
+        Check(DevelopmentGameApi.Selector(player) is null && DevelopmentGameApi.LocalSelector is null,
+            "native card selection without test selector");
         output ??= System.Environment.GetEnvironmentVariable("LIBRARIAN_AUDIT_OUTPUT") ?? @"D:\Slay The Spire_Mod Dev\outputs\revision-v0.5.1\screenshots";
         Directory.CreateDirectory(output);
         var originalDeck = player.Deck.Cards.ToArray();

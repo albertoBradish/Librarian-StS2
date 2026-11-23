@@ -21,6 +21,8 @@ public static class LibrarianSettings041
     internal static string ExportStatus { get; private set; } = "";
     private static ModSettingsText Text(string key, string fallback) =>
         ModSettingsText.Dynamic(() => LibrarianLanguage.TryRaw("main_menu_ui", "LIBRARIAN_SETTINGS." + key, out var value) ? value : fallback);
+    private static ModSettingsText LanguageEntryLabel(string key, string fallback) =>
+        ModSettingsText.Dynamic(() => LibrarianLanguage.LanguageEntryLabel(key, fallback));
 
     public const string DisplayPageId = "librarian-display";
     public const string EffectsPageId = "librarian-effects";
@@ -34,10 +36,11 @@ public static class LibrarianSettings041
             .WithTitle(Text("common", "常用设置"))
             .WithModDisplayName(Text("title", "图书管理员"))
             .WithDescription(Text("presentation_hint", "语言、显示和声音设置会自动保存。"))
-            .AddSection("language", section => section.WithTitle(Text("language_section", "语言"))
-                .AddDynamicChoice("language", Text("language", "模组语言"),
+            .AddSection("language", section => section.WithTitle(LanguageEntryLabel("language_section", "Language"))
+                .AddDynamicChoice("language", LanguageEntryLabel("language", "Mod language"),
                     ModSettingsBindings.WithDefault(ModSettingsBindings.Callback("Librarian", "language", () => LibrarianLanguage.Selected, LibrarianLanguage.Select, () => { }), () => DefaultLanguage),
-                    LibrarianLanguage.Options, Text("language_hint", "首次使用时跟随游戏语言，之后记住你的选择。"), ModSettingsChoicePresentation.Dropdown))
+                    LibrarianLanguage.Options, ModSettingsText.Dynamic(LibrarianLanguage.LanguageEntryInstructions),
+                    ModSettingsChoicePresentation.Dropdown))
             .AddSection("quick", section => section.WithTitle(Text("quick", "设置与教学"))
                 .AddSubpage("display_page", Text("display", "战场显示"), DisplayPageId, Text("open", "打开"), Text("display_summary", "调整法球、格挡预览和悬浮提示，查看显示效果。"))
                 .AddSubpage("effects_page", Text("effects_audio", "特效与声音"), EffectsPageId, Text("open", "打开"), Text("effects_summary", "调整动画、粒子、特效强度和法球音量。"))

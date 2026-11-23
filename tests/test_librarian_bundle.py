@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from librarian_bundle import BUNDLE_FILES, GAME_TARGETS, validate_bundle
+from librarian_bundle import BUNDLE_FILES, GAME_TARGETS, validate_bundle, required_ritsulib_version
 
 
 class BundleTests(unittest.TestCase):
@@ -76,6 +76,30 @@ class BundleTests(unittest.TestCase):
         identities = validate_bundle(self.directory)
         (self.directory / 'Librarian.pck').write_bytes(b'changed shared assets')
         with self.assertRaises(ValueError): validate_bundle(self.directory, identities)
+
+    def test_post144_dependency_boundary_preserves_released_bundles(self):
+        self.assertEqual('0.6.4', required_ritsulib_version('1.4.3-fix1'))
+        self.assertEqual('0.6.4', required_ritsulib_version('1.4.4'))
+        self.assertEqual('0.6.10', required_ritsulib_version('1.4.5'))
+        self.mod['version'] = self.variants['mod_version'] = '1.4.5'
+        self.write_manifests()
+        with self.assertRaisesRegex(ValueError, '0.6.10'): validate_bundle(self.directory)
+        self.mod['dependencies'][0]['min_version'] = '0.6.10'
+        self.write_manifests()
+        self.assertEqual(6, len(validate_bundle(self.directory)))
+        self.mod['version'] = self.variants['mod_version'] = '1.4.4'
+        self.write_manifests()
+        with self.assertRaisesRegex(ValueError, '0.6.4'): validate_bundle(self.directory)
+
+    def test_standalone_bootstrap_keeps_both_content_variants(self):
+        self.mod['version'] = self.variants['mod_version'] = '1.4.6'
+        self.mod.update(min_game_version='0.0.0', has_pck=False, dependencies=[])
+        self.write_manifests()
+        self.assertEqual(6, len(validate_bundle(self.directory)))
+        self.mod['has_pck'] = True
+        self.write_manifests()
+        with self.assertRaises(ValueError):
+            validate_bundle(self.directory)
 
 
 if __name__ == '__main__':

@@ -183,19 +183,19 @@ internal static class DevelopmentRevision035RelicAudit
             await Reset();
             unstable = await Add<LibrarianRarePlaceholderOne>();
             await Gain(OrbKind.Tide, 2); await Gain(OrbKind.Growth, 3);
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(context, CombatSide.Player, new[] { player.Creature });
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(context, CombatSide.Player, new[] { player.Creature });
             Check(Session().Orbs.SettlementsThisCombat == 3 && Session().Orbs.Snapshot().Orbs.All(o => !o.IsActivated), "Native turn hook invokes Unstable before all three natural settlements");
 
             await Reset();
             badge = await Add<LibrarianShopPlaceholder>();
             await Gain(OrbKind.Fire, 4); await Gain(OrbKind.Tide, 3); await Gain(OrbKind.Growth, 2);
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(context, CombatSide.Player, new[] { player.Creature });
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(context, CombatSide.Player, new[] { player.Creature });
             Check(Session().Orbs.SettlementsThisCombat == 6 && Session().Orbs.Snapshot().Orbs.All(o => !o.IsActivated), "Native turn hook invokes Badge extra three before natural three");
 
             await Reset();
             await Add<LibrarianRarePlaceholderOne>(); await Add<LibrarianShopPlaceholder>();
             await Gain(OrbKind.Tide, 3); await Gain(OrbKind.Growth, 2);
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(context, CombatSide.Player, new[] { player.Creature });
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(context, CombatSide.Player, new[] { player.Creature });
             Check(Session().Orbs.SettlementsThisCombat == 6, "Native relic inventory order Unstable can enable Badge");
 
             await Reset();

@@ -340,7 +340,7 @@ internal static class LibrarianArchitectVictoryReview102
     {
         try
         {
-            if (!victory || serializableRun.GameMode != GameMode.Standard
+            if (!victory || !LibrarianGameApi.IsStandardGame(serializableRun)
                 || (NativeRunState.GetValue(RunManager.Instance) as RunState)?.CurrentRoom is not EventRoom { CanonicalEvent: TheArchitect }) return;
             // Match native local-player selection: a teammate using Librarian cannot qualify this player.
             var player = serializableRun.Players.Count == 1 ? serializableRun.Players[0]

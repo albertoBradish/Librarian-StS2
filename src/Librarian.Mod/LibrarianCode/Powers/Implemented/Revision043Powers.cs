@@ -1,4 +1,5 @@
 using Librarian.Core;
+using Librarian.LibrarianCode.Character;
 using Librarian.Mechanics;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -106,7 +107,7 @@ public sealed class EndlessTidePower : ImplementedLibrarianPower
     public override PowerStackType StackType => PowerStackType.Single;
     public override async Task BeforeHandDraw(Player player, PlayerChoiceContext context, MegaCrit.Sts2.Core.Combat.ICombatState combatState)
     {
-        if (player != Owner.Player || Owner.IsDead) return;
+        if (player != Owner.Player || Owner.IsDead || player.Character is not LibrarianCharacter) return;
         Flash();
         var session = LibrarianRuntime.Get(player);
         await Gain(context, session, OrbKind.Tide, 1);

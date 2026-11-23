@@ -60,8 +60,14 @@ internal static class LibrarianCharacterText
     }
 
     [HarmonyPostfix]
+#if LIBRARIAN_API_0113
+    private static void Apply(NCharacterSelectScreen __instance, NCharacterSelectButton __0)
+    {
+        var characterModel = __0.Character;
+#else
     private static void Apply(NCharacterSelectScreen __instance, CharacterModel characterModel)
     {
+#endif
         if (characterModel is not LibrarianCharacter || LocManager.Instance.Language != "zhs") return;
         foreach (string path in LabelPaths)
         {

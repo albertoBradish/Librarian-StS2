@@ -50,30 +50,40 @@ def validate_source_provenance(provenance):
 
 
 def validate_unified_delivery(record, candidate, version):
-    """Require both fixed native targets and bind the complete six-file candidate."""
-    from librarian_bundle import validate_bundle
+    """Require each fixed native target and bind the complete candidate."""
+    from librarian_bundle import validate_bundle, required_ritsulib_version, game_targets_for, bundle_files_for
+    version_match = re.fullmatch(r'(\d+)\.(\d+)\.(\d+)(?:-fix[1-9]\d*)?', version)
     if (record.get('channel') != 'unified' or record.get('version') != version
-            or not re.fullmatch(r'\d+\.\d+\.\d+', version)
-            or tuple(map(int, version.split('.'))) < (1, 3, 0)):
+            or version_match is None
+            or tuple(map(int, version_match.groups())) < (1, 3, 0)):
         raise ValueError('Unified Delivery must identify the exact unified release version (1.3.0 or later)')
     manifest = json.loads((Path(candidate) / 'Librarian.json').read_text(encoding='utf-8-sig'))
     if manifest.get('id') != 'Librarian' or manifest.get('version') != version:
         raise ValueError('Unified manifest identity mismatch with the exact Delivery version')
+    expected_targets = list(UNIFIED_TARGETS)
+    if '0.111.1' in game_targets_for(version):
+        expected_targets.append({'version': '0.111.1', 'commit': 'cc1f9462', 'branch': 'public'})
+    if '0.113.0' in game_targets_for(version):
+        expected_targets.append({'version': '0.113.0', 'commit': '16ac0fe3', 'branch': 'public-beta'})
+    if '0.113.1' in game_targets_for(version):
+        expected_targets.append({'version': '0.113.1', 'commit': 'd09d48e5', 'branch': 'public-beta'})
     targets = record.get('game_targets')
-    if not isinstance(targets, list) or sorted(targets, key=lambda x: x.get('version', '')) != UNIFIED_TARGETS:
-        raise ValueError('Unified Delivery requires the two exact game version/commit/branch targets')
+    if not isinstance(targets, list) or sorted(targets, key=lambda x: x.get('version', '')) != expected_targets:
+        raise ValueError('Unified Delivery requires the exact game version/commit/branch targets')
     dependencies = record.get('dependencies', {})
-    if dependencies != {'RitsuLib': '0.6.4'}:
-        raise ValueError('Unified Delivery requires only the pinned RitsuLib 0.6.4 baseline')
+    minimum = required_ritsulib_version(version)
+    if dependencies != {'RitsuLib': minimum}:
+        raise ValueError(f'Unified Delivery requires only the pinned RitsuLib {minimum} baseline')
     validation = record.get('validation', {})
     proofs = validation.get('targets', {})
-    if validation.get('passed') is not True or not isinstance(proofs, dict) or set(proofs) != {x['version'] for x in UNIFIED_TARGETS} or any(
+    if validation.get('passed') is not True or not isinstance(proofs, dict) or set(proofs) != {x['version'] for x in expected_targets} or any(
             not isinstance(proofs[version], dict) or proofs[version].get('passed') is not True for version in proofs):
-        raise ValueError('Unified Delivery must certify native validation for both targets')
+        raise ValueError('Unified Delivery must certify native validation for both targets' if len(expected_targets) == 2
+                         else 'Unified Delivery must certify native validation for all targets')
     validate_source_provenance(record.get('build', {}).get('provenance', {}))
     artifacts = record.get('build', {}).get('artifacts')
-    if not isinstance(artifacts, list) or len(artifacts) != 6:
-        raise ValueError('Unified Delivery requires all six build artifacts')
+    if not isinstance(artifacts, list) or len(artifacts) != len(bundle_files_for(version)):
+        raise ValueError('Unified Delivery requires all build artifacts')
     return validate_bundle(candidate, artifacts)
 
 
@@ -104,7 +114,7 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
     if manifest.get('id') != 'Librarian' or manifest.get('version') != version:
         raise ValueError('Manifest identity/version mismatch')
     game_versions = {'beta': '0.111.0', 'stable': '0.107.1', 'unified': '0.107.1'}
-    if channel not in game_versions or manifest.get('min_game_version') != game_versions[channel]:
+    if channel not in game_versions or (not unified and manifest.get('min_game_version') != game_versions[channel]):
         raise ValueError('Compatibility changed; review preparation policy before releasing')
     if channel == 'stable' and (not delivery or historical):
         raise ValueError('Stable preparation requires current verified Delivery evidence')
@@ -112,15 +122,17 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
     # Keep the verified 0.6.2 release policy and accept the current pinned 0.6.4 bundle.
     current_deps = [{'BaseLib': '3.4.5', 'STS2-RitsuLib': ritsu_version}
                     for ritsu_version in ('0.6.2', '0.6.4')]
-    ritsu_only = {'STS2-RitsuLib': '0.6.2' if channel == 'stable' else '0.6.4'}
+    from librarian_bundle import required_ritsulib_version
+    ritsu_only = {'STS2-RitsuLib': required_ritsulib_version(version) if unified else
+                  ('0.6.2' if channel == 'stable' else '0.6.4')}
     current_deps.append(ritsu_only)
     if historical and not delivery:
         raise ValueError('Historical preparation requires verified artifact evidence')
-    if deps not in current_deps and not (historical and deps == {'BaseLib': '3.4.5'}):
+    if not unified and deps not in current_deps and not (historical and deps == {'BaseLib': '3.4.5'}):
         raise ValueError('Dependency versions changed; review policy before releasing')
     if deps == ritsu_only and not delivery:
         raise ValueError('Ritsu-only preparation requires verified Delivery evidence')
-    if not manifest.get('has_dll') or not manifest.get('has_pck'):
+    if not manifest.get('has_dll') or (not unified and not manifest.get('has_pck')):
         raise ValueError('Runtime manifest must declare DLL and PCK')
     actual = {name: sha256(candidate / name) for name in runtime}
     if delivery:
@@ -159,10 +171,10 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
         install_map = {asset: 'mods/Librarian/' + relative for relative, asset in asset_map.items()}
         (output / 'INSTALL-MAP.json').write_text(json.dumps(install_map, indent=2) + '\n', encoding='utf-8')
         (output / 'INSTALL.txt').write_text(
-            f'Librarian V{version} / game 0.107.1 and 0.111.0\n\n'
-            'Install RitsuLib >=0.6.4 separately. Quit the game before installation.\n'
+            f'Librarian V{version} / game {" / ".join(x["version"] for x in unified_record["game_targets"])}\n\n'
+            f'Install RitsuLib >={ritsu_only["STS2-RitsuLib"]} separately. Quit the game before installation.\n'
             'Copy each downloaded asset to the path listed in INSTALL-MAP.json, relative to the game directory.\n'
-            'Create both compat subdirectories and rename their downloaded DLLs to Librarian.dll.\n'
+            'Create the listed compat subdirectories and rename their downloaded DLLs to Librarian.dll.\n'
             'Keep the root Librarian.dll, JSON, PCK, and variant manifest together. Keep your existing saves.\n'
             'For migration, subscribe to item 3801958367, quit, unsubscribe from 3811677053, wait for downloads, and restart.\n'
             'Do not enable both old and new Librarian copies. The loader selects the compatible content automatically.\n', encoding='utf-8')

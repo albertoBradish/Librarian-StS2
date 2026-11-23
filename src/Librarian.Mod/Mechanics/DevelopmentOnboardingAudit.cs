@@ -501,7 +501,7 @@ internal static class DevelopmentOnboardingAudit
             && Modals.OpenModal is LibrarianPracticeOverlay, "real practice first combat overlay", 45);
         await Wait(.4);
         var practice = LibrarianPracticeSession.Instance!;
-        Check(practice.Player.Character is LibrarianCharacter && practice.RunState.GameMode == GameMode.Custom,
+        Check(practice.Player.Character is LibrarianCharacter && LibrarianGameApi.IsCustomGame(practice.RunState),
             "practice uses native Librarian Custom run");
         Check(practice.RunState.Rng.StringSeed == "LIBRARIAN_LESSON_V1", "practice uses fixed lesson seed");
         Check(!RunManager.Instance.ShouldSave, "practice native run disables saving");
@@ -720,10 +720,10 @@ internal static class DevelopmentOnboardingAudit
             else
             {
                 var card = practice.CurrentCard ?? throw new InvalidOperationException("Practice expected card missing at step " + step);
-                string expectedType = step switch { 0 or 5 => "Spark", 1 or 3 or 8 => "Trickle", 4 => "TreeRingBurst", 7 => "TidalGravity", 9 => "Renewal", _ => "" };
+                string expectedType = step switch { 0 or 5 => "Spark", 1 or 3 or 8 => "Trickle", 4 => "DrawBranch", 7 => "TidalGravity", 9 => "Renewal", _ => "" };
                 Check(card.GetType().Name == expectedType, "lesson uses specified real card " + expectedType + " step" + step);
                 if (step is 0 or 5) Check(card.IsUpgraded && card.EnergyCost.GetWithModifiers(CostModifiers.None) == 0, "legal zero-cost Spark upgrade keeps teaching energy budget");
-                if (step == 4) Check(card.EnergyCost.GetWithModifiers(CostModifiers.None) == 2, "Rotation keeps its actual two-energy cost in the lesson");
+                if (step == 4) Check(card.EnergyCost.GetWithModifiers(CostModifiers.None) == 1, "Draw Branch keeps its actual one-energy cost in the lesson");
                 Check(!practice.AllowEndTurn && card.Pile?.Type == PileType.Hand && NCard.FindOnTable(card) is not null,
                     "expected card exists in actual native hand step" + step);
                 if (step == 0) await NativeMouseSpark(practice, card);
@@ -741,7 +741,7 @@ internal static class DevelopmentOnboardingAudit
                     && after.Foreground == OrbKind.Tide, "actual Trickle increases and activates foreground Tide step" + step);
             if (step == 4)
                 Check(after[OrbKind.Tide].IsActivated && session.Orbs.SettlementsThisCombat > settlements,
-                    "actual Rotation settles Tide without extinguishing it");
+                    "actual Draw Branch settles Growth and preserves Tide activation");
             if (step == 7)
                 Check(after[OrbKind.Tide].IsLocked && !after[OrbKind.Tide].IsActivated, "actual TidalGravity locks and extinguishes Tide");
             if (step == 8)
@@ -764,6 +764,21 @@ internal static class DevelopmentOnboardingAudit
         CheckRunFiles(saveHashes, "ordinary save unchanged after completed practice");
         File.WriteAllText(Path.Combine(_output, "practice-observations.json"), JsonSerializer.Serialize(evidence, new JsonSerializerOptions { WriteIndented = true }));
         return initial;
+    }
+
+    internal static async Task Check142Practice(string output)
+    {
+        _output = output;
+        _checks = 0; _screenshots = 0;
+        _captureEvidence.Clear(); _progressEvidence.Clear(); _cancelEvidence.Clear(); _protectionEvidence.Clear();
+        await ReadyMenu([]);
+        Receipts(true, true);
+        var ordinary = SaveManager.Instance.Progress;
+        var hashes = RunFileHashes();
+        await LibrarianPracticeSession.StartAsync();
+        var practice = await Practice();
+        await CompletePractice(practice, ordinary, hashes);
+        MainFile.Logger.Info($"CARD142_PRACTICE_PASS steps=12 checks={_checks} nativeActions=True screenshots={_screenshots}");
     }
 
     internal static async Task Run()

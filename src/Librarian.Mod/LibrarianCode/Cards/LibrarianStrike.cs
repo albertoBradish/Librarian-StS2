@@ -15,7 +15,7 @@ public sealed class LibrarianStrike() : LibrarianRitsuCard(1, CardType.Attack, C
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        return DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay)
+        return DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromLibrarianCard(this, cardPlay)
             .Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 

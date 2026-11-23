@@ -23,5 +23,6 @@ public sealed class TidalGravity() : Librarian.LibrarianCode.Cards.OrbUtility.Or
     protected override void OnUpgrade()
     {
         RemoveKeyword(CardKeyword.Exhaust);
+        DynamicVars.Energy.UpgradeValueBy(1m);
     }
 }

@@ -16,67 +16,27 @@ The console test runner exits nonzero on failure. CI runs Core and Progress JSON
 tests, plus the offline Loader and bundle tests when their files are present.
 It does not build the proprietary game integration or certify native gameplay.
 
-## Unified V1.4.0 development build (Windows)
+## Unified V1.4.10 development build (Windows)
 
-The current development line compiles the same content source for two exact API
-targets and a small `Librarian.Loader` entry assembly. The shared PCK contains
-authored production resources, including the Spine banks and current card art. The matching release records validation of the distributed package. Rebuilding a public clone produces a new local build and does not inherit the maintainer's native validation automatically.
+The five content DLLs share one source tree. The loader selects the DLL for the installed game's exact assembly hash. The shared PCK contains the production art and animations covered by the asset license.
 
-Supply legally obtained, matching private dependencies locally:
+Install .NET SDK 9.0.317 in `.research/tools/dotnet/`, MegaDot 4.5.1 mono in `.research/tools/megadot/`, and provision these private game copies from legally obtained installations. The builder checks each game assembly against its SHA-256 before deployment.
 
-| Location relative to repository | Required content |
-| --- | --- |
-| `.research/tools/dotnet/` | .NET SDK 9.0.317, including `dotnet.exe` |
-| `.research/tools/megadot/` | `MegaDot_v4.5.1-stable_mono_win64_console.exe` and matching runtime files |
-| `.research/ritsu-game/` | isolated copy of Slay the Spire 2 0.111.0 public-beta |
-| `.research/channels/stable/workspace/.research/ritsu-game/` | separate isolated copy of Slay the Spire 2 0.107.1 public |
-| `.research/tools/ritsulib/v0.6.4/` | complete RitsuLib 0.6.4 bundle, `RitsuLib.References.props`, both `compat/0.107.1/` and `compat/0.111.0/`, `shared/` |
+| Game | Commit | Local SDK directory |
+| --- | --- | --- |
+| 0.107.1 | 59260271 | `.research/channels/stable/workspace/.research/ritsu-game/` |
+| 0.111.0 | 41cef1ea | `.research/ritsu-game/` |
+| 0.111.1 | cc1f9462 | `.research/game-sdk-20261116/steam-0.111.1/` |
+| 0.113.0 | 16ac0fe3 | `.research/game-sdk-20261112/steam-0.113.0/` |
+| 0.113.1 | d09d48e5 | `.research/game-sdk-20261114/steam-0.113.1/` |
 
-Acquire RitsuLib through their official upstream projects linked in
-the README. MegaDot is the game-compatible Godot distribution supplied by the
-game's modding toolchain; an arbitrary stock Godot binary is not a substitute.
-The engine and its proprietary extensions are not redistributed by this project.
-
-Each game input uses `data_sts2_windows_x86_64/sts2.dll`. Exact identities are:
-
-| Game / commit | SHA256 |
-| --- | --- |
-| 0.107.1 / 59260271 | `a1f9e653f1e28e4076558fee1e60d218619cb7e057b887c6417f62c62c6d7a52` |
-| 0.111.0 / 41cef1ea | `0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9` |
-
-The project rejects mismatched versions and deployment to the original Steam
-installation. Do not disable those guards to make an unsupported build pass.
-
-Copy `src/Librarian.Mod/Directory.Build.props.example` to the ignored
-`src/Librarian.Mod/Directory.Build.props`, then run with Python 3.12 or newer:
+Supply the full upstream RitsuLib 0.6.13 GitHub bundle in `.research/tools/ritsulib/v0.6.13/` for compilation and the full 0.6.15 Workshop bundle (manifest `8216062401609832430`) in `.research/tools/ritsulib/v0.6.15-workshop-8216062401609832430/` for the isolated runtimes. The exact per-file checksums are in [ritsulib-build-inputs.json](scripts/ritsulib-build-inputs.json). Copy `src/Librarian.Mod/Directory.Build.props.example` to its ignored sibling `Directory.Build.props`. Run from the repository with Python 3.12 or later.
 
 ```powershell
 python scripts/build_unified_librarian.py --pack
 ```
 
-NuGet restores Godot.NET.Sdk 4.5.1. BaseLib and ModAnalyzers are absent from the current development package graph. The local
-builder expects an existing `.research/nuget-packages/` directory or a populated
-user NuGet cache; create the workspace directory for an online fresh restore.
-The builder runs the two content compiles and loader compile serially, exports
-one PCK, checks every artifact, and deploys only into new
-`.research/unified-v1.4.0/runtimes/<game-version>/mods/Librarian/` copies. It does
-not replace the two private input games. Logs, target-specific caches and source/
-dependency fingerprints remain under `.research/unified-v1.4.0/`.
-
-The candidate at `outputs/revision-v1.4.0/candidate/Librarian/` has exactly six
-files: root `Librarian.dll` (internal identity `Librarian.Loader`), `Librarian.json`,
-`Librarian.pck`, `librarian-variants.manifest`, and
-`compat/0.107.1/Librarian.dll` / `compat/0.111.0/Librarian.dll`. Both content DLLs
-retain identity `Librarian, Version=1.4.0.0`. Keep the directory structure intact;
-the loader validates SHA-256 and loads only the matching target. Private game,
-Godot, Harmony and RitsuLib binaries are neither copied into this mod nor
-redistributed.
-
-`--target 0.107.1` or `--target 0.111.0` is a compile-only diagnostic and cannot be
-combined with `--pack`. A successful single-target compile is not a complete
-unified bundle. Historical beta/stable trees retain their own
-`build_librarian.py` workflow; the old BaseLib/test ZIP helper refuses current
-unified source and no full ZIP is produced by default.
+NuGet restores Godot.NET.Sdk 4.5.1. The builder compiles all five targets and the loader, exports the PCK, checks the bundle, and deploys to `.research/unified-v1.4.10/runtimes/<game-version>/`. The candidate at `outputs/revision-v1.4.10/candidate/Librarian/` contains four root files and five `compat/<game-version>/Librarian.dll` files. A single `--target <game-version>` performs a diagnostic compile. Keep the original Steam game and its saves separate from all test runs.
 
 Historical `Development*.cs` audit helpers remain compiled because production
 entry points reference them. Some opt-in audits contain maintainer-specific

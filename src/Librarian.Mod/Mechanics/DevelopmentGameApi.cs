@@ -1,14 +1,52 @@
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Rngs;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.TestSupport;
 
 namespace Librarian.Mechanics;
 
 /// <summary>API-specific deterministic fixture setup; never called by gameplay.</summary>
 internal static class DevelopmentGameApi
 {
+#if LIBRARIAN_API_0113
+    internal static Task<RunState> StartNewSingleplayerRun(this NGame game, CharacterModel character,
+        bool shouldSave, IReadOnlyList<ActModel> acts, IReadOnlyList<ModifierModel> modifiers,
+        string seed, GameMode mode)
+    {
+        var player = Player.CreateForNewRun(character, SaveManager.Instance.GenerateUnlockStateFromProgress(), 1UL);
+        return game.StartNewSingleplayerRun(player, shouldSave, acts, modifiers, seed, mode, isCustomGame: false);
+    }
+#endif
+
+    internal static ICardSelector? Selector(Player player)
+#if LIBRARIAN_API_0113
+        => RunManager.Instance.CardSelectorStack.GetSelector(player);
+#else
+        => CardSelectCmd.Selector;
+#endif
+
+    internal static IDisposable PushSelector(Player player, ICardSelector selector)
+#if LIBRARIAN_API_0113
+        => RunManager.Instance.CardSelectorStack.PushSelector(player, selector);
+#else
+        => CardSelectCmd.PushSelector(selector);
+#endif
+
+    internal static ICardSelector? LocalSelector =>
+#if LIBRARIAN_API_0113
+        RunManager.Instance.CardSelectorStack.LocalSelector;
+#elif LIBRARIAN_API_0111
+        CardSelectCmd.LocalSelector;
+#else
+        null;
+#endif
+
 #if LIBRARIAN_API_0107
     internal readonly record struct RngSnapshot(uint Seed, int Counter);
 #else

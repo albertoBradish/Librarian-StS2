@@ -10,17 +10,29 @@ public partial class LibrarianOrbLockAura060 : Node2D
     private float _phase;
     private bool _animate;
     private float _impulse;
+    private float _redrawIn;
+    private int _opacity;
+    private bool _particles;
     internal float Phase => _phase;
-    internal bool ParticlesVisible => _animate && LibrarianPreferences050.Current.Particles;
+    internal bool ParticlesVisible => _animate && _particles;
     public override void _Ready() => _texture = GD.Load<Texture2D>(TexturePath);
-    internal void Advance(float phase, bool animate, float impulse)
+    internal void Advance(float phase, bool animate, float impulse, double delta)
     {
-        _phase = phase; _animate = animate; _impulse = impulse;
+        var prefs = LibrarianPreferences050.Current;
+        _redrawIn -= (float)delta;
+        bool styleChanged = _animate != animate || _opacity != prefs.EffectOpacity || _particles != prefs.Particles;
+        if (!styleChanged && (_redrawIn > 0 || !animate && impulse == _impulse)) return;
+        _redrawIn = 1f / 30;
+        _phase = phase;
+        _animate = animate;
+        _impulse = impulse;
+        _opacity = prefs.EffectOpacity;
+        _particles = prefs.Particles;
         QueueRedraw();
     }
     public override void _Draw()
     {
-        float opacity = LibrarianPreferences050.Current.EffectOpacity / 100f;
+        float opacity = _opacity / 100f;
         float breath = _animate ? .75f + .25f * Mathf.Sin(_phase * 1.8f) : .75f;
         // Layered, very low-alpha copies form a soft silhouette halo. The selected art stays crisp above.
         if (_texture is not null)

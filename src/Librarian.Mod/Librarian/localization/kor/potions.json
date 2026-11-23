@@ -1,0 +1,8 @@
+{
+  "LIBRARIAN-KINDLING_POTION.title": "점화약",
+  "LIBRARIAN-KINDLING_POTION.description": "{Fire:diff()} [gold]화염[/gold]을 얻습니다.",
+  "LIBRARIAN-CLARITY_POTION.title": "명료약",
+  "LIBRARIAN-CLARITY_POTION.description": "{Waves:diff()} [gold]파도[/gold]를 얻습니다.",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.title": "액체 금기된 과일",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "모든 구체를 [gold]잠금 해제[/gold]한 후, 각각의 효과를 추가로 1회 [gold]발동[/gold]시킵니다."
+}

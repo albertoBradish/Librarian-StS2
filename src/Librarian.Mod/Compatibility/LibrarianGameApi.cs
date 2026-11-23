@@ -13,6 +13,8 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Timeline;
 
 namespace Librarian.Compatibility;
@@ -34,6 +36,41 @@ internal static class LibrarianGameApi
 #endif
 
     internal static IEnumerable<EpochModel> AllEpochs => EpochModel.AllEpochIds.Select(EpochModel.Get);
+
+    internal static bool AreAchievementsAndEpochsLocked(IRunState run)
+#if LIBRARIAN_API_0113
+        => MegaCrit.Sts2.Core.Helpers.GameModeHelper.AreAchievementsAndEpochsLockedForRun(run);
+#else
+        => run.GameMode.AreAchievementsAndEpochsLocked();
+#endif
+
+    internal static bool IsCustomGame(IRunState run)
+#if LIBRARIAN_API_0113
+        => run.IsCustomGame;
+#else
+        => run.GameMode == GameMode.Custom;
+#endif
+
+    internal static bool IsStandardGame(SerializableRun run)
+#if LIBRARIAN_API_0113
+        => run.GameMode == GameMode.Standard && !run.IsCustomGame;
+#else
+        => run.GameMode == GameMode.Standard;
+#endif
+
+    internal static RunState CreatePracticeRun(Player player, IReadOnlyList<ActModel> acts, string seed)
+#if LIBRARIAN_API_0113
+        => RunState.CreateForNewRun([player], acts, [], GameMode.Standard, isCustom: true, 0, seed);
+#else
+        => RunState.CreateForNewRun([player], acts, [], GameMode.Custom, 0, seed);
+#endif
+
+    internal static LibrarianCombatHooks RegisteredCombatHooks =>
+#if LIBRARIAN_API_0113
+        ModelDb.RunModel<LibrarianCombatHooks>();
+#else
+        ModelDb.Singleton<LibrarianCombatHooks>();
+#endif
 
     internal static bool IsUsingDirectionalNavigation(NControllerManager? controller)
 #if LIBRARIAN_API_0107
@@ -106,6 +143,18 @@ internal static class LibrarianGameApi
 #else
         => play.Player;
 #endif
+
+    // Presentation uses the original command's actual targets and hit callbacks.
+    // Keep a distinct name: the 0.111 instance FromCard would hide an extension.
+    internal static AttackCommand FromLibrarianCard(this AttackCommand command, CardModel card, CardPlay play)
+    {
+#if LIBRARIAN_API_0107
+        command.FromCard(card);
+#else
+        command.FromCard(card, play);
+#endif
+        return LibrarianCardRemasterVfx.Attach(command, card, play);
+    }
 
 #if LIBRARIAN_API_0107
     internal static AttackCommand FromCard(this AttackCommand command, CardModel card, CardPlay play)

@@ -298,6 +298,23 @@ public sealed class OrbCombatState
         return Result(0, events);
     }
 
+    /// <summary>Redistribute the total without gaining, losing, activating or moving orbs. Remainders follow position order.</summary>
+    public OrbOperationResult RedistributeValues(OrbOrigin? origin = null)
+    {
+        EnsureHealthy();
+        long total = _values.Sum(value => (long)value);
+        int share = checked((int)(total / 3)), remainder = (int)(total % 3);
+        int[] before = (int[])_values.Clone();
+        for (int i = 0; i < _positions.Count; i++)
+            _values[(int)_positions[i]] = checked(share + (i < remainder ? 1 : 0));
+        origin = Normalize(origin, "redistribution");
+        var events = new List<OrbEvent>();
+        foreach (var kind in _positions)
+            if (before[(int)kind] != Value(kind))
+                events.Add(Event(OrbEventKind.ValuesRedistributed, kind, before[(int)kind], Value(kind), 0, origin));
+        return Result(0, events);
+    }
+
     /// <summary>Counts are captured now; target resolves once after delayed actions at end turn. Late registrations run next turn.</summary>
     public void QueueExtraSettlement(OrbSelector selector, int count, string source, bool loseAllAfter = false)
     {

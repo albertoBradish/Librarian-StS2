@@ -15,6 +15,14 @@ internal static class LibrarianNativeBlockPreview
 {
     private static readonly string[] EndHooks = ["BeforeSideTurnEndVeryEarly", "BeforeSideTurnEndEarly",
         "BeforeSideTurnEnd", "AfterSideTurnEnd", "AfterSideTurnEndLate", "BeforeFlush", "BeforeFlushLate", "AfterFlush"];
+    private static readonly string[] BlockHooks = ["ModifyBlockAdditive", "ModifyBlockMultiplicative",
+        "BeforeBlockGained", "AfterBlockGained", "AfterModifyingBlockAmount"];
+    private static readonly string[] DamageHooks = ["ModifyDamageAdditive", "ModifyDamageMultiplicative", "ModifyDamageCap",
+        "ModifyHpLostBeforeOsty", "ModifyHpLostBeforeOstyLate", "ModifyHpLostAfterOsty", "ModifyHpLostAfterOstyLate",
+        "ModifyUnblockedDamageTarget", "BeforeDamageReceived", "AfterDamageGiven", "AfterDamageReceived", "AfterDamageReceivedLate",
+        "AfterCurrentHpChanged", "AfterBlockBroken", "AfterModifyingDamageAmount", "AfterModifyingHpLostBeforeOsty",
+        "AfterModifyingHpLostAfterOsty"];
+    private static readonly string[] OrbHooks = ["ModifyOrbValue", "ModifyOrbPassiveTriggerCounts", "AfterModifyingOrbPassiveTriggerCount"];
     private static readonly HashSet<Type> PassiveModifiers = [typeof(DexterityPower), typeof(FrailPower),
         typeof(NoBlockPower), typeof(FastenPower), typeof(UnmovablePower), typeof(ShadowmeldPower)];
     private static readonly HashSet<Type> SupportedEnd = [typeof(PlatingPower), typeof(Orichalcum),
@@ -48,21 +56,18 @@ internal static class LibrarianNativeBlockPreview
             if (model is RelicModel { IsMelted: true }) continue;
             if (model is not LibrarianSpellVisualHooks040 && !PassiveModifiers.Contains(type)
                 && type.FullName != "MegaCrit.Sts2.Core.Models.Singleton.MultiplayerScalingModel"
-                && new[] { "ModifyBlockAdditive", "ModifyBlockMultiplicative", "BeforeBlockGained", "AfterBlockGained", "AfterModifyingBlockAmount" }.Any(n => Overrides(model, n)))
+                && BlockHooks.Any(n => Overrides(model, n)))
                 return "modifiers";
             if (Overrides(model, "AfterAutoPostPlayPhaseEntered") && (model is not IAmInvincible invincible
                 || invincible.Owner == player && player.PlayerCombatState.DrawPile.Cards.FirstOrDefault() == invincible)) return "bottom";
             if (takesDamage && model is not LibrarianSpellVisualHooks040 and not IntangiblePower
-                && new[] { "ModifyDamageAdditive", "ModifyDamageMultiplicative", "ModifyDamageCap",
-                    "ModifyHpLostBeforeOsty", "ModifyHpLostBeforeOstyLate", "ModifyHpLostAfterOsty", "ModifyHpLostAfterOstyLate",
-                    "ModifyUnblockedDamageTarget", "BeforeDamageReceived", "AfterDamageGiven", "AfterDamageReceived", "AfterDamageReceivedLate",
-                    "AfterCurrentHpChanged", "AfterBlockBroken", "AfterModifyingDamageAmount", "AfterModifyingHpLostBeforeOsty", "AfterModifyingHpLostAfterOsty" }.Any(n => Overrides(model, n))) return "modifiers";
+                && DamageHooks.Any(n => Overrides(model, n))) return "modifiers";
             if (exhausts && (Overrides(model, "ShouldEtherealTrigger") && model is not LibrarianCombatHooks
                 || Overrides(model, "AfterCardExhausted") && model is not FeelNoPainPower and not LibrarianSpellVisualHooks040)) return "hand";
             if (type.Assembly == typeof(LibrarianRuntime).Assembly) continue;
             if (!SupportedEnd.Contains(type) && EndHooks.Any(n => Overrides(model, n))) return "effects";
             if (player.PlayerCombatState.OrbQueue.Orbs.Count > 0 && type != typeof(GoldPlatedCables)
-                && type != typeof(FocusPower) && new[] { "ModifyOrbValue", "ModifyOrbPassiveTriggerCounts", "AfterModifyingOrbPassiveTriggerCount" }.Any(n => Overrides(model, n)))
+                && type != typeof(FocusPower) && OrbHooks.Any(n => Overrides(model, n)))
                 return "effects";
         }
         if (player.PlayerCombatState.OrbQueue.Orbs.Any(o => o.GetType() != typeof(FrostOrb))) return "effects";

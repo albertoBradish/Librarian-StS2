@@ -1,0 +1,4 @@
+{
+  "LIBRARIAN-TO_DRAW_BOTTOM": "手札から1枚のカードを選び、山札の底に置く。",
+  "LIBRARIAN_TO_BE_CONTINUED": "{Amount}枚のカードを{Amount:plural:枚|枚}手札から選び、山札の底に置く。"
+}

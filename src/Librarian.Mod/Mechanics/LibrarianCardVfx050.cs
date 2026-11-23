@@ -43,6 +43,21 @@ internal static class LibrarianCardVfx050
         Add(SpellElement050.Page, SpellShape050.Seal, "LibrarianDefend ScatteredFlames WearyIncantation ArchiveBulwark Ignite SharedShelter");
         Add(SpellElement050.Page, SpellShape050.Pages, "FlyingPages ReadBackward Nourish Calibrate OutOfContext Bookworm ZeroSearch Transcribe FuelTheFire CirculationNotes ToBeContinued MultiplayerPlaceholderB");
         Add(SpellElement050.Prismatic, SpellShape050.Ring, "EternalGrimoire Overfishing Sedimentation ShiftingPages ThreefoldUnity NourishingLife FireInscription ReadWidely TreeRingBurst SongOfIceAndFire MultipleEruption SpacetimeTwist OverlimitForm PracticeMakesPerfect ReRead");
+        Add(SpellElement050.Prismatic, SpellShape050.Pages, "StudyNotes");
+        // Current rules supersede historical names; Rain's trigger is healing foliage.
+        result["UnretreatingTide"] = new(SpellElement050.Leaf, SpellShape050.Root);
+        result["Springwater"] = new(SpellElement050.Page, SpellShape050.Pages);
+        result["Evaporation"] = new(SpellElement050.Page, SpellShape050.Seal);
+        result["WaveStrike"] = new(SpellElement050.Page, SpellShape050.Slash);
+        result["EmberPierce"] = new(SpellElement050.Water, SpellShape050.Seal);
+        result["DamBreak"] = new(SpellElement050.Water, SpellShape050.Seal);
+        result["TidalGravity"] = new(SpellElement050.Water, SpellShape050.Seal);
+        result["DeepSeaBarrier"] = new(SpellElement050.Water, SpellShape050.Pages);
+        result["AncientCatalog"] = new(SpellElement050.Prismatic, SpellShape050.Seal);
+        result["Overfishing"] = new(SpellElement050.Page, SpellShape050.Seal);
+        result["WearyIncantation"] = new(SpellElement050.Page, SpellShape050.Seal);
+        result["Bookworm"] = new(SpellElement050.Leaf, SpellShape050.Root);
+        result["FireInscription"] = new(SpellElement050.Prismatic, SpellShape050.Slash);
         return result;
     }
     internal static bool TryProfile(CardModel card, out SpellProfile050 profile)
@@ -60,14 +75,15 @@ internal static class LibrarianCardVfx050
     internal static void Exit() => Active = Math.Max(0, Active - 1);
     internal static void ResetCounters() { Peak = Active; Dropped = 0; }
     internal static void RecordDropped() => Dropped++;
-    internal static bool Available(Player? owner, bool orb = false)
+    internal static bool Enabled(Player? owner, bool orb = false)
     {
         var p = LibrarianPreferences050.Current;
         return (orb ? p.OrbEffects : p.CardEffects) && !TestMode.IsOn && DisplayServer.GetName() != "headless"
             && SaveManager.Instance.PrefsSave.FastMode != FastModeType.Instant
-            && CombatManager.Instance.IsInProgress && !CombatManager.Instance.IsOverOrEnding
             && (p.TeammateEffects || owner is null || MegaCrit.Sts2.Core.Context.LocalContext.IsMe(owner));
     }
+    internal static bool Available(Player? owner, bool orb = false)
+        => Enabled(owner,orb) && CombatManager.Instance.IsInProgress && !CombatManager.Instance.IsOverOrEnding;
     internal static void Cast(CardPlay play)
     {
         // Owned Spine hands now emit only from their current post-world sockets and release cue.
@@ -78,8 +94,12 @@ internal static class LibrarianCardVfx050
     }
     internal static void Impact(CardModel source, Creature target)
     {
-        if (TryProfile(source, out var profile))
-            Emit(target, profile, "impact", source.GetType().Name, source.Owner);
+        if (!TryProfile(source, out var profile)) return;
+        // AttackCommand contact already owns the themed body. Native Damage owns the hit
+        // flash/sparks/numbers. EarthCollapse uses a direct AttackContext, without a flight.
+        if (source.GetType().Name == "EarthCollapse")
+            Emit(target, profile, "impact", source.GetType().Name, source.Owner, 38);
+        else if (Available(source.Owner)) Observer?.Invoke("impact", target, source.GetType().Name);
     }
     internal static void Block(Creature target, CardModel? source)
     {
@@ -103,16 +123,22 @@ internal static class LibrarianCardVfx050
                 if (circle is not null) { circle.OverlimitActive = true; circle.BurstOverlimit(); }
             });
         string name = power.GetType().Name.Replace("Power", "");
-        name = name switch { "SeedburialPending" => "SeedburialStrike", "DeepSeaPending" => "DeepSeaBarrier", "LifeSymphonyPending" => "LifeSymphony", "CrowdKindling" => "MultiplayerPlaceholderA", "Binding" => "MultiplayerPlaceholderB", _ => name };
+        name = name switch { "SeedburialPending" => "SeedburialStrike", "DeepSeaPending" => "DeepSeaBarrier", "LifeSymphonyPending" => "LifeSymphony", "CrowdKindling" => "MultiplayerPlaceholderA", "Binding" => "MultiplayerPlaceholderB", "AfterRain" => "UnretreatingTide", "ChargedStrike" => "TreeRingBurst", _ => name };
         if (Profiles.TryGetValue(name, out var profile))
-            Emit(power.Owner, profile with { Shape = SpellShape050.Ring }, "trigger", name, radius: 33);
+            Emit(power.Owner, profile, "trigger", name, radius: 27);
     }
     internal static void Page(Player player, string stage, string source = "native")
     {
         if (stage == "draw" && !LibrarianPreferences050.Current.LegacyDrawEffects) return;
         if (player.Character is LibrarianCharacter)
         {
-            Emit(player.Creature, new(SpellElement050.Page, SpellShape050.Pages), stage, source, radius: 33);
+            // Native card generation/exhaust owns the actual card node and its destination.
+            // An extra anonymous page at the character used to imply a second card.
+            if (stage is "generated" or "exhaust")
+            {
+                if (Available(player)) Observer?.Invoke(stage, player.Creature, source);
+                return;
+            }
             if (stage is "bottom-read" or "bottom-return") LibrarianOrbVfx.Safely(() =>
             {
                 if (!Available(player) || !MegaCrit.Sts2.Core.Context.LocalContext.IsMe(player)) return;
@@ -121,6 +147,7 @@ internal static class LibrarianCardVfx050
                 Spawn(player.Creature, new(SpellElement050.Page, SpellShape050.Pages), stage, source, player, 20,
                     pile.GetGlobalTransform() * (pile.Size / 2) + new Vector2(0,-20), false);
             });
+            else Emit(player.Creature, new(SpellElement050.Page, SpellShape050.Pages), stage, source, radius: 24);
         }
     }
     internal static void OrbChanged(LibrarianSession session, OrbOperationResult result)
@@ -138,13 +165,15 @@ internal static class LibrarianCardVfx050
         => LibrarianOrbVfx.Safely(() =>
         {
             owner ??= target.Player;
-            if (!Available(owner)) return;
+            if (!(stage == "impact" ? Enabled(owner) : Available(owner))) return;
             var room = NCombatRoom.Instance;
             var node = room?.GetCreatureNode(target);
             if (node?.Hitbox is not { } box || !GodotObject.IsInstanceValid(box)) return;
             // Keep death-blow hits; status/cast success is never shown on a dead recipient.
             if (target.IsDead && stage != "impact") return;
             Vector2 point = box.GetGlobalTransform() * (box.Size * new Vector2(0.5f, 0.46f));
+            if (stage == "impact" && profile.Shape == SpellShape050.Stone)
+                point = box.GetGlobalTransform() * (box.Size * new Vector2(.5f,.96f));
             if (stage == "cast") point += box.GetGlobalTransform().BasisXform(new Vector2(-box.Size.X * 0.22f, 8));
             float scale = box.GetGlobalTransform().Scale.Abs().X;
             Spawn(target, profile, stage, source, owner, Math.Clamp(radius * scale, 16, 95), point, false);
@@ -161,6 +190,26 @@ internal static class LibrarianCardVfx050
         }
         if (Active >= LibrarianPreferences050.Current.EffectLimit) { Dropped++; return; }
         var layer = room.CombatVfxContainer;
+        if (stage is "cast" or "impact" or "block" or "status" or "trigger")
+        {
+            var local = new LibrarianSpineSpellPulse
+            {
+                Name = "LibrarianElementFeedback", Profile = profile, EffectOwner = owner,
+                Stage = stage switch
+                {
+                    "cast" => LibrarianSpineSpellStage.Prepare,
+                    "impact" => LibrarianSpineSpellStage.Impact,
+                    "block" => LibrarianSpineSpellStage.Block,
+                    _ => LibrarianSpineSpellStage.Status
+                },
+                Radius = radius / Math.Max(.01f, layer.GetGlobalTransform().Scale.Abs().X),
+                Duration = SaveManager.Instance.PrefsSave.FastMode == FastModeType.Fast ? .20f : .35f
+            };
+            layer.AddChild(local);
+            local.GlobalPosition = point;
+            Observer?.Invoke(stage, target, source);
+            return;
+        }
         var effect = new LibrarianCardSpell050
         {
             Name = "LibrarianCardVfx050", Profile = profile, Stage = stage, Orb = orb, EffectOwner = owner,

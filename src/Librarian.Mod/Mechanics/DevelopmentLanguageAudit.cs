@@ -145,9 +145,9 @@ internal static partial class DevelopmentRuntimeAudit
             await Wait(1); await Capture("character-" + language);
             menu.SubmenuStack.Pop(); await Wait();
         }
-        // A runtime game-locale change must not replace an explicitly chosen mod language.
+        // A temporary native locale override must not replace an explicitly chosen mod language.
         LocManager.Instance.SetLanguage(originalGameLanguage == "eng" ? "zhs" : "eng");
-        Check(LibrarianLanguage.Selected == "eng" && new LocString("cards", "LIBRARIAN-SPARK.title").GetRawText() == "Spark", "game language changes do not overwrite saved selection");
+        Check(LibrarianLanguage.Selected == "eng" && new LocString("cards", "LIBRARIAN-SPARK.title").GetRawText() == "Spark", "temporary native locale override preserves saved selection");
         LocManager.Instance.SetLanguage(originalGameLanguage);
         string custom = Path.Combine(LibrarianLanguage.PackDirectory, "audit-vone");
         Check(!Directory.Exists(custom), "custom fixture does not overwrite existing translation");

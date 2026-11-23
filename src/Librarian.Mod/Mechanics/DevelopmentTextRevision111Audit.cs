@@ -2,6 +2,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Godot;
+using HarmonyLib;
 using Librarian.Core;
 using Librarian.LibrarianCode;
 using Librarian.LibrarianCode.Character;
@@ -165,8 +166,19 @@ internal static class DevelopmentTextRevision111Audit
 
             // These are the engine's HoverTip values and real instanced PowerModel types.
             // Compare the expansion with the native algorithm, rather than imposing a stricter ID-only dedupe.
-            var emptyOne = new HoverTip(ModelDb.Power<StrengthPower>(), "empty-one", false) { Id = "" };
-            var emptyTwo = new HoverTip(ModelDb.Power<StrengthPower>(), "empty-two", false) { Id = "" };
+            var emptyOne = EmptyIdTip("empty-one");
+            var emptyTwo = EmptyIdTip("empty-two");
+            static HoverTip EmptyIdTip(string text)
+            {
+                var tip = new HoverTip(ModelDb.Power<StrengthPower>(), text, false);
+#if LIBRARIAN_API_0113
+                object boxed = tip;
+                AccessTools.Field(typeof(HoverTip), "<Id>k__BackingField").SetValue(boxed, "");
+                return (HoverTip)boxed;
+#else
+                return tip with { Id = "" };
+#endif
+            }
             var instanceOne = new HoverTip(ModelDb.Power<AutomationPower>().ToMutable(), "instance-one", true);
             var instanceTwo = new HoverTip(ModelDb.Power<AutomationPower>().ToMutable(), "instance-two", true);
             var plain = new HoverTip(ModelDb.Power<StrengthPower>(), "plain", false);

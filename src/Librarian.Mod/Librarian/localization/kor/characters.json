@@ -1,0 +1,17 @@
+{
+  "LIBRARIAN-LIBRARIAN_CHARACTER.title": "도서관지기",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.titleObject": "도서관지기",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.description": "역병 속에서 아키텍트와 함께 잠든 저주받은 고대 영혼. 흩어진 마법 두루마리로 첨탑의 진실을 찾습니다.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounObject": "그를",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounSubject": "그",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounPossessive": "그의 것",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.possessiveAdjective": "그의",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.aromaPrinciple": "종이, 잉크, 그리고 빛의 반짝임.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.alive.endTurnPing": "페이지를 넘겨볼까요.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.dead.endTurnPing": "...",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.eventDeathPrevention": "아직 읽지 않은 장들이 남아있습니다.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.goldMonologue": "몇 권 더 살 수 있을 만큼의 돈입니다.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierTitle": "도서관지기 카드",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierDescription": "도서관지기 카드가 보상과 상점에도 등장합니다.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.bestiaryQuote": "필사 보관소에 추가된 또 다른 전투입니다."
+}

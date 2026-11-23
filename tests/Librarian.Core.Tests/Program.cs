@@ -936,6 +936,29 @@ Test("W07", "Gain policy blocks every addition without erasing existing Waves or
     Check.Equal(14, other.Amount);
 });
 
+Test("V142Redistribute", "Redistribution conserves total and preserves identity, locks, activation and loss counters", () =>
+{
+    for (int total = 0; total < 80; total++)
+    {
+        var s = new OrbCombatState("142"); s.BeginOwnerTurn();
+        s.Gain(OrbKind.Growth, total); s.Lock(OrbKind.Tide);
+        var before = s.Snapshot();
+        var result = s.RedistributeValues();
+        Check.Equal(total, s.Positions.Sum(s.Value));
+        Check.True(s.Positions.Max(s.Value) - s.Positions.Min(s.Value) <= 1);
+        Check.Equal(total / 3 + (total % 3 > 0 ? 1 : 0), s.Value(before.Foreground));
+        Check.Equal(before.Foreground, s.Foreground);
+        Check.Equal(before.ZeroCount, s.ZeroCount); Check.Equal(before.LossCount, s.LossCount);
+        foreach (var k in s.Positions)
+        { Check.Equal(before[k].IsActivated, s.IsActivated(k)); Check.Equal(before[k].LockedTurns, s.LockedTurns(k)); }
+        Check.True(result.Events.All(e => e.Kind == OrbEventKind.ValuesRedistributed));
+    }
+    var large = new OrbCombatState("large");
+    foreach (var k in large.Positions) large.Strengthen(k, int.MaxValue, OrbScope.All);
+    large.RedistributeValues();
+    Check.True(large.Positions.All(k => large.Value(k) == int.MaxValue));
+});
+
 int failed = 0;
 foreach (var test in tests)
 {

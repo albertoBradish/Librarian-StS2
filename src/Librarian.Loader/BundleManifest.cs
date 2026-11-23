@@ -23,9 +23,11 @@ internal sealed class VariantDescriptor
 internal sealed class BundleManifest
 {
     internal const string ModId = "Librarian";
-    internal const string ModVersion = "1.4.0";
+    internal const string ModVersion = "1.4.10";
+    internal const string ContentAssemblyVersion = "1.4.10.0";
+    internal const string MinimumRitsuVersion = "0.6.13";
     internal const string FileName = "librarian-variants.manifest";
-    internal static readonly string[] SupportedGameVersions = ["0.107.1", "0.111.0"];
+    internal static readonly string[] SupportedGameVersions = ["0.107.1", "0.111.0", "0.111.1", "0.113.0", "0.113.1"];
     private const long MaximumManifestBytes = 128 * 1024;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -72,10 +74,14 @@ internal sealed class BundleManifest
 
     internal static string NormalizeGameVersion(string? label)
     {
+        return SupportedGameVersion(label) ??
+            throw new NotSupportedException($"Librarian {ModVersion} supports game versions {string.Join(", ", SupportedGameVersions)}; detected '{label ?? "unknown"}'.");
+    }
+
+    internal static string? SupportedGameVersion(string? label)
+    {
         var version = label?.StartsWith('v') == true ? label[1..] : label;
-        if (version is null || !SupportedGameVersions.Contains(version, StringComparer.Ordinal))
-            throw new NotSupportedException($"Librarian {ModVersion} supports game 0.107.1 and 0.111.0 only; detected '{label ?? "unknown"}'.");
-        return version;
+        return SupportedGameVersions.Contains(version, StringComparer.Ordinal) ? version : null;
     }
 
     internal void ValidateNativeManifest(string rootDirectory)
@@ -88,8 +94,17 @@ internal sealed class BundleManifest
         var native = document.RootElement;
         if (!native.TryGetProperty("id", out var id) || id.GetString() != Id ||
             !native.TryGetProperty("version", out var version) || version.GetString() != Version)
-            throw new InvalidDataException("Librarian.json and the variant manifest must both declare Librarian 1.4.0.");
+            throw new InvalidDataException($"Librarian.json and the variant manifest must both declare Librarian {ModVersion}.");
+        if (!native.TryGetProperty("dependencies", out var dependencies) || dependencies.ValueKind != JsonValueKind.Array
+            || dependencies.GetArrayLength() != 0 || !native.TryGetProperty("has_dll", out var dll)
+            || dll.ValueKind != JsonValueKind.True || !native.TryGetProperty("has_pck", out var pck)
+            || pck.ValueKind != JsonValueKind.False || !native.TryGetProperty("min_game_version", out var minimum)
+            || minimum.GetString() != "0.0.0")
+            throw new InvalidDataException("Librarian's native manifest must load only the standalone bootstrap.");
     }
+
+    internal static bool IsRitsuVersionSupported(System.Version? version)
+        => version is not null && version >= System.Version.Parse(MinimumRitsuVersion);
 
     /// <summary>The caller keeps the returned read lock alive until LoadFromAssemblyPath has completed.</summary>
     internal static FileStream OpenVerifiedAssembly(string rootDirectory, VariantDescriptor variant)
@@ -114,9 +129,9 @@ internal sealed class BundleManifest
 
     internal static void ValidateAssemblyIdentity(AssemblyName identity, string expectedName)
     {
-        if (identity.Name != expectedName || identity.Version != System.Version.Parse(ModVersion + ".0") ||
+        if (identity.Name != expectedName || identity.Version != System.Version.Parse(ContentAssemblyVersion) ||
             !string.IsNullOrEmpty(identity.CultureName) || identity.GetPublicKeyToken() is { Length: > 0 })
-            throw new InvalidDataException($"Invalid Librarian content assembly identity: '{identity.FullName}'; expected Librarian, Version=1.4.0.0, Culture=neutral, PublicKeyToken=null.");
+            throw new InvalidDataException($"Invalid Librarian content assembly identity: '{identity.FullName}'; expected Librarian, Version={ContentAssemblyVersion}, Culture=neutral, PublicKeyToken=null.");
     }
 
     internal static string ResolveContainedPath(string rootDirectory, string relativePath)
@@ -147,9 +162,9 @@ internal sealed class BundleManifest
     private void Validate()
     {
         if (SchemaVersion != 1 || Id != ModId || Version != ModVersion)
-            throw new InvalidDataException("The variant manifest must use schema 1 and declare Librarian 1.4.0.");
+            throw new InvalidDataException($"The variant manifest must use schema 1 and declare Librarian {ModVersion}.");
         if (Variants is null || Variants.Length != SupportedGameVersions.Length)
-            throw new InvalidDataException("The Librarian bundle must declare exactly two game variants.");
+            throw new InvalidDataException($"The Librarian bundle must declare exactly {SupportedGameVersions.Length} game variants.");
         var seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var variant in Variants)
         {

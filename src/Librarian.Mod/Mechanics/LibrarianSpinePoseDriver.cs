@@ -261,7 +261,8 @@ internal sealed class LibrarianSpinePoseDriver : IDisposable
             _foreignEntry = false;
             // The only expected foreign room start is the native startup's normal loop.
             // Keep semantic/phase/death latch; no new card occurrence or release is created.
-            StartBody(_semantic, _occurrenceId, phase: _lastTrackTime, muteEvents: true);
+            StartBody(_semantic, _occurrenceId, phase: _lastTrackTime, muteEvents: true,
+                terminal: Pose == LibrarianSpinePose.Dead);
             Emit("foreign_start_reconciled", "owned semantic restored");
         }
         if (next != _settings)
@@ -425,7 +426,11 @@ internal sealed class LibrarianSpinePoseDriver : IDisposable
             _pendingExpression = null;
             _restoreExpressionPending = true;
         }
-        if (_clip?.Loop != false || _completeGeneration != _generation || !_body.IsComplete) return;
+        // Death/revival must also settle when a native completion broadcast is lost (or a
+        // settings replacement begins at the end). Only the currently owned, applied entry
+        // can supply this fallback; an old signal cannot finish a new revival.
+        if (_clip?.Loop != false || _completionConsumed == _generation || !_body.IsComplete) return;
+        if (_completeGeneration != _generation && Pose is not (LibrarianSpinePose.Dying or LibrarianSpinePose.Reviving)) return;
         _completeGeneration = null;
         _completionConsumed = _generation;
         _completed++;
@@ -440,6 +445,12 @@ internal sealed class LibrarianSpinePoseDriver : IDisposable
         if (Pose == LibrarianSpinePose.Dying)
         {
             Pose = LibrarianSpinePose.Dead;
+            if (_body is not null)
+            {
+                _body.TrackTime = _clip!.Duration;
+                _body.TimeScale = 0;
+                _lastTrackTime = _clip.Duration;
+            }
             Emit("death_terminal_held", "opaque authored final pose");
             return;
         }
@@ -511,7 +522,7 @@ internal sealed class LibrarianSpinePoseDriver : IDisposable
                 throw new InvalidDataException("Runtime/receipt animation duration differs: " + clip.Name);
             entry.MixDuration = terminal ? 0 : _bank.MixDuration(fromClip, clip, _settings.Speed);
             entry.DisableMixingCallbacks();
-            entry.TimeScale = _settings.Speed == LibrarianSpineSpeed.Fast ? 2 : 1;
+            entry.TimeScale = terminal ? 0 : _settings.Speed == LibrarianSpineSpeed.Fast ? 2 : 1;
             entry.TrackTime = terminal ? clip.Duration : Math.Clamp(phase, 0, clip.Loop ? float.MaxValue : clip.Duration);
             _lastTrackTime = entry.TrackTime;
             _binding.ApplyZero(EnforceHolds);

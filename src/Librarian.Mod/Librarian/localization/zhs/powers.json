@@ -88,5 +88,8 @@
   "LIBRARIAN-COOLDOWN_POWER.smartDescription": "接下来的{Amount}个有[gold]浪潮[/gold]的回合结束时，层数不会减半。",
   "LIBRARIAN-AFTER_RAIN_POWER.title": "雨后春笋",
   "LIBRARIAN-AFTER_RAIN_POWER.description": "每当你击杀敌人时，回复{Amount}点生命。",
-  "LIBRARIAN-AFTER_RAIN_POWER.smartDescription": "每当你击杀敌人时，回复{Amount}点生命。"
+  "LIBRARIAN-AFTER_RAIN_POWER.smartDescription": "每当你击杀敌人时，回复{Amount}点生命。",
+  "LIBRARIAN-CHARGED_STRIKE_POWER.title": "蓄势一击",
+  "LIBRARIAN-CHARGED_STRIKE_POWER.description": "你的下个回合结束时，造成等同于期间造成的伤害的伤害。",
+  "LIBRARIAN-CHARGED_STRIKE_POWER.smartDescription": "你的下个回合结束时，造成等同于期间造成的伤害的伤害。\n已累计{Damage}点伤害。"
 }

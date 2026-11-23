@@ -1,12 +1,18 @@
 <Project>
-  <!-- Both API targets use verified, isolated inputs. No Steam path discovery. -->
+  <!-- API targets use verified, isolated inputs. -->
   <PropertyGroup>
     <LibrarianWorkspace>$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../..'))</LibrarianWorkspace>
     <LibrarianGameVersion Condition="'$(LibrarianGameVersion)' == ''">0.111.0</LibrarianGameVersion>
     <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.111.0'">$(LibrarianWorkspace)/.research/ritsu-game</Sts2Path>
+    <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.111.1'">$(LibrarianWorkspace)/.research/game-sdk-20261116/steam-0.111.1</Sts2Path>
     <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.107.1'">$(LibrarianWorkspace)/.research/channels/stable/workspace/.research/ritsu-game</Sts2Path>
+    <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.113.0'">$(LibrarianWorkspace)/.research/game-sdk-20261112/steam-0.113.0</Sts2Path>
+    <Sts2Path Condition="'$(LibrarianGameVersion)' == '0.113.1'">$(LibrarianWorkspace)/.research/game-sdk-20261114/steam-0.113.1</Sts2Path>
     <Sts2DataDir>$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
     <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.111.0'">0861BFA1DF347538D932F22D580E75420F08082792EB914E53B4882764ACDBE9</LibrarianExpectedGameHash>
+    <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.111.1'">3FB1FA1BF0249087B706A5D0F062A60579E2F5B08DF4EE477DDD6F2607F654D5</LibrarianExpectedGameHash>
     <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.107.1'">A1F9E653F1E28E4076558FEE1E60D218619CB7E057B887C6417F62C62C6D7A52</LibrarianExpectedGameHash>
+    <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.113.0'">A6CC282C52B96AD2E01D5692B1144B33AA8E3BA4E969582F648ECB13B2F751D7</LibrarianExpectedGameHash>
+    <LibrarianExpectedGameHash Condition="'$(LibrarianGameVersion)' == '0.113.1'">62ECBE91093E1FA862DE4329AAC865209DCB297804CAF0F0520D92D8C0B4A9C3</LibrarianExpectedGameHash>
   </PropertyGroup>
 </Project>

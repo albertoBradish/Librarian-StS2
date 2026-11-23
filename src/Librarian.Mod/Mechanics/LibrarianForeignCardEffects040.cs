@@ -1,10 +1,13 @@
 using System.Reflection;
 using HarmonyLib;
 using Librarian.LibrarianCode.Cards;
+using Librarian.LibrarianCode.Cards.OrbBasics;
 using Librarian.LibrarianCode.Character;
 using Librarian.LibrarianCode.Powers.Implemented;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -24,12 +27,13 @@ internal static class LibrarianForeignCardEffects040
         string id = card.Id.Entry;
         decimal Value(string name) => card.DynamicVars[name].BaseValue;
         Task Block(decimal amount) => CreatureCmd.GainBlock(card.Owner.Creature, amount, ValueProp.Move, play);
-        Task Draw() => CardPileCmd.Draw(context, Value("Cards"), card.Owner);
-        async Task Hit(decimal damage, bool all = false, int count = 1, bool random = false)
+        Task Draw(int count) => LibrarianRuntime.For(card.Owner.Creature) is { } session
+            ? LibrarianRuntime.DrawOrDeferAsync(session, context, count)
+            : CardPileCmd.Draw(context, count, card.Owner);
+        async Task Hit(decimal damage, bool all = false, int count = 1)
         {
-            var attack = DamageCmd.Attack(damage).FromCard(card, play);
-            if (random) attack.TargetingRandomOpponents(card.CombatState!);
-            else if (all) attack.TargetingAllOpponents(card.CombatState!);
+            var attack = DamageCmd.Attack(damage).FromLibrarianCard(card, play);
+            if (all) attack.TargetingAllOpponents(card.CombatState!);
             else { ArgumentNullException.ThrowIfNull(play.Target); attack.Targeting(play.Target); }
             await attack.WithHitCount(count).WithHitFx("vfx/vfx_attack_slash").Execute(context);
         }
@@ -37,9 +41,8 @@ internal static class LibrarianForeignCardEffects040
         {
             case "LIBRARIAN-NEEDLE_FLURRY":
             case "LIBRARIAN-FLAME_STRIKE":
-            case "LIBRARIAN-WAVE_STRIKE":
             case "LIBRARIAN-ASHEN_BLOW":
-            case "LIBRARIAN-EMBER_PIERCE":
+            case "LIBRARIAN-ROOTBIND":
             case "LIBRARIAN-BURN_ROOTS":
             case "LIBRARIAN-SEEDBURIAL_STRIKE":
             case "LIBRARIAN-OVERLOAD_BURN":
@@ -56,13 +59,21 @@ internal static class LibrarianForeignCardEffects040
                 break;
             }
             case "LIBRARIAN-SCATTERED_FLAMES":
+                await Hit(Value("Damage"), count: 2);
+                break;
             case "LIBRARIAN-GAP_NEEDLE":
-            case "LIBRARIAN-EMBER_RECKONING":
                 await Hit(Value("CalculationBase"));
                 break;
+            case "LIBRARIAN-EMBER_RECKONING":
+                await Hit(Value("Damage"));
+                await PowerCmd.Apply<StrengthPower>(context, card.Owner.Creature, Value("Strength"), card.Owner.Creature, card);
+                break;
+            case "LIBRARIAN-DAM_BREAK":
+                await Block(Value("Block"));
+                await PowerCmd.Apply<DexterityPower>(context, card.Owner.Creature, Value("Dexterity"), card.Owner.Creature, card);
+                break;
             case "LIBRARIAN-FIRE_INSCRIPTION":
-                // Binding can copy actual settlements to a foreign recipient without
-                // granting that recipient character orbs. Preserve that real history.
+                // Shared settlements can record real history for a foreign recipient.
                 await Hit(Value("CalculationBase") + (LibrarianRuntime.TryGet(card.Owner, out var history)
                     ? history!.Orbs.SettlementsThisCombat * Value("ExtraDamage") : 0));
                 break;
@@ -70,9 +81,8 @@ internal static class LibrarianForeignCardEffects040
                 await Hit(Value("CalculationBase") + (LibrarianRuntime.TryGet(card.Owner, out var tidal) ? tidal!.Waves.Amount : 0));
                 break;
             case "LIBRARIAN-ZERO_SEARCH":
-                await Draw();
+                await Draw(card.DynamicVars.CalculationBase.IntValue);
                 break;
-            case "LIBRARIAN-ROOTBIND":
             case "LIBRARIAN-STEAM_BLAST":
                 await Hit(Value("Damage"), all: true);
                 break;
@@ -81,19 +91,9 @@ internal static class LibrarianForeignCardEffects040
                 foreach (var enemy in card.CombatState!.GetOpponentsOf(card.Owner.Creature).Where(c => c.IsHittable).ToArray())
                     await PowerCmd.Apply<WeakPower>(context, enemy, Value("WeakPower"), card.Owner.Creature, card);
                 break;
-            case "LIBRARIAN-EARTH_COLLAPSE":
-                // Separate attacks reselect a living enemy each time, as on the Librarian path.
-                for (int i = 0; i < card.ResolveEnergyXValue(); i++)
-                {
-                    if (MegaCrit.Sts2.Core.Combat.CombatManager.Instance.IsOverOrEnding || card.Owner.Creature.IsDead) break;
-                    await Hit(Value("Damage"), random: true);
-                }
-                break;
-            case "LIBRARIAN-NOURISHING_LIFE":
-                await Hit(Value("Damage"), count: 2);
-                break;
             case "LIBRARIAN-QUIET_EMBERS":
             case "LIBRARIAN-SPROUTING_SEED":
+            case "LIBRARIAN-SPROUTING_BULWARK":
             case "LIBRARIAN-VINE_SHIELD":
             case "LIBRARIAN-SONG_OF_ICE_AND_FIRE":
                 await Block(Value("Block"));
@@ -103,71 +103,62 @@ internal static class LibrarianForeignCardEffects040
                 break;
             case "LIBRARIAN-COOLDOWN":
                 await Block(Value("Block"));
-                // Waves are an explicitly supported cross-character status. Its existing ledger
-                // may allocate a session, but this path never activates or grants an orb value.
-                var waves = LibrarianRuntime.Get(card.Owner);
-                waves.Waves.Add(checked((int)Value("Waves")));
-                LibrarianRuntime.VerifyBlock(waves);
-                break;
-            case "LIBRARIAN-SPROUTING_BULWARK":
-                await Block(Value("Block"));
-                await Draw();
+                await PowerCmd.Apply<CooldownPower>(context, card.Owner.Creature, 1, card.Owner.Creature, card);
+                LibrarianRuntime.VerifyBlock(LibrarianRuntime.Get(card.Owner));
                 break;
             case "LIBRARIAN-CHANNEL_FLOW":
+                await CardPileCmd.Draw(context, Value("Cards"), card.Owner);
+                break;
             case "LIBRARIAN-DRY_BRANCH_SEARCH":
-            case "LIBRARIAN-EVAPORATION":
             case "LIBRARIAN-OUT_OF_CONTEXT":
-                if (Value("Cards") > 0) await Draw();
+                await Draw(card.DynamicVars.Cards.IntValue);
                 break;
-            case "LIBRARIAN-REKINDLE":
-                await Draw();
-                await CardPileCmd.AddGeneratedCardToCombat(card.CreateClone(), PileType.Draw, card.Owner, CardPilePosition.Bottom);
-                break;
-            case "LIBRARIAN-CALIBRATE":
-            {
-                var calibrateSession = LibrarianRuntime.Get(card.Owner);
-                await LibrarianBottomPlay041.DrawTopThenTakeBottomAsync(context, card.Owner,
-                    checked((int)Value("Cards")), calibrateSession.ResolvingEndTurn);
-                await LibrarianBottomPlay041.MoveToBottomAsync(context, card);
-                break;
-            }
-            case "LIBRARIAN-READ_BACKWARD":
-                await LibrarianBottomPlay041.ReadBackwardAsync(context, card.Owner);
-                break;
-            case "LIBRARIAN-FUEL_THE_FIRE":
-            {
-                // Allocate the existing per-combat session so the shared end-turn
-                // hook sees this power, while HasCharacterOrbs remains false and
-                // no hidden orb state is presented to the foreign character.
-                _ = LibrarianRuntime.Get(card.Owner);
-                await PowerCmd.Apply<FuelTheFirePower>(context, card.Owner.Creature,
-                    Value("FuelTheFirePower"), card.Owner.Creature, card);
-                break;
-            }
-            case "LIBRARIAN-BUILD_CANAL":
-            case "LIBRARIAN-TIDAL_GRAVITY":
             case "LIBRARIAN-READ_WIDELY":
-                await PlayerCmd.GainEnergy(checked((int)Value("Energy")), card.Owner);
+                await PlayerCmd.GainEnergy(card.DynamicVars.Energy.IntValue, card.Owner);
+                if (card.IsUpgraded) await Draw(1);
                 break;
-            case "LIBRARIAN-DEEP_SEA_BARRIER":
-                foreach (var target in PileType.Hand.GetPile(card.Owner).Cards.Where(c => !ReferenceEquals(c, card)).ToArray())
-                    if (target.Pile?.Type == PileType.Hand) await CardCmd.Exhaust(context, target);
+            case "LIBRARIAN-TIDAL_GRAVITY":
+                await PlayerCmd.GainEnergy(checked((int)Value("Energy")), card.Owner);
                 break;
             case "LIBRARIAN-RIDGE_WARD":
                 await PowerCmd.Apply<RidgeWardPower>(context, card.Owner.Creature, Value("RidgeWardPower"), card.Owner.Creature, card);
                 break;
-            case "LIBRARIAN-UNRETREATING_TIDE":
-                int floor = checked((int)Value("UnretreatingTidePower"));
-                int existing = card.Owner.Creature.GetPower<UnretreatingTidePower>()?.Amount ?? 0;
-                if (floor > existing)
-                    await PowerCmd.Apply<UnretreatingTidePower>(context, card.Owner.Creature, floor - existing, card.Owner.Creature, card);
+            case "LIBRARIAN-BOOK_BURNING":
+                await Hit(0, all: true, count: card.DynamicVars.Repeat.IntValue);
+                break;
+            case "LIBRARIAN-DROUGHT_EDICT":
+            case "LIBRARIAN-FLAME_BURST":
+                await Hit(0, all: true);
+                break;
+            case "LIBRARIAN-SEVER_CURRENT":
+                await Hit(0, count: card.DynamicVars["Repeat"].IntValue);
+                break;
+            case "LIBRARIAN-SEAL_AWAY":
+                await Block(Value("Block"));
+                PlayerCmd.EndTurn(card.Owner, false);
                 break;
             default:
-                if (!LibrarianCrossCharacter040.IsSeaGlassBlank(card))
+                if (!LibrarianCrossCharacter040.IsForeignBlank(card))
                     throw new InvalidOperationException("Missing imported-card implementation: " + id);
                 // Orb-only blank: the native pipeline still pays its cost and exhausts it.
                 break;
         }
+    }
+}
+
+// The native end-turn hook only schedules bottom plays for players with a session.
+// A foreign owner can reach this boundary without ever having used a Librarian card.
+[HarmonyPatch(typeof(LibrarianCombatHooks), nameof(LibrarianCombatHooks.BeforeSideTurnEnd))]
+internal static class LibrarianForeignMainstem040
+{
+    [HarmonyPrefix]
+    private static void Prefix(CombatSide side, IEnumerable<Creature> participants)
+    {
+        if (side != CombatSide.Player) return;
+        foreach (var creature in participants)
+            if (creature.Player is { PlayerCombatState: not null } player && player.Character is not LibrarianCharacter
+                && !LibrarianRuntime.TryGet(player, out _) && LibrarianBottomPlay041.PeekBottom(player) is BurnTheRiver)
+                _ = LibrarianRuntime.Get(player);
     }
 }
 

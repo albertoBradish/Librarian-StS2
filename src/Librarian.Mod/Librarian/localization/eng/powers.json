@@ -88,5 +88,8 @@
   "LIBRARIAN-COOLDOWN_POWER.smartDescription": "At the end of your next {Amount} turns with [gold]Waves[/gold], their stacks are not halved.",
   "LIBRARIAN-AFTER_RAIN_POWER.title": "After the Rain",
   "LIBRARIAN-AFTER_RAIN_POWER.description": "Whenever you kill an enemy, heal {Amount} HP.",
-  "LIBRARIAN-AFTER_RAIN_POWER.smartDescription": "Whenever you kill an enemy, heal {Amount} HP."
+  "LIBRARIAN-AFTER_RAIN_POWER.smartDescription": "Whenever you kill an enemy, heal {Amount} HP.",
+  "LIBRARIAN-CHARGED_STRIKE_POWER.title": "Charged Strike",
+  "LIBRARIAN-CHARGED_STRIKE_POWER.description": "At the end of your next turn, deal damage equal to the damage you dealt during that time.",
+  "LIBRARIAN-CHARGED_STRIKE_POWER.smartDescription": "At the end of your next turn, deal damage equal to the damage you dealt during that time.\n{Damage} damage accumulated."
 }

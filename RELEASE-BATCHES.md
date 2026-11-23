@@ -1,5 +1,10 @@
 # Source and release status / 源码与发布状态
 
+V1.4.10 将新版异角色出牌、牌底自动打出和 Issue #8 性能修复同步至统一包。当前安装使用一个引导和五套内容 DLL，文件身份见 [发行元数据](release-metadata.json)。
+
+## V1.4.0 历史记录
+
+
 ## 2026-10-19 当前统一源码 / Current unified source
 
 `main` 维护 V1.4.0 的白名单自有源码与生产资源，统一支持固定游戏 0.107.1／0.111.0，RitsuLib 0.6.4 单前置。本次合并 V1.3.11／V1.3.12 未发布内容，采用 V1.4.0 最终卡牌规则、双语文案与已批准卡图。对应 GitHub Release 为 `v1.4.0`，六文件及安装映射、校验值见发行附件和 `release-metadata.json`。

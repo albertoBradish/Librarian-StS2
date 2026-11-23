@@ -153,8 +153,8 @@ internal static class DevelopmentAutoplayChoiceAudit
         try
         {
             Check(OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "isolated profile");
-            Check(CardSelectCmd.Selector is null, "native synchronized selection without selector");
-            var originalHook = new HookPlayerChoiceContext(ModelDb.Singleton<LibrarianCombatHooks>(), LocalContext.NetId!.Value,
+            Check(DevelopmentGameApi.Selector(player) is null, "native synchronized selection without selector");
+            var originalHook = new HookPlayerChoiceContext(LibrarianGameApi.RegisteredCombatHooks, LocalContext.NetId!.Value,
                 player.Creature.CombatState!, GameActionType.Combat);
             MainFile.Logger.Info("AUTOPLAY_CHOICE_API originalGlobalHookOwner=" + originalHook.Owner?.NetId);
             foreach (bool upgraded in new[] { false, true })

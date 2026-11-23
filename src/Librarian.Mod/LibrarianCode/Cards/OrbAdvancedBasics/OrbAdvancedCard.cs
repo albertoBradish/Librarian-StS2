@@ -38,12 +38,12 @@ public abstract class OrbAdvancedCard(int cost, CardType type, CardRarity rarity
     protected Task Hit(PlayerChoiceContext context, CardPlay play, decimal damage)
     {
         ArgumentNullException.ThrowIfNull(play.Target);
-        return DamageCmd.Attack(damage).FromCard(this, play).Targeting(play.Target)
+        return DamageCmd.Attack(damage).FromLibrarianCard(this, play).Targeting(play.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(context);
     }
 
     protected Task HitAll(PlayerChoiceContext context, CardPlay play, decimal damage)
-        => DamageCmd.Attack(damage).FromCard(this, play).TargetingAllOpponents(CombatState ?? throw new InvalidOperationException("Attack requires combat."))
+        => DamageCmd.Attack(damage).FromLibrarianCard(this, play).TargetingAllOpponents(CombatState ?? throw new InvalidOperationException("Attack requires combat."))
             .WithHitFx("vfx/vfx_attack_slash").Execute(context);
 
     // User override: loss previews read the named orb regardless of position.

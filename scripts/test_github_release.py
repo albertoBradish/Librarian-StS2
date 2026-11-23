@@ -236,6 +236,21 @@ class UnifiedReleaseTests(unittest.TestCase):
             self.run_prepare()
         self.assertFalse(self.output.exists())
 
+    def test_post144_minimum_is_bound_to_delivery_and_install_text(self):
+        self.native['version'] = '1.4.5'
+        self.native['dependencies'][0]['min_version'] = '0.6.10'
+        (self.candidate / 'Librarian.json').write_text(json.dumps(self.native), encoding='utf-8')
+        path = self.candidate / 'librarian-variants.manifest'
+        variants = json.loads(path.read_text()); variants['mod_version'] = '1.4.5'
+        path.write_text(json.dumps(variants), encoding='utf-8')
+        self.record.update(version='1.4.5', dependencies={'RitsuLib':'0.6.10'})
+        self.record['build']['artifacts'] = validate_bundle(self.candidate); self.write_delivery()
+        prepare(self.candidate, '1.4.5', self.output, self.delivery, root=self.root, channel='unified')
+        self.assertIn('RitsuLib >=0.6.10', (self.output / 'INSTALL.txt').read_text())
+        self.record['dependencies']['RitsuLib'] = '0.6.4'; self.write_delivery()
+        with self.assertRaisesRegex(ValueError, '0.6.10'):
+            prepare(self.candidate, '1.4.5', self.root / 'weakened', self.delivery, root=self.root, channel='unified')
+
     def test_reject_wrong_game_commit_and_branch(self):
         self.record['game_targets'] = [dict(target) for target in UNIFIED_TARGETS]
         self.record['game_targets'][0]['commit'] = '41cef1ea'

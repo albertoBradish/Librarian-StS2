@@ -15,7 +15,7 @@ public sealed class NeedleFlurry() : Librarian.LibrarianCode.Cards.OrbUtility.Or
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         int hits = 1 + Session.Orbs.Select(OrbScope.All, ActivationFilter.Active).Count;
-        await DamageCmd.Attack(Amount("Damage")).FromCard(this, play).Targeting(play.Target!)
+        await DamageCmd.Attack(Amount("Damage")).FromLibrarianCard(this, play).Targeting(play.Target!)
             .WithHitCount(hits).WithHitFx("vfx/vfx_attack_slash").Execute(context);
     }
     protected override void OnUpgrade()

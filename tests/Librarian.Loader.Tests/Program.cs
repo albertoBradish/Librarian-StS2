@@ -11,7 +11,15 @@ var json = Manifest();
 
 Run("select stable exact version", () => Equal("0.107.1", BundleManifest.Parse(json).Select("0.107.1").GameVersion));
 Run("select beta v-prefixed release label", () => Equal("0.111.0", BundleManifest.Parse(json).Select("v0.111.0").GameVersion));
+Run("select the 0.111.1 public DLL", () => Equal("compat/0.111.1/Librarian.dll", BundleManifest.Parse(json).Select("v0.111.1").Path));
+Run("select 0.113 beta v-prefixed release label", () => Equal("0.113.0", BundleManifest.Parse(json).Select("v0.113.0").GameVersion));
+Run("select the 0.113.1 hotfix DLL", () => Equal("compat/0.113.1/Librarian.dll", BundleManifest.Parse(json).Select("v0.113.1").Path));
 Run("reject unknown newer version", () => Reject<NotSupportedException>(() => BundleManifest.Parse(json).Select("0.112.0")));
+Run("route unsupported, older and unreadable versions to the notice", () =>
+{
+    foreach (var version in new[] { "v0.113.2", "v0.114.0", "0.106.0", "v0.111.0-beta1", "unknown", null })
+        Equal<string?>(null, BundleManifest.SupportedGameVersion(version));
+});
 Run("reject unknown older version", () => Reject<NotSupportedException>(() => BundleManifest.Parse(json).Select("0.107.0")));
 Run("reject missing game metadata", () => Reject<NotSupportedException>(() => BundleManifest.Parse(json).Select(null)));
 Run("reject unsupported release suffix", () => Reject<NotSupportedException>(() => BundleManifest.Parse(json).Select("v0.111.0-beta1")));
@@ -28,13 +36,16 @@ Run("reject hash length", () => Reject<InvalidDataException>(() => BundleManifes
 Run("reject nonhex hash", () => Reject<InvalidDataException>(() => BundleManifest.Parse(Manifest(hash: new string('g', 64)))));
 Run("reject unknown manifest property", () => Reject<JsonException>(() => BundleManifest.Parse(json.Replace("\"schema_version\":1", "\"unexpected\":true,\"schema_version\":1", StringComparison.Ordinal))));
 Run("reject duplicate JSON property", () => Reject<InvalidDataException>(() => BundleManifest.Parse(json.Replace("\"schema_version\":1", "\"schema_version\":1,\"schema_version\":1", StringComparison.Ordinal))));
-Run("reject null variants", () => Reject<InvalidDataException>(() => BundleManifest.Parse("{\"schema_version\":1,\"mod_id\":\"Librarian\",\"mod_version\":\"1.4.0\",\"variants\":null}")));
+Run("reject null variants", () => Reject<InvalidDataException>(() => BundleManifest.Parse(JsonSerializer.Serialize(new { schema_version = 1, mod_id = "Librarian", mod_version = BundleManifest.ModVersion, variants = (object?)null }))));
 Run("reject missing required fields", () => Reject<JsonException>(() => BundleManifest.Parse("{}")));
 Run("reject malformed JSON", () => Reject<JsonException>(() => BundleManifest.Parse("{")));
 Run("accept content assembly identity", () => BundleManifest.ValidateAssemblyIdentity(Assembly.GetExecutingAssembly().GetName(), "Librarian"));
-Run("reject loader identity as content", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian.Loader, Version=1.4.0.0"), "Librarian")));
+Run("reject loader identity as content", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName($"Librarian.Loader, Version={BundleManifest.ContentAssemblyVersion}"), "Librarian")));
 Run("reject stale content assembly version", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian, Version=1.2.0.0"), "Librarian")));
-Run("reject assembly culture", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian, Version=1.4.0.0, Culture=en-US"), "Librarian")));
+Run("reject assembly culture", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName($"Librarian, Version={BundleManifest.ContentAssemblyVersion}, Culture=en-US"), "Librarian")));
+Run("accept required Ritsu runtime", () => Equal(true, BundleManifest.IsRitsuVersionSupported(new Version(0, 6, 13, 0))));
+Run("reject earlier Ritsu runtime", () => Equal(false, BundleManifest.IsRitsuVersionSupported(new Version(0, 6, 12, 0))));
+Run("reject missing Ritsu runtime version", () => Equal(false, BundleManifest.IsRitsuVersionSupported(null)));
 
 foreach (var unsafePath in new[] { "../Librarian.dll", "/Librarian.dll", "C:/Librarian.dll", "compat\\0.107.1\\Librarian.dll", "compat//Librarian.dll", "compat/./Librarian.dll" })
     Run($"reject contained-path escape {unsafePath}", () => Reject<InvalidDataException>(() => BundleManifest.ResolveContainedPath(Path.GetTempPath(), unsafePath)));
@@ -87,8 +98,19 @@ try
         File.Copy(testAssembly, Path.Combine(temp, "compat", version, "Librarian.dll"));
     }
     File.WriteAllText(Path.Combine(temp, BundleManifest.FileName), json);
-    File.WriteAllText(Path.Combine(temp, "Librarian.json"), "{\"id\":\"Librarian\",\"version\":\"1.4.0\"}");
+    File.WriteAllText(Path.Combine(temp, "Librarian.json"), JsonSerializer.Serialize(new { id = "Librarian", version = BundleManifest.ModVersion,
+        has_dll = true, has_pck = false, min_game_version = "0.0.0", dependencies = Array.Empty<object>() }));
     Run("read full manifest and matching native version", () => BundleManifest.Read(temp).ValidateNativeManifest(temp));
+    Run("reject hard native dependency that blocks standalone startup", () =>
+    {
+        string file = Path.Combine(temp, "Librarian.json"); string original = File.ReadAllText(file);
+        try
+        {
+            File.WriteAllText(file, original.Replace("\"dependencies\":[]", "\"dependencies\":[{\"id\":\"STS2-RitsuLib\",\"min_version\":\"0.6.10\"}]", StringComparison.Ordinal));
+            Reject<InvalidDataException>(() => BundleManifest.Read(temp).ValidateNativeManifest(temp));
+        }
+        finally { File.WriteAllText(file, original); }
+    });
     Run("verify both variant bytes and assembly identity", () =>
     {
         foreach (var variant in BundleManifest.Read(temp).Variants)
@@ -131,12 +153,15 @@ foreach (var error in failed)
     Console.Error.WriteLine(error);
 return failed.Count == 0 ? 0 : 1;
 
-string Manifest(int schema = 1, string id = "Librarian", string version = "1.4.0", string? betaVersion = "0.111.0",
+string Manifest(int schema = 1, string id = "Librarian", string version = BundleManifest.ModVersion, string? betaVersion = "0.111.0",
     string assembly = "Librarian", string stablePath = "compat/0.107.1/Librarian.dll", string? hash = null)
 {
     var variants = new List<object>
     {
-        new { game_version = "0.107.1", assembly, path = stablePath, sha256 = hash ?? testHash }
+        new { game_version = "0.107.1", assembly, path = stablePath, sha256 = hash ?? testHash },
+        new { game_version = "0.111.1", assembly, path = "compat/0.111.1/Librarian.dll", sha256 = hash ?? testHash },
+        new { game_version = "0.113.0", assembly, path = "compat/0.113.0/Librarian.dll", sha256 = hash ?? testHash },
+        new { game_version = "0.113.1", assembly, path = "compat/0.113.1/Librarian.dll", sha256 = hash ?? testHash }
     };
     if (betaVersion is not null)
         variants.Add(new { game_version = betaVersion, assembly, path = $"compat/{betaVersion}/Librarian.dll", sha256 = hash ?? testHash });

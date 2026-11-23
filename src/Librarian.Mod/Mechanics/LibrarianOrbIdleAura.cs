@@ -10,10 +10,19 @@ public partial class LibrarianOrbIdleAura : Node2D
     internal bool Front { get; init; }
     private float _phase;
     private float _strength;
-    internal void SetAppearance(float phase, bool active, bool sessionLocked)
+    private float _redrawIn;
+    private bool _particles;
+
+    internal void SetAppearance(float phase, bool active, bool sessionLocked, double delta)
     {
+        float strength = sessionLocked ? .12f : active ? .9f : .28f;
+        bool particles = LibrarianPreferences050.Current.Particles;
+        _redrawIn -= (float)delta;
+        if (_redrawIn > 0 && strength == _strength && particles == _particles) return;
+        _redrawIn = 1f / 30;
         _phase = phase;
-        _strength = sessionLocked ? 0.12f : active ? 0.9f : 0.28f;
+        _strength = strength;
+        _particles = particles;
         QueueRedraw();
     }
     public override void _Draw()
@@ -41,7 +50,7 @@ public partial class LibrarianOrbIdleAura : Node2D
                 DrawColoredPolygon([b + new Vector2(-3, 2), b.Lerp(tip, .68f), b + new Vector2(3, 2)], Ink("ffd887", .9f));
             }
         }
-        else if (LibrarianPreferences050.Current.Particles)
+        else if (_particles)
             for (int i = 0; i < 9; i++)
             {
                 float t = Mathf.PosMod(_phase * .5f + i * .137f, 1);
@@ -63,7 +72,7 @@ public partial class LibrarianOrbIdleAura : Node2D
             }
             DrawPolyline(points, Ink(band == 1 ? "d0f8ff" : "5bbbdc", band == 1 ? .7f : .35f), band == 1 ? 1.4f : 2.8f, true);
         }
-        if (Front && LibrarianPreferences050.Current.Particles)
+        if (Front && _particles)
             for (int i = 0; i < 5; i++)
             {
                 float a = _phase * 1.2f + i * Mathf.Tau / 5;
@@ -92,7 +101,7 @@ public partial class LibrarianOrbIdleAura : Node2D
                     DrawLine(p, tip, Ink("e0eeb1", .55f), 1, true);
                 }
             }
-            else if (LibrarianPreferences050.Current.Particles)
+            else if (_particles)
                 for (int i = 0; i < 3; i++)
                 {
                     float t = Mathf.PosMod(_phase * .2f + i * .31f, 1);

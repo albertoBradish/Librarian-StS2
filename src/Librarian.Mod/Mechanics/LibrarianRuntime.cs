@@ -38,6 +38,7 @@ public sealed class LibrarianSession(Player player)
     public long LastSettledTurn { get; internal set; } = -1;
     public OrbKind? PreviousTurnsLastSettledOrb { get; internal set; }
     public CardModel? LastPlayedSnapshot { get; internal set; }
+    public Creature? LastAttackedEnemy { get; internal set; }
     internal Dictionary<CardPlay, CardModel> PendingPlaySnapshots { get; } = new();
     internal List<(long Turn, Func<PlayerChoiceContext, Task> Action)> StartTasks { get; } = [];
     internal List<Func<PlayerChoiceContext, Task>> EndTasks { get; } = [];
@@ -319,18 +320,24 @@ public sealed class LibrarianRuntime : ILibrarianMechanics
 internal static class LibrarianModelsReady
 {
     [HarmonyPostfix] private static void Postfix()
-        => MainFile.Logger.Info("Librarian combat hooks registered=" + ModelDb.Singleton<LibrarianCombatHooks>().ShouldReceiveCombatHooks);
+        => MainFile.Logger.Info("Librarian combat hooks registered=" + LibrarianGameApi.RegisteredCombatHooks.ShouldReceiveCombatHooks);
 }
 
+#if LIBRARIAN_API_0113
+public sealed class LibrarianCombatHooks : RunModel
+#else
 public sealed class LibrarianCombatHooks : SingletonModel
+#endif
 {
     public override bool ShouldReceiveCombatHooks => true;
     internal static int SuppressedEtherealTriggers { get; private set; }
 
+#if !LIBRARIAN_API_0113
     public LibrarianCombatHooks()
     {
         MegaCrit.Sts2.Core.Modding.ModHelper.SubscribeForCombatStateHooks(Id.Entry, _ => [this]);
     }
+#endif
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -388,6 +395,18 @@ public sealed class LibrarianCombatHooks : SingletonModel
         session.StartTasks.RemoveAll(task => task.Turn <= session.Orbs.OwnerTurn);
         foreach (var task in due)
             if (!CombatManager.Instance.IsOverOrEnding && !player.Creature.IsDead) await task.Action(choiceContext);
+    }
+
+    public override Task AfterAttack(PlayerChoiceContext context, MegaCrit.Sts2.Core.Commands.Builders.AttackCommand command)
+    {
+        var attacker = command.Attacker?.PetOwner?.Creature ?? command.Attacker;
+        if (attacker?.Player is { PlayerCombatState: not null } player)
+        {
+            var last = command.Results.SelectMany(hit => hit).Select(result => result.Receiver)
+                .LastOrDefault(target => target.Side != attacker.Side);
+            if (last is not null) LibrarianRuntime.Get(player).LastAttackedEnemy = last;
+        }
+        return Task.CompletedTask;
     }
 
     public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
@@ -487,9 +506,17 @@ public sealed class LibrarianCombatHooks : SingletonModel
                 var bindings = session.Bindings.ToArray();
                 session.Bindings.Clear();
                 foreach (var (owner, target) in bindings)
-                    if (!CombatManager.Instance.IsOverOrEnding && owner.Creature.IsAlive && target.Creature.IsAlive
-                        && target.Creature.CombatState == owner.Creature.CombatState)
-                        await CreatureCmd.GainBlock(owner.Creature, target.Creature.Block, ValueProp.Unpowered, null);
+                {
+                    long visualToken = LibrarianBindingVfx.BeginPayout(session, owner, target);
+                    decimal actualGranted = 0;
+                    try
+                    {
+                        if (!CombatManager.Instance.IsOverOrEnding && owner.Creature.IsAlive && target.Creature.IsAlive
+                            && target.Creature.CombatState == owner.Creature.CombatState)
+                            actualGranted = await CreatureCmd.GainBlock(owner.Creature, target.Creature.Block, ValueProp.Unpowered, null);
+                    }
+                    finally { LibrarianBindingVfx.CompletePayout(visualToken, actualGranted); }
+                }
                 session.OwnTurnOpen = false;
             }
     }

@@ -128,6 +128,7 @@ internal static class LibrarianRitsuCardRegistration
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CropRotationPower)] = "LIBRARIAN-CROP_ROTATION_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.CrowdKindlingPower)] = "LIBRARIAN-CROWD_KINDLING_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.DeepSeaPendingPower)] = "LIBRARIAN-DEEP_SEA_PENDING_POWER",
+        [typeof(global::Librarian.LibrarianCode.Powers.Implemented.ChargedStrikePower)] = "LIBRARIAN-CHARGED_STRIKE_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.EmberBookmarkPower)] = "LIBRARIAN-EMBER_BOOKMARK_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower)] = "LIBRARIAN-ENDLESS_TIDE_POWER",
         [typeof(global::Librarian.LibrarianCode.Powers.Implemented.EternalGrimoirePower)] = "LIBRARIAN-ETERNAL_GRIMOIRE_POWER",
@@ -279,6 +280,7 @@ internal static class LibrarianRitsuCardRegistration
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.CooldownPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.CropRotationPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.CrowdKindlingPower>()
+            .Power<global::Librarian.LibrarianCode.Powers.Implemented.ChargedStrikePower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.DeepSeaPendingPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.EmberBookmarkPower>()
             .Power<global::Librarian.LibrarianCode.Powers.Implemented.EndlessTidePower>()

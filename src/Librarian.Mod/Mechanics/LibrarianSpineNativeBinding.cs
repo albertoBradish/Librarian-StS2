@@ -18,6 +18,7 @@ internal sealed class LibrarianSpineNativeBinding : ILibrarianSpineBinding
     private bool _disposed;
     private bool _connected;
     private bool _disposeQueued;
+    private bool _treeExitPending;
     private readonly Action<Exception>? _fault;
     private readonly Action? _released;
 
@@ -220,7 +221,23 @@ internal sealed class LibrarianSpineNativeBinding : ILibrarianSpineBinding
         // Finish the native signal broadcast before retiring any callback-created wrapper.
         Callable.From(() => _driver?.Dispose()).CallDeferred();
     }
-    private void OnTreeExiting() => _driver?.Dispose();
+    private void OnTreeExiting()
+    {
+        // Native Game Over reparents the existing Visuals into its foreground container.
+        // That emits tree_exiting too; clearing tracks here would freeze a live death pose.
+        // Wait until the synchronous reparent has finished before treating exit as removal.
+        _sockets.Clear();
+        if (_disposed || _treeExitPending) return;
+        _treeExitPending = true;
+        Callable.From(FinishTreeExit).CallDeferred();
+    }
+    private void FinishTreeExit()
+    {
+        _treeExitPending = false;
+        if (_disposed) return;
+        if (GodotObject.IsInstanceValid(_sprite) && _sprite.IsInsideTree() && !_sprite.IsQueuedForDeletion()) return;
+        _driver?.Dispose();
+    }
 
     public ILibrarianSpineEntry SetAnimation(string name, bool loop, int track)
     {

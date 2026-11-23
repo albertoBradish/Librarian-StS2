@@ -1,5 +1,6 @@
 using Librarian.Core;
 using Librarian.Mechanics;
+using Librarian.LibrarianCode.Character;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -17,15 +18,17 @@ public sealed class SeaBurial() : OrbAdvancedCard(2, CardType.Attack, CardRarity
         [.. CalculatedDamage((card, _) => PreviewForeground(card, OrbKind.Tide)), new RepeatVar(2)];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int actual = await LoseAll(choiceContext, Session, OrbKind.Tide);
+        bool hasOrbs = Owner.Character is LibrarianCharacter;
+        int actual = hasOrbs ? await LoseAll(choiceContext, Session, OrbKind.Tide) : 0;
         var combat = CombatState ?? throw new InvalidOperationException("Attack requires combat.");
         for (int i = 0; i < Amount("Repeat"); i++)
         {
             if (MegaCrit.Sts2.Core.Combat.CombatManager.Instance.IsOverOrEnding || Owner.Creature.IsDead
                 || combat.HittableEnemies.Count == 0) break;
-            await DamageCmd.Attack(actual).FromCard(this, cardPlay)
+            await DamageCmd.Attack(actual).FromLibrarianCard(this, cardPlay)
                 .TargetingRandomOpponents(combat).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         }
+        if (!hasOrbs) return;
         await LibrarianRuntime.Dispatch(Session, choiceContext,
             Session.Orbs.Lock(OrbKind.Fire, 1, Origin));
         await LibrarianRuntime.Dispatch(Session, choiceContext,

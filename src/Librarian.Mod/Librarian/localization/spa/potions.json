@@ -1,0 +1,8 @@
+{
+  "LIBRARIAN-KINDLING_POTION.title": "Poción de Encendido",
+  "LIBRARIAN-KINDLING_POTION.description": "Gana {Fire:diff()} de [gold]Fuego[/gold].",
+  "LIBRARIAN-CLARITY_POTION.title": "Poción de Claridad",
+  "LIBRARIAN-CLARITY_POTION.description": "Gana {Waves:diff()} de [gold]Olas[/gold].",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.title": "Fruta Prohibida Líquida",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "[gold]Desbloquea[/gold] todos los Orbes, luego [gold]Resuelve[/gold] cada uno una vez más."
+}

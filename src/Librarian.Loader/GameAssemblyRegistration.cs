@@ -13,12 +13,16 @@ internal sealed class GameAssemblyRegistration
     private Assembly? _content;
     private Exception? _failure;
     private bool _subscribed;
+    private bool _disabled;
 
     private GameAssemblyRegistration(Mod owner)
     {
         _owner = owner;
-        ModManager.OnModDetected += OnModDetected;
-        _subscribed = true;
+        if (owner.state == ModLoadState.None)
+        {
+            ModManager.OnModDetected += OnModDetected;
+            _subscribed = true;
+        }
     }
 
     internal static GameAssemblyRegistration Begin(string loaderDirectory)
@@ -39,20 +43,37 @@ internal sealed class GameAssemblyRegistration
         {
             // This host writes mod.assembly = loader after its initializer returns. Replace it only
             // in OnModDetected, which runs before localization/model/AssemblyInfo discovery.
-            if (typeof(Mod).GetField("assembly") is null)
-                throw new MissingFieldException(typeof(Mod).FullName, "assembly");
-            return;
+            var field = typeof(Mod).GetField("assembly")
+                ?? throw new MissingFieldException(typeof(Mod).FullName, "assembly");
+            if (!_subscribed)
+                field.SetValue(_owner, content);
         }
-
-        var associate = typeof(ModManager).GetMethod("AssociateAssemblyWithMod", BindingFlags.Public | BindingFlags.Static,
-            null, [typeof(string), typeof(Assembly)], null)
-            ?? throw new MissingMethodException(typeof(ModManager).FullName, "AssociateAssemblyWithMod");
-        associate.Invoke(null, [BundleManifest.ModId, content]);
-        if (!ContainsContentAssembly(_owner, content))
-            throw new InvalidOperationException("The game did not associate the selected Librarian content assembly with its mod.");
+        else
+        {
+            var associate = typeof(ModManager).GetMethod("AssociateAssemblyWithMod", BindingFlags.Public | BindingFlags.Static,
+                null, [typeof(string), typeof(Assembly)], null)
+                ?? throw new MissingMethodException(typeof(ModManager).FullName, "AssociateAssemblyWithMod");
+            associate.Invoke(null, [BundleManifest.ModId, content]);
+            if (!ContainsContentAssembly(_owner, content))
+                throw new InvalidOperationException("The game did not associate the selected Librarian content assembly with its mod.");
+        }
+        if (!_subscribed)
+            LogRegistration(content);
     }
 
-    internal void RecordFailure(Exception exception) => _failure = exception;
+    internal void Skip()
+    {
+        _disabled = true;
+        if (!_subscribed)
+            _owner.state = ModLoadState.Disabled;
+    }
+
+    internal void RecordFailure(Exception exception)
+    {
+        _failure = exception;
+        if (!_subscribed)
+            MarkFailed(_owner, exception);
+    }
 
     private void OnModDetected(Mod detected)
     {
@@ -60,12 +81,19 @@ internal sealed class GameAssemblyRegistration
             return;
         try
         {
+            if (_disabled)
+            {
+                detected.state = ModLoadState.Disabled;
+                return;
+            }
             if (_failure is not null)
             {
                 MarkFailed(detected, _failure);
                 return;
             }
-            if (_content is null || detected.state != ModLoadState.Loaded)
+            if (_content is null)
+                return; // The optional framework may still be pending later in the native load order.
+            if (detected.state != ModLoadState.Loaded)
                 throw new InvalidOperationException("Librarian content initialization did not finish successfully.");
 
             var stableField = typeof(Mod).GetField("assembly");
@@ -73,7 +101,7 @@ internal sealed class GameAssemblyRegistration
                 stableField.SetValue(detected, _content);
             else if (!ContainsContentAssembly(detected, _content))
                 throw new InvalidOperationException("Librarian content assembly registration was lost before discovery.");
-            Log.Info($"[Librarian.Loader] Native mod registration complete: {_content.FullName}.");
+            LogRegistration(_content);
         }
         catch (Exception exception)
         {
@@ -89,6 +117,9 @@ internal sealed class GameAssemblyRegistration
             }
         }
     }
+
+    private static void LogRegistration(Assembly content)
+        => Log.Info($"[Librarian.Loader] Native mod registration complete: {content.FullName}.");
 
     private static bool ContainsContentAssembly(Mod mod, Assembly content)
     {

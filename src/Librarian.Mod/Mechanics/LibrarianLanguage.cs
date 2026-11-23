@@ -18,6 +18,7 @@ using Librarian.LibrarianCode.Relics;
 using Librarian.LibrarianCode.Potions;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Nodes.Screens.MainMenu;
+using MegaCrit.Sts2.Core.Saves;
 using STS2RitsuLib.Settings;
 
 namespace Librarian.Mechanics;
@@ -37,6 +38,15 @@ internal static class LibrarianLanguage
     }
     private sealed record Pack(PackInfo Info, Dictionary<string, Dictionary<string, string>> Tables);
     internal static readonly string[] Tables = ["ancients", "cards", "card_selection", "characters", "epochs", "events", "main_menu_ui", "potions", "powers", "relics", "static_hover_tips", "librarian_runtime"];
+    private static readonly (string Code, string Name, string Culture)[] BundledLocales =
+    [
+        ("zhs", "简体中文", "zh-CN"),
+        ("eng", "English", "en-US"),
+        ("jpn", "日本語", "ja-JP"),
+        ("kor", "한국어", "ko-KR"),
+        ("spa", "Español", "es-ES"),
+        ("fra", "Français", "fr-FR")
+    ];
     private static readonly Dictionary<string, Pack> Packs = new(StringComparer.OrdinalIgnoreCase);
     private static readonly Dictionary<string, Pack> Bundled = new(StringComparer.OrdinalIgnoreCase);
     private static readonly AccessTools.FieldRef<LocTable, string> ReadTableName = AccessTools.FieldRefAccess<LocTable, string>("_name");
@@ -46,6 +56,7 @@ internal static class LibrarianLanguage
     [ThreadStatic] private static int _nativeScope;
     private static readonly Dictionary<string, Dictionary<string, string>> NativeTables = new();
     private static string _selected = "eng";
+    private static string _lastGameLanguage = "";
     internal static string Selected => _selected;
     internal static string FilePath => ProjectSettings.GlobalizePath("user://Librarian/language.json");
     internal static string PackDirectory => ProjectSettings.GlobalizePath("user://Librarian/languages");
@@ -57,7 +68,7 @@ internal static class LibrarianLanguage
     internal static void Initialize()
     {
         if (_initialized) return;
-        foreach (string language in new[] { "eng", "zhs" })
+        foreach (var (language, name, culture) in BundledLocales)
         {
             var tables = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
             foreach (string table in Tables)
@@ -66,7 +77,7 @@ internal static class LibrarianLanguage
                 if (file is null) throw new IOException($"Missing bundled Librarian table: {language}/{table}");
                 tables[table] = JsonSerializer.Deserialize<Dictionary<string, string>>(file.GetAsText()) ?? throw new InvalidDataException(table);
             }
-            Bundled[language] = new(new PackInfo { Name = language == "zhs" ? "简体中文" : "English", Culture = language == "zhs" ? "zh-CN" : "en-US" }, tables);
+            Bundled[language] = new(new PackInfo { Name = name, Culture = culture }, tables);
         }
         LoadPacks();
         Preference? saved = null;
@@ -84,6 +95,7 @@ internal static class LibrarianLanguage
         }
         _selected = saved?.Initialized == true && !string.IsNullOrWhiteSpace(saved.Language) ? saved.Language : Detect(LocManager.Instance.Language);
         if (!Packs.ContainsKey(_selected)) _selected = "eng";
+        _lastGameLanguage = LocManager.Instance.Language;
         _initialized = true;
         UpdateManifestText();
         if (saved?.Initialized != true) Save();
@@ -94,6 +106,48 @@ internal static class LibrarianLanguage
     {
         if (language is not null && Packs.ContainsKey(language)) return language;
         return language is "zhs" or "zht" ? "zhs" : "eng";
+    }
+
+    internal static string LanguageEntryLabel(string key, string fallback)
+    {
+        if (!_initialized) return fallback;
+        string selected = LanguageEntryText(Packs[_selected], key);
+        var game = Packs[Detect(_lastGameLanguage)];
+        string alternate = LanguageEntryText(game, key);
+        return alternate == selected ? selected : $"{selected} / {alternate}";
+    }
+
+    internal static string LanguageEntryInstructions()
+    {
+        if (!_initialized) return "Choose the language for this mod here.";
+        string game = Detect(_lastGameLanguage);
+        var ordered = BundledLocales.Select(locale => locale.Code)
+            .OrderBy(code => string.Equals(code, _selected, StringComparison.OrdinalIgnoreCase) ? 0
+                : string.Equals(code, game, StringComparison.OrdinalIgnoreCase) ? 1 : 2);
+        return string.Join('\n', ordered.Select(code =>
+        {
+            // Retain built-in instructions when a custom pack replaces a bundled locale.
+            var pack = Bundled[code];
+            return $"{pack.Info.Name} — {LanguageEntryText(pack, "language_hint")}";
+        }));
+    }
+
+    private static string LanguageEntryText(Pack pack, string key)
+        => pack.Tables["main_menu_ui"]["LIBRARIAN_SETTINGS." + key];
+
+    internal static void OnGameLanguageChanged(LocManager manager)
+    {
+        if (!_initialized || manager.Language == _lastGameLanguage) return;
+        // The game also changes LocManager temporarily (for example, for English metrics).
+        // Only a locale committed to native settings should replace a manual mod choice.
+        if (SaveManager.Instance?.SettingsSave?.Language != manager.Language) return;
+        _lastGameLanguage = manager.Language;
+        string language = Detect(manager.Language);
+        if (_selected == language) return;
+        _selected = language;
+        Save();
+        Refresh();
+        MainFile.Logger.Info($"LIBRARIAN_LANGUAGE_GAME_SYNC selected={_selected} game={manager.Language}");
     }
 
     private static void LoadPacks()
@@ -145,8 +199,13 @@ internal static class LibrarianLanguage
 
     internal static IReadOnlyList<ModSettingsChoiceOption<string>> Options()
     {
-        if (!_initialized) return [new("zhs", ModSettingsText.Literal("简体中文")), new("eng", ModSettingsText.Literal("English"))];
-        return Packs.Select(p => new ModSettingsChoiceOption<string>(p.Key, ModSettingsText.Literal(p.Value.Info.Name))).ToArray();
+        if (!_initialized) return BundledLocales.Select(p => new ModSettingsChoiceOption<string>(p.Code, ModSettingsText.Literal(p.Name))).ToArray();
+        return BundledLocales.Where(p => Packs.ContainsKey(p.Code))
+            .Select(p => new ModSettingsChoiceOption<string>(p.Code, ModSettingsText.Literal(Packs[p.Code].Info.Name)))
+            .Concat(Packs.Where(p => !Bundled.ContainsKey(p.Key))
+                .OrderBy(p => p.Key)
+                .Select(p => new ModSettingsChoiceOption<string>(p.Key, ModSettingsText.Literal(p.Value.Info.Name))))
+            .ToArray();
     }
 
     internal static void Select(string language)
@@ -337,6 +396,12 @@ internal static class LibrarianLanguageCardTypeScope
 internal static class LibrarianLanguageFirstUse
 {
     [HarmonyPrefix] private static void Prefix() => LibrarianLanguage.Initialize();
+}
+
+[HarmonyPatch(typeof(LocManager), nameof(LocManager.SetLanguage))]
+internal static class LibrarianLanguageGameLocaleChange
+{
+    [HarmonyPostfix] private static void Postfix(LocManager __instance) => LibrarianLanguage.OnGameLanguageChanged(__instance);
 }
 
 [HarmonyPatch(typeof(LocTable), nameof(LocTable.GetRawText))]

@@ -14,7 +14,6 @@ namespace Librarian.LibrarianCode.Cards.OrbUtility;
 /// <summary>Source 63/r64. All three immediate settlements precede the three actual losses.</summary>
 public sealed class ThreefoldUnity() : OrbUtilityCard(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
@@ -25,7 +24,7 @@ public sealed class ThreefoldUnity() : OrbUtilityCard(3, CardType.Skill, CardRar
         foreach (var kind in session.Orbs.Positions.Where(k => k != target).ToArray())
             total = checked(total + await Lose(context, session, kind, scope: OrbScope.All));
         await LibrarianRuntime.Dispatch(session, context, session.Orbs.Strengthen(target, total, OrbScope.All, Origin));
-        await Settle(context, session, target, 3);
+        await Settle(context, session, target);
     }
     protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
 }
@@ -56,7 +55,7 @@ public sealed class BookBurning() : OrbUtilityCard(2, CardType.Attack, CardRarit
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         int lost = await Lose(context, Session, OrbKind.Fire);
-        await DamageCmd.Attack(lost).FromCard(this, play).TargetingAllOpponents(CombatState!)
+        await DamageCmd.Attack(lost).FromLibrarianCard(this, play).TargetingAllOpponents(CombatState!)
             .WithHitCount(Amount("Repeat")).WithHitFx("vfx/vfx_attack_slash").Execute(context);
     }
     protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1m);
@@ -156,19 +155,18 @@ public sealed class FuelTheFire() : LibrarianCard(2, CardType.Power, CardRarity.
     protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
 
-/// <summary>v0.3.0 approved revision, catalog 75. Stable model ID retained.</summary>
-public sealed class TreeRingBurst() : OrbUtilityCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+/// <summary>V1.4.2: Charged Strike replaces Rotation while preserving its saved model identity.</summary>
+public sealed class TreeRingBurst() : OrbUtilityCard(2, CardType.Attack, CardRarity.Rare, TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new RepeatVar(1)];
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips =>
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<ChargedStrikePower>()];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        for (int round = 0; round < Amount("Repeat"); round++)
-            foreach (var kind in Session.Orbs.Positions.ToArray())
-                if (!Session.Orbs.IsLocked(kind))
-                    await Settle(context, Session, kind);
+        var session = Session;
+        var pending = await PowerCmd.Apply<ChargedStrikePower>(context, Owner.Creature, 1, Owner.Creature, this);
+        pending?.Schedule(session, this);
     }
-    protected override void OnUpgrade() => DynamicVars.Repeat.UpgradeValueBy(1m);
+    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
 }
 
 /// <summary>v0.3.0 approved revision, catalog 76. Stable model ID retained.</summary>
@@ -202,16 +200,19 @@ public sealed class LifeSymphony() : OrbUtilityCard(1, CardType.Skill, CardRarit
     protected override void OnUpgrade() => DynamicVars["Growth"].UpgradeValueBy(4m);
 }
 
-/// <summary>V1.2.0-beta1: successful Exhaust moves queue one aggregate Waves gain.</summary>
+/// <summary>V1.4.2: only successfully exhausted selected cards grant immediate Waves.</summary>
 public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 5m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Waves", 4m)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         var session = Session;
         int perCard = Amount("Waves");
-        var cards = PileType.Hand.GetPile(Owner).Cards.Where(card => !ReferenceEquals(card, this)).ToArray();
+        var cards = (await CardSelectCmd.FromHand(context, Owner,
+            new MegaCrit.Sts2.Core.CardSelection.CardSelectorPrefs(
+                MegaCrit.Sts2.Core.CardSelection.CardSelectorPrefs.ExhaustSelectionPrompt,
+                0, PileType.Hand.GetPile(Owner).Cards.Count), null, this)).ToArray();
         int exhausted = 0;
         foreach (var card in cards)
         {
@@ -220,12 +221,9 @@ public sealed class DeepSeaBarrier() : OrbUtilityCard(2, CardType.Skill, CardRar
             // The move result survives after-exhaust hooks that immediately move the card again.
             if (await LibrarianGameApi.ExhaustSucceeded(context, card)) exhausted++;
         }
-        int tide = checked(exhausted * perCard);
-        if (tide > 0)
-        {
-            var pending = await PowerCmd.Apply<DeepSeaPendingPower>(context, Owner.Creature, tide, Owner.Creature, this);
-            pending?.Schedule(session, tide);
-        }
+        int waves = checked(exhausted * perCard);
+        session.Waves.Add(waves);
+        LibrarianRuntime.VerifyBlock(session);
     }
     protected override void OnUpgrade() => DynamicVars["Waves"].UpgradeValueBy(1m);
 }

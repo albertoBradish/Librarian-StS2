@@ -52,8 +52,8 @@ public static class LibrarianCrossCharacter040
     private static readonly HashSet<string> Singleplayer = new(StringComparer.Ordinal)
     {
         "LIBRARIAN-COMBAT_NOTES", "LIBRARIAN-WEARY_INCANTATION", "LIBRARIAN-FLYING_PAGES",
-        "LIBRARIAN-NOURISH", "LIBRARIAN-BOOKWORM", "LIBRARIAN-TRANSCRIBE",
-        "LIBRARIAN-CALIBRATE", "LIBRARIAN-READ_BACKWARD", "LIBRARIAN-FUEL_THE_FIRE", "LIBRARIAN-TO_BE_CONTINUED"
+        "LIBRARIAN-NOURISH", "LIBRARIAN-TRANSCRIBE",
+        "LIBRARIAN-CALIBRATE", "LIBRARIAN-READ_BACKWARD", "LIBRARIAN-FUEL_THE_FIRE", "LIBRARIAN-TO_BE_CONTINUED", "LIBRARIAN-TREE_RING_BURST"
     };
     private static readonly HashSet<string> Multiplayer = new(StringComparer.Ordinal)
         { "LIBRARIAN-CIRCULATION_NOTES", "LIBRARIAN-SHARED_SHELTER" };
@@ -68,21 +68,21 @@ public static class LibrarianCrossCharacter040
     // Independent printed benefits count even when the orb-dependent portion does nothing.
     private static readonly HashSet<string> SeaGlassPartial = new(StringComparer.Ordinal)
     {
-        "NEEDLE_FLURRY", "FLAME_STRIKE", "WAVE_STRIKE", "SCATTERED_FLAMES", "ASHEN_BLOW",
+        "NEEDLE_FLURRY", "FLAME_STRIKE", "WAVE_STRIKE", "SCATTERED_FLAMES", "ASHEN_BLOW", "SPRINGWATER",
         "QUIET_EMBERS", "SPROUTING_SEED", "CHANNEL_FLOW", "DRY_BRANCH_SEARCH", "VINE_SHIELD",
-        "GAP_NEEDLE", "BUILD_CANAL", "ROOTBIND", "EMBER_PIERCE", "TIDAL_STRIKE", "BURN_ROOTS",
+        "GAP_NEEDLE", "BUILD_CANAL", "ROOTBIND", "EMBER_PIERCE", "TIDAL_STRIKE", "BURN_ROOTS", "OPENING_TIDE",
         "TIDAL_EROSION", "EARTH_COLLAPSE", "SEEDBURIAL_STRIKE", "STEAM_BLAST", "EMBER_RECKONING",
         "TIDAL_GRAVITY", "EVAPORATION", "COOLDOWN", "SPROUTING_BULWARK", "REKINDLE",
-        "OUT_OF_CONTEXT", "OVERLOAD_BURN", "IGNITE", "ZERO_SEARCH", "NOURISHING_LIFE", "FIRE_INSCRIPTION",
+        "OUT_OF_CONTEXT", "OVERLOAD_BURN", "IGNITE", "ZERO_SEARCH", "FIRE_INSCRIPTION",
         "READ_WIDELY", "SONG_OF_ICE_AND_FIRE", "DEEP_SEA_BARRIER", "RIDGE_WARD", "UNRETREATING_TIDE",
-        "CALIBRATE", "READ_BACKWARD", "FUEL_THE_FIRE", "RESIDUAL_WARMTH"
+        "CALIBRATE", "READ_BACKWARD", "FUEL_THE_FIRE", "RESIDUAL_WARMTH", "DAM_BREAK", "TREE_RING_BURST"
     };
     // A small, explicit set of orb-only blanks. Never silently reintroduce the entire unusable pool.
     private static readonly HashSet<string> SeaGlassBlanks = new(StringComparer.Ordinal)
     {
-        "REIGNITE", "SPRINGWATER", "RENEWAL",
-        "BURN_THE_RIVER", "OPENING_TIDE", "CROP_ROTATION",
-        "ETERNAL_GRIMOIRE", "TREE_RING_BURST", "LIFE_SYMPHONY"
+        "REIGNITE", "RENEWAL",
+        "BURN_THE_RIVER", "CROP_ROTATION",
+        "ETERNAL_GRIMOIRE", "NOURISHING_LIFE", "LIFE_SYMPHONY"
     };
     private static string ShortId(CardModel card) => card.Id.Entry.Replace("LIBRARIAN-", "", StringComparison.Ordinal);
     public static bool IsSeaGlassUseful(CardModel card, Player player) => IsUseful(card, player) || SeaGlassPartial.Contains(ShortId(card));
@@ -92,7 +92,35 @@ public static class LibrarianCrossCharacter040
         ModelDb.CardPool<LibrarianCardPool>().GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
             .Where(c => c.Rarity == rarity && (blanks ? IsSeaGlassBlank(c) : IsSeaGlassUseful(c, player)))
             .OrderBy(c => c.Id.Entry, StringComparer.Ordinal).ToList();
-    internal static bool NeedsForeignAdaptation(CardModel card) => SeaGlassPartial.Contains(ShortId(card)) || SeaGlassBlanks.Contains(ShortId(card));
+    // Effect adaptation follows the card wherever it came from. Reward eligibility
+    // above can change without changing how an existing foreign copy plays.
+    private static readonly HashSet<string> ForeignAdaptedCards = new(StringComparer.Ordinal)
+    {
+        "ASHEN_BLOW", "BOOK_BURNING", "BURN_ROOTS", "CHANNEL_FLOW", "COOLDOWN", "DAM_BREAK",
+        "DROUGHT_EDICT", "DRY_BRANCH_SEARCH", "EMBER_RECKONING", "FIRE_INSCRIPTION",
+        "FLAME_BURST", "FLAME_STRIKE", "GAP_NEEDLE", "IGNITE", "NEEDLE_FLURRY", "OUT_OF_CONTEXT",
+        "OVERLOAD_BURN", "QUIET_EMBERS", "READ_WIDELY", "RESIDUAL_WARMTH", "RIDGE_WARD", "ROOTBIND",
+        "SCATTERED_FLAMES", "SEAL_AWAY", "SEEDBURIAL_STRIKE", "SEVER_CURRENT", "SONG_OF_ICE_AND_FIRE",
+        "SPROUTING_BULWARK", "SPROUTING_SEED", "STEAM_BLAST", "TIDAL_EROSION", "TIDAL_GRAVITY",
+        "TIDAL_STRIKE", "VINE_SHIELD", "ZERO_SEARCH"
+    };
+
+    // Native foreign sources can bypass our reward lists. These models' OnPlay or later
+    // power callbacks require character orbs, and have no independent benefit to apply.
+    private static readonly HashSet<string> OtherForeignBlanks = new(StringComparer.Ordinal)
+    {
+        "AFFORESTATION", "ANCIENT_CATALOG", "ANCIENT_SPARK", "BLAZING_CHAPTER", "BURNING_PAGES",
+        "COLD_FLAME", "DRAW_BRANCH", "EMBER_BOOKMARK", "FOREST_WALL",
+        "LIFELINE", "LONELY_SCROLL", "MULTIPLE_ERUPTION", "MULTIPLAYER_PLACEHOLDER_A",
+        "OVERLIMIT_FORM", "PRACTICE_MAKES_PERFECT", "RE_READ", "RING_CURRICULUM", "SEDIMENTATION",
+        "SHIFTING_PAGES", "SPACETIME_TWIST", "SPARK", "STUDY_NOTES", "THORN_BURST",
+        "THREEFOLD_UNITY", "TIDAL_MARK", "TRICKLE", "WATER_SPIRIT", "WAVE_CURTAIN"
+    };
+
+    internal static bool IsForeignBlank(CardModel card) => IsSeaGlassBlank(card) || OtherForeignBlanks.Contains(ShortId(card));
+
+    internal static bool NeedsForeignAdaptation(CardModel card) =>
+        ForeignAdaptedCards.Contains(ShortId(card)) || IsForeignBlank(card);
 
     private static CardCreationOptions Options(Player player, CardRarity rarity, bool noUpgrade = false)
     {

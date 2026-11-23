@@ -44,7 +44,7 @@ public abstract class OrbUtilityCard(int cost, CardType type, CardRarity rarity,
         => LibrarianRuntime.DrawOrDeferAsync(Session, context, amount);
     protected Task Hit(PlayerChoiceContext context, CardPlay play, decimal amount, bool all = false)
     {
-        var attack = DamageCmd.Attack(amount).FromCard(this, play);
+        var attack = DamageCmd.Attack(amount).FromLibrarianCard(this, play);
         if (all) attack.TargetingAllOpponents(CombatState ?? throw new InvalidOperationException("Attack requires combat."));
         else { ArgumentNullException.ThrowIfNull(play.Target); attack.Targeting(play.Target); }
         return attack.WithHitFx("vfx/vfx_attack_slash").Execute(context);

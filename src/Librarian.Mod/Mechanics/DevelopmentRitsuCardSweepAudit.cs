@@ -189,7 +189,7 @@ internal static partial class DevelopmentRitsuCardSweepAudit
         }
         // Supply the last-card prerequisite through a genuine native play.
         if (prototype.GetType().Name == "Transcribe") await Play(Create(ModelDb.Card<LibrarianStrike>()));
-        Check(!Session.ResolvingEndTurn && CardSelectCmd.Selector is null, "clean session and native selection");
+        Check(!Session.ResolvingEndTurn && DevelopmentGameApi.Selector(_player) is null, "clean session and native selection");
     }
     private static async Task Play(CardModel card)
     {

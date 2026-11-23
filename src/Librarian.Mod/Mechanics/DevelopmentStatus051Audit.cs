@@ -120,7 +120,7 @@ internal static class DevelopmentStatus051Audit
         Check(info.Current == 13 && info.Highest == 20 && fire.GetDescriptionForPile(PileType.None).Contains("[blue]7[/blue]"), "reread current maximum and restore preview");
         await Cards("051-reread-previews", previews);
         var selector = new TestCardSelector(); selector.PrepareToSelect([Array.IndexOf(S().Orbs.Positions.ToArray(), OrbKind.Fire)]);
-        using (CardSelectCmd.PushSelector(selector)) await Play(reread);
+        using (DevelopmentGameApi.PushSelector(player, selector)) await Play(reread);
         Check(S().Orbs.Value(OrbKind.Fire) == 20, "reread selected result matches preview");
         var other = LibrarianOrbChoice.CreatePreviews(Create<ThreefoldUnity>(), S().Orbs.Positions.ToArray());
         Check(other.All(c => c.GetDescriptionForPile(PileType.None).Contains("选择这个法球")), "other choice descriptions unchanged");

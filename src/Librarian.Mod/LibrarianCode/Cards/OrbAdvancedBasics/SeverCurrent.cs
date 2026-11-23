@@ -21,7 +21,7 @@ public sealed class SeverCurrent() : OrbAdvancedCard(1, CardType.Attack, CardRar
         var session = Session;
         await LibrarianRuntime.Dispatch(session, choiceContext,
             session.Orbs.Lose(OrbKind.Tide, Amount("Loss"), OrbScope.All, Origin));
-        await DamageCmd.Attack(session.Orbs.Value(OrbKind.Tide)).FromCard(this, cardPlay)
+        await DamageCmd.Attack(session.Orbs.Value(OrbKind.Tide)).FromLibrarianCard(this, cardPlay)
             .Targeting(cardPlay.Target!).WithHitCount(Amount("Repeat"))
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }

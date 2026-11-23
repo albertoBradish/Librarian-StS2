@@ -83,6 +83,10 @@ public sealed class BlazingChapterPower : ImplementedLibrarianPower
         var session = LibrarianRuntime.Get(Owner.Player!);
         var loss = session.Orbs.Lose(OrbKind.Fire, Amount, OrbScope.All, Origin);
         await LibrarianRuntime.Dispatch(session, context, loss);
-        if (loss.ActualAmount > 0) await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(context, Owner, loss.ActualAmount, Owner, play.Card);
+        if (loss.ActualAmount > 0)
+        {
+            Flash();
+            await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(context, Owner, loss.ActualAmount, Owner, play.Card);
+        }
     }
 }

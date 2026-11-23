@@ -2,7 +2,7 @@
 
 本项目原创内容适用根目录 [LICENSE](LICENSE)，并非 MIT 或其他开放改编许可。
 范围包括有权主张的角色与世界观表达、设定文字、故事、卡牌/遗物/药水文案、翻译、
-美术原画、图标、贴图、动画与特效等。随模组发行不代表允许拆取素材另作他用。
+美术原画、图标、贴图、动画、特效以及项目有权授权的原创录音、音乐和音效等。随模组发行不代表允许拆取素材另作他用。
 
 **未经权利人事先书面许可，不得改编、移植、重制、拆包复用、二次发布、商用，
 或通过收费整合、付费门槛、周边、转售授权等方式二次盈利。** 免费改编和再发布
@@ -21,7 +21,7 @@
 未采用方案及私有审核记录留在本地。原游戏图像、音效、商标归相应权利人所有，
 通过运行时引用使用，不分发提取资源。
 
-English: project-owned setting, writing, translations and visual assets follow
+English: project-owned setting, writing, translations, visual assets and project-owned sound recordings, music and sound effects follow
 [LICENSE](LICENSE). Adaptation, redistribution, extraction/reuse, commercial use
 and secondary monetization require prior written permission, subject to Mega Crit's
 rules. Upstream MIT assets retain MIT rights; unprotectable/public-domain elements

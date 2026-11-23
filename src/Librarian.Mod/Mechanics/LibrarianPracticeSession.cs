@@ -141,15 +141,15 @@ public partial class LibrarianPracticeSession : Node
             var character = ModelDb.Character<LibrarianCharacter>();
             session.Player = NativePlayer.CreateForNewRun(character,
                 SaveManager.Instance.GenerateUnlockStateFromProgress(), 1UL);
-            session.RunState = NativeRunState.CreateForNewRun([session.Player],
-                ActModel.GetDefaultList().Select(act => act.ToMutable()).ToArray(), [], GameMode.Custom, 0, Seed);
+            session.RunState = LibrarianGameApi.CreatePracticeRun(session.Player,
+                ActModel.GetDefaultList().Select(act => act.ToMutable()).ToArray(), Seed);
             RunManager.Instance.SetUpNewSingleplayer(session.RunState, shouldSave: false);
             session._runOwned = true;
             MainFile.Logger.Info("LIBRARIAN_PRACTICE_STARTUP stage=run_setup");
             // SetUp initializes the character's native starting inventory, so replace the
             // deck afterwards and before relic finalization/combat copies are created.
             session.Player.Deck.Clear(silent: true);
-            // Use the legal 0-cost upgrade so Rotation (2) + Trickle (1) + Spark+ (0)
+            // Use the legal 0-cost upgrade so Draw Branch (1) + Trickle (1) + Spark+ (0)
             // remains playable in the second teaching turn. Ordinary starter decks are unchanged.
             var teachingSpark = session.RunState.CreateCard<Spark>(session.Player);
             teachingSpark.UpgradeInternal(); teachingSpark.FinalizeUpgradeInternal();
@@ -259,7 +259,7 @@ public partial class LibrarianPracticeSession : Node
     {
         0 or 5 => ModelDb.Card<Spark>(),
         1 or 3 or 8 => ModelDb.Card<Trickle>(),
-        4 => ModelDb.Card<global::Librarian.LibrarianCode.Cards.OrbUtility.TreeRingBurst>(),
+        4 => ModelDb.Card<global::Librarian.LibrarianCode.Cards.Stateful.DrawBranch>(),
         7 => ModelDb.Card<TidalGravity>(),
         9 => ModelDb.Card<Renewal>(),
         _ => throw new InvalidOperationException("This lesson step has no card action.")

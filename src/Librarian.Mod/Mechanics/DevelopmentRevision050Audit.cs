@@ -96,7 +96,7 @@ internal static class DevelopmentRevision050Audit
                 if(upgraded){card.UpgradeInternal();card.FinalizeUpgradeInternal();}
                 var target=card.TargetType is TargetType.AnyEnemy or TargetType.RandomEnemy ? player.Creature.CombatState.HittableEnemies.First() : card.TargetType is TargetType.AnyAlly or TargetType.Self ? player.Creature : null;
                 MainFile.Logger.Info("V050_PLAY_BEGIN "+card.GetType().Name+" up="+upgraded);
-                using(CardSelectCmd.PushSelector(new FirstSelector())) await CardCmd.AutoPlay(context,card,target,skipCardPileVisuals:true);
+                using(DevelopmentGameApi.PushSelector(player, new FirstSelector())) await CardCmd.AutoPlay(context,card,target,skipCardPileVisuals:true);
                 Check(observed.Any(e=>e.Stage=="cast"&&e.Source==card.GetType().Name),"native play presentation "+card.GetType().Name+" up="+upgraded);
                 if(card.Type==CardType.Attack)
                     Check(observed.Any(e=>e.Stage=="impact"&&e.Source==card.GetType().Name),"actual attack impact "+card.GetType().Name+" up="+upgraded);

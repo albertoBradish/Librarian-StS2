@@ -347,7 +347,7 @@ internal static partial class DevelopmentRuntimeAudit
             Equal(10, _player.Creature.GetPower<UnretreatingTidePower>()!.Amount, "Retention floors use maximum, not sum");
             Session.Waves.Add(21);
             await Play<RidgeWard>();
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(Context, CombatSide.Player, [_player.Creature]);
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(Context, CombatSide.Player, [_player.Creature]);
             Equal(21, Session.Waves.Amount, "Endless Tide overrides floor and decay");
             Equal(0, _player.Creature.Block, "Ridge Ward immediate Tide settlement suppresses same-turn Wave payout");
 

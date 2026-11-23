@@ -15,7 +15,7 @@ public sealed class FlyingPages() : LibrarianCard(2, CardType.Attack, CardRarity
     protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         => DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
-            .FromCard(this, cardPlay)
+            .FromLibrarianCard(this, cardPlay)
             .TargetingRandomOpponents(CombatState ?? throw new InvalidOperationException("Card play requires combat."))
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

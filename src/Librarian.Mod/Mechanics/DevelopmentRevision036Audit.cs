@@ -206,7 +206,7 @@ internal static class DevelopmentRevision036Audit
             S().Orbs.Lock(S().Orbs.Foreground);
             await LibrarianRuntime.BindSharedAsync(ctx, player, ModelDb.Card<MultiplayerPlaceholderB>());
             Check(S().Orbs.SettlementsThisCombat == 3 && allySession.Orbs.SettlementsThisCombat == beforeShared, "Bind locked source prevents own and copied settlement");
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(ctx, CombatSide.Player, new[] { nonLibrarian.Creature });
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(ctx, CombatSide.Player, new[] { nonLibrarian.Creature });
             Check(LibrarianRuntime.Get(nonLibrarian).Waves.Amount == 10 && nonLibrarian.Creature.Block == blockOther + 20, "Borrowed Tide first end decays twenty to ten with no double payout");
             var bind = (MultiplayerPlaceholderB)ModelDb.Card<MultiplayerPlaceholderB>().ToMutable();
             Check(bind.EnergyCost.Canonical == 1 && bind.Keywords.Contains(CardKeyword.Exhaust), "Binding costs one and Exhausts");

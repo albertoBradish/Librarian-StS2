@@ -121,7 +121,7 @@ internal static class DevelopmentBeta2Audit
         var selected=Create<LibrarianDefend>();await CardPileCmd.Add(selected,PileType.Hand);
         await CardPileCmd.Add(Create<LibrarianStrike>(),PileType.Draw,CardPilePosition.Top);
         var selector=new TestCardSelector();selector.PrepareToSelect(new[]{selected});
-        using(CardSelectCmd.PushSelector(selector))await player.Creature.GetPower<ToBeContinuedPower>()!.AfterPlayerTurnStart(ctx,player);
+        using(DevelopmentGameApi.PushSelector(player, selector))await player.Creature.GetPower<ToBeContinuedPower>()!.AfterPlayerTurnStart(ctx,player);
         Check(ReferenceEquals(LibrarianBottomPlay041.PeekBottom(player),selected),"continued draws then returns chosen instance");
         await Wait(1.1);await Capture("continued-after-return");await Wait(2);
         foreach(string lang in new[]{"zhs","eng"})

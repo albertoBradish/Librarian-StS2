@@ -9,13 +9,19 @@ using MegaCrit.Sts2.Core.Rooms;
 namespace Librarian.Mechanics;
 
 /// <summary>Native combat notifications, presentation only. No damage or targeting is changed.</summary>
+#if LIBRARIAN_API_0113
+public sealed class LibrarianSpellVisualHooks040 : RunModel
+#else
 public sealed class LibrarianSpellVisualHooks040 : SingletonModel
+#endif
 {
     public override bool ShouldReceiveCombatHooks => true;
+#if !LIBRARIAN_API_0113
     public LibrarianSpellVisualHooks040()
     {
         MegaCrit.Sts2.Core.Modding.ModHelper.SubscribeForCombatStateHooks(Id.Entry, _ => [this]);
     }
+#endif
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -28,19 +34,39 @@ public sealed class LibrarianSpellVisualHooks040 : SingletonModel
         return Task.CompletedTask;
     }
 
-    public override Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
-        DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+    // Both fixed games call AfterDamageGiven for lethal results before removing the
+    // recipient; AfterDamageReceived is skipped for a dead, fatally hit recipient.
+    public override Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer,
+        DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
     {
+        if (cardSource?.GetType().Name == "TreeRingBurst"
+            && dealer == cardSource.Owner.Creature)
+        {
+            LibrarianCardRemasterVfx.Result(cardSource,target,result.Receiver);
+            return Task.CompletedTask;
+        }
         // Native Move marks attack-card/enemy attacks. Exclude direct HP loss,
         // relic/power damage, poison, and zero damage/immunity presentations.
         if ((props & ValueProp.Move) == 0 || (props & ValueProp.Unblockable) != 0)
             return Task.CompletedTask;
-        if (result.TotalDamage > 0 && cardSource?.Type == CardType.Attack
+        if (cardSource?.Type == CardType.Attack
             && cardSource.Owner.Character is LibrarianCharacter && dealer == cardSource.Owner.Creature)
         {
-            LibrarianSpineCastVfx.ActualResult(cardSource);
-            LibrarianCardVfx050.Impact(cardSource, target);
+            LibrarianCardRemasterVfx.Result(cardSource,target,result.Receiver);
+            if (result.TotalDamage > 0)
+            {
+                LibrarianSpineCastVfx.ActualResult(cardSource);
+                LibrarianCardVfx050.Impact(cardSource,result.Receiver);
+            }
         }
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
+        DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
+    {
+        if ((props & ValueProp.Move) == 0 || (props & ValueProp.Unblockable) != 0)
+            return Task.CompletedTask;
         if (target.Player?.Character is LibrarianCharacter && result.BlockedDamage > 0
             && result.UnblockedDamage == 0 && result.WasFullyBlocked)
             LibrarianSpellVisuals.PerfectBlock(target, result);

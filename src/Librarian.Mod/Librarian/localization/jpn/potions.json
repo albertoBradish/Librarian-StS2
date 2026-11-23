@@ -1,0 +1,8 @@
+{
+  "LIBRARIAN-KINDLING_POTION.title": "着火の薬",
+  "LIBRARIAN-KINDLING_POTION.description": "{Fire:diff()} [gold]炎[/gold]を得る。",
+  "LIBRARIAN-CLARITY_POTION.title": "明晰の薬",
+  "LIBRARIAN-CLARITY_POTION.description": "{Waves:diff()} [gold]波[/gold]を得る。",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.title": "液体の禁断の果実",
+  "LIBRARIAN-FLUID_FORBIDDEN_FRUIT.description": "すべてのオーブを[gold]ロック解除[/gold]し、それぞれの効果を追加で1回[gold]発動[/gold]する。"
+}

@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -23,6 +24,7 @@ public static class LibrarianBottomPlay041
         await CardPileCmd.ShuffleIfNecessary(context, player);
         return await TryPlayBottomAsync(context, player);
     }
+    /// <summary>Card is the moved instance. Played reports a native autoplay start for that instance.</summary>
     public sealed record BottomPlayResult(CardModel? Card, bool Played)
     {
         public static BottomPlayResult Empty { get; } = new(null, false);
@@ -81,13 +83,33 @@ public static class LibrarianBottomPlay041
         if (!moved.success)
             return BottomPlayResult.Empty;
         LibrarianCardVfx050.Page(player, "bottom-read", card.GetType().Name);
-        if (forceExhaust)
+        bool addedForceExhaust = forceExhaust && !card.ExhaustOnNextPlay;
+        if (addedForceExhaust)
             card.ExhaustOnNextPlay = true;
 
+        // Autoplay can return after native rejection, and a lethal play can
+        // clear combat history before it returns. Observe the start as it is recorded.
+        var history = CombatManager.Instance.History;
+        bool played = false;
+        void ObservePlayStart()
+        {
+            if (!played && history.Entries.LastOrDefault() is CardPlayStartedEntry entry &&
+                entry.CardPlay.IsAutoPlay && ReferenceEquals(entry.CardPlay.Card, card))
+                played = true;
+        }
+
         BottomPlays[card] = BottomPlays.GetValueOrDefault(card) + 1;
+        history.Changed += ObservePlayStart;
         try { await LibrarianGameApi.AutoPlay(choiceContext, player, card); }
-        finally { if (--BottomPlays[card] == 0) BottomPlays.Remove(card); }
-        return new(card, true);
+        finally
+        {
+            history.Changed -= ObservePlayStart;
+            if (--BottomPlays[card] == 0) BottomPlays.Remove(card);
+            // Native rejection can exhaust the card without consuming the temporary flag.
+            if (addedForceExhaust && !played)
+                card.ExhaustOnNextPlay = false;
+        }
+        return new(card, played);
     }
 
     /// <summary>Plays the snapshotted entry card only if it is still the bottom instance.</summary>

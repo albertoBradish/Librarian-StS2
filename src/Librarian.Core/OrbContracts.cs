@@ -4,7 +4,7 @@ public enum OrbKind { Fire, Tide, Growth }
 public enum OrbScope { Foreground, Background, All }
 public enum ActivationFilter { Any, Active, Inactive }
 public enum OrbSelection { Named, Lowest, Highest, Random }
-public enum OrbEventKind { ForegroundChanged, Gained, Strengthened, Activated, Lost, Zeroed, Extinguished, ValuesPermuted, PositionsChanged, Locked, Unlocked, Channelled, Imbued }
+public enum OrbEventKind { ForegroundChanged, Gained, Strengthened, Activated, Lost, Zeroed, Extinguished, ValuesPermuted, PositionsChanged, Locked, Unlocked, Channelled, Imbued, ValuesRedistributed }
 public enum OrbOperationStatus { Applied, OutOfScope, Blocked }
 public enum SettlementReason { Immediate, NaturalEndTurn, ExtraEndTurn }
 

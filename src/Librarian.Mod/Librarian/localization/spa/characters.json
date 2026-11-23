@@ -1,0 +1,17 @@
+{
+  "LIBRARIAN-LIBRARIAN_CHARACTER.title": "El Bibliotecario",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.titleObject": "El Bibliotecario",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.description": "Un alma antigua, maldita a dormir junto al Arquitecto durante la Plaga. Manipula pergaminos dispersos para descubrir la verdad de la Torre.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounObject": "a él",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounSubject": "él",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.pronounPossessive": "suyo",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.possessiveAdjective": "su",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.aromaPrinciple": "Papel, tinta y un destello de luz.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.alive.endTurnPing": "Giremos la página.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.banter.dead.endTurnPing": "...",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.eventDeathPrevention": "Aún quedan capítulos por leer.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.goldMonologue": "Suficiente para unos cuantos libros más.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierTitle": "Cartas de el Bibliotecario",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.cardsModifierDescription": "Las cartas de el Bibliotecario ahora aparecen en las recompensas y tiendas.",
+  "LIBRARIAN-LIBRARIAN_CHARACTER.bestiaryQuote": "Otro encuentro para los archivos."
+}

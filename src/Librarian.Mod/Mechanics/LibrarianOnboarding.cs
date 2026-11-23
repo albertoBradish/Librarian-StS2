@@ -321,8 +321,14 @@ public partial class LibrarianOnboardingScheduler : Node
 [HarmonyPatch(typeof(NCharacterSelectScreen), nameof(NCharacterSelectScreen.SelectCharacter))]
 internal static class LibrarianOnboardingSelectionPatch
 {
+#if LIBRARIAN_API_0113
+    [HarmonyPostfix] private static void Postfix(NCharacterSelectScreen __instance, NCharacterSelectButton charSelectButton)
+    {
+        var characterModel = charSelectButton.Character;
+#else
     [HarmonyPostfix] private static void Postfix(NCharacterSelectScreen __instance, NCharacterSelectButton charSelectButton, CharacterModel characterModel)
     {
+#endif
         if (characterModel is LibrarianCharacter && !charSelectButton.IsLocked)
             LibrarianOnboardingScheduler.Schedule(__instance);
     }

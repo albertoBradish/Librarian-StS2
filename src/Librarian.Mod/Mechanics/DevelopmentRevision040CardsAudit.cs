@@ -311,7 +311,7 @@ internal static class DevelopmentRevision040CardsAudit
         int handBefore = foreign.PlayerCombatState.Hand.Cards.Count;
         var selector = new MegaCrit.Sts2.Core.TestSupport.TestCardSelector();
         selector.PrepareToSelect(new[] { selected });
-        using (CardSelectCmd.PushSelector(selector))
+        using (DevelopmentGameApi.PushSelector(foreign, selector))
             await CardCmd.AutoPlay(ctx, combat.CreateCard<Nourish>(foreign), null, skipCardPileVisuals: true);
         if (foreign.PlayerCombatState.Hand.Cards.Count != handBefore + 2 || selected.Pile?.Type != PileType.Draw
             || foreign.PlayerCombatState.DrawPile.Cards.Last() != selected || LibrarianRuntime.TryGet(foreign, out _))

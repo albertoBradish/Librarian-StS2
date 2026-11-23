@@ -14,6 +14,7 @@ namespace Librarian.Mechanics;
 /// <summary>An independent blue band uses the native Doom texture and HP scale, without touching lethal logic.</summary>
 public partial class LibrarianWaveBar : Control
 {
+    private const double ForecastInterval = 1.0 / 12;
     private LibrarianSession? _session;
     private Player? _player;
     private Control? _hp;
@@ -21,7 +22,9 @@ public partial class LibrarianWaveBar : Control
     private NinePatchRect? _fill;
     private Label? _label;
     private float _width;
+    private double _refreshIn;
     private LibrarianBlockPreview? _preview;
+    private (Rect2 Hp, float LabelX, float LabelWidth, float FillWidth, bool ShowFill)? _layout;
     private bool _hovered;
     private string? _hoverText;
 
@@ -46,6 +49,7 @@ public partial class LibrarianWaveBar : Control
         _label.AddThemeColorOverride("font_outline_color", Colors.Black);
         _label.AddThemeConstantOverride("outline_size", 4);
         AddChild(_label);
+        Visible = false;
         MouseEntered += () => { _hovered = true; RefreshHover(); };
         MouseExited += () => { _hovered = false; _hoverText = null; NHoverTipSet.Remove(this); };
     }
@@ -65,20 +69,46 @@ public partial class LibrarianWaveBar : Control
     public override void _Process(double delta)
     {
         if (_player is null || _hp is null || _block is null || _fill is null || _label is null) return;
+        var preferences = LibrarianPreferences050.Current;
         // Creature UI can be built just before the new PlayerCombatState replaces the old one.
-        if (!LibrarianRuntime.TryGet(_player, out var current) || current is null) { Visible = false; return; }
-        if (_session != current) { _session = current; _preview = null; }
-        if (_session.ResolvingEndTurn || _session.Orbs.EndTurnResolved
+        if (!preferences.WaveBar || !_hp.IsVisibleInTree() || _player.Creature.IsDead
+            || !LibrarianRuntime.TryGet(_player, out var current) || current is null
+            || current.ResolvingEndTurn || current.Orbs.EndTurnResolved
             || _player.PlayerCombatState?.Phase != PlayerTurnPhase.Play)
         {
-            Visible = false; _preview = null; _width = 0; _hoverText = null;
-            NHoverTipSet.Remove(this); return;
+            HideForecast();
+            _preview = null;
+            _width = 0;
+            return;
         }
-        _preview = LibrarianEndTurnPreview.Read(_session);
-        int amount = _preview.Maximum ?? 0;
-        Visible = LibrarianPreferences050.Current.WaveBar && (amount != 0 || _preview.Minimum != 0 || _preview.ExpiringBlock > 0 || _preview.Maximum is null)
-            && !_session.ResolvingEndTurn && !_session.Player.Creature.IsDead && _hp.IsVisibleInTree();
-        if (!Visible) { _hoverText = null; NHoverTipSet.Remove(this); return; }
+        if (_session != current)
+        {
+            _session = current;
+            _preview = null;
+        }
+
+        // The projection enumerates native hooks and copies combat state. Sample live
+        // inputs at a bounded rate so changes from other mods do not need invalidation hooks.
+        _refreshIn -= delta;
+        bool refreshed = _preview is null || _refreshIn <= 0;
+        if (refreshed)
+        {
+            _preview = LibrarianEndTurnPreview.Read(current);
+            _refreshIn = ForecastInterval;
+        }
+        var preview = _preview!;
+        int amount = preview.Maximum ?? 0;
+        if (preview.Maximum == 0 && preview.Minimum == 0 && preview.ExpiringBlock <= 0)
+        {
+            HideForecast();
+            return;
+        }
+        if (refreshed)
+        {
+            var text = preview.AmountText;
+            if (_label.Text != text) _label.Text = text;
+        }
+        Visible = true;
         // Keep every edge in this parent's space; creature UI and the native HP foreground
         // may have different scales. The native shield draws over this band, so start at
         // the HP edge and let the shield mask the overlap instead of reserving a visible gap.
@@ -86,21 +116,36 @@ public partial class LibrarianWaveBar : Control
         var hpBounds = BoundsInParent(_hp, toLocal);
         float available = Math.Max(1, hpBounds.Size.X);
         float target = available * Math.Clamp((float)amount / Math.Max(1, _session.Player.Creature.MaxHp), 0, 1);
-        _width = LibrarianPreferences050.Current.ReducedMotion ? target
+        _width = preferences.ReducedMotion || Mathf.IsEqualApprox(_width, target) ? target
             : Mathf.Lerp(Math.Min(_width, available), target, Math.Min(1f, (float)delta * 12));
-        _fill.Visible = _preview.Maximum.HasValue && amount > 0;
-        _fill.Size = new(Math.Max(1, _width), 5);
         // A small blue superscript to the upper right of the native Block number.
         // A hidden BlockContainer can retain an earlier animated position; it must not
         // shift the amount when there is no native shield on screen.
         float labelX = _block.IsVisibleInTree() ? BoundsInParent(_block, toLocal).End.X - 9 : hpBounds.Position.X;
-        _label.Text = _preview.AmountText;
-        float left = Math.Min(labelX, hpBounds.Position.X);
-        Position = new(left, hpBounds.Position.Y - 35);
-        _fill.Position = new(hpBounds.Position.X - left, 28);
-        _label.Position = new(labelX - left, 0);
-        Size = new(Math.Max(hpBounds.End.X - left, _label.Position.X + _label.GetMinimumSize().X), 33);
-        RefreshHover();
+        float labelWidth = _label.GetMinimumSize().X;
+        float fillWidth = Math.Max(1, _width);
+        bool showFill = preview.Maximum.HasValue && amount > 0;
+        var layout = (hpBounds, labelX, labelWidth, fillWidth, showFill);
+        if (_layout != layout)
+        {
+            _layout = layout;
+            _fill.Visible = showFill;
+            _fill.Size = new(fillWidth, 5);
+            float left = Math.Min(labelX, hpBounds.Position.X);
+            Position = new(left, hpBounds.Position.Y - 35);
+            _fill.Position = new(hpBounds.Position.X - left, 28);
+            _label.Position = new(labelX - left, 0);
+            Size = new(Math.Max(hpBounds.End.X - left, labelX - left + labelWidth), 33);
+        }
+        if (refreshed) RefreshHover();
+    }
+
+    private void HideForecast()
+    {
+        Visible = false;
+        if (_hoverText is null) return;
+        _hoverText = null;
+        NHoverTipSet.Remove(this);
     }
 
     private static Rect2 BoundsInParent(Control control, Transform2D toLocal)

@@ -17,7 +17,7 @@ public sealed class CombatNotes() : LibrarianCard(2, CardType.Attack, CardRarity
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this, cardPlay)
+            .FromLibrarianCard(this, cardPlay)
             .TargetingAllOpponents(CombatState ?? throw new InvalidOperationException("Card play requires combat."))
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

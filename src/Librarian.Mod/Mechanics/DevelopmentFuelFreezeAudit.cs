@@ -227,7 +227,7 @@ internal static class DevelopmentFuelFreezeAudit
         try
         {
             Check(OS.GetUserDataDir().Contains("revision030-userdata", StringComparison.OrdinalIgnoreCase), "isolated validation profile");
-            Check(CardSelectCmd.Selector is null, "native synchronized selectors only");
+            Check(DevelopmentGameApi.Selector(player) is null, "native synchronized selectors only");
             foreach (bool upgraded in new[] { false, true })
                 foreach (var target in new[] { OrbKind.Fire, OrbKind.Tide, OrbKind.Growth })
                 {
@@ -277,7 +277,7 @@ internal static class DevelopmentFuelFreezeAudit
             await Turn("fuel-two-recursive-reads", [OrbKind.Growth]);
             Check(_requests == 1 && leaf.Pile?.Type == PileType.Exhaust && Completed.Contains(inner) && Completed.Contains(outer),
                 "two recursive ReadBackward calls share completing choice task");
-            Check(CardSelectCmd.Selector is null, "selector bypass remained disabled");
+            Check(DevelopmentGameApi.Selector(player) is null, "selector bypass remained disabled");
             _owner = null;
             await NGame.Instance!.ToSignal(NGame.Instance.GetTree().CreateTimer(3), SceneTreeTimer.SignalName.Timeout);
             MainFile.Logger.Info($"FUEL_FREEZE_AUDIT_PASS checks={checks} gridChoices={gridChoices} handChoices={handChoices} realTurns={realTurns} native=True liveMulticlient=False");

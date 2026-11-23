@@ -2,8 +2,8 @@
     <Import Project=".\Sts2PathDiscovery.props"/>
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
-        <Version>1.4.0</Version>
-        <AssemblyVersion>1.4.0.0</AssemblyVersion>
+        <Version>1.4.10</Version>
+        <AssemblyVersion>1.4.10.0</AssemblyVersion>
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>enable</Nullable> <!--Makes code analysis regarding null values stricter.-->
         <Publicize>False</Publicize> <!--Allows access to originally private/protected members but may (unlikely to) cause errors.-->
@@ -13,11 +13,17 @@
         <PathMap>$(AppOutputBase)=.\</PathMap>
         <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
         <RitsuLibReferenceTarget>$(LibrarianGameVersion)</RitsuLibReferenceTarget>
+        <!-- RitsuLib uses the preceding minor's variant on these patch releases. -->
+        <RitsuLibReferenceTarget Condition="'$(LibrarianGameVersion)' == '0.111.1'">0.111.0</RitsuLibReferenceTarget>
+        <RitsuLibReferenceTarget Condition="'$(LibrarianGameVersion)' == '0.113.1'">0.113.0</RitsuLibReferenceTarget>
         <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.111.0'">$(DefineConstants);LIBRARIAN_API_0111</DefineConstants>
+        <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.111.1'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_01111</DefineConstants>
+        <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.113.0'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_0113</DefineConstants>
+        <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.113.1'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_0113;LIBRARIAN_API_01131</DefineConstants>
         <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.107.1'">$(DefineConstants);LIBRARIAN_API_0107</DefineConstants>
     </PropertyGroup>
 
-    <Import Project="../../.research/tools/ritsulib/v0.6.4/RitsuLib.References.props" />
+    <Import Project="../../.research/tools/ritsulib/v0.6.13/RitsuLib.References.props" />
 
     <PropertyGroup>
         <!-- Diasble architecture mismatch warning; mods are ideally built for all platforms (MSIL)
@@ -77,8 +83,8 @@
     </ItemGroup>
     
     <Target Name="CheckDependencyPaths" >
-        <Error Condition="'$(LibrarianGameVersion)' != '0.107.1' and '$(LibrarianGameVersion)' != '0.111.0'"
-               Text="LibrarianGameVersion must be an explicitly supported API target: 0.107.1 or 0.111.0." />
+        <Error Condition="'$(LibrarianExpectedGameHash)' == ''"
+               Text="LibrarianGameVersion must be an explicitly supported API target." />
         <Error
                 Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
                Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />

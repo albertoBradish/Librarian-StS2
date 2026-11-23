@@ -1,8 +1,8 @@
 # 图书管理员 · Librarian
 
-**V1.4.0：RitsuLib 0.6.4 单前置，单包适配游戏 0.107.1 / 0.111.0。当前源码在 main 维护，独立下载与安装映射见对应 Release。**
+**V1.4.10 使用 RitsuLib 0.6.13 或更新版本，支持下表五个固定游戏版本。**
 
-**V1.4.0 uses RitsuLib 0.6.4 only and one bundle for game 0.107.1 / 0.111.0. The current source is maintained on main; use the matching Release and installation map for runtime downloads.**
+**V1.4.10 requires RitsuLib 0.6.13 or later and supports the five game builds listed below.**
 
 <p align="center">
   <img src="assets/librarian-avatar.png" alt="图书管理员 Q版头像" width="240" height="240">
@@ -10,19 +10,19 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-当前统一源码为 **V1.4.0**，由引导层按游戏版本选择一份内容 DLL。本版合并未单独发布的 V1.3.11／V1.3.12 内容，包含 26 张卡的规则与平衡调整、衍生牌《修行笔记》、中英文卡牌文案定稿、丝带与选角修正及更新卡图。Steam 与 GitHub 独立发行的包身份见 `release-metadata.json`；既有分支、标签与历史附件保留。
+V1.4.10 修复了异角色使用图书管理员卡牌时的结算错误，以及牌底自动出牌被阻止时仍计为成功的问题。恐惧模式现在只检查六位原版角色是否均已达到 A10。本版也合入了针对 Issue #8 的法阵渲染与战斗界面性能优化。
 
-The current **V1.4.0 unified source** selects one content DLL for the running game version. It combines the unreleased V1.3.11/V1.3.12 work with 26 card changes, generated Study Notes, approved bilingual wording, ribbon and selection fixes, and updated illustrations. `release-metadata.json` identifies the matching runtime package. Existing branches, tags and historical assets remain available.
+V1.4.10 fixes cross-character card effects, reports blocked bottom-card plays correctly, restores the six base-game characters’ A10 requirement for Dread, and reduces the rendering and UI work reported in issue #8.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
-Includes Simplified Chinese and English, independent language settings, and
+Includes Simplified Chinese, English, Japanese, Korean, Spanish and French, language settings, and
 custom translation packs.
 
 图书管理员通过烈焰、波涛、翠叶三种法球的注魔、结算与锁定组织战斗。
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
-- [V1.4.0 / 当前版本下载](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0) · [更新公告 / Change notes](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.0)
+- [V1.4.10 / 当前版本下载](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.10) · [更新公告 / Change notes](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.10)
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
 - [Published historical beta package / 已发布历史 beta 包 1.2.0-beta12](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12)。此历史版下载同一发行的三份运行文件与许可；V1.4.0 采用六文件结构。This historical release has three runtime files; V1.4.0 uses six.
 - [Source and release history / 源码与发布历史](RELEASE-BATCHES.md)。历史发行状态保留；当前统一包身份另见[构建元数据](release-metadata.json)。Historical publication records remain separate from this unified source snapshot.
@@ -59,13 +59,13 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-Current source and matching runtime package: **1.4.0**, with exact game-version selection. [Release metadata](release-metadata.json) records all six runtime file hashes. Both fixed game APIs are checked with the minimum RitsuLib 0.6.4; the release notes separately identify additional tested dependency combinations and remaining limits. Steam server publication and actual subscriber downloads are recorded separately.
+[Release metadata](release-metadata.json) lists the five supported game commits and nine runtime file hashes for V1.4.10. The loader selects the content DLL for the installed game.
 
 | Component | Verified baseline |
 | --- | --- |
-| Slay the Spire 2 | **0.107.1 public / 59260271** and **0.111.0 public-beta / 41cef1ea**; other versions stop at the loader |
-| BaseLib | Not required by unified V1.4.0; historical releases retain their own manifests |
-| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib/releases/tag/v0.6.4) | 0.6.4 compile baseline; complete bundle with both target `compat/` directories and `shared/` |
+| Slay the Spire 2 | 0.107.1 (59260271), 0.111.0 (41cef1ea), 0.111.1 (cc1f9462), 0.113.0 (16ac0fe3), 0.113.1 (d09d48e5) |
+| BaseLib | Only relevant to historical releases |
+| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib) | Minimum 0.6.13. Install the full dependency separately. |
 
 Manifest minimum versions are not a promise of compatibility with newer game
 or dependency versions. Single-player is the primary supported path. Multiplayer
@@ -74,9 +74,9 @@ validation remain incomplete. Visual/audio feedback is welcome.
 
 ## Install / 安装
 
-1. Use a game branch/version supported by the chosen release. Unified V1.4.0 supports only the two exact versions above.
-2. V1.4.0 requires **the complete RitsuLib bundle with baseline 0.6.4**, installed separately. Historical packages retain their original dependencies.
-3. For an available unified GitHub release, download all six runtime assets and follow `INSTALL-MAP.json`. Place root `Librarian.dll`, `Librarian.json`, `Librarian.pck` and `librarian-variants.manifest` in `mods/Librarian/`. Rename `compat-0.107.1-Librarian.dll` and `compat-0.111.0-Librarian.dll` to `Librarian.dll` in their respective `compat/<version>/` subdirectories. Keep notices and verify `SHA256SUMS.txt`. Historical three-file releases use their own instructions.
+1. Use one of the five game versions listed above.
+2. Install and enable the complete RitsuLib bundle (0.6.13 or later).
+3. From the same GitHub Release, download the nine runtime files and follow `INSTALL-MAP.json`. Keep the four root files together under `mods/Librarian/`. Rename each `compat-<version>-Librarian.dll` to `Librarian.dll` under the corresponding `compat/<version>/` directory. Keep the notices and verify `SHA256SUMS.txt`.
 4. For Workshop migration, subscribe to [3801958367](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367), quit the game, unsubscribe from old 3811677053, wait for the download, and restart with Librarian enabled. Keep saves. The old item remains public with a final migration notice after the new release succeeds; duplicate ModIds cannot guarantee that the new copy wins.
 5. Avoid loading both Workshop and manual copies of Librarian. Exit the game
    before changing mod files, back up saves, and use a spare profile/new run when
@@ -100,6 +100,50 @@ Use an [issue template](https://github.com/albertoBradish/Librarian-StS2/issues/
 and include game branch/build, mod and dependency versions, installation channel,
 other mods, reproduction steps, expected/actual behavior, and screenshots/logs
 where useful. Review logs for account names, save data and tokens before posting.
+
+## 鸣谢 / Acknowledgments
+
+<details>
+<summary>简体中文</summary>
+
+<p lang="zh-Hans">以下致谢名单不分先后：@XLZC，@Evolto，@shuyushuyu，@Wakazu，@Emily，@Xianyu，@Optics，@冬冬，@OrangePig，@Pengonut（The Flaw角色作者），@Quanthon，@hotwords123（Random Foreseer作者），@after.story，@yyqy，@Comic Chess(女王与知识恶魔角色作者）与所有游玩过，无论给出好评还是差评的大家，还有现在也许已经订阅游玩的你</p>
+
+</details>
+
+<details>
+<summary>English</summary>
+
+<p lang="en">My thanks, in no particular order, go to @XLZC, @Evolto, @shuyushuyu, @Wakazu, @Emily, @Xianyu, @Optics, @冬冬, @OrangePig, @Pengonut (creator of the character The Flaw), @Quanthon, @hotwords123 (creator of Random Foreseer), @after.story, @yyqy, and @Comic Chess (creator of the characters The Queen and Knowledge Demon). A heartfelt thank-you to everyone who has played and to everyone who left a review, positive or negative. And thank you for reading this far. Maybe you’re already subscribed and playing!</p>
+
+</details>
+
+<details>
+<summary>日本語</summary>
+
+<p lang="ja">順不同で、@XLZC、@Evolto、@shuyushuyu、@Wakazu、@Emily、@Xianyu、@Optics、@冬冬、@OrangePig、@Pengonut（キャラクター「The Flaw」の作者）、@Quanthon、@hotwords123（「Random Foreseer」の作者）、@after.story、@yyqy、@Comic Chess（キャラクター「The Queen」と「Knowledge Demon」の作者）に感謝します。遊んでくださった皆さん、好評・不評を問わずレビューを寄せてくださった皆さん、そしてここまで読んでくださったあなたにも、心から感謝しています。もしかすると、もうサブスクライブして遊んでくださっているかもしれませんね。</p>
+
+</details>
+
+<details>
+<summary>한국어</summary>
+
+<p lang="ko">순서와 관계없이 @XLZC, @Evolto, @shuyushuyu, @Wakazu, @Emily, @Xianyu, @Optics, @冬冬, @OrangePig, @Pengonut(The Flaw 캐릭터 제작자), @Quanthon, @hotwords123(Random Foreseer 제작자), @after.story, @yyqy, @Comic Chess(The Queen 및 Knowledge Demon 캐릭터 제작자)에게 감사드립니다. 플레이해 주신 모든 분, 긍정적이든 부정적이든 평가를 남겨 주신 모든 분께 진심으로 감사드립니다. 그리고 지금 이 글을 읽는 분께도 감사드립니다. 어쩌면 이미 구독하고 즐겨 주고 계실지도 모르겠네요!</p>
+
+</details>
+
+<details>
+<summary>Español</summary>
+
+<p lang="es">Mi agradecimiento, sin ningún orden en particular, a @XLZC, @Evolto, @shuyushuyu, @Wakazu, @Emily, @Xianyu, @Optics, @冬冬, @OrangePig, @Pengonut (creador del personaje The Flaw), @Quanthon, @hotwords123 (creador de Random Foreseer), @after.story, @yyqy y @Comic Chess (creador de los personajes The Queen y Knowledge Demon). Gracias de corazón a quienes han jugado y a quienes se han tomado el tiempo de dejar una reseña, positiva o negativa. Y gracias a ti por leer hasta aquí. ¡Quizá ya te hayas suscrito y estés jugando!</p>
+
+</details>
+
+<details>
+<summary>Français</summary>
+
+<p lang="fr">Je tiens à remercier, sans ordre particulier, @XLZC, @Evolto, @shuyushuyu, @Wakazu, @Emily, @Xianyu, @Optics, @冬冬, @OrangePig, @Pengonut (créateur du personnage The Flaw), @Quanthon, @hotwords123 (créateur de Random Foreseer), @after.story, @yyqy et @Comic Chess (créateur des personnages The Queen et Knowledge Demon). Merci du fond du cœur à toutes les personnes qui ont joué et à celles qui ont laissé un avis, positif ou négatif. Et merci à vous de m’avoir lu jusqu’ici. Peut-être êtes-vous déjà abonné au mod et en train d’y jouer !</p>
+
+</details>
 
 ## License / 许可证
 

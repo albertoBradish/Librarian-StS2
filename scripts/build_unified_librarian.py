@@ -1,4 +1,4 @@
-"""Compile both fixed API targets, package one PCK, and deploy only isolated copies."""
+"""Compile the fixed API targets, package one PCK, and deploy only isolated copies."""
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -9,26 +9,40 @@ import shutil
 import subprocess
 
 from build_provenance import source_manifest, environment_manifest
-from librarian_bundle import GAME_TARGETS, validate_bundle
+from librarian_bundle import game_targets_for, validate_bundle, required_ritsulib_version, native_bootstrap_fields
 from run_research_game import isolated_environment
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / 'src/Librarian.Mod'
 SDK = ROOT / '.research/tools/dotnet'
 MOD_VERSION = json.loads((PROJECT / 'Librarian.json').read_text(encoding='utf-8-sig'))['version']
+GAME_TARGETS = game_targets_for(MOD_VERSION)
 WORK = ROOT / f'.research/unified-v{MOD_VERSION}'
 CACHE = Path(os.environ.get('LIBRARIAN_BUILD_CACHE_ROOT', str(WORK))).resolve()
 LOGS = WORK / 'logs'
 CANDIDATE = ROOT / f'outputs/revision-v{MOD_VERSION}/candidate/Librarian'
 GAME_INPUTS = {
+    '0.113.1': ROOT / '.research/game-sdk-20261114/steam-0.113.1',
+    '0.113.0': ROOT / '.research/game-sdk-20261112/steam-0.113.0',
     '0.111.0': ROOT / '.research/ritsu-game',
+    '0.111.1': ROOT / '.research/game-sdk-20261116/steam-0.111.1',
     '0.107.1': ROOT / '.research/channels/stable/workspace/.research/ritsu-game',
 }
 GAME_HASHES = {
+    '0.113.1': '62ecbe91093e1fa862de4329aac865209dcb297804caf0f0520d92d8c0b4a9c3',
+    '0.113.0': 'a6cc282c52b96ad2e01d5692b1144b33aa8e3ba4e969582f648ecb13b2f751d7',
     '0.111.0': '0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9',
+    '0.111.1': '3fb1fa1bf0249087b706a5d0f062a60579e2f5b08df4ee477ddd6f2607f654d5',
     '0.107.1': 'a1f9e653f1e28e4076558fee1e60d218619cb7e057b887c6417f62c62c6d7a52',
 }
-RITSU = ROOT / '.research/tools/ritsulib/v0.6.4'
+MIN_RITSU = required_ritsulib_version(MOD_VERSION)
+RITSU = ROOT / f'.research/tools/ritsulib/v{MIN_RITSU}'
+# Compile against the minimum while testing the package Steam currently delivers.
+RUNTIME_RITSU_VERSION = '0.6.15' if '0.111.1' in GAME_TARGETS else MIN_RITSU
+WORKSHOP_RITSU = json.loads((ROOT / 'scripts/ritsulib-build-inputs.json').read_text(encoding='utf-8'))
+WORKSHOP_BASELINE = WORKSHOP_RITSU.get(RUNTIME_RITSU_VERSION)
+RUNTIME_RITSU = (RITSU.with_name(f"v{RUNTIME_RITSU_VERSION}-workshop-{WORKSHOP_BASELINE['manifest']}")
+                 if WORKSHOP_BASELINE else RITSU)
 
 
 def run(command, env, label, cwd=ROOT):
@@ -52,7 +66,7 @@ def prepare_runtime(version):
         raise ValueError('Game input hash changed: ' + version)
     for file in source.rglob('*'):
         relative = file.relative_to(source)
-        if relative.parts[0] in ('mods', '.godot', 'logs', 'crashes') or not file.is_file():
+        if relative.parts[0] in ('mods', 'mods_STEAMTEST', '.godot', 'logs', 'crashes') or not file.is_file():
             continue
         destination = target / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -68,7 +82,7 @@ def prepare_runtime(version):
                         '[sentry]\nconfig/dsn=""\noptions/auto_init=false\n', encoding='utf-8')
     (target / 'mods').mkdir(exist_ok=True)
     dep = target / 'mods/STS2-RitsuLib'
-    shutil.copytree(RITSU, dep, dirs_exist_ok=True)
+    shutil.copytree(RUNTIME_RITSU, dep, dirs_exist_ok=True)
     return target
 
 
@@ -78,11 +92,23 @@ def main():
     parser.add_argument('--target', choices=['all', *GAME_TARGETS], default='all', help='A single target is a compile-only diagnostic.')
     args = parser.parse_args()
     if args.pack and args.target != 'all':
-        parser.error('--pack requires both API targets')
+        parser.error('--pack requires every API target')
     LOGS.mkdir(parents=True, exist_ok=True)
     declared = json.loads((PROJECT / 'Librarian.json').read_text(encoding='utf-8-sig'))
-    if declared.get('version') != MOD_VERSION or declared.get('dependencies') != [{'id': 'STS2-RitsuLib', 'min_version': '0.6.4'}]:
-        raise SystemExit('Unified build requires a consistent version and the Ritsu-only manifest')
+    if any(declared.get(key) != value for key, value in native_bootstrap_fields(MOD_VERSION).items()):
+        raise SystemExit('Unified build requires the native bootstrap manifest for this version')
+    for package, version in ((RITSU, MIN_RITSU), (RUNTIME_RITSU, RUNTIME_RITSU_VERSION)):
+        dependency_manifest = json.loads((package / 'mod_manifest.json').read_text(encoding='utf-8-sig'))
+        if dependency_manifest.get('id') != 'STS2-RitsuLib' or dependency_manifest.get('version') != version:
+            raise SystemExit('Pinned RitsuLib package identity differs from the required baseline')
+    for version, package, key in ((MIN_RITSU, RITSU, 'github_file_hashes'),
+                                  (RUNTIME_RITSU_VERSION, RUNTIME_RITSU, 'workshop_file_hashes')):
+        if version in WORKSHOP_RITSU:
+            intake = WORKSHOP_RITSU[version]
+            actual = {file.relative_to(package).as_posix(): hashlib.sha256(file.read_bytes()).hexdigest()
+                      for file in package.rglob('*') if file.is_file()}
+            if actual != intake[key]:
+                raise SystemExit(f'Pinned RitsuLib files drifted: {package}')
     active = subprocess.run(['powershell', '-NoProfile', '-Command',
                              'Get-Process SlayTheSpire2,MegaDot*,Spine -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Id; exit 0'],
                             capture_output=True, text=True)
@@ -192,7 +218,9 @@ def main():
         indent=2) + '\n', encoding='utf-8')
     after = source_manifest()
     identity = {'version': declared['version'], 'game_targets': list(GAME_TARGETS), 'commands': commands,
-                'native_pack': identity_pack, 'provenance': {'source_before': before, 'source_after': after, 'environment': environment_manifest(SDK, env)}}
+                'runtime_ritsu_version': RUNTIME_RITSU_VERSION,
+                'runtime_ritsu_package': RUNTIME_RITSU.relative_to(ROOT).as_posix(),
+                'native_pack': identity_pack, 'provenance': {'source_before': before, 'source_after': after, 'environment': environment_manifest(SDK, env, RUNTIME_RITSU)}}
     if before['sha256'] != after['sha256']:
         (LOGS / 'input-drift.json').write_text(json.dumps(identity, indent=2), encoding='utf-8')
         raise SystemExit('Source changed during compilation/export; complete package was not promoted')
@@ -210,7 +238,7 @@ def main():
     identity['candidate'] = str(CANDIDATE.relative_to(ROOT))
     (CANDIDATE.parents[1] / 'build-identity.json').write_text(json.dumps(identity, indent=2), encoding='utf-8')
     (LOGS / 'build-latest.json').write_text(json.dumps(identity, indent=2), encoding='utf-8')
-    print(f'PASS complete bundle: {len(identity["artifacts"])} files; both isolated targets deployed')
+    print(f'PASS complete bundle: {len(identity["artifacts"])} files; {len(GAME_TARGETS)} isolated targets deployed')
 
 
 if __name__ == '__main__':

@@ -30,15 +30,15 @@ public sealed class SeedburialStrike() : OrbUtilityCard(2, CardType.Attack, Card
 /// <summary>V0.4.1: one attack whose amount is the printed base plus current Fire.</summary>
 public sealed class EmberReckoning() : OrbUtilityCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new DynamicVar("Strength", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new DynamicVar("Strength", 2m)];
     protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips => [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>()];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
         await Lock(context, OrbKind.Fire, 1);
-        await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(context, Owner.Creature, Amount("Strength"), Owner.Creature, this);
         await Hit(context, play, DynamicVars.Damage.BaseValue);
+        await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>(context, Owner.Creature, Amount("Strength"), Owner.Creature, this);
     }
-    protected override void OnUpgrade() { DynamicVars.Damage.UpgradeValueBy(3m); DynamicVars["Strength"].UpgradeValueBy(1m); }
+    protected override void OnUpgrade() { DynamicVars.Damage.UpgradeValueBy(4m); DynamicVars["Strength"].UpgradeValueBy(1m); }
 }
 
 /// <summary>v0.3.0 approved revision, catalog 45. Stable model ID retained.</summary>
@@ -133,9 +133,13 @@ public sealed class Rekindle() : OrbUtilityCard(1, CardType.Skill, CardRarity.Ra
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Fire", 3m), new CardsVar(1)];
     protected override async Task OnPlay(PlayerChoiceContext context, CardPlay play)
     {
-        var session = Session;
-        await Gain(context, session, OrbKind.Fire, Amount("Fire"));
-        await Draw(context, Amount("Cards"));
+        var session = LibrarianRuntime.For(Owner.Creature);
+        if (session is { HasCharacterOrbs: true })
+            await Gain(context, session, OrbKind.Fire, Amount("Fire"));
+        if (session is not null)
+            await LibrarianRuntime.DrawOrDeferAsync(session, context, Amount("Cards"));
+        else
+            await CardPileCmd.Draw(context, Amount("Cards"), Owner);
         // A fresh card body preserves the upgrade, but never copies replay enchantments.
         var copy = CombatState!.CreateCard<Rekindle>(Owner);
         if (IsUpgraded) { copy.UpgradeInternal(); copy.FinalizeUpgradeInternal(); }

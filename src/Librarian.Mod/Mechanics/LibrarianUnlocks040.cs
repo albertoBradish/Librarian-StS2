@@ -207,7 +207,7 @@ public static class LibrarianUnlocks040
 
     internal static void Award(ProgressSaveManager manager, int number, Player player)
     {
-        if (!manager.Progress.FtueCompleted.Contains(ChoiceMarker) || player.RunState.GameMode.AreAchievementsAndEpochsLocked()) return;
+        if (!manager.Progress.FtueCompleted.Contains(ChoiceMarker) || LibrarianGameApi.AreAchievementsAndEpochsLocked(player.RunState)) return;
         AccessTools.Method(typeof(ProgressSaveManager), "TryObtainEpochMidRun").Invoke(manager, [EpochModel.Get(Id(number)), player]);
     }
 

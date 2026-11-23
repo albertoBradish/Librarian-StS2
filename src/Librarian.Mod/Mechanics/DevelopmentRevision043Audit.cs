@@ -53,7 +53,7 @@ internal static class DevelopmentRevision043Audit
         async Task Choose(CardModel card, OrbKind kind)
         {
             var selector = new TestCardSelector();selector.PrepareToSelect(new[]{Array.IndexOf(S().Orbs.Positions.ToArray(),kind)});
-            using(CardSelectCmd.PushSelector(selector)) await Play(card);
+            using(DevelopmentGameApi.PushSelector(player, selector)) await Play(card);
         }
         async Task Capture(string name)
         {
@@ -103,13 +103,13 @@ internal static class DevelopmentRevision043Audit
             await Reset();await Play(Create<SeedburialStrike>(up),player.Creature.CombatState!.HittableEnemies.First());
             Check(player.Creature.GetPower<SeedburialPendingPower>()?.Amount==(up?15:11),"Seed pending status "+up);
             if(up) await CapturePower<SeedburialPendingPower>("seed-status");
-            S().Orbs.BeginOwnerTurn();await ModelDb.Singleton<LibrarianCombatHooks>().BeforeHandDraw(player,ctx,player.Creature.CombatState!);
+            S().Orbs.BeginOwnerTurn();await LibrarianGameApi.RegisteredCombatHooks.BeforeHandDraw(player,ctx,player.Creature.CombatState!);
             Check(S().Orbs.Value(OrbKind.Growth)==(up?15:11)&&player.Creature.GetPower<SeedburialPendingPower>() is null,"Seed fires and clears "+up);
             for(int i=0;i<2;i++)await CardPileCmd.AddGeneratedCardToCombat(Create<LibrarianDefend>(),PileType.Hand,player);
             await Play(Create<DeepSeaBarrier>(up));
             Check(player.Creature.GetPower<DeepSeaPendingPower>()?.Amount==(up?12:10),"DeepSea actual exhausted count and status "+up);
             if(up)await CapturePower<DeepSeaPendingPower>("delayed-status");
-            await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(ctx,CombatSide.Player,[player.Creature]);
+            await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(ctx,CombatSide.Player,[player.Creature]);
             Check(S().Orbs.Value(OrbKind.Tide)==(up?12:10)&&player.Creature.GetPower<DeepSeaPendingPower>() is null,"DeepSea end turn gain and clear "+up);
 
             await Reset();await Play(Create<PracticeMakesPerfect>(up));int energy=player.PlayerCombatState!.Energy;
@@ -135,7 +135,7 @@ internal static class DevelopmentRevision043Audit
             await Reset();var continued=Create<ToBeContinued>(up);await Play(continued);
             var chosen=Create<LibrarianDefend>();await CardPileCmd.Add(chosen,PileType.Hand);await CardPileCmd.Add(Create<LibrarianStrike>(),PileType.Draw,CardPilePosition.Top);
             var selector=new TestCardSelector();selector.PrepareToSelect(new[]{chosen});
-            using(CardSelectCmd.PushSelector(selector))await player.Creature.GetPower<ToBeContinuedPower>()!.AfterPlayerTurnStart(ctx,player);
+            using(DevelopmentGameApi.PushSelector(player, selector))await player.Creature.GetPower<ToBeContinuedPower>()!.AfterPlayerTurnStart(ctx,player);
             Check(chosen.Pile?.Type==PileType.Draw&&player.PlayerCombatState!.DrawPile.Cards.Last()==chosen&&player.PlayerCombatState.Hand.Cards.Count==1,"Continued native draw then selected bottom "+up);
             Check(continued.Keywords.Contains(CardKeyword.Innate)==up,"Continued innate upgrade only "+up);
         }
@@ -149,11 +149,11 @@ internal static class DevelopmentRevision043Audit
         await Reset();await Play(Create<EndlessTide>());await Play(Create<EndlessTide>(true));
         Check(player.Creature.GetPower<EndlessTidePower>()!.Amount==1,"EndlessTide single nonstacking rule");
         S().Waves.Add(15);await Dispatch(S().Orbs.Gain(OrbKind.Tide,10));
-        await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(ctx,CombatSide.Player,[player.Creature]);
+        await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(ctx,CombatSide.Player,[player.Creature]);
         Check(player.Creature.Block==25&&S().Waves.Amount==12,"EndlessTide W15 plus Tide10 gives25 then one decay");
         await Reset();await Play(Create<LifeSymphony>());
         Check(player.Creature.GetPower<LifeSymphonyPendingPower>()?.Amount==1,"LifeSymphony visible extra settlement");
-        await ModelDb.Singleton<LibrarianCombatHooks>().BeforeSideTurnEnd(ctx,CombatSide.Player,[player.Creature]);
+        await LibrarianGameApi.RegisteredCombatHooks.BeforeSideTurnEnd(ctx,CombatSide.Player,[player.Creature]);
         Check(S().Orbs.SettlementsThisCombat==2&&player.Creature.GetPower<LifeSymphonyPendingPower>() is null,"LifeSymphony natural and extra then clears");
 
         await Reset();var combat=(CombatState)player.Creature.CombatState!;
