@@ -1,6 +1,6 @@
 {
   "mod_id": "Librarian",
-  "version": "1.4.10",
+  "version": "1.4.11",
   "active_cards": 91,
   "game": {
     "targets": [
@@ -28,6 +28,11 @@
         "version": "0.113.1",
         "commit": "d09d48e5",
         "branch": "public-beta"
+      },
+      {
+        "version": "0.114.0",
+        "commit": "a7b9a9c0",
+        "branch": "public-beta"
       }
     ]
   },
@@ -40,52 +45,60 @@
     {
       "name": "Librarian.dll",
       "bytes": 31744,
-      "sha256": "412a48fb2df9d206d7fed6e6d19599646d0b322d89b6b5f18cf622385aadae68"
+      "sha256": "1cfe96a710a4776571426c9f01392c54fc468ec35cf0573ada0d136c1e91c019"
     },
     {
       "name": "Librarian.json",
       "bytes": 340,
-      "sha256": "085056da27f7f6f923538f3d7163b971d693e3277abe52ba8365777fea566457"
+      "sha256": "38aa9ab67bbf7c8b09ba3da3d8f245b2aa753cd7392c553cd40aea9ca0ea02b9"
     },
     {
       "name": "Librarian.pck",
       "bytes": 170517752,
-      "sha256": "738d71cdd705bbaa9e777875d6c1773fd4fb7b79b9e6dd1961a4fb82c02f1384"
+      "sha256": "a87ccfa84ef48fced7f46f8217bcb612fe70a80b36e9ded93c3f7e3ff7e883c2"
     },
     {
       "name": "librarian-variants.manifest",
-      "bytes": 1165,
-      "sha256": "2fb6414ab71a3f13c628183807dce2c0cb55adf7312ae6a6a24234e13c6d2127"
+      "bytes": 1377,
+      "sha256": "0c57e07c0fc6a0a6626ae24105ba0201a6552c355f1485ef67a47cbb7847cd3b"
     },
     {
       "name": "compat/0.107.1/Librarian.dll",
       "bytes": 3462656,
-      "sha256": "e9e9859817c5597075f6ef746c2d7439a000dad15f83f351cf6a4a5d2501d816"
+      "sha256": "794a2892ff72085cb3158bed957b6c15370777d705e7ae8de61c605cd32fd9a1"
     },
     {
       "name": "compat/0.111.0/Librarian.dll",
       "bytes": 3459072,
-      "sha256": "fa97af1d1529167fbfdcffa1789d87a257f240c2ed8f8ced4a08a423b19d2511"
+      "sha256": "2ccc1cd1baf4b0e7d268ca53afb7fc3dcbac2f2701a4099ddf7d1094fc8ef41f"
     },
     {
       "name": "compat/0.111.1/Librarian.dll",
       "bytes": 3459072,
-      "sha256": "b04cc4630563cc0f106af398764abf2441e0b90622ee575996b6c5d1e8538cdf"
+      "sha256": "1f0d1749378baa0194c80a8b6077c0b8e53ad04d2f158d9af549cdfefcdb3d51"
     },
     {
       "name": "compat/0.113.0/Librarian.dll",
       "bytes": 3465728,
-      "sha256": "794f6942c3261657b948e56d0900c8ebb22e919360abc24737bded4137727bfb"
+      "sha256": "ff3d8d41fd1b780c96cba5f63108ad363fa090c35f1b2271c1dc698c212c3236"
     },
     {
       "name": "compat/0.113.1/Librarian.dll",
       "bytes": 3465728,
-      "sha256": "01197e1b554f6c9b761f04c312eb0cf307cdd8cdd1432d06722dd30e8ad5e580"
+      "sha256": "74ff9cfbddee9c720dce8182e5514ea1f7a9de9de2a84d0e3ba6efbc2e9f10aa"
+    },
+    {
+      "name": "compat/0.114.0/Librarian.dll",
+      "bytes": 3466752,
+      "sha256": "5c0d4d6ace96fccab78d5090ceede23933908659676ea2facd5730ba9d319217"
     }
   ],
-  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.10",
-  "runtime_release_status": "published",
+  "runtime_release_url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.11",
+  "runtime_release_status": "planned",
   "note": "Hashes identify the original validated runtime files, not a fresh build. Release availability and downloaded verification are tracked in release-history.json. Native multi-client validation remains incomplete.",
+  "minimum_ritsulib_by_game": {
+    "0.114.0": "0.6.16"
+  },
   "channel": "unified",
   "workshop_item_id": "3801958367",
   "workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367"

@@ -45,7 +45,7 @@ internal static class CompatibilityNotice
                     if (now - availableSince < 2100) return;
 
                     tree.ProcessFrame -= OnFrame;
-                    Show(container, marker, unsupportedGame);
+                    Show(container, marker, unsupportedGame, label);
                 }
                 catch (Exception exception)
                 {
@@ -61,7 +61,7 @@ internal static class CompatibilityNotice
         }
     }
 
-    private static void Show(NModalContainer container, string? marker, bool unsupportedGame)
+    private static void Show(NModalContainer container, string? marker, bool unsupportedGame, string? label)
     {
         var popup = NGenericPopup.Create();
         if (popup is null) return;
@@ -71,7 +71,7 @@ internal static class CompatibilityNotice
             container.Add(popup);
             var panel = popup.GetNode<NVerticalPopup>("VerticalPopup");
             panel.SetText(unsupportedGame ? Title : "图书管理员暂未加载",
-                unsupportedGame ? Message : $"RitsuLib 未能加载或版本不符合要求。请检查 RitsuLib（需 {BundleManifest.MinimumRitsuVersion} 或更新版本），然后重启游戏。");
+                unsupportedGame ? Message : $"RitsuLib 未能加载或版本不符合要求。请检查 RitsuLib（需 {BundleManifest.MinimumRitsuVersion(label)} 或更新版本），然后重启游戏。");
             panel.InitYesButton(new LocString("main_menu_ui", "GENERIC_POPUP.confirm"),
                 _ => { if (marker is not null) Acknowledge(marker); });
             panel.HideNoButton();

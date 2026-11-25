@@ -160,7 +160,11 @@ internal static partial class DevelopmentRitsuCardSweepAudit
             foreach (var card in pile.GetPile(_player).Cards.ToArray()) await CardPileCmd.RemoveFromCombat(card, skipVisuals: true);
         ((ConditionalWeakTable<PlayerCombatState, LibrarianSession>)AccessTools.Field(typeof(LibrarianRuntime), "Sessions").GetValue(null)!).Remove(_player.PlayerCombatState!);
         await CreatureCmd.SetMaxAndCurrentHp(_player.Creature, 10000);
+#if LIBRARIAN_API_0114
+        _player.Creature.LoseHpInternal(1000);
+#else
         _player.Creature.LoseHpInternal(1000, ValueProp.Unpowered);
+#endif
         _player.Creature.LoseBlockInternal(_player.Creature.Block);
         foreach (var enemy in _player.Creature.CombatState.HittableEnemies)
         {

@@ -67,6 +67,8 @@ def validate_unified_delivery(record, candidate, version):
         expected_targets.append({'version': '0.113.0', 'commit': '16ac0fe3', 'branch': 'public-beta'})
     if '0.113.1' in game_targets_for(version):
         expected_targets.append({'version': '0.113.1', 'commit': 'd09d48e5', 'branch': 'public-beta'})
+    if '0.114.0' in game_targets_for(version):
+        expected_targets.append({'version': '0.114.0', 'commit': 'a7b9a9c0', 'branch': 'public-beta'})
     targets = record.get('game_targets')
     if not isinstance(targets, list) or sorted(targets, key=lambda x: x.get('version', '')) != expected_targets:
         raise ValueError('Unified Delivery requires the exact game version/commit/branch targets')
@@ -170,9 +172,12 @@ def prepare(candidate, version, output, delivery=None, root=ROOT, historical=Fal
     if unified:
         install_map = {asset: 'mods/Librarian/' + relative for relative, asset in asset_map.items()}
         (output / 'INSTALL-MAP.json').write_text(json.dumps(install_map, indent=2) + '\n', encoding='utf-8')
+        newest_beta_note = ('Game 0.114.0 requires RitsuLib >=0.6.16.\n'
+                            if any(target['version'] == '0.114.0' for target in unified_record['game_targets']) else '')
         (output / 'INSTALL.txt').write_text(
             f'Librarian V{version} / game {" / ".join(x["version"] for x in unified_record["game_targets"])}\n\n'
             f'Install RitsuLib >={ritsu_only["STS2-RitsuLib"]} separately. Quit the game before installation.\n'
+            f'{newest_beta_note}'
             'Copy each downloaded asset to the path listed in INSTALL-MAP.json, relative to the game directory.\n'
             'Create the listed compat subdirectories and rename their downloaded DLLs to Librarian.dll.\n'
             'Keep the root Librarian.dll, JSON, PCK, and variant manifest together. Keep your existing saves.\n'

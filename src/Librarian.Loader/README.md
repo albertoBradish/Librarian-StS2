@@ -8,13 +8,14 @@ The package renames `Librarian.Loader.dll` to its root `Librarian.dll`. The boot
 {
   "schema_version": 1,
   "mod_id": "Librarian",
-  "mod_version": "1.4.10",
+  "mod_version": "1.4.11",
   "variants": [
     { "game_version": "0.107.1", "assembly": "Librarian", "path": "compat/0.107.1/Librarian.dll", "sha256": "<64 hexadecimal digits>" },
     { "game_version": "0.111.0", "assembly": "Librarian", "path": "compat/0.111.0/Librarian.dll", "sha256": "<64 hexadecimal digits>" },
     { "game_version": "0.111.1", "assembly": "Librarian", "path": "compat/0.111.1/Librarian.dll", "sha256": "<64 hexadecimal digits>" },
     { "game_version": "0.113.0", "assembly": "Librarian", "path": "compat/0.113.0/Librarian.dll", "sha256": "<64 hexadecimal digits>" },
-    { "game_version": "0.113.1", "assembly": "Librarian", "path": "compat/0.113.1/Librarian.dll", "sha256": "<64 hexadecimal digits>" }
+    { "game_version": "0.113.1", "assembly": "Librarian", "path": "compat/0.113.1/Librarian.dll", "sha256": "<64 hexadecimal digits>" },
+    { "game_version": "0.114.0", "assembly": "Librarian", "path": "compat/0.114.0/Librarian.dll", "sha256": "<64 hexadecimal digits>" }
   ]
 }
 ```

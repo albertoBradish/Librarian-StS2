@@ -114,6 +114,11 @@ public enum LibrarianTutorialMode { Consent, CompactOffer }
 /// <summary>Uses native FTUE input isolation, popup scene, font and buttons; no BaseLib UI.</summary>
 public partial class LibrarianTutorialModal : NFtue
 {
+#if LIBRARIAN_API_0114
+    // The player response is persisted by LibrarianOnboarding.
+    protected override string? SeenOnShowId => null;
+#endif
+
     internal LibrarianTutorialMode Mode { get; set; }
     internal Action<bool>? Choice { get; set; }
     internal bool IsPreview { get; set; }

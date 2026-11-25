@@ -194,10 +194,7 @@ internal static class LibrarianDebugReset
         void CancelButton(NButton _) => Cancel();
         panel.NoButton.Connect(NClickableControl.SignalName.Released, Callable.From<NButton>(CancelButton));
         foreach (string key in cancelKeys)
-        {
-            hotkeys?.PushHotkeyPressedBinding(key, IgnorePress);
-            hotkeys?.PushHotkeyReleasedBinding(key, Cancel);
-        }
+            hotkeys?.BindModalHotkey(key, popup, IgnorePress, Cancel);
         try
         {
             // Ritsu entries activate on press. Do not register the native confirmation
@@ -240,10 +237,7 @@ internal static class LibrarianDebugReset
         {
             ConfirmationArmed = false;
             foreach (string key in cancelKeys)
-            {
-                hotkeys?.RemoveHotkeyPressedBinding(key, IgnorePress);
-                hotkeys?.RemoveHotkeyReleasedBinding(key, Cancel);
-            }
+                hotkeys?.UnbindModalHotkey(key, popup, IgnorePress, Cancel);
         }
     }
 

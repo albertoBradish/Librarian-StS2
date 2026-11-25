@@ -37,6 +37,28 @@ internal static class LibrarianGameApi
 
     internal static IEnumerable<EpochModel> AllEpochs => EpochModel.AllEpochIds.Select(EpochModel.Get);
 
+    internal static void BindModalHotkey(this NHotkeyManager hotkeys, string key, Node modal, Action pressed, Action released)
+    {
+#if LIBRARIAN_API_0114
+        hotkeys.PushHotkeyPressedBinding(key, modal, pressed);
+        hotkeys.PushHotkeyReleasedBinding(key, modal, released);
+#else
+        hotkeys.PushHotkeyPressedBinding(key, pressed);
+        hotkeys.PushHotkeyReleasedBinding(key, released);
+#endif
+    }
+
+    internal static void UnbindModalHotkey(this NHotkeyManager hotkeys, string key, Node modal, Action pressed, Action released)
+    {
+#if LIBRARIAN_API_0114
+        hotkeys.RemoveHotkeyPressedBinding(key, modal, pressed);
+        hotkeys.RemoveHotkeyReleasedBinding(key, modal, released);
+#else
+        hotkeys.RemoveHotkeyPressedBinding(key, pressed);
+        hotkeys.RemoveHotkeyReleasedBinding(key, released);
+#endif
+    }
+
     internal static bool AreAchievementsAndEpochsLocked(IRunState run)
 #if LIBRARIAN_API_0113
         => MegaCrit.Sts2.Core.Helpers.GameModeHelper.AreAchievementsAndEpochsLockedForRun(run);

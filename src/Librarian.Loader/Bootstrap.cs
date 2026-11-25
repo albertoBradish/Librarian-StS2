@@ -73,7 +73,7 @@ public static class Bootstrap
     private static void StartContent(GameAssemblyRegistration registration, AssemblyLoadContext context,
         string root, string game, Mod? framework)
     {
-        var register = FindRitsuRegistration(context, framework);
+        var register = FindRitsuRegistration(context, framework, game);
         if (register is null)
         {
             registration.Skip();
@@ -114,14 +114,14 @@ public static class Bootstrap
         Log.Info($"[Librarian.Loader] Initialized Librarian {manifest.Version}; host={selected.GameVersion}; content={selected.Path}; sha256={selected.Sha256}.");
     }
 
-    private static MethodInfo? FindRitsuRegistration(AssemblyLoadContext context, Mod? framework)
+    private static MethodInfo? FindRitsuRegistration(AssemblyLoadContext context, Mod? framework, string game)
     {
         if (framework?.state != ModLoadState.Loaded)
             return null;
         try
         {
             var runtime = context.Assemblies.SingleOrDefault(assembly => assembly.GetName().Name == "STS2-RitsuLib.Runtime");
-            if (!BundleManifest.IsRitsuVersionSupported(runtime?.GetName().Version))
+            if (!BundleManifest.IsRitsuVersionSupported(game, runtime?.GetName().Version))
                 return null;
             if (runtime!.GetType("STS2RitsuLib.RitsuLibFramework")?.GetProperty("IsInitialized")?.GetValue(null) is not true)
                 return null;

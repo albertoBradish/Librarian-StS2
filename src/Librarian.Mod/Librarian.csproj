@@ -2,8 +2,8 @@
     <Import Project=".\Sts2PathDiscovery.props"/>
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
-        <Version>1.4.10</Version>
-        <AssemblyVersion>1.4.10.0</AssemblyVersion>
+        <Version>1.4.11</Version>
+        <AssemblyVersion>1.4.11.0</AssemblyVersion>
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>enable</Nullable> <!--Makes code analysis regarding null values stricter.-->
         <Publicize>False</Publicize> <!--Allows access to originally private/protected members but may (unlikely to) cause errors.-->
@@ -20,10 +20,12 @@
         <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.111.1'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_01111</DefineConstants>
         <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.113.0'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_0113</DefineConstants>
         <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.113.1'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_0113;LIBRARIAN_API_01131</DefineConstants>
+        <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.114.0'">$(DefineConstants);LIBRARIAN_API_0111;LIBRARIAN_API_0113;LIBRARIAN_API_0114</DefineConstants>
         <DefineConstants Condition="'$(LibrarianGameVersion)' == '0.107.1'">$(DefineConstants);LIBRARIAN_API_0107</DefineConstants>
     </PropertyGroup>
 
-    <Import Project="../../.research/tools/ritsulib/v0.6.13/RitsuLib.References.props" />
+    <Import Project="../../.research/tools/ritsulib/v0.6.13/RitsuLib.References.props" Condition="'$(LibrarianGameVersion)' != '0.114.0'" />
+    <Import Project="../../.research/tools/ritsulib/v0.6.16/RitsuLib.References.props" Condition="'$(LibrarianGameVersion)' == '0.114.0'" />
 
     <PropertyGroup>
         <!-- Diasble architecture mismatch warning; mods are ideally built for all platforms (MSIL)

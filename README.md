@@ -1,8 +1,8 @@
 # 图书管理员 · Librarian
 
-**V1.4.10 使用 RitsuLib 0.6.13 或更新版本，支持下表五个固定游戏版本。**
+**V1.4.11 支持游戏 Beta 0.114.0，需要 RitsuLib 0.6.16 或更新版本。其余五个游戏版本需要 RitsuLib 0.6.13 或更新版本。**
 
-**V1.4.10 requires RitsuLib 0.6.13 or later and supports the five game builds listed below.**
+**V1.4.11 supports game Beta 0.114.0 with RitsuLib 0.6.16 or later. The other five game versions require RitsuLib 0.6.13 or later.**
 
 <p align="center">
   <img src="assets/librarian-avatar.png" alt="图书管理员 Q版头像" width="240" height="240">
@@ -10,9 +10,9 @@
 
 <p align="center">浮空藏书馆 · 三元素法球 · Slay the Spire 2 原创角色</p>
 
-V1.4.10 修复了异角色使用图书管理员卡牌时的结算错误，以及牌底自动出牌被阻止时仍计为成功的问题。恐惧模式现在只检查六位原版角色是否均已达到 A10。本版也合入了针对 Issue #8 的法阵渲染与战斗界面性能优化。
+V1.4.11 适配了新版游戏里的教学弹窗、解锁等弹窗的快捷键，以及烈焰击杀特效的扣血回调。
 
-V1.4.10 fixes cross-character card effects, reports blocked bottom-card plays correctly, restores the six base-game characters’ A10 requirement for Dread, and reduces the rendering and UI work reported in issue #8.
+V1.4.11 updates tutorial popups, dialog shortcuts, and the Fire Orb kill effect for the new game API.
 
 An original playable character mod for **Slay the Spire 2**: a floating magical
 archive with three elemental orbs, 91 active cards, 9 relics and 3 potions.
@@ -22,7 +22,7 @@ custom translation packs.
 图书管理员通过烈焰、波涛、翠叶三种法球的注魔、结算与锁定组织战斗。
 本仓库用于源码维护、独立版本下载和玩家反馈。
 
-- [V1.4.10 / 当前版本下载](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.10) · [更新公告 / Change notes](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.10)
+- [V1.4.11 / 当前版本下载与公告](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.11)
 - [Releases / 独立下载](https://github.com/albertoBradish/Librarian-StS2/releases)
 - [Published historical beta package / 已发布历史 beta 包 1.2.0-beta12](https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.2.0-beta12)。此历史版下载同一发行的三份运行文件与许可；V1.4.0 采用六文件结构。This historical release has three runtime files; V1.4.0 uses six.
 - [Source and release history / 源码与发布历史](RELEASE-BATCHES.md)。历史发行状态保留；当前统一包身份另见[构建元数据](release-metadata.json)。Historical publication records remain separate from this unified source snapshot.
@@ -59,13 +59,13 @@ Potion notes tell their story through hands and objects. Open Librarian's displa
 
 ## Compatibility / 兼容范围
 
-[Release metadata](release-metadata.json) lists the five supported game commits and nine runtime file hashes for V1.4.10. The loader selects the content DLL for the installed game.
+[Release metadata](release-metadata.json) lists the six supported game commits and ten runtime file hashes for V1.4.11. The loader selects the content DLL for the installed game.
 
 | Component | Verified baseline |
 | --- | --- |
-| Slay the Spire 2 | 0.107.1 (59260271), 0.111.0 (41cef1ea), 0.111.1 (cc1f9462), 0.113.0 (16ac0fe3), 0.113.1 (d09d48e5) |
+| Slay the Spire 2 | 0.107.1 (59260271), 0.111.0 (41cef1ea), 0.111.1 (cc1f9462), 0.113.0 (16ac0fe3), 0.113.1 (d09d48e5), 0.114.0 (a7b9a9c0) |
 | BaseLib | Only relevant to historical releases |
-| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib) | Minimum 0.6.13. Install the full dependency separately. |
+| [RitsuLib](https://github.com/BAKAOLC/STS2-RitsuLib) | Minimum 0.6.16 on game 0.114.0 and 0.6.13 on the other listed game versions. |
 
 Manifest minimum versions are not a promise of compatibility with newer game
 or dependency versions. Single-player is the primary supported path. Multiplayer
@@ -74,9 +74,9 @@ validation remain incomplete. Visual/audio feedback is welcome.
 
 ## Install / 安装
 
-1. Use one of the five game versions listed above.
-2. Install and enable the complete RitsuLib bundle (0.6.13 or later).
-3. From the same GitHub Release, download the nine runtime files and follow `INSTALL-MAP.json`. Keep the four root files together under `mods/Librarian/`. Rename each `compat-<version>-Librarian.dll` to `Librarian.dll` under the corresponding `compat/<version>/` directory. Keep the notices and verify `SHA256SUMS.txt`.
+1. Use one of the six game versions listed above.
+2. Install and enable the complete RitsuLib bundle for your game version.
+3. From the same GitHub Release, download the ten runtime files and follow `INSTALL-MAP.json`. Keep the four root files together under `mods/Librarian/`. Rename each `compat-<version>-Librarian.dll` to `Librarian.dll` under the corresponding `compat/<version>/` directory. Keep the notices and verify `SHA256SUMS.txt`.
 4. For Workshop migration, subscribe to [3801958367](https://steamcommunity.com/sharedfiles/filedetails/?id=3801958367), quit the game, unsubscribe from old 3811677053, wait for the download, and restart with Librarian enabled. Keep saves. The old item remains public with a final migration notice after the new release succeeds; duplicate ModIds cannot guarantee that the new copy wins.
 5. Avoid loading both Workshop and manual copies of Librarian. Exit the game
    before changing mod files, back up saves, and use a spare profile/new run when

@@ -27,6 +27,8 @@ def required_ritsulib_version(mod_version):
 
 def game_targets_for(mod_version):
     version = version_number(mod_version)
+    if version >= (1, 4, 11):
+        return (*GAME_TARGETS, '0.111.1', '0.113.0', '0.113.1', '0.114.0')
     if version >= (1, 4, 9):
         return (*GAME_TARGETS, '0.111.1', '0.113.0', '0.113.1')
     if version >= (1, 4, 8):

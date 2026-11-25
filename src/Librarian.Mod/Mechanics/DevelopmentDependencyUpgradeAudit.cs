@@ -54,7 +54,9 @@ internal static partial class DevelopmentRitsuCardSweepAudit
             Check(game.MainMenu!.IsVisibleInTree(), "rendered native main menu");
             var content = typeof(MainFile).Assembly;
             Check(LibrarianUpdateNotice051.CurrentVersion == expected && content.GetName().Version == System.Version.Parse(expected + ".0"), "current native mod and selected content version");
-#if LIBRARIAN_API_01131
+#if LIBRARIAN_API_0114
+            const string host = "0.114.0";
+#elif LIBRARIAN_API_01131
             const string host = "0.113.1";
 #elif LIBRARIAN_API_0113
             const string host = "0.113.0";

@@ -23,11 +23,10 @@ internal sealed class VariantDescriptor
 internal sealed class BundleManifest
 {
     internal const string ModId = "Librarian";
-    internal const string ModVersion = "1.4.10";
-    internal const string ContentAssemblyVersion = "1.4.10.0";
-    internal const string MinimumRitsuVersion = "0.6.13";
+    internal const string ModVersion = "1.4.11";
+    internal const string ContentAssemblyVersion = "1.4.11.0";
     internal const string FileName = "librarian-variants.manifest";
-    internal static readonly string[] SupportedGameVersions = ["0.107.1", "0.111.0", "0.111.1", "0.113.0", "0.113.1"];
+    internal static readonly string[] SupportedGameVersions = ["0.107.1", "0.111.0", "0.111.1", "0.113.0", "0.113.1", "0.114.0"];
     private const long MaximumManifestBytes = 128 * 1024;
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -103,8 +102,10 @@ internal sealed class BundleManifest
             throw new InvalidDataException("Librarian's native manifest must load only the standalone bootstrap.");
     }
 
-    internal static bool IsRitsuVersionSupported(System.Version? version)
-        => version is not null && version >= System.Version.Parse(MinimumRitsuVersion);
+    internal static string MinimumRitsuVersion(string? game) => game == "0.114.0" ? "0.6.16" : "0.6.13";
+
+    internal static bool IsRitsuVersionSupported(string game, System.Version? version)
+        => version is not null && version >= System.Version.Parse(MinimumRitsuVersion(game));
 
     /// <summary>The caller keeps the returned read lock alive until LoadFromAssemblyPath has completed.</summary>
     internal static FileStream OpenVerifiedAssembly(string rootDirectory, VariantDescriptor variant)

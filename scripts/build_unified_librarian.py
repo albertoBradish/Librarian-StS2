@@ -22,6 +22,7 @@ CACHE = Path(os.environ.get('LIBRARIAN_BUILD_CACHE_ROOT', str(WORK))).resolve()
 LOGS = WORK / 'logs'
 CANDIDATE = ROOT / f'outputs/revision-v{MOD_VERSION}/candidate/Librarian'
 GAME_INPUTS = {
+    '0.114.0': ROOT / '.research/game-sdk-20261125/steam-0.114.0',
     '0.113.1': ROOT / '.research/game-sdk-20261114/steam-0.113.1',
     '0.113.0': ROOT / '.research/game-sdk-20261112/steam-0.113.0',
     '0.111.0': ROOT / '.research/ritsu-game',
@@ -29,6 +30,7 @@ GAME_INPUTS = {
     '0.107.1': ROOT / '.research/channels/stable/workspace/.research/ritsu-game',
 }
 GAME_HASHES = {
+    '0.114.0': 'ddceb87905b6096deb7be975922e24a53992453675df26df545b1c46b1826c5d',
     '0.113.1': '62ecbe91093e1fa862de4329aac865209dcb297804caf0f0520d92d8c0b4a9c3',
     '0.113.0': 'a6cc282c52b96ad2e01d5692b1144b33aa8e3ba4e969582f648ecb13b2f751d7',
     '0.111.0': '0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9',
@@ -37,12 +39,14 @@ GAME_HASHES = {
 }
 MIN_RITSU = required_ritsulib_version(MOD_VERSION)
 RITSU = ROOT / f'.research/tools/ritsulib/v{MIN_RITSU}'
-# Compile against the minimum while testing the package Steam currently delivers.
-RUNTIME_RITSU_VERSION = '0.6.15' if '0.111.1' in GAME_TARGETS else MIN_RITSU
+# The newest API target uses the first upstream build with its own RitsuLib variant.
+RUNTIME_RITSU_VERSION = ('0.6.16' if '0.114.0' in GAME_TARGETS else
+                         '0.6.15' if '0.111.1' in GAME_TARGETS else MIN_RITSU)
 WORKSHOP_RITSU = json.loads((ROOT / 'scripts/ritsulib-build-inputs.json').read_text(encoding='utf-8'))
 WORKSHOP_BASELINE = WORKSHOP_RITSU.get(RUNTIME_RITSU_VERSION)
-RUNTIME_RITSU = (RITSU.with_name(f"v{RUNTIME_RITSU_VERSION}-workshop-{WORKSHOP_BASELINE['manifest']}")
-                 if WORKSHOP_BASELINE else RITSU)
+WORKSHOP_MANIFEST = WORKSHOP_BASELINE.get('manifest') if WORKSHOP_BASELINE else None
+RUNTIME_RITSU = RITSU.with_name(
+    f'v{RUNTIME_RITSU_VERSION}-workshop-{WORKSHOP_MANIFEST}' if WORKSHOP_MANIFEST else f'v{RUNTIME_RITSU_VERSION}')
 
 
 def run(command, env, label, cwd=ROOT):
@@ -102,7 +106,8 @@ def main():
         if dependency_manifest.get('id') != 'STS2-RitsuLib' or dependency_manifest.get('version') != version:
             raise SystemExit('Pinned RitsuLib package identity differs from the required baseline')
     for version, package, key in ((MIN_RITSU, RITSU, 'github_file_hashes'),
-                                  (RUNTIME_RITSU_VERSION, RUNTIME_RITSU, 'workshop_file_hashes')):
+                                  (RUNTIME_RITSU_VERSION, RUNTIME_RITSU,
+                                   'workshop_file_hashes' if WORKSHOP_MANIFEST else 'github_file_hashes')):
         if version in WORKSHOP_RITSU:
             intake = WORKSHOP_RITSU[version]
             actual = {file.relative_to(package).as_posix(): hashlib.sha256(file.read_bytes()).hexdigest()

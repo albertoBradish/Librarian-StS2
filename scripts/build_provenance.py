@@ -47,6 +47,11 @@ def environment_manifest(sdk, env, runtime_ritsu=None):
     if '0.113.1' in game_targets_for(version):
         hotfix = ROOT / '.research/game-sdk-20261114/steam-0.113.1'
         paths.extend(hotfix / name for name in ('release_info.json', 'data_sts2_windows_x86_64/sts2.dll'))
+    if '0.114.0' in game_targets_for(version):
+        beta = ROOT / '.research/game-sdk-20261125/steam-0.114.0'
+        paths.extend(beta / name for name in ('release_info.json', 'data_sts2_windows_x86_64/sts2.dll'))
+        if runtime_ritsu != ROOT / '.research/tools/ritsulib/v0.6.16':
+            paths.extend(path for path in (ROOT / '.research/tools/ritsulib/v0.6.16').rglob('*') if path.is_file())
     if runtime_ritsu is not None and runtime_ritsu != ritsu:
         paths.extend(path for path in runtime_ritsu.rglob('*') if path.is_file())
     paths.extend(ritsu / name for name in ('RitsuLib.References.props', 'mod_manifest.json', 'ritsulib-variants.manifest', 'assets.zip'))

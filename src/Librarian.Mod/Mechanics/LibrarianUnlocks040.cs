@@ -181,10 +181,7 @@ public static class LibrarianUnlocks040
             if (!GodotObject.IsInstanceValid(popup) || closed.Task.IsCompleted || choice.IsCompleted) return;
             popup.GetNode<NVerticalPopup>("VerticalPopup").NoButton.DisconnectHotkeys();
             foreach (string key in cancelKeys)
-            {
-                hotkeys?.PushHotkeyPressedBinding(key, IgnorePress);
-                hotkeys?.PushHotkeyReleasedBinding(key, CancelChoice);
-            }
+                hotkeys?.BindModalHotkey(key, popup, IgnorePress, CancelChoice);
         }).CallDeferred();
         try
         {
@@ -196,10 +193,7 @@ public static class LibrarianUnlocks040
             if (GodotObject.IsInstanceValid(popup)) popup.TreeExiting -= OnClosed;
             if (GodotObject.IsInstanceValid(menu)) menu.TreeExiting -= OnClosed;
             foreach (string key in cancelKeys)
-            {
-                hotkeys?.RemoveHotkeyPressedBinding(key, IgnorePress);
-                hotkeys?.RemoveHotkeyReleasedBinding(key, CancelChoice);
-            }
+                hotkeys?.UnbindModalHotkey(key, popup, IgnorePress, CancelChoice);
             if (!choice.IsCompleted && ReferenceEquals(NModalContainer.Instance?.OpenModal, popup))
                 NModalContainer.Instance!.Clear();
         }

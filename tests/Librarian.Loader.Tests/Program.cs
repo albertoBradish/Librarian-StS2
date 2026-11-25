@@ -14,10 +14,11 @@ Run("select beta v-prefixed release label", () => Equal("0.111.0", BundleManifes
 Run("select the 0.111.1 public DLL", () => Equal("compat/0.111.1/Librarian.dll", BundleManifest.Parse(json).Select("v0.111.1").Path));
 Run("select 0.113 beta v-prefixed release label", () => Equal("0.113.0", BundleManifest.Parse(json).Select("v0.113.0").GameVersion));
 Run("select the 0.113.1 hotfix DLL", () => Equal("compat/0.113.1/Librarian.dll", BundleManifest.Parse(json).Select("v0.113.1").Path));
+Run("select the 0.114.0 beta DLL", () => Equal("compat/0.114.0/Librarian.dll", BundleManifest.Parse(json).Select("v0.114.0").Path));
 Run("reject unknown newer version", () => Reject<NotSupportedException>(() => BundleManifest.Parse(json).Select("0.112.0")));
 Run("route unsupported, older and unreadable versions to the notice", () =>
 {
-    foreach (var version in new[] { "v0.113.2", "v0.114.0", "0.106.0", "v0.111.0-beta1", "unknown", null })
+    foreach (var version in new[] { "v0.113.2", "v0.114.1", "0.106.0", "v0.111.0-beta1", "unknown", null })
         Equal<string?>(null, BundleManifest.SupportedGameVersion(version));
 });
 Run("reject unknown older version", () => Reject<NotSupportedException>(() => BundleManifest.Parse(json).Select("0.107.0")));
@@ -43,9 +44,17 @@ Run("accept content assembly identity", () => BundleManifest.ValidateAssemblyIde
 Run("reject loader identity as content", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName($"Librarian.Loader, Version={BundleManifest.ContentAssemblyVersion}"), "Librarian")));
 Run("reject stale content assembly version", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName("Librarian, Version=1.2.0.0"), "Librarian")));
 Run("reject assembly culture", () => Reject<InvalidDataException>(() => BundleManifest.ValidateAssemblyIdentity(new AssemblyName($"Librarian, Version={BundleManifest.ContentAssemblyVersion}, Culture=en-US"), "Librarian")));
-Run("accept required Ritsu runtime", () => Equal(true, BundleManifest.IsRitsuVersionSupported(new Version(0, 6, 13, 0))));
-Run("reject earlier Ritsu runtime", () => Equal(false, BundleManifest.IsRitsuVersionSupported(new Version(0, 6, 12, 0))));
-Run("reject missing Ritsu runtime version", () => Equal(false, BundleManifest.IsRitsuVersionSupported(null)));
+Run("accept existing minimum Ritsu runtime", () => Equal(true, BundleManifest.IsRitsuVersionSupported("0.113.1", new Version(0, 6, 13, 0))));
+Run("reject earlier Ritsu runtime", () => Equal(false, BundleManifest.IsRitsuVersionSupported("0.113.1", new Version(0, 6, 12, 0))));
+Run("reject missing Ritsu runtime version", () => Equal(false, BundleManifest.IsRitsuVersionSupported("0.114.0", null)));
+Run("require RitsuLib 0.6.16 only on the new beta", () =>
+{
+    var previous = new Version(0, 6, 15, 0);
+    Equal(false, BundleManifest.IsRitsuVersionSupported("0.114.0", previous));
+    Equal(true, BundleManifest.IsRitsuVersionSupported("0.114.0", new Version(0, 6, 16, 0)));
+    foreach (var game in BundleManifest.SupportedGameVersions.Where(game => game != "0.114.0"))
+        Equal(true, BundleManifest.IsRitsuVersionSupported(game, new Version(0, 6, 13, 0)));
+});
 
 foreach (var unsafePath in new[] { "../Librarian.dll", "/Librarian.dll", "C:/Librarian.dll", "compat\\0.107.1\\Librarian.dll", "compat//Librarian.dll", "compat/./Librarian.dll" })
     Run($"reject contained-path escape {unsafePath}", () => Reject<InvalidDataException>(() => BundleManifest.ResolveContainedPath(Path.GetTempPath(), unsafePath)));
@@ -161,7 +170,8 @@ string Manifest(int schema = 1, string id = "Librarian", string version = Bundle
         new { game_version = "0.107.1", assembly, path = stablePath, sha256 = hash ?? testHash },
         new { game_version = "0.111.1", assembly, path = "compat/0.111.1/Librarian.dll", sha256 = hash ?? testHash },
         new { game_version = "0.113.0", assembly, path = "compat/0.113.0/Librarian.dll", sha256 = hash ?? testHash },
-        new { game_version = "0.113.1", assembly, path = "compat/0.113.1/Librarian.dll", sha256 = hash ?? testHash }
+        new { game_version = "0.113.1", assembly, path = "compat/0.113.1/Librarian.dll", sha256 = hash ?? testHash },
+        new { game_version = "0.114.0", assembly, path = "compat/0.114.0/Librarian.dll", sha256 = hash ?? testHash }
     };
     if (betaVersion is not null)
         variants.Add(new { game_version = betaVersion, assembly, path = $"compat/{betaVersion}/Librarian.dll", sha256 = hash ?? testHash });

@@ -4,23 +4,23 @@ GitHub and Steam Workshop are independent release channels. This repository does
 not automatically upload to Steam or publish a release when a commit/tag is pushed.
 Publish only after the maintainer explicitly chooses the candidate and version.
 
-V1.4.10 uses a single loader, five content DLLs and one shared PCK. The pinned game versions and commits are listed in [BUILDING.md](BUILDING.md). The source and tag share the public `main` history. Release metadata records the individual runtime file hashes.
+V1.4.11 uses a single loader, six content DLLs and one shared PCK. The pinned game versions and commits are listed in [BUILDING.md](BUILDING.md). The source and tag share the public `main` history. Release metadata records the individual runtime file hashes.
 
-## Unified V1.4.10 preparation
+## Unified V1.4.11 preparation
 
-Prepare only after all five native targets have passed the release's own menu/new-run/
+Prepare only after all six native targets have passed the release's own menu/new-run/
 combat/save/reload and complete runtime-log gates. The versioned Delivery must
-identify `channel: unified`, all five exact game version/commit/branch targets,
+identify `channel: unified`, all six exact game version/commit/branch targets,
 `validation.passed`, separate `validation.targets[version].passed` values,
-RitsuLib 0.6.13, all nine artifacts, and matching complete `source_before` / `source_after`
+RitsuLib 0.6.16 on 0.114.0 and 0.6.13 on the other targets, all ten artifacts, and matching complete `source_before` / `source_after`
 provenance snapshots. Each snapshot's SHA256 must match the builder's canonical
 JSON file-summary digest. Source export also checks the selected source files;
 release preparation checks the recorded digest without treating a public copy
 that omits private configuration as an identical research workspace.
 
 ```powershell
-python scripts/export_github_source.py --channel unified --source-workspace . --delivery docs/Revision-v1.4.10-Delivery.json
-python scripts/prepare_github_release.py --channel unified --candidate outputs/revision-v1.4.10/candidate/Librarian --version 1.4.10 --delivery docs/Revision-v1.4.10-Delivery.json --output outputs/revision-v1.4.10/github-assets-r1
+python scripts/export_github_source.py --channel unified --source-workspace . --delivery docs/Revision-v1.4.11-Delivery.json
+python scripts/prepare_github_release.py --channel unified --candidate outputs/revision-v1.4.11/candidate/Librarian --version 1.4.11 --delivery docs/Revision-v1.4.11-Delivery.json --output outputs/revision-v1.4.11/github-assets-r1
 ```
 
 The exporter writes only the allowlisted snapshot to ignored `.research/github-unified`;
@@ -30,10 +30,10 @@ and preserves candidate bytes. Both tools prepare locally, without tags, uploads
 or publication. Internal native runners/log-policy tools are not exported.
 
 GitHub has a flat attachment namespace. Root `Librarian.dll` is the loader;
-the five `compat-<version>-Librarian.dll` files map to
+the six `compat-<version>-Librarian.dll` files map to
 `mods/Librarian/compat/<version>/Librarian.dll` through `INSTALL-MAP.json`.
-Attach all nine runtime assets, installation map/instructions, notices and
-`SHA256SUMS.txt` to a reviewed draft for the exact public-source tag `v1.4.10`.
+Attach all ten runtime assets, installation map/instructions, notices and
+`SHA256SUMS.txt` to a reviewed draft for the exact public-source tag `v1.4.11`.
 The unified release is a formal release, not a beta prerelease. Do not create the
 tag or publish until explicitly authorized, and do not rewrite historical tags.
 Download and verify every published attachment before claiming delivery.

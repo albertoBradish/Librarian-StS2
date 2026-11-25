@@ -23,6 +23,11 @@ namespace Librarian.Mechanics;
 /// <summary>Illustrated lessons over the actual practice combat, using the current orb UI and native card renderer.</summary>
 public partial class LibrarianPracticeOverlay : NFtue
 {
+#if LIBRARIAN_API_0114
+    // The practice session tracks lesson progress.
+    protected override string? SeenOnShowId => null;
+#endif
+
     internal LibrarianPracticeSession Session { get; private set; } = null!;
     internal NPopupYesNoButton ContinueButton { get; private set; } = null!;
     internal NPopupYesNoButton ExitButton { get; private set; } = null!;

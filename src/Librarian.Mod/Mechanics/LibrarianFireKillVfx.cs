@@ -28,12 +28,12 @@ internal static class LibrarianFireKillVfx
         private bool _sawDamage;
         private bool _lethal;
         private bool _played;
-        internal void Damage(DamageResult result)
+        internal void Damage(Creature receiver, bool lethal)
         {
-            if (_sawDamage || !ReferenceEquals(result.Receiver, target)) return;
+            if (_sawDamage || !ReferenceEquals(receiver, target)) return;
             // Later damage from hooks cannot turn a nonlethal fireball into a kill.
             _sawDamage = true;
-            _lethal = result.WasTargetKilled && result.UnblockedDamage > 0;
+            _lethal = lethal;
         }
         internal void Died(Creature creature)
         {
@@ -48,7 +48,16 @@ internal static class LibrarianFireKillVfx
     private static class ObserveHpResult
     {
         private static MethodBase TargetMethod() => AccessTools.Method(typeof(Creature), "LoseHpInternal");
-        private static void Postfix(DamageResult __result) => Current.Value?.Damage(__result);
+#if LIBRARIAN_API_0114
+        private static void Postfix(Creature __instance, bool dryRun, HpLossResult __result)
+        {
+            if (!dryRun)
+                Current.Value?.Damage(__instance, __result.killed && __result.hpLost > 0);
+        }
+#else
+        private static void Postfix(DamageResult __result)
+            => Current.Value?.Damage(__result.Receiver, __result.WasTargetKilled && __result.UnblockedDamage > 0);
+#endif
     }
 
     [HarmonyPatch]

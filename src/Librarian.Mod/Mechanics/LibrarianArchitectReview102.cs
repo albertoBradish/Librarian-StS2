@@ -112,12 +112,8 @@ internal static class LibrarianNoticePopup102
                 }
             }
             foreach (string key in cancelKeys)
-            {
-                hotkeys?.PushHotkeyPressedBinding(key, IgnorePress);
-                hotkeys?.PushHotkeyReleasedBinding(key, Dismiss);
-            }
-            hotkeys?.PushHotkeyPressedBinding(MegaInput.select, IgnorePress);
-            hotkeys?.PushHotkeyReleasedBinding(MegaInput.select, Select);
+                hotkeys?.BindModalHotkey(key, popup, IgnorePress, Dismiss);
+            hotkeys?.BindModalHotkey(MegaInput.select, popup, IgnorePress, Select);
             bound = true;
             panel.YesButton.GrabFocus();
         }).CallDeferred();
@@ -125,12 +121,8 @@ internal static class LibrarianNoticePopup102
         {
             if (!bound) return;
             foreach (string key in cancelKeys)
-            {
-                hotkeys?.RemoveHotkeyPressedBinding(key, IgnorePress);
-                hotkeys?.RemoveHotkeyReleasedBinding(key, Dismiss);
-            }
-            hotkeys?.RemoveHotkeyPressedBinding(MegaInput.select, IgnorePress);
-            hotkeys?.RemoveHotkeyReleasedBinding(MegaInput.select, Select);
+                hotkeys?.UnbindModalHotkey(key, popup, IgnorePress, Dismiss);
+            hotkeys?.UnbindModalHotkey(MegaInput.select, popup, IgnorePress, Select);
         };
     }
 
