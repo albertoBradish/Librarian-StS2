@@ -1,5 +1,9 @@
 # Source and release status / 源码与发布状态
 
+V1.4.11 已在 GitHub 发布，适配游戏 Beta 0.114.0。Steam 工坊更新已提交，正在等待版务审核。[本版发行记录](release-history/1.4.11.json)
+
+V1.4.11 is available on GitHub and supports game Beta 0.114.0. The Steam Workshop update is pending moderation. [Release and file verification](release-history/1.4.11.json)
+
 V1.4.10 已同步 Steam 和 GitHub。新版修复异角色出牌、牌底自动出牌、恐惧模式的六角色 A10 解锁，并合入 Issue #8 的性能改动。统一包包含一个引导和五套内容 DLL。[本版发行记录](release-history/1.4.10.json)
 
 V1.4.10 is available on Steam and GitHub. This release fixes imported card effects, bottom-card autoplay and the six-character Dread unlock requirement, and includes the performance changes for issue #8. [Release and file verification](release-history/1.4.10.json)

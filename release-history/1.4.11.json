@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "version": "1.4.11",
+  "tag": "v1.4.11",
+  "channel": "unified",
+  "mod_id": "Librarian",
+  "source_kind": "matching_current_public_source",
+  "source_commit": "a888676a93373a69d2a44ebd78cc8ebfbdcb966c",
+  "license": "LicenseRef-Librarian-Personal-Use-1.0",
+  "open_source": false,
+  "active_cards": 91,
+  "game_targets": [
+    {
+      "version": "0.107.1",
+      "commit": "59260271",
+      "branch": "public"
+    },
+    {
+      "version": "0.111.0",
+      "commit": "41cef1ea",
+      "branch": "public-beta"
+    },
+    {
+      "version": "0.111.1",
+      "commit": "cc1f9462",
+      "branch": "public"
+    },
+    {
+      "version": "0.113.0",
+      "commit": "16ac0fe3",
+      "branch": "public-beta"
+    },
+    {
+      "version": "0.113.1",
+      "commit": "d09d48e5",
+      "branch": "public-beta"
+    },
+    {
+      "version": "0.114.0",
+      "commit": "a7b9a9c0",
+      "branch": "public-beta"
+    }
+  ],
+  "dependencies": {
+    "RitsuLib": "0.6.13"
+  },
+  "minimum_ritsulib_by_game": {
+    "0.114.0": "0.6.16"
+  },
+  "runtime_artifacts": [
+    {
+      "name": "Librarian.dll",
+      "bytes": 31744,
+      "sha256": "1cfe96a710a4776571426c9f01392c54fc468ec35cf0573ada0d136c1e91c019"
+    },
+    {
+      "name": "Librarian.json",
+      "bytes": 340,
+      "sha256": "38aa9ab67bbf7c8b09ba3da3d8f245b2aa753cd7392c553cd40aea9ca0ea02b9"
+    },
+    {
+      "name": "Librarian.pck",
+      "bytes": 170517752,
+      "sha256": "a87ccfa84ef48fced7f46f8217bcb612fe70a80b36e9ded93c3f7e3ff7e883c2"
+    },
+    {
+      "name": "librarian-variants.manifest",
+      "bytes": 1377,
+      "sha256": "0c57e07c0fc6a0a6626ae24105ba0201a6552c355f1485ef67a47cbb7847cd3b"
+    },
+    {
+      "name": "compat/0.107.1/Librarian.dll",
+      "bytes": 3462656,
+      "sha256": "794a2892ff72085cb3158bed957b6c15370777d705e7ae8de61c605cd32fd9a1"
+    },
+    {
+      "name": "compat/0.111.0/Librarian.dll",
+      "bytes": 3459072,
+      "sha256": "2ccc1cd1baf4b0e7d268ca53afb7fc3dcbac2f2701a4099ddf7d1094fc8ef41f"
+    },
+    {
+      "name": "compat/0.111.1/Librarian.dll",
+      "bytes": 3459072,
+      "sha256": "1f0d1749378baa0194c80a8b6077c0b8e53ad04d2f158d9af549cdfefcdb3d51"
+    },
+    {
+      "name": "compat/0.113.0/Librarian.dll",
+      "bytes": 3465728,
+      "sha256": "ff3d8d41fd1b780c96cba5f63108ad363fa090c35f1b2271c1dc698c212c3236"
+    },
+    {
+      "name": "compat/0.113.1/Librarian.dll",
+      "bytes": 3465728,
+      "sha256": "74ff9cfbddee9c720dce8182e5514ea1f7a9de9de2a84d0e3ba6efbc2e9f10aa"
+    },
+    {
+      "name": "compat/0.114.0/Librarian.dll",
+      "bytes": 3466752,
+      "sha256": "5c0d4d6ace96fccab78d5090ceede23933908659676ea2facd5730ba9d319217"
+    }
+  ],
+  "steam": {
+    "item_id": "3801958367",
+    "content_manifest": "6829971440581768259",
+    "author_verified": true,
+    "moderation_pending": true,
+    "actual_branch_download_verified": false,
+    "branches": [
+      "public",
+      "public-beta"
+    ]
+  },
+  "github": {
+    "url": "https://github.com/albertoBradish/Librarian-StS2/releases/tag/v1.4.11",
+    "release_id": 458330817,
+    "published_at": "2026-11-25T16:05:37Z",
+    "downloaded_sha256_verified": true,
+    "assets": [
+      {
+        "name": "ASSET-LICENSE.md",
+        "bytes": 2175,
+        "sha256": "e8f1556339c2a8046b3003c76f97baca40f18e6bcc192929dafade70ea5b9256"
+      },
+      {
+        "name": "INSTALL-MAP.json",
+        "bytes": 735,
+        "sha256": "4cf02dd2cb0330acd6b224281119b44cd89b66804071f521509d5c5be38e0416"
+      },
+      {
+        "name": "INSTALL.txt",
+        "bytes": 713,
+        "sha256": "c55f3c878ada180033c9623b892d5fcdc1eb04f863de591e38afcd3151dc8584"
+      },
+      {
+        "name": "LICENSE",
+        "bytes": 5467,
+        "sha256": "bc6b309c66077f1b4ece6e118dd6916478ec297f644ae15ea62b5f319bc16fb9"
+      },
+      {
+        "name": "Librarian.dll",
+        "bytes": 31744,
+        "sha256": "1cfe96a710a4776571426c9f01392c54fc468ec35cf0573ada0d136c1e91c019"
+      },
+      {
+        "name": "Librarian.json",
+        "bytes": 340,
+        "sha256": "38aa9ab67bbf7c8b09ba3da3d8f245b2aa753cd7392c553cd40aea9ca0ea02b9"
+      },
+      {
+        "name": "Librarian.pck",
+        "bytes": 170517752,
+        "sha256": "a87ccfa84ef48fced7f46f8217bcb612fe70a80b36e9ded93c3f7e3ff7e883c2"
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "bytes": 1980,
+        "sha256": "91b52a89ad162139946f075076c666c122fb7fd89d1ec8e5e35f8586ba6113e5"
+      },
+      {
+        "name": "THIRD-PARTY-NOTICES.md",
+        "bytes": 3264,
+        "sha256": "ab3805a40f14a3c2e0453a61486f8ce035d9bd0eb0db0e1ffe1d2c336201c496"
+      },
+      {
+        "name": "compat-0.107.1-Librarian.dll",
+        "bytes": 3462656,
+        "sha256": "794a2892ff72085cb3158bed957b6c15370777d705e7ae8de61c605cd32fd9a1"
+      },
+      {
+        "name": "compat-0.111.0-Librarian.dll",
+        "bytes": 3459072,
+        "sha256": "2ccc1cd1baf4b0e7d268ca53afb7fc3dcbac2f2701a4099ddf7d1094fc8ef41f"
+      },
+      {
+        "name": "compat-0.111.1-Librarian.dll",
+        "bytes": 3459072,
+        "sha256": "1f0d1749378baa0194c80a8b6077c0b8e53ad04d2f158d9af549cdfefcdb3d51"
+      },
+      {
+        "name": "compat-0.113.0-Librarian.dll",
+        "bytes": 3465728,
+        "sha256": "ff3d8d41fd1b780c96cba5f63108ad363fa090c35f1b2271c1dc698c212c3236"
+      },
+      {
+        "name": "compat-0.113.1-Librarian.dll",
+        "bytes": 3465728,
+        "sha256": "74ff9cfbddee9c720dce8182e5514ea1f7a9de9de2a84d0e3ba6efbc2e9f10aa"
+      },
+      {
+        "name": "compat-0.114.0-Librarian.dll",
+        "bytes": 3466752,
+        "sha256": "5c0d4d6ace96fccab78d5090ceede23933908659676ea2facd5730ba9d319217"
+      },
+      {
+        "name": "librarian-variants.manifest",
+        "bytes": 1377,
+        "sha256": "0c57e07c0fc6a0a6626ae24105ba0201a6552c355f1485ef67a47cbb7847cd3b"
+      },
+      {
+        "name": "licenses-Alchyr-Template-MIT.txt",
+        "bytes": 1035,
+        "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+      },
+      {
+        "name": "licenses-BaseLib-MIT.txt",
+        "bytes": 1035,
+        "sha256": "1847e0e0698142ed4347c1441a9fa81c8fbddd44b1d8bbcd5e3647f991759d7f"
+      },
+      {
+        "name": "licenses-Godot-MIT.txt",
+        "bytes": 1149,
+        "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+      },
+      {
+        "name": "licenses-Harmony-MIT.txt",
+        "bytes": 1073,
+        "sha256": "a5883d0c45eb7e176d3d1631220e7f96e958e37064773d40245ae6db560bbd6d"
+      },
+      {
+        "name": "licenses-RitsuLib-MIT.txt",
+        "bytes": 1060,
+        "sha256": "d868e9a7032f0bf2164aa9f1191ba55140240fde3dea667be62089481996ce01"
+      },
+      {
+        "name": "licenses-sources.json",
+        "bytes": 1360,
+        "sha256": "69850e44c17993f6b43703008d0ebe2c0e158d4f47dedea2e0ae0bc4ad309566"
+      },
+      {
+        "name": "licenses-template-assets.json",
+        "bytes": 196,
+        "sha256": "ba2321ecd139c5202b261ccab8b735a67c2352c20cdb3ca29b6f30c2c3c01a62"
+      }
+    ]
+  },
+  "validation": {
+    "source_sha256": "9c89b9d6245a081e80550428e656ebefe5fa9e77534451974af07a4518154071",
+    "complete_final_runtime_logs": 13,
+    "game_targets": [
+      "0.107.1",
+      "0.111.0",
+      "0.111.1",
+      "0.113.0",
+      "0.113.1",
+      "0.114.0"
+    ],
+    "real_multiplayer_reconnect_verified": false
+  }
+}
